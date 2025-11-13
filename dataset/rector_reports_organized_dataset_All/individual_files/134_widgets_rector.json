@@ -1,0 +1,52 @@
+{
+  "file_path": "organized_dataset_All\\134_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 193
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:05.253209",
+    "file_size_kb": 15.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/134_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n /** WordPress Administration Widgets API */\n require_once(ABSPATH . 'wp-admin/includes/widgets.php');\n@@ -45,14 +45,14 @@\n $title = __( 'Widgets' );\n $parent_file = 'themes.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'overview',\n 'title'\t\t=> __('Overview'),\n 'content'\t=>\n \t'<p>' . __('Widgets are independent sections of content that can be placed into any widgetized area provided by your theme (commonly called sidebars). To populate your sidebars/widget areas with individual widgets, drag and drop the title bars into the desired area. By default, only the first widget area is expanded. To populate additional widget areas, click on their title bars to expand them.') . '</p>\n \t<p>' . __('The Available Widgets section contains all the widgets you can choose from. Once you drag a widget into a sidebar, it will open to allow you to configure its settings. When you are happy with the widget settings, click the Save button and the widget will go live on your site. If you click Delete, it will remove the widget.') . '</p>'\n-) );\n-get_current_screen()->add_help_tab( array(\n+] );\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'removing-reusing',\n 'title'\t\t=> __('Removing and Reusing'),\n 'content'\t=>\n@@ -59,14 +59,14 @@\n \t'<p>' . __('If you want to remove the widget but save its setting for possible future use, just drag it into the Inactive Widgets area. You can add them back anytime from there. This is especially helpful when you switch to a theme with fewer or different widget areas.') . '</p>\n \t<p>' . __('Widgets may be used multiple times. You can give each widget a title, to display on your site, but it&#8217;s not required.') . '</p>\n \t<p>' . __('Enabling Accessibility Mode, via Screen Options, allows you to use Add and Edit buttons instead of using drag and drop.') . '</p>'\n-) );\n-get_current_screen()->add_help_tab( array(\n+] );\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'missing-widgets',\n 'title'\t\t=> __('Missing Widgets'),\n 'content'\t=>\n \t'<p>' . __('Many themes show some sidebar widgets by default until you edit your sidebars, but they are not automatically displayed in your sidebar management tool. After you make your first widget change, you can re-add the default widgets by adding them from the Available Widgets area.') . '</p>' .\n \t\t'<p>' . __('When changing themes, there is often some variation in the number and setup of widget areas/sidebars and sometimes these conflicts make the transition a bit less smooth. If you changed themes and seem to be missing widgets, scroll down on this screen to the Inactive Widgets area, where all of your widgets and their settings will have been saved.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -90,7 +90,7 @@\n \n \tif ( !isset( $wp_registered_sidebars[ $sidebar_id ] ) ) {\n \t\tif ( ! empty( $widgets ) ) { // register the inactive_widgets area as sidebar\n-\t\t\tregister_sidebar(array(\n+\t\t\tregister_sidebar([\n \t\t\t\t'name' => __( 'Inactive Sidebar (not used)' ),\n \t\t\t\t'id' => $sidebar_id,\n \t\t\t\t'class' => 'inactive-sidebar orphan-sidebar',\n@@ -99,7 +99,7 @@\n \t\t\t\t'after_widget' => '',\n \t\t\t\t'before_title' => '',\n \t\t\t\t'after_title' => '',\n-\t\t\t));\n+\t\t\t]);\n \t\t} else {\n \t\t\tunset( $sidebars_widgets[ $sidebar_id ] );\n \t\t}\n@@ -107,7 +107,7 @@\n }\n \n // register the inactive_widgets area as sidebar\n-register_sidebar(array(\n+register_sidebar([\n \t'name' => __('Inactive Widgets'),\n \t'id' => 'wp_inactive_widgets',\n \t'class' => 'inactive-sidebar',\n@@ -116,7 +116,7 @@\n \t'after_widget' => '',\n \t'before_title' => '',\n \t'after_title' => '',\n-));\n+]);\n \n retrieve_widgets();\n \n@@ -129,7 +129,7 @@\n \tif ( $number ) {\n \t\tforeach ( $_POST as $key => $val ) {\n \t\t\tif ( is_array($val) && preg_match('/__i__|%i%/', key($val)) ) {\n-\t\t\t\t$_POST[$key] = array( $number => array_shift($val) );\n+\t\t\t\t$_POST[$key] = [ $number => array_shift($val) ];\n \t\t\t\tbreak;\n \t\t\t}\n \t\t}\n@@ -139,7 +139,7 @@\n \t$position = isset($_POST[$sidebar_id . '_position']) ? (int) $_POST[$sidebar_id . '_position'] - 1 : 0;\n \n \t$id_base = $_POST['id_base'];\n-\t$sidebar = isset($sidebars_widgets[$sidebar_id]) ? $sidebars_widgets[$sidebar_id] : array();\n+\t$sidebar = $sidebars_widgets[$sidebar_id] ?? [];\n \n \t// Delete.\n \tif ( isset($_POST['removewidget']) && $_POST['removewidget'] ) {\n@@ -149,8 +149,8 @@\n \t\t\texit;\n \t\t}\n \n-\t\t$sidebar = array_diff( $sidebar, array($widget_id) );\n-\t\t$_POST = array('sidebar' => $sidebar_id, 'widget-' . $id_base => array(), 'the-widget-id' => $widget_id, 'delete_widget' => '1');\n+\t\t$sidebar = array_diff( $sidebar, [$widget_id] );\n+\t\t$_POST = ['sidebar' => $sidebar_id, 'widget-' . $id_base => [], 'the-widget-id' => $widget_id, 'delete_widget' => '1'];\n \t}\n \n \t$_POST['widget-id'] = $sidebar;\n@@ -172,7 +172,7 @@\n \tif ( !isset($_POST['delete_widget']) ) {\n \t\tforeach ( $sidebars_widgets as $key => $sb ) {\n \t\t\tif ( is_array($sb) )\n-\t\t\t\t$sidebars_widgets[$key] = array_diff( $sb, array($widget_id) );\n+\t\t\t\t$sidebars_widgets[$key] = array_diff( $sb, [$widget_id] );\n \t\t}\n \t\tarray_splice( $sidebars_widgets[$sidebar_id], $position, 0, $widget_id );\n \t}\n@@ -210,19 +210,19 @@\n \t\t$control = $wp_registered_widget_controls[$widget_id];\n \t\t$control_callback = $control['callback'];\n \t} elseif ( !isset($wp_registered_widget_controls[$widget_id]) && isset($wp_registered_widgets[$widget_id]) ) {\n-\t\t$name = esc_html( strip_tags($wp_registered_widgets[$widget_id]['name']) );\n+\t\t$name = esc_html( strip_tags((string) $wp_registered_widgets[$widget_id]['name']) );\n \t}\n \n \tif ( !isset($name) )\n-\t\t$name = esc_html( strip_tags($control['name']) );\n+\t\t$name = esc_html( strip_tags((string) $control['name']) );\n \n \tif ( !isset($sidebar) )\n-\t\t$sidebar = isset($_GET['sidebar']) ? $_GET['sidebar'] : 'wp_inactive_widgets';\n+\t\t$sidebar = $_GET['sidebar'] ?? 'wp_inactive_widgets';\n \n \tif ( !isset($multi_number) )\n-\t\t$multi_number = isset($control['params'][0]['number']) ? $control['params'][0]['number'] : '';\n+\t\t$multi_number = $control['params'][0]['number'] ?? '';\n \n-\t$id_base = isset($control['id_base']) ? $control['id_base'] : $control['id'];\n+\t$id_base = $control['id_base'] ?? $control['id'];\n \n \t// Show the widget form.\n \t$width = ' style=\"width:' . max($control['width'], 350) . 'px\"';\n@@ -249,12 +249,12 @@\n <?php\n \tforeach ( $wp_registered_sidebars as $sbname => $sbvalue ) {\n \t\techo \"\\t\\t<tr><td><label><input type='radio' name='sidebar' value='\" . esc_attr($sbname) . \"'\" . checked( $sbname, $sidebar, false ) . \" /> $sbvalue[name]</label></td><td>\";\n-\t\tif ( 'wp_inactive_widgets' == $sbname || 'orphaned_widgets' == substr( $sbname, 0, 16 ) ) {\n+\t\tif ( 'wp_inactive_widgets' == $sbname || str_starts_with((string) $sbname, 'orphaned_widgets') ) {\n \t\t\techo '&nbsp;';\n \t\t} else {\n \t\t\tif ( !isset($sidebars_widgets[$sbname]) || !is_array($sidebars_widgets[$sbname]) ) {\n \t\t\t\t$j = 1;\n-\t\t\t\t$sidebars_widgets[$sbname] = array();\n+\t\t\t\t$sidebars_widgets[$sbname] = [];\n \t\t\t} else {\n \t\t\t\t$j = count($sidebars_widgets[$sbname]);\n \t\t\t\tif ( isset($_GET['addnew']) || !in_array($widget_id, $sidebars_widgets[$sbname], true) )\n@@ -298,14 +298,14 @@\n \texit;\n }\n \n-$messages = array(\n+$messages = [\n \t__('Changes saved.')\n-);\n+];\n \n-$errors = array(\n+$errors = [\n \t__('Error while saving.'),\n \t__('Error in displaying the widget settings form.')\n-);\n+];\n \n require_once( ABSPATH . 'wp-admin/admin-header.php' ); ?>\n \n@@ -348,9 +348,9 @@\n \n <?php\n \n-$theme_sidebars = array();\n+$theme_sidebars = [];\n foreach ( $wp_registered_sidebars as $sidebar => $registered_sidebar ) {\n-\tif ( false !== strpos( $registered_sidebar['class'], 'inactive-sidebar' ) || 'orphaned_widgets' == substr( $sidebar, 0, 16 ) ) {\n+\tif ( str_contains( (string) $registered_sidebar['class'], 'inactive-sidebar' ) || str_starts_with((string) $sidebar, 'orphaned_widgets') ) {\n \t\t$wrap_class = 'widgets-holder-wrap';\n \t\tif ( !empty( $registered_sidebar['class'] ) )\n \t\t\t$wrap_class .= ' ' . $registered_sidebar['class'];\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/134_widgets.php"
+    ]
+  }
+}

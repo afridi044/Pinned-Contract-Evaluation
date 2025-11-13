@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\149_options-general.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 68
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:49.179886",
+    "file_size_kb": 13.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/149_options-general.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! current_user_can( 'manage_options' ) )\n \twp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );\n@@ -68,11 +68,11 @@\n $options_help .= '<p>' . __('UTC means Coordinated Universal Time.') . '</p>' .\n \t'<p>' . __( 'You must click the Save Changes button at the bottom of the screen for new settings to take effect.' ) . '</p>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' => $options_help,\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -150,7 +150,7 @@\n $check_zone_info = true;\n \n // Remove old Etc mappings. Fallback to gmt_offset.\n-if ( false !== strpos($tzstring,'Etc/GMT') )\n+if ( str_contains($tzstring,'Etc/GMT') )\n \t$tzstring = '';\n \n if ( empty($tzstring) ) { // Create a UTC+- zone if no timezone string exists\n@@ -236,7 +236,7 @@\n \t*\n \t* @param array $default_date_formats Array of default date formats.\n \t*/\n-\t$date_formats = array_unique( apply_filters( 'date_formats', array( __( 'F j, Y' ), 'Y-m-d', 'm/d/Y', 'd/m/Y' ) ) );\n+\t$date_formats = array_unique( apply_filters( 'date_formats', [ __( 'F j, Y' ), 'Y-m-d', 'm/d/Y', 'd/m/Y' ] ) );\n \n \t$custom = true;\n \n@@ -268,7 +268,7 @@\n \t*\n \t* @param array $default_time_formats Array of default time formats.\n \t*/\n-\t$time_formats = array_unique( apply_filters( 'time_formats', array( __( 'g:i a' ), 'g:i A', 'H:i' ) ) );\n+\t$time_formats = array_unique( apply_filters( 'time_formats', [ __( 'g:i a' ), 'g:i A', 'H:i' ] ) );\n \n \t$custom = true;\n \n@@ -319,12 +319,12 @@\n \t\t\t\t$locale = '';\n \t\t\t}\n \n-\t\t\twp_dropdown_languages( array(\n+\t\t\twp_dropdown_languages( [\n \t\t\t\t'name'      => 'WPLANG',\n \t\t\t\t'id'        => 'WPLANG',\n \t\t\t\t'selected'  => $locale,\n \t\t\t\t'languages' => $languages,\n-\t\t\t) );\n+\t\t\t] );\n \n \t\t\t// Add note about deprecated WPLANG constant.\n \t\t\tif ( defined( 'WPLANG' ) && ( '' !== WPLANG ) && $locale !== WPLANG ) {\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/149_options-general.php"
+    ]
+  }
+}

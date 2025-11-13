@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\209_sites.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 130
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:30.998295",
+    "file_size_kb": 8.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/209_sites.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -22,9 +22,9 @@\n $title = __( 'Sites' );\n $parent_file = 'sites.php';\n \n-add_screen_option( 'per_page', array( 'label' => _x( 'Sites', 'sites per page (screen options)' ) ) );\n+add_screen_option( 'per_page', [ 'label' => _x( 'Sites', 'sites per page (screen options)' ) ] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n@@ -38,7 +38,7 @@\n \t\t'<li>' . __('Visit to go to the frontend site live.') . '</li></ul>' .\n \t\t'<p>' . __('The site ID is used internally, and is not shown on the front end of the site or to users/viewers.') . '</p>' .\n \t\t'<p>' . __('Clicking on bold headings can re-sort this table.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -84,7 +84,7 @@\n \n \t$updated_action = '';\n \n-\t$manage_actions = array( 'deleteblog', 'allblogs', 'archiveblog', 'unarchiveblog', 'activateblog', 'deactivateblog', 'unspamblog', 'spamblog', 'unmatureblog', 'matureblog' );\n+\t$manage_actions = [ 'deleteblog', 'allblogs', 'archiveblog', 'unarchiveblog', 'activateblog', 'deactivateblog', 'unspamblog', 'spamblog', 'unmatureblog', 'matureblog' ];\n \tif ( in_array( $_GET['action'], $manage_actions ) ) {\n \t\t$action = $_GET['action'];\n \t\tif ( 'allblogs' === $action )\n@@ -182,7 +182,7 @@\n \t\t$updated_action = $_GET['action'];\n \n \tif ( ! empty( $updated_action ) ) {\n-\t\twp_safe_redirect( add_query_arg( array( 'updated' => $updated_action ), wp_get_referer() ) );\n+\t\twp_safe_redirect( add_query_arg( [ 'updated' => $updated_action ], wp_get_referer() ) );\n \t\texit();\n \t}\n }\n@@ -189,54 +189,30 @@\n \n $msg = '';\n if ( isset( $_GET['updated'] ) ) {\n-\tswitch ( $_GET['updated'] ) {\n-\t\tcase 'all_notspam':\n-\t\t\t$msg = __( 'Sites removed from spam.' );\n-\t\tbreak;\n-\t\tcase 'all_spam':\n-\t\t\t$msg = __( 'Sites marked as spam.' );\n-\t\tbreak;\n-\t\tcase 'all_delete':\n-\t\t\t$msg = __( 'Sites deleted.' );\n-\t\tbreak;\n-\t\tcase 'delete':\n-\t\t\t$msg = __( 'Site deleted.' );\n-\t\tbreak;\n-\t\tcase 'not_deleted':\n-\t\t\t$msg = __( 'You do not have permission to delete that site.' );\n-\t\tbreak;\n-\t\tcase 'archiveblog':\n-\t\t\t$msg = __( 'Site archived.' );\n-\t\tbreak;\n-\t\tcase 'unarchiveblog':\n-\t\t\t$msg = __( 'Site unarchived.' );\n-\t\tbreak;\n-\t\tcase 'activateblog':\n-\t\t\t$msg = __( 'Site activated.' );\n-\t\tbreak;\n-\t\tcase 'deactivateblog':\n-\t\t\t$msg = __( 'Site deactivated.' );\n-\t\tbreak;\n-\t\tcase 'unspamblog':\n-\t\t\t$msg = __( 'Site removed from spam.' );\n-\t\tbreak;\n-\t\tcase 'spamblog':\n-\t\t\t$msg = __( 'Site marked as spam.' );\n-\t\tbreak;\n-\t\tdefault:\n-\t\t\t/**\n-\t\t\t * Filter a specific, non-default site-updated message in the Network admin.\n-\t\t\t *\n-\t\t\t * The dynamic portion of the hook name, $_GET['updated'], refers to the non-default\n-\t\t\t * site update action.\n-\t\t\t *\n-\t\t\t * @since 3.1.0\n-\t\t\t *\n-\t\t\t * @param string $msg The update message. Default 'Settings saved'.\n-\t\t\t */\n-\t\t\t$msg = apply_filters( 'network_sites_updated_message_' . $_GET['updated'], __( 'Settings saved.' ) );\n-\t\tbreak;\n-\t}\n+\t$msg = match ($_GET['updated']) {\n+        'all_notspam' => __( 'Sites removed from spam.' ),\n+        'all_spam' => __( 'Sites marked as spam.' ),\n+        'all_delete' => __( 'Sites deleted.' ),\n+        'delete' => __( 'Site deleted.' ),\n+        'not_deleted' => __( 'You do not have permission to delete that site.' ),\n+        'archiveblog' => __( 'Site archived.' ),\n+        'unarchiveblog' => __( 'Site unarchived.' ),\n+        'activateblog' => __( 'Site activated.' ),\n+        'deactivateblog' => __( 'Site deactivated.' ),\n+        'unspamblog' => __( 'Site removed from spam.' ),\n+        'spamblog' => __( 'Site marked as spam.' ),\n+        /**\n+         * Filter a specific, non-default site-updated message in the Network admin.\n+         *\n+         * The dynamic portion of the hook name, $_GET['updated'], refers to the non-default\n+         * site update action.\n+         *\n+         * @since 3.1.0\n+         *\n+         * @param string $msg The update message. Default 'Settings saved'.\n+         */\n+        default => apply_filters( 'network_sites_updated_message_' . $_GET['updated'], __( 'Settings saved.' ) ),\n+    };\n \n \tif ( ! empty( $msg ) )\n \t\t$msg = '<div class=\"updated\" id=\"message\"><p>' . $msg . '</p></div>';\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/209_sites.php"
+    ]
+  }
+}

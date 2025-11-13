@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\263_install-helper.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:49.301691",
+    "file_size_kb": 5.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/263_install-helper.php",
+        "diff": "--- Original\n+++ New\n@@ -36,7 +36,7 @@\n  */\n \n /** Load WordPress Bootstrap */\n-require_once(dirname(dirname(__FILE__)).'/wp-load.php');\n+require_once(dirname(__FILE__, 2).'/wp-load.php');\n \n if ( ! function_exists('maybe_create_table') ) :\n /**\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/263_install-helper.php"
+    ]
+  }
+}

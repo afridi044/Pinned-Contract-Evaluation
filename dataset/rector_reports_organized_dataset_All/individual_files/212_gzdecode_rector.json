@@ -1,0 +1,43 @@
+{
+  "file_path": "organized_dataset_All\\212_gzdecode.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 170
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:38.908308",
+    "file_size_kb": 8.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/212_gzdecode.php",
+        "diff": "--- Original\n+++ New\n@@ -53,21 +53,12 @@\n class SimplePie_gzdecode\n {\n \t/**\n-\t * Compressed data\n-\t *\n-\t * @access private\n-\t * @var string\n-\t * @see gzdecode::$data\n-\t */\n-\tvar $compressed_data;\n-\n-\t/**\n \t * Size of compressed data\n \t *\n \t * @access private\n \t * @var int\n \t */\n-\tvar $compressed_size;\n+\tpublic $compressed_size;\n \n \t/**\n \t * Minimum size of a valid gzip string\n@@ -75,7 +66,7 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $min_compressed_size = 18;\n+\tpublic $min_compressed_size = 18;\n \n \t/**\n \t * Current position of pointer\n@@ -83,7 +74,7 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $position = 0;\n+\tpublic $position = 0;\n \n \t/**\n \t * Flags (FLG)\n@@ -91,7 +82,7 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $flags;\n+\tpublic $flags;\n \n \t/**\n \t * Uncompressed data\n@@ -100,7 +91,7 @@\n \t * @see gzdecode::$compressed_data\n \t * @var string\n \t */\n-\tvar $data;\n+\tpublic $data;\n \n \t/**\n \t * Modified time\n@@ -108,7 +99,7 @@\n \t * @access public\n \t * @var int\n \t */\n-\tvar $MTIME;\n+\tpublic $MTIME;\n \n \t/**\n \t * Extra Flags\n@@ -116,7 +107,7 @@\n \t * @access public\n \t * @var int\n \t */\n-\tvar $XFL;\n+\tpublic $XFL;\n \n \t/**\n \t * Operating System\n@@ -124,7 +115,7 @@\n \t * @access public\n \t * @var int\n \t */\n-\tvar $OS;\n+\tpublic $OS;\n \n \t/**\n \t * Subfield ID 1\n@@ -134,7 +125,7 @@\n \t * @see gzdecode::$SI2\n \t * @var string\n \t */\n-\tvar $SI1;\n+\tpublic $SI1;\n \n \t/**\n \t * Subfield ID 2\n@@ -144,7 +135,7 @@\n \t * @see gzdecode::$SI1\n \t * @var string\n \t */\n-\tvar $SI2;\n+\tpublic $SI2;\n \n \t/**\n \t * Extra field content\n@@ -154,7 +145,7 @@\n \t * @see gzdecode::$SI2\n \t * @var string\n \t */\n-\tvar $extra_field;\n+\tpublic $extra_field;\n \n \t/**\n \t * Original filename\n@@ -162,7 +153,7 @@\n \t * @access public\n \t * @var string\n \t */\n-\tvar $filename;\n+\tpublic $filename;\n \n \t/**\n \t * Human readable comment\n@@ -170,7 +161,7 @@\n \t * @access public\n \t * @var string\n \t */\n-\tvar $comment;\n+\tpublic $comment;\n \n \t/**\n \t * Don't allow anything to be set\n@@ -184,14 +175,19 @@\n \t}\n \n \t/**\n-\t * Set the compressed string and related properties\n-\t *\n-\t * @param string $data\n-\t */\n-\tpublic function __construct($data)\n+     * Set the compressed string and related properties\n+     *\n+     * @param string $compressed_data\n+     */\n+    public function __construct(/**\n+     * Compressed data\n+     *\n+     * @access private\n+     * @see gzdecode::$data\n+     */\n+    public $compressed_data)\n \t{\n-\t\t$this->compressed_data = $data;\n-\t\t$this->compressed_size = strlen($data);\n+\t\t$this->compressed_size = strlen($this->compressed_data);\n \t}\n \n \t/**\n@@ -204,7 +200,7 @@\n \t\tif ($this->compressed_size >= $this->min_compressed_size)\n \t\t{\n \t\t\t// Check ID1, ID2, and CM\n-\t\t\tif (substr($this->compressed_data, 0, 3) !== \"\\x1F\\x8B\\x08\")\n+\t\t\tif (!str_starts_with($this->compressed_data, \"\\x1F\\x8B\\x08\"))\n \t\t\t{\n \t\t\t\treturn false;\n \t\t\t}\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/212_gzdecode.php"
+    ]
+  }
+}

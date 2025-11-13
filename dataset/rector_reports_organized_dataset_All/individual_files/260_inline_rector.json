@@ -1,0 +1,52 @@
+{
+  "file_path": "organized_dataset_All\\260_inline.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 182
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:40.805341",
+    "file_size_kb": 5.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/260_inline.php",
+        "diff": "--- Original\n+++ New\n@@ -14,7 +14,7 @@\n /** Text_Diff_Renderer */\n \n // WP #7391\n-require_once dirname(dirname(__FILE__)) . '/Renderer.php';\n+require_once dirname(__FILE__, 2) . '/Renderer.php';\n \n /**\n  * \"Inline\" diff renderer.\n@@ -31,7 +31,7 @@\n      *\n      * @var integer\n      */\n-    var $_leading_context_lines = 10000;\n+    public $_leading_context_lines = 10000;\n \n     /**\n      * Number of trailing context \"lines\" to preserve.\n@@ -38,7 +38,7 @@\n      *\n      * @var integer\n      */\n-    var $_trailing_context_lines = 10000;\n+    public $_trailing_context_lines = 10000;\n \n     /**\n      * Prefix for inserted text.\n@@ -45,7 +45,7 @@\n      *\n      * @var string\n      */\n-    var $_ins_prefix = '<ins>';\n+    public $_ins_prefix = '<ins>';\n \n     /**\n      * Suffix for inserted text.\n@@ -52,7 +52,7 @@\n      *\n      * @var string\n      */\n-    var $_ins_suffix = '</ins>';\n+    public $_ins_suffix = '</ins>';\n \n     /**\n      * Prefix for deleted text.\n@@ -59,7 +59,7 @@\n      *\n      * @var string\n      */\n-    var $_del_prefix = '<del>';\n+    public $_del_prefix = '<del>';\n \n     /**\n      * Suffix for deleted text.\n@@ -66,7 +66,7 @@\n      *\n      * @var string\n      */\n-    var $_del_suffix = '</del>';\n+    public $_del_suffix = '</del>';\n \n     /**\n      * Header for each change block.\n@@ -73,7 +73,7 @@\n      *\n      * @var string\n      */\n-    var $_block_header = '';\n+    public $_block_header = '';\n \n     /**\n      * Whether to split down to character-level.\n@@ -80,7 +80,7 @@\n      *\n      * @var boolean\n      */\n-    var $_split_characters = false;\n+    public $_split_characters = false;\n \n     /**\n      * What are we currently splitting on? Used to recurse to show word-level\n@@ -88,7 +88,7 @@\n      *\n      * @var string\n      */\n-    var $_split_level = 'lines';\n+    public $_split_level = 'lines';\n \n     function _blockHeader($xbeg, $xlen, $ybeg, $ylen)\n     {\n@@ -103,7 +103,7 @@\n     function _lines($lines, $prefix = ' ', $encode = true)\n     {\n         if ($encode) {\n-            array_walk($lines, array(&$this, '_encode'));\n+            array_walk($lines, $this->_encode(...));\n         }\n \n         if ($this->_split_level == 'lines') {\n@@ -115,7 +115,7 @@\n \n     function _added($lines)\n     {\n-        array_walk($lines, array(&$this, '_encode'));\n+        array_walk($lines, $this->_encode(...));\n         $lines[0] = $this->_ins_prefix . $lines[0];\n         $lines[count($lines) - 1] .= $this->_ins_suffix;\n         return $this->_lines($lines, ' ', false);\n@@ -123,7 +123,7 @@\n \n     function _deleted($lines, $words = false)\n     {\n-        array_walk($lines, array(&$this, '_encode'));\n+        array_walk($lines, $this->_encode(...));\n         $lines[0] = $this->_del_prefix . $lines[0];\n         $lines[count($lines) - 1] .= $this->_del_suffix;\n         return $this->_lines($lines, ' ', false);\n@@ -141,11 +141,11 @@\n         if ($this->_split_level == 'words') {\n             $prefix = '';\n             while ($orig[0] !== false && $final[0] !== false &&\n-                   substr($orig[0], 0, 1) == ' ' &&\n-                   substr($final[0], 0, 1) == ' ') {\n-                $prefix .= substr($orig[0], 0, 1);\n-                $orig[0] = substr($orig[0], 1);\n-                $final[0] = substr($final[0], 1);\n+                   str_starts_with((string) $orig[0], ' ') &&\n+                   str_starts_with((string) $final[0], ' ')) {\n+                $prefix .= substr((string) $orig[0], 0, 1);\n+                $orig[0] = substr((string) $orig[0], 1);\n+                $final[0] = substr((string) $final[0], 1);\n             }\n             return $prefix . $this->_deleted($orig) . $this->_added($final);\n         }\n@@ -158,21 +158,21 @@\n \n         if ($this->_split_characters) {\n             $diff = new Text_Diff('native',\n-                                  array(preg_split('//', $text1),\n-                                        preg_split('//', $text2)));\n+                                  [preg_split('//', $text1),\n+                                        preg_split('//', $text2)]);\n         } else {\n             /* We want to split on word boundaries, but we need to preserve\n              * whitespace as well. Therefore we split on words, but include\n              * all blocks of whitespace in the wordlist. */\n             $diff = new Text_Diff('native',\n-                                  array($this->_splitOnWords($text1, $nl),\n-                                        $this->_splitOnWords($text2, $nl)));\n+                                  [$this->_splitOnWords($text1, $nl),\n+                                        $this->_splitOnWords($text2, $nl)]);\n         }\n \n         /* Get the diff in inline format. */\n         $renderer = new Text_Diff_Renderer_inline\n             (array_merge($this->getParams(),\n-                         array('split_level' => $this->_split_characters ? 'characters' : 'words')));\n+                         ['split_level' => $this->_split_characters ? 'characters' : 'words']));\n \n         /* Run the diff and get the output. */\n         return str_replace($nl, \"\\n\", $renderer->render($diff)) . \"\\n\";\n@@ -183,7 +183,7 @@\n         // Ignore \\0; otherwise the while loop will never finish.\n         $string = str_replace(\"\\0\", '', $string);\n \n-        $words = array();\n+        $words = [];\n         $length = strlen($string);\n         $pos = 0;\n \n@@ -200,7 +200,7 @@\n \n     function _encode(&$string)\n     {\n-        $string = htmlspecialchars($string);\n+        $string = htmlspecialchars((string) $string);\n     }\n \n }\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/260_inline.php"
+    ]
+  }
+}

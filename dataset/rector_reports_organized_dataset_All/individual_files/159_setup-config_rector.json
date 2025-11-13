@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\159_setup-config.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 72
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:18.561490",
+    "file_size_kb": 12.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/159_setup-config.php",
+        "diff": "--- Original\n+++ New\n@@ -28,7 +28,7 @@\n  */\n error_reporting(0);\n \n-define( 'ABSPATH', dirname( dirname( __FILE__ ) ) . '/' );\n+define( 'ABSPATH', dirname(__FILE__, 2) . '/' );\n \n require( ABSPATH . 'wp-settings.php' );\n \n@@ -64,7 +64,7 @@\n  * @ignore\n  * @since 2.3.0\n  */\n-function setup_config_display_header( $body_classes = array() ) {\n+function setup_config_display_header( $body_classes = [] ) {\n \tglobal $wp_version;\n \t$body_classes = (array) $body_classes;\n \t$body_classes[] = 'wp-core-ui';\n@@ -89,7 +89,7 @@\n \n $language = '';\n if ( ! empty( $_REQUEST['language'] ) ) {\n-\t$language = preg_replace( '/[^a-zA-Z_]/', '', $_REQUEST['language'] );\n+\t$language = preg_replace( '/[^a-zA-Z_]/', '', (string) $_REQUEST['language'] );\n } elseif ( isset( $GLOBALS['wp_local_package'] ) ) {\n \t$language = $GLOBALS['wp_local_package'];\n }\n@@ -248,7 +248,7 @@\n \t}\n \n \tif ( $no_api || is_wp_error( $secret_keys ) ) {\n-\t\t$secret_keys = array();\n+\t\t$secret_keys = [];\n \t\tfor ( $i = 0; $i < 8; $i++ ) {\n \t\t\t$secret_keys[] = wp_generate_password( 64, true, true );\n \t\t}\n@@ -262,12 +262,12 @@\n \t$key = 0;\n \t// Not a PHP5-style by-reference foreach, as this file must be parseable by PHP4.\n \tforeach ( $config_file as $line_num => $line ) {\n-\t\tif ( '$table_prefix  =' == substr( $line, 0, 16 ) ) {\n+\t\tif ( str_starts_with((string) $line, '$table_prefix  =') ) {\n \t\t\t$config_file[ $line_num ] = '$table_prefix  = \\'' . addcslashes( $prefix, \"\\\\'\" ) . \"';\\r\\n\";\n \t\t\tcontinue;\n \t\t}\n \n-\t\tif ( ! preg_match( '/^define\\(\\'([A-Z_]+)\\',([ ]+)/', $line, $match ) )\n+\t\tif ( ! preg_match( '/^define\\(\\'([A-Z_]+)\\',([ ]+)/', (string) $line, $match ) )\n \t\t\tcontinue;\n \n \t\t$constant = $match[1];\n@@ -301,7 +301,7 @@\n <p><?php _e( 'You can create the <code>wp-config.php</code> manually and paste the following text into it.' ); ?></p>\n <textarea id=\"wp-config\" cols=\"98\" rows=\"15\" class=\"code\" readonly=\"readonly\"><?php\n \t\tforeach( $config_file as $line ) {\n-\t\t\techo htmlentities($line, ENT_COMPAT, 'UTF-8');\n+\t\t\techo htmlentities((string) $line, ENT_COMPAT, 'UTF-8');\n \t\t}\n ?></textarea>\n <p><?php _e( 'After you&#8217;ve done that, click &#8220;Run the install.&#8221;' ); ?></p>\n@@ -326,7 +326,7 @@\n \n \t\t$handle = fopen( $path_to_wp_config, 'w' );\n \t\tforeach( $config_file as $line ) {\n-\t\t\tfwrite( $handle, $line );\n+\t\t\tfwrite( $handle, (string) $line );\n \t\t}\n \t\tfclose( $handle );\n \t\tchmod( $path_to_wp_config, 0666 );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/159_setup-config.php"
+    ]
+  }
+}

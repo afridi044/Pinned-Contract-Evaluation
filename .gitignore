@@ -1,0 +1,86 @@
+# ================================
+# Root Level .gitignore
+# ================================
+
+# PHP Dependencies (Composer)
+vendor/
+composer.phar
+composer.lock
+
+# Rector specific
+.rector_cache/
+rector.php
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Environment & Secrets
+.env
+.env.local
+.env.production
+*.key
+secrets.json
+config.json
+
+# Large Data Files & Outputs
+dataset/organized_dataset_All/
+dataset/selected_100_files/
+dataset/rector_reports/
+!dataset/*.py
+!dataset/*.md
+
+# LLM Migration Outputs
+LLM_Migration/outputs/
+LLM_Migration/model_output/
+LLM_Migration/chunked_model_output/
+LLM_Migration/selected_100_files/
+
+# LLM Evaluation Outputs
+LLM_eval/*/
+!LLM_eval/*.py
+!LLM_eval/README.md
+
+# Temporary Files
+*.tmp
+*.temp
+~$*
+*.log
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Node modules (if any)
+node_modules/

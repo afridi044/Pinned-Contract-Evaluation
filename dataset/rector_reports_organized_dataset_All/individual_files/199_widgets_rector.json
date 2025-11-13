@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\199_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 90
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:05.043409",
+    "file_size_kb": 9.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/199_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -21,7 +21,7 @@\n \t *\n \t * @var array\n \t */\n-\tprivate $formats = array( 'aside', 'image', 'video', 'audio', 'quote', 'link', 'gallery' );\n+\tprivate $formats = [ 'aside', 'image', 'video', 'audio', 'quote', 'link', 'gallery' ];\n \n \t/**\n \t * Constructor.\n@@ -31,10 +31,10 @@\n \t * @return Twenty_Fourteen_Ephemera_Widget\n \t */\n \tpublic function __construct() {\n-\t\tparent::__construct( 'widget_twentyfourteen_ephemera', __( 'Twenty Fourteen Ephemera', 'twentyfourteen' ), array(\n+\t\tparent::__construct( 'widget_twentyfourteen_ephemera', __( 'Twenty Fourteen Ephemera', 'twentyfourteen' ), [\n \t\t\t'classname'   => 'widget_twentyfourteen_ephemera',\n \t\t\t'description' => __( 'Use this widget to list your recent Aside, Quote, Video, Audio, Image, Gallery, and Link posts.', 'twentyfourteen' ),\n-\t\t) );\n+\t\t] );\n \t}\n \n \t/**\n@@ -84,21 +84,21 @@\n \t\t$number = empty( $instance['number'] ) ? 2 : absint( $instance['number'] );\n \t\t$title  = apply_filters( 'widget_title', empty( $instance['title'] ) ? $format_string : $instance['title'], $instance, $this->id_base );\n \n-\t\t$ephemera = new WP_Query( array(\n+\t\t$ephemera = new WP_Query( [\n \t\t\t'order'          => 'DESC',\n \t\t\t'posts_per_page' => $number,\n \t\t\t'no_found_rows'  => true,\n \t\t\t'post_status'    => 'publish',\n \t\t\t'post__not_in'   => get_option( 'sticky_posts' ),\n-\t\t\t'tax_query'      => array(\n-\t\t\t\tarray(\n+\t\t\t'tax_query'      => [\n+\t\t\t\t[\n \t\t\t\t\t'taxonomy' => 'post_format',\n-\t\t\t\t\t'terms'    => array( \"post-format-$format\" ),\n+\t\t\t\t\t'terms'    => [ \"post-format-$format\" ],\n \t\t\t\t\t'field'    => 'slug',\n \t\t\t\t\t'operator' => 'IN',\n-\t\t\t\t),\n-\t\t\t),\n-\t\t) );\n+\t\t\t\t],\n+\t\t\t],\n+\t\t] );\n \n \t\tif ( $ephemera->have_posts() ) :\n \t\t\t$tmp_content_width = $GLOBALS['content_width'];\n@@ -126,7 +126,7 @@\n \t\t\t\t\t\t\t\tif ( post_password_required() ) :\n \t\t\t\t\t\t\t\t\tthe_content( __( 'Continue reading <span class=\"meta-nav\">&rarr;</span>', 'twentyfourteen' ) );\n \t\t\t\t\t\t\t\telse :\n-\t\t\t\t\t\t\t\t\t$images = array();\n+\t\t\t\t\t\t\t\t\t$images = [];\n \n \t\t\t\t\t\t\t\t\t$galleries = get_post_galleries( get_the_ID(), false );\n \t\t\t\t\t\t\t\t\tif ( isset( $galleries[0]['ids'] ) )\n@@ -133,7 +133,7 @@\n \t\t\t\t\t\t\t\t\t\t$images = explode( ',', $galleries[0]['ids'] );\n \n \t\t\t\t\t\t\t\t\tif ( ! $images ) :\n-\t\t\t\t\t\t\t\t\t\t$images = get_posts( array(\n+\t\t\t\t\t\t\t\t\t\t$images = get_posts( [\n \t\t\t\t\t\t\t\t\t\t\t'fields'         => 'ids',\n \t\t\t\t\t\t\t\t\t\t\t'numberposts'    => -1,\n \t\t\t\t\t\t\t\t\t\t\t'order'          => 'ASC',\n@@ -141,7 +141,7 @@\n \t\t\t\t\t\t\t\t\t\t\t'post_mime_type' => 'image',\n \t\t\t\t\t\t\t\t\t\t\t'post_parent'    => get_the_ID(),\n \t\t\t\t\t\t\t\t\t\t\t'post_type'      => 'attachment',\n-\t\t\t\t\t\t\t\t\t\t) );\n+\t\t\t\t\t\t\t\t\t\t] );\n \t\t\t\t\t\t\t\t\tendif;\n \n \t\t\t\t\t\t\t\t\t$total_images = count( $images );\n@@ -231,7 +231,7 @@\n \t * @return array Updated widget instance.\n \t */\n \tfunction update( $new_instance, $instance ) {\n-\t\t$instance['title']  = strip_tags( $new_instance['title'] );\n+\t\t$instance['title']  = strip_tags( (string) $new_instance['title'] );\n \t\t$instance['number'] = empty( $new_instance['number'] ) ? 2 : absint( $new_instance['number'] );\n \t\tif ( in_array( $new_instance['format'], $this->formats ) ) {\n \t\t\t$instance['format'] = $new_instance['format'];\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/199_widgets.php"
+    ]
+  }
+}

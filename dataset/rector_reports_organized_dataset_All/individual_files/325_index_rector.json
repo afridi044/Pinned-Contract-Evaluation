@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\325_index.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 40
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:20.118746",
+    "file_size_kb": 2.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/325_index.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n /** Load WordPress dashboard API */\n require_once( ABSPATH . 'wp-admin/includes/dashboard.php' );\n@@ -29,11 +29,11 @@\n $overview .= '<li>' . __( 'Update your network' ) . '</li>';\n $overview .= '<li>' . __( 'Modify global network settings' ) . '</li></ul>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __( 'Overview' ),\n \t'content' => $overview\n-) );\n+] );\n \n $quick_tasks = '<p>' . __( 'The Right Now widget on this screen provides current user and site counts on your network.' ) . '</p>';\n $quick_tasks .= '<ul><li>' . __( 'To add a new user, <strong>click Create a New User</strong>.' ) . '</li>';\n@@ -42,11 +42,11 @@\n $quick_tasks .= '<ul><li>' . __( 'To search for a user, <strong>enter an email address or username</strong>. Use a wildcard to search for a partial username, such as user&#42;.' ) . '</li>';\n $quick_tasks .= '<li>' . __( 'To search for a site, <strong>enter the path or domain</strong>.' ) . '</li></ul>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'quick-tasks',\n \t'title'   => __( 'Quick Tasks' ),\n \t'content' => $quick_tasks\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/325_index.php"
+    ]
+  }
+}

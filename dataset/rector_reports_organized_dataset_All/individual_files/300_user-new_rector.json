@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\300_user-new.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 53
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:14:22.401908",
+    "file_size_kb": 3.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/300_user-new.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -16,13 +16,13 @@\n if ( ! current_user_can('create_users') )\n \twp_die(__('You do not have sufficient permissions to add users to this network.'));\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n \t\t'<p>' . __('Add User will set up a new user account on the network and send that person an email with username and password.') . '</p>' .\n \t\t'<p>' . __('Users who are signed up to the network without a site are added as subscribers to the main or primary dashboard site, giving them profile pages to manage their accounts. These users will only see Dashboard and My Sites in the main navigation until a site is created for them.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -45,13 +45,13 @@\n \t\t$add_user_errors = $user_details[ 'errors' ];\n \t} else {\n \t\t$password = wp_generate_password( 12, false);\n-\t\t$user_id = wpmu_create_user( esc_html( strtolower( $user['username'] ) ), $password, esc_html( $user['email'] ) );\n+\t\t$user_id = wpmu_create_user( esc_html( strtolower( (string) $user['username'] ) ), $password, esc_html( $user['email'] ) );\n \n \t\tif ( ! $user_id ) {\n \t \t\t$add_user_errors = new WP_Error( 'add_user_fail', __( 'Cannot add user.' ) );\n \t\t} else {\n \t\t\twp_new_user_notification( $user_id, $password );\n-\t\t\twp_redirect( add_query_arg( array('update' => 'added'), 'user-new.php' ) );\n+\t\t\twp_redirect( add_query_arg( ['update' => 'added'], 'user-new.php' ) );\n \t\t\texit;\n \t\t}\n \t}\n@@ -58,7 +58,7 @@\n }\n \n if ( isset($_GET['update']) ) {\n-\t$messages = array();\n+\t$messages = [];\n \tif ( 'added' == $_GET['update'] )\n \t\t$messages[] = __('User added.');\n }\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/300_user-new.php"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\243_admin-header.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 52
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:56.945699",
+    "file_size_kb": 6.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/243_admin-header.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n \n @header('Content-Type: ' . get_option('html_type') . '; charset=' . get_option('blog_charset'));\n if ( ! defined( 'WP_ADMIN' ) )\n-\trequire_once( dirname( __FILE__ ) . '/admin.php' );\n+\trequire_once( __DIR__ . '/admin.php' );\n \n // In case admin-header.php is included in a function.\n global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow, $wp_version,\n@@ -19,7 +19,7 @@\n \tset_current_screen();\n \n get_admin_page_title();\n-$title = esc_html( strip_tags( $title ) );\n+$title = esc_html( strip_tags( (string) $title ) );\n \n if ( is_network_admin() )\n \t$admin_title = sprintf( __( 'Network Admin: %s' ), esc_html( get_current_site()->site_name ) );\n@@ -55,7 +55,7 @@\n wp_enqueue_script('utils');\n wp_enqueue_script( 'svg-painter' );\n \n-$admin_body_class = preg_replace('/[^a-z0-9_-]+/i', '-', $hook_suffix);\n+$admin_body_class = preg_replace('/[^a-z0-9_-]+/i', '-', (string) $hook_suffix);\n ?>\n <script type=\"text/javascript\">\n addLoadEvent = function(func){if(typeof jQuery!=\"undefined\")jQuery(document).ready(func);else if(typeof wpOnload!='function'){wpOnload=func;}else{var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}};\n@@ -63,8 +63,8 @@\n \tpagenow = '<?php echo $current_screen->id; ?>',\n \ttypenow = '<?php echo $current_screen->post_type; ?>',\n \tadminpage = '<?php echo $admin_body_class; ?>',\n-\tthousandsSeparator = '<?php echo addslashes( $wp_locale->number_format['thousands_sep'] ); ?>',\n-\tdecimalPoint = '<?php echo addslashes( $wp_locale->number_format['decimal_point'] ); ?>',\n+\tthousandsSeparator = '<?php echo addslashes( (string) $wp_locale->number_format['thousands_sep'] ); ?>',\n+\tdecimalPoint = '<?php echo addslashes( (string) $wp_locale->number_format['decimal_point'] ); ?>',\n \tisRtl = <?php echo (int) is_rtl(); ?>;\n </script>\n <meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n@@ -139,8 +139,8 @@\n if ( $current_screen->taxonomy )\n \t$admin_body_class .= ' taxonomy-' . $current_screen->taxonomy;\n \n-$admin_body_class .= ' branch-' . str_replace( array( '.', ',' ), '-', floatval( $wp_version ) );\n-$admin_body_class .= ' version-' . str_replace( '.', '-', preg_replace( '/^([.0-9]+).*/', '$1', $wp_version ) );\n+$admin_body_class .= ' branch-' . str_replace( [ '.', ',' ], '-', floatval( $wp_version ) );\n+$admin_body_class .= ' version-' . str_replace( '.', '-', preg_replace( '/^([.0-9]+).*/', '$1', (string) $wp_version ) );\n $admin_body_class .= ' admin-color-' . sanitize_html_class( get_user_option( 'admin_color' ), 'fresh' );\n $admin_body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );\n \n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/243_admin-header.php"
+    ]
+  }
+}

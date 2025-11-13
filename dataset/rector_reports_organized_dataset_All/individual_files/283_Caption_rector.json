@@ -1,0 +1,43 @@
+{
+  "file_path": "organized_dataset_All\\283_Caption.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 119
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:39.336328",
+    "file_size_kb": 4.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/283_Caption.php",
+        "diff": "--- Original\n+++ New\n@@ -53,69 +53,60 @@\n  * @package SimplePie\n  * @subpackage API\n  */\n-class SimplePie_Caption\n+class SimplePie_Caption implements \\Stringable\n {\n \t/**\n-\t * Content type\n-\t *\n-\t * @var string\n-\t * @see get_type()\n-\t */\n-\tvar $type;\n+     * Constructor, used to input the data\n+     *\n+     * For documentation on all the parameters, see the corresponding\n+     * properties and their accessors\n+     * @param string $type\n+     * @param string $lang\n+     * @param string $startTime\n+     * @param string $endTime\n+     * @param string $text\n+     */\n+    public function __construct(\n+        /**\n+         * Content type\n+         *\n+         * @see get_type()\n+         */\n+        public $type = null,\n+        /**\n+         * Language\n+         *\n+         * @see get_language()\n+         */\n+        public $lang = null,\n+        /**\n+         * Start time\n+         *\n+         * @see get_starttime()\n+         */\n+        public $startTime = null,\n+        /**\n+         * End time\n+         *\n+         * @see get_endtime()\n+         */\n+        public $endTime = null,\n+        /**\n+         * Caption text\n+         *\n+         * @see get_text()\n+         */\n+        public $text = null\n+    )\n+    {\n+    }\n \n \t/**\n-\t * Language\n-\t *\n-\t * @var string\n-\t * @see get_language()\n-\t */\n-\tvar $lang;\n-\n-\t/**\n-\t * Start time\n-\t *\n-\t * @var string\n-\t * @see get_starttime()\n-\t */\n-\tvar $startTime;\n-\n-\t/**\n-\t * End time\n-\t *\n-\t * @var string\n-\t * @see get_endtime()\n-\t */\n-\tvar $endTime;\n-\n-\t/**\n-\t * Caption text\n-\t *\n-\t * @var string\n-\t * @see get_text()\n-\t */\n-\tvar $text;\n-\n-\t/**\n-\t * Constructor, used to input the data\n-\t *\n-\t * For documentation on all the parameters, see the corresponding\n-\t * properties and their accessors\n-\t */\n-\tpublic function __construct($type = null, $lang = null, $startTime = null, $endTime = null, $text = null)\n-\t{\n-\t\t$this->type = $type;\n-\t\t$this->lang = $lang;\n-\t\t$this->startTime = $startTime;\n-\t\t$this->endTime = $endTime;\n-\t\t$this->text = $text;\n-\t}\n-\n-\t/**\n \t * String-ified version\n \t *\n \t * @return string\n \t */\n-\tpublic function __toString()\n+\tpublic function __toString(): string\n \t{\n \t\t// There is no $this->data here\n \t\treturn md5(serialize($this));\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/283_Caption.php"
+    ]
+  }
+}

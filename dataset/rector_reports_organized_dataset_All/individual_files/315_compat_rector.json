@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\315_compat.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 40
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:14:56.181899",
+    "file_size_kb": 3.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/315_compat.php",
+        "diff": "--- Original\n+++ New\n@@ -23,11 +23,11 @@\n \t// the solution below, works only for utf-8, so in case of a different\n \t// charset, just use built-in substr\n \t$charset = get_option( 'blog_charset' );\n-\tif ( !in_array( $charset, array('utf8', 'utf-8', 'UTF8', 'UTF-8') ) ) {\n-\t\treturn is_null( $length )? substr( $str, $start ) : substr( $str, $start, $length);\n+\tif ( !in_array( $charset, ['utf8', 'utf-8', 'UTF8', 'UTF-8'] ) ) {\n+\t\treturn is_null( $length )? substr( (string) $str, $start ) : substr( (string) $str, $start, $length);\n \t}\n \t// use the regex unicode support to separate the UTF-8 characters into an array\n-\tpreg_match_all( '/./us', $str, $match );\n+\tpreg_match_all( '/./us', (string) $str, $match );\n \t$chars = is_null( $length )? array_slice( $match[0], $start ) : array_slice( $match[0], $start, $length );\n \treturn implode( '', $chars );\n }\n@@ -39,7 +39,7 @@\n endif;\n \n function _hash_hmac($algo, $data, $key, $raw_output = false) {\n-\t$packs = array('md5' => 'H32', 'sha1' => 'H40');\n+\t$packs = ['md5' => 'H32', 'sha1' => 'H40'];\n \n \tif ( !isset($packs[$algo]) )\n \t\treturn false;\n@@ -46,10 +46,10 @@\n \n \t$pack = $packs[$algo];\n \n-\tif (strlen($key) > 64)\n+\tif (strlen((string) $key) > 64)\n \t\t$key = pack($pack, $algo($key));\n \n-\t$key = str_pad($key, 64, chr(0));\n+\t$key = str_pad((string) $key, 64, chr(0));\n \n \t$ipad = (substr($key, 0, 64) ^ str_repeat(chr(0x36), 64));\n \t$opad = (substr($key, 0, 64) ^ str_repeat(chr(0x5C), 64));\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/315_compat.php"
+    ]
+  }
+}

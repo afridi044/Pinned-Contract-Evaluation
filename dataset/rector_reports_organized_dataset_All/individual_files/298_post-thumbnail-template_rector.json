@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\298_post-thumbnail-template.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_74": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:14:17.138404",
+    "file_size_kb": 3.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/298_post-thumbnail-template.php",
+        "diff": "--- Original\n+++ New\n@@ -30,7 +30,7 @@\n  * @return int\n  */\n function get_post_thumbnail_id( $post_id = null ) {\n-\t$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;\n+\t$post_id ??= get_the_ID();\n \treturn get_post_meta( $post_id, '_thumbnail_id', true );\n }\n \n@@ -60,7 +60,7 @@\n \tif ( $wp_query->thumbnails_cached )\n \t\treturn;\n \n-\t$thumb_ids = array();\n+\t$thumb_ids = [];\n \tforeach ( $wp_query->posts as $post ) {\n \t\tif ( $id = get_post_thumbnail_id( $post->ID ) )\n \t\t\t$thumb_ids[] = $id;\n@@ -83,7 +83,7 @@\n  * @param string|array $attr Optional. Query string or array of attributes.\n  */\n function get_the_post_thumbnail( $post_id = null, $size = 'post-thumbnail', $attr = '' ) {\n-\t$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;\n+\t$post_id ??= get_the_ID();\n \t$post_thumbnail_id = get_post_thumbnail_id( $post_id );\n \n \t/**\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/298_post-thumbnail-template.php"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\183_theme-install.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 104
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:23.618172",
+    "file_size_kb": 10.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/183_theme-install.php",
+        "diff": "--- Original\n+++ New\n@@ -7,10 +7,10 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n require( ABSPATH . 'wp-admin/includes/theme-install.php' );\n \n-wp_reset_vars( array( 'tab' ) );\n+wp_reset_vars( [ 'tab' ] );\n \n if ( ! current_user_can('install_themes') )\n \twp_die( __( 'You do not have sufficient permissions to install themes on this site.' ) );\n@@ -27,28 +27,28 @@\n \t$submenu_file = 'themes.php';\n }\n \n-$sections = array(\n+$sections = [\n \t'featured' => __( 'Featured Themes' ),\n \t'popular'  => __( 'Popular Themes' ),\n \t'new'      => __( 'Newest Themes' ),\n-);\n+];\n \n $installed_themes = search_theme_directories();\n foreach ( $installed_themes as $k => $v ) {\n-\tif ( false !== strpos( $k, '/' ) ) {\n+\tif ( str_contains( $k, '/' ) ) {\n \t\tunset( $installed_themes[ $k ] );\n \t}\n }\n \n-wp_localize_script( 'theme', '_wpThemeSettings', array(\n+wp_localize_script( 'theme', '_wpThemeSettings', [\n \t'themes'   => false,\n-\t'settings' => array(\n+\t'settings' => [\n \t\t'isInstall'     => true,\n \t\t'canInstall'    => current_user_can( 'install_themes' ),\n \t\t'installURI'    => current_user_can( 'install_themes' ) ? self_admin_url( 'theme-install.php' ) : null,\n \t\t'adminUrl'      => parse_url( self_admin_url(), PHP_URL_PATH )\n-\t),\n-\t'l10n' => array(\n+\t],\n+\t'l10n' => [\n \t\t'addNew' => __( 'Add New Theme' ),\n \t\t'search'  => __( 'Search Themes' ),\n \t\t'searchPlaceholder' => __( 'Search themes...' ), // placeholder (no ellipsis)\n@@ -55,12 +55,12 @@\n \t\t'upload' => __( 'Upload Theme' ),\n \t\t'back'   => __( 'Back' ),\n \t\t'error'  => __( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href=\"https://wordpress.org/support/\">support forums</a>.' )\n-\t),\n+\t],\n \t'installedThemes' => array_keys( $installed_themes ),\n-\t'browse' => array(\n+\t'browse' => [\n \t\t'sections' => $sections,\n-\t),\n-) );\n+\t],\n+] );\n \n wp_enqueue_script( 'theme' );\n \n@@ -82,21 +82,21 @@\n \t'<p>' . __('You can Search for themes by keyword, author, or tag, or can get more specific and search by criteria listed in the feature filter. Alternately, you can browse the themes that are Featured, Popular, or Latest. When you find a theme you like, you can preview it or install it.') . '</p>' .\n \t'<p>' . __('You can Upload a theme manually if you have already downloaded its ZIP archive onto your computer (make sure it is from a trusted and original source). You can also do it the old-fashioned way and copy a downloaded theme&#8217;s folder via FTP into your <code>/wp-content/themes</code> directory.') . '</p>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' => $help_overview\n-) );\n+] );\n \n $help_installing =\n \t'<p>' . __('Once you have generated a list of themes, you can preview and install any of them. Click on the thumbnail of the theme you&#8217;re interested in previewing. It will open up in a full-screen Preview page to give you a better idea of how that theme will look.') . '</p>' .\n \t'<p>' . __('To install the theme so you can preview it with your site&#8217;s content and customize its theme options, click the \"Install\" button at the top of the left-hand pane. The theme files will be downloaded to your website automatically. When this is complete, the theme is now available for activation, which you can do by clicking the \"Activate\" link, or by navigating to your Manage Themes screen and clicking the \"Live Preview\" link under any installed theme&#8217;s thumbnail image.') . '</p>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'installing',\n \t'title'   => __('Previewing and Installing'),\n \t'content' => $help_installing\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -120,7 +120,7 @@\n \t * @since 2.8.0\n \t * @param array $tabs The tabs shown on the Add Themes screen. Default is 'upload'.\n \t */\n-\t$tabs = apply_filters( 'install_themes_tabs', array( 'upload' => __( 'Upload Theme' ) ) );\n+\t$tabs = apply_filters( 'install_themes_tabs', [ 'upload' => __( 'Upload Theme' ) ] );\n \tif ( ! empty( $tabs['upload'] ) && current_user_can( 'upload_themes' ) ) {\n \t\techo ' <a href=\"#\" class=\"upload add-new-h2\">' . __( 'Upload Theme' ) . '</a>';\n \t\techo ' <a href=\"#\" class=\"browse-themes add-new-h2\">' . _x( 'Browse', 'themes' ) . '</a>';\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/183_theme-install.php"
+    ]
+  }
+}

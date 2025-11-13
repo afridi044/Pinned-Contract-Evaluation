@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\319_media-new.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:07.932821",
+    "file_size_kb": 3.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/319_media-new.php",
+        "diff": "--- Original\n+++ New\n@@ -10,7 +10,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if (!current_user_can('upload_files'))\n \twp_die(__('You do not have permission to upload files.'));\n@@ -40,7 +40,7 @@\n $title = __('Upload New Media');\n $parent_file = 'upload.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'overview',\n 'title'\t\t=> __('Overview'),\n 'content'\t=>\n@@ -50,7 +50,7 @@\n \t\t'<li>' . __('Clicking <strong>Select Files</strong> opens a navigation window showing you files in your operating system. Selecting <strong>Open</strong> after clicking on the file you want activates a progress bar on the uploader screen.') . '</li>' .\n \t\t'<li>' . __('Revert to the <strong>Browser Uploader</strong> by clicking the link below the drag and drop box.') . '</li>' .\n \t'</ul>'\n-) );\n+] );\n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n \t'<p>' . __('<a href=\"http://codex.wordpress.org/Media_Add_New_Screen\" target=\"_blank\">Documentation on Uploading Media Files</a>') . '</p>' .\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/319_media-new.php"
+    ]
+  }
+}

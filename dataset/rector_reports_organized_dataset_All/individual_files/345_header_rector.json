@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\345_header.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:55.308584",
+    "file_size_kb": 2.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/345_header.php",
+        "diff": "--- Original\n+++ New\n@@ -51,7 +51,7 @@\n \t\t\t<nav id=\"primary-navigation\" class=\"site-navigation primary-navigation\" role=\"navigation\">\n \t\t\t\t<button class=\"menu-toggle\"><?php _e( 'Primary Menu', 'twentyfourteen' ); ?></button>\n \t\t\t\t<a class=\"screen-reader-text skip-link\" href=\"#content\"><?php _e( 'Skip to content', 'twentyfourteen' ); ?></a>\n-\t\t\t\t<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu' ) ); ?>\n+\t\t\t\t<?php wp_nav_menu( [ 'theme_location' => 'primary', 'menu_class' => 'nav-menu' ] ); ?>\n \t\t\t</nav>\n \t\t</div>\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/345_header.php"
+    ]
+  }
+}

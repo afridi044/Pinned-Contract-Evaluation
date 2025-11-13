@@ -1,0 +1,50 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\035_wp-trackback.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 45
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:26:10.961594",
+    "file_size_kb": 3.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/035_wp-trackback.php",
+        "diff": "--- Original\n+++ New\n@@ -9,8 +9,8 @@\n  */\n \n if (empty($wp)) {\n-\trequire_once( dirname( __FILE__ ) . '/wp-load.php' );\n-\twp( array( 'tb' => '1' ) );\n+\trequire_once( __DIR__ . '/wp-load.php' );\n+\twp( [ 'tb' => '1' ] );\n }\n \n /**\n@@ -45,12 +45,12 @@\n $request_array = 'HTTP_POST_VARS';\n \n if ( !isset($_GET['tb_id']) || !$_GET['tb_id'] ) {\n-\t$tb_id = explode('/', $_SERVER['REQUEST_URI']);\n+\t$tb_id = explode('/', (string) $_SERVER['REQUEST_URI']);\n \t$tb_id = intval( $tb_id[ count($tb_id) - 1 ] );\n }\n \n-$tb_url  = isset($_POST['url'])     ? $_POST['url']     : '';\n-$charset = isset($_POST['charset']) ? $_POST['charset'] : '';\n+$tb_url  = $_POST['url'] ?? '';\n+$charset = $_POST['charset'] ?? '';\n \n // These three are stripslashed here so they can be properly escaped after mb_convert_encoding().\n $title     = isset($_POST['title'])     ? wp_unslash($_POST['title'])      : '';\n@@ -58,12 +58,12 @@\n $blog_name = isset($_POST['blog_name']) ? wp_unslash($_POST['blog_name'])  : '';\n \n if ($charset)\n-\t$charset = str_replace( array(',', ' '), '', strtoupper( trim($charset) ) );\n+\t$charset = str_replace( [',', ' '], '', strtoupper( trim((string) $charset) ) );\n else\n \t$charset = 'ASCII, UTF-8, ISO-8859-1, JIS, EUC-JP, SJIS';\n \n // No valid uses for UTF-7.\n-if ( false !== strpos($charset, 'UTF-7') )\n+if ( str_contains($charset, 'UTF-7') )\n \tdie;\n \n // For international trackbacks.\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/035_wp-trackback.php"
+    ]
+  }
+}

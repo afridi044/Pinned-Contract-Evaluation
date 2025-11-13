@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\282_plugin-install.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 38
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:36.878666",
+    "file_size_kb": 4.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/282_plugin-install.php",
+        "diff": "--- Original\n+++ New\n@@ -12,7 +12,7 @@\n /**\n  * WordPress Administration Bootstrap.\n  */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! current_user_can('install_plugins') )\n \twp_die(__('You do not have sufficient permissions to install plugins on this site.'));\n@@ -45,13 +45,13 @@\n  */\n do_action( \"install_plugins_pre_$tab\" );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'overview',\n 'title'\t\t=> __('Overview'),\n 'content'\t=>\n \t'<p>' . sprintf(__('Plugins hook into WordPress to extend its functionality with custom features. Plugins are developed independently from the core WordPress application by thousands of developers all over the world. All plugins in the official <a href=\"%s\" target=\"_blank\">WordPress.org Plugin Directory</a> are compatible with the license WordPress uses. You can find new plugins to install by searching or browsing the Directory right here in your own Plugins section.'), 'https://wordpress.org/plugins/') . '</p>'\n-) );\n-get_current_screen()->add_help_tab( array(\n+] );\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'adding-plugins',\n 'title'\t\t=> __('Adding Plugins'),\n 'content'\t=>\n@@ -59,7 +59,7 @@\n \t'<p>' . __('If you just want to get an idea of what&#8217;s available, you can browse Featured and Popular plugins by using the links in the upper left of the screen. These sections rotate regularly.') . '</p>' .\n \t'<p>' . __('You can also browse a user&#8217;s favorite plugins, by using the Favorites link in the upper left of the screen and entering their WordPress.org username.') . '</p>' .\n \t'<p>' . __('If you want to install a plugin that you&#8217;ve downloaded elsewhere, click the Upload link in the upper left. You will be prompted to upload the .zip package, and once uploaded, you can activate the new plugin.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/282_plugin-install.php"
+    ]
+  }
+}

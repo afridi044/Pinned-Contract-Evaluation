@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\331_wp-load.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:32.023106",
+    "file_size_kb": 2.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/331_wp-load.php",
+        "diff": "--- Original\n+++ New\n@@ -19,7 +19,7 @@\n  */\n \n /** Define ABSPATH as this file's directory */\n-define( 'ABSPATH', dirname(__FILE__) . '/' );\n+define( 'ABSPATH', __DIR__ . '/' );\n \n error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );\n \n@@ -52,7 +52,7 @@\n \t * in an infinite loop, that's a silly thing to assume, don't you think? If\n \t * we're traveling in circles, our last-ditch effort is \"Need more help?\"\n \t */\n-\tif ( false === strpos( $_SERVER['REQUEST_URI'], 'setup-config' ) ) {\n+\tif ( !str_contains( (string) $_SERVER['REQUEST_URI'], 'setup-config' ) ) {\n \t\theader( 'Location: ' . $path );\n \t\texit;\n \t}\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/331_wp-load.php"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\349_xdiff.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 42
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:16:00.718684",
+    "file_size_kb": 2.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/349_xdiff.php",
+        "diff": "--- Original\n+++ New\n@@ -19,8 +19,8 @@\n      */\n     function diff($from_lines, $to_lines)\n     {\n-        array_walk($from_lines, array('Text_Diff', 'trimNewlines'));\n-        array_walk($to_lines, array('Text_Diff', 'trimNewlines'));\n+        array_walk($from_lines, ['Text_Diff', 'trimNewlines']);\n+        array_walk($to_lines, ['Text_Diff', 'trimNewlines']);\n \n         /* Convert the two input arrays into strings for xdiff processing. */\n         $from_string = implode(\"\\n\", $from_lines);\n@@ -38,7 +38,7 @@\n          * lines using this approach, so we can't add Text_Diff_Op_changed\n          * instances to the $edits array.  The result is still perfectly\n          * valid, albeit a little less descriptive and efficient. */\n-        $edits = array();\n+        $edits = [];\n         foreach ($diff as $line) {\n             if (!strlen($line)) {\n                 continue;\n@@ -45,15 +45,15 @@\n             }\n             switch ($line[0]) {\n             case ' ':\n-                $edits[] = new Text_Diff_Op_copy(array(substr($line, 1)));\n+                $edits[] = new Text_Diff_Op_copy([substr($line, 1)]);\n                 break;\n \n             case '+':\n-                $edits[] = new Text_Diff_Op_add(array(substr($line, 1)));\n+                $edits[] = new Text_Diff_Op_add([substr($line, 1)]);\n                 break;\n \n             case '-':\n-                $edits[] = new Text_Diff_Op_delete(array(substr($line, 1)));\n+                $edits[] = new Text_Diff_Op_delete([substr($line, 1)]);\n                 break;\n             }\n         }\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/349_xdiff.php"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\140_class-wp-plugin-install-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 191
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:23.818105",
+    "file_size_kb": 14.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/140_class-wp-plugin-install-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -9,9 +9,9 @@\n  */\n class WP_Plugin_Install_List_Table extends WP_List_Table {\n \n-\tvar $order = 'ASC';\n-\tvar $orderby = null;\n-\tvar $groups = array();\n+\tpublic $order = 'ASC';\n+\tpublic $orderby = null;\n+\tpublic $groups = [];\n \n \tpublic function ajax_user_can() {\n \t\treturn current_user_can('install_plugins');\n@@ -28,7 +28,7 @@\n \t * @access protected\n \t */\n \tprotected function get_installed_plugin_slugs() {\n-\t\t$slugs = array();\n+\t\t$slugs = [];\n \n \t\t$plugin_info = get_site_transient( 'update_plugins' );\n \t\tif ( isset( $plugin_info->no_update ) ) {\n@@ -51,7 +51,7 @@\n \n \t\tglobal $tabs, $tab, $paged, $type, $term;\n \n-\t\twp_reset_vars( array( 'tab' ) );\n+\t\twp_reset_vars( [ 'tab' ] );\n \n \t\t$paged = $this->get_pagenum();\n \n@@ -58,7 +58,7 @@\n \t\t$per_page = 30;\n \n \t\t// These are the tabs which are shown on the page\n-\t\t$tabs = array();\n+\t\t$tabs = [];\n \n \t\tif ( 'search' == $tab )\n \t\t\t$tabs['search']\t= __( 'Search Results' );\n@@ -65,7 +65,7 @@\n \t\t$tabs['featured']  = _x( 'Featured', 'Plugin Installer' );\n \t\t$tabs['popular']   = _x( 'Popular', 'Plugin Installer' );\n \t\t$tabs['favorites'] = _x( 'Favorites', 'Plugin Installer' );\n-\t\tif ( $tab === 'beta' || false !== strpos( $GLOBALS['wp_version'], '-' ) ) {\n+\t\tif ( $tab === 'beta' || str_contains( (string) $GLOBALS['wp_version'], '-' ) ) {\n \t\t\t$tabs['beta']      = _x( 'Beta Testing', 'Plugin Installer' );\n \t\t}\n \t\tif ( current_user_can( 'upload_plugins' ) ) {\n@@ -74,7 +74,7 @@\n \t\t\t$tabs['upload'] = __( 'Upload Plugin' );\n \t\t}\n \n-\t\t$nonmenu_tabs = array( 'plugin-information' ); // Valid actions to perform which do not have a Menu item.\n+\t\t$nonmenu_tabs = [ 'plugin-information' ]; // Valid actions to perform which do not have a Menu item.\n \n \t\t/**\n \t\t * Filter the tabs shown on the Plugin Install screen.\n@@ -99,14 +99,14 @@\n \t\tif ( empty( $tab ) || ( !isset( $tabs[ $tab ] ) && !in_array( $tab, (array) $nonmenu_tabs ) ) )\n \t\t\t$tab = key( $tabs );\n \n-\t\t$args = array(\n+\t\t$args = [\n \t\t\t'page' => $paged,\n \t\t\t'per_page' => $per_page,\n-\t\t\t'fields' => array( 'last_updated' => true, 'downloaded' => true, 'icons' => true ),\n+\t\t\t'fields' => [ 'last_updated' => true, 'downloaded' => true, 'icons' => true ],\n \t\t\t// Send the locale and installed plugin slugs to the API so it can provide context-sensitive results.\n \t\t\t'locale' => get_locale(),\n \t\t\t'installed_plugins' => $this->get_installed_plugin_slugs(),\n-\t\t);\n+\t\t];\n \n \t\tswitch ( $tab ) {\n \t\t\tcase 'search':\n@@ -179,13 +179,13 @@\n \t\t$this->items = $api->plugins;\n \n \t\tif ( $this->orderby ) {\n-\t\t\tuasort( $this->items, array( $this, 'order_callback' ) );\n+\t\t\tuasort( $this->items, [ $this, 'order_callback' ] );\n \t\t}\n \n-\t\t$this->set_pagination_args( array(\n+\t\t$this->set_pagination_args( [\n \t\t\t'total_items' => $api->info['results'],\n \t\t\t'per_page' => $args['per_page'],\n-\t\t) );\n+\t\t] );\n \n \t\tif ( isset( $api->info['groups'] ) ) {\n \t\t\t$this->groups = $api->info['groups'];\n@@ -204,7 +204,7 @@\n \tprotected function get_views() {\n \t\tglobal $tabs, $tab;\n \n-\t\t$display_tabs = array();\n+\t\t$display_tabs = [];\n \t\tforeach ( (array) $tabs as $action => $text ) {\n \t\t\t$class = ( $action == $tab ) ? ' current' : '';\n \t\t\t$href = self_admin_url('plugin-install.php?tab=' . $action);\n@@ -297,11 +297,11 @@\n \t}\n \n \tprotected function get_table_classes() {\n-\t\treturn array( 'widefat', $this->_args['plural'] );\n+\t\treturn [ 'widefat', $this->_args['plural'] ];\n \t}\n \n \tpublic function get_columns() {\n-\t\treturn array();\n+\t\treturn [];\n \t}\n \n \tprivate function order_callback( $plugin_a, $plugin_b ) {\n@@ -325,18 +325,18 @@\n \t}\n \n \tpublic function display_rows() {\n-\t\t$plugins_allowedtags = array(\n-\t\t\t'a' => array( 'href' => array(),'title' => array(), 'target' => array() ),\n-\t\t\t'abbr' => array( 'title' => array() ),'acronym' => array( 'title' => array() ),\n-\t\t\t'code' => array(), 'pre' => array(), 'em' => array(),'strong' => array(),\n-\t\t\t'ul' => array(), 'ol' => array(), 'li' => array(), 'p' => array(), 'br' => array()\n-\t\t);\n+\t\t$plugins_allowedtags = [\n+\t\t\t'a' => [ 'href' => [],'title' => [], 'target' => [] ],\n+\t\t\t'abbr' => [ 'title' => [] ],'acronym' => [ 'title' => [] ],\n+\t\t\t'code' => [], 'pre' => [], 'em' => [],'strong' => [],\n+\t\t\t'ul' => [], 'ol' => [], 'li' => [], 'p' => [], 'br' => []\n+\t\t];\n \n-\t\t$plugins_group_titles = array(\n+\t\t$plugins_group_titles = [\n \t\t\t'Performance' => _x( 'Performance', 'Plugin installer group title' ),\n \t\t\t'Social'      => _x( 'Social',      'Plugin installer group title' ),\n \t\t\t'Tools'       => _x( 'Tools',       'Plugin installer group title' ),\n-\t\t);\n+\t\t];\n \n \t\t$group = null;\n \n@@ -370,7 +370,7 @@\n \t\t\t$title = wp_kses( $plugin['name'], $plugins_allowedtags );\n \n \t\t\t// Remove any HTML from the description.\n-\t\t\t$description = strip_tags( $plugin['short_description'] );\n+\t\t\t$description = strip_tags( (string) $plugin['short_description'] );\n \t\t\t$version = wp_kses( $plugin['version'], $plugins_allowedtags );\n \n \t\t\t$name = strip_tags( $title . ' ' . $version );\n@@ -380,7 +380,7 @@\n \t\t\t\t$author = ' <cite>' . sprintf( __( 'By %s' ), $author ) . '</cite>';\n \t\t\t}\n \n-\t\t\t$action_links = array();\n+\t\t\t$action_links = [];\n \n \t\t\tif ( current_user_can( 'install_plugins' ) || current_user_can( 'update_plugins' ) ) {\n \t\t\t\t$status = install_plugin_install_status( $plugin );\n@@ -453,12 +453,12 @@\n \t\t\t</div>\n \t\t\t<div class=\"plugin-card-bottom\">\n \t\t\t\t<div class=\"vers column-rating\">\n-\t\t\t\t\t<?php wp_star_rating( array( 'rating' => $plugin['rating'], 'type' => 'percent', 'number' => $plugin['num_ratings'] ) ); ?>\n+\t\t\t\t\t<?php wp_star_rating( [ 'rating' => $plugin['rating'], 'type' => 'percent', 'number' => $plugin['num_ratings'] ] ); ?>\n \t\t\t\t\t<span class=\"num-ratings\">(<?php echo number_format_i18n( $plugin['num_ratings'] ); ?>)</span>\n \t\t\t\t</div>\n \t\t\t\t<div class=\"column-updated\">\n \t\t\t\t\t<strong><?php _e( 'Last Updated:' ); ?></strong> <span title=\"<?php echo esc_attr( $plugin['last_updated'] ); ?>\">\n-\t\t\t\t\t\t<?php printf( __( '%s ago' ), human_time_diff( strtotime( $plugin['last_updated'] ) ) ); ?>\n+\t\t\t\t\t\t<?php printf( __( '%s ago' ), human_time_diff( strtotime( (string) $plugin['last_updated'] ) ) ); ?>\n \t\t\t\t\t</span>\n \t\t\t\t</div>\n \t\t\t\t<div class=\"column-downloaded\">\n@@ -466,9 +466,9 @@\n \t\t\t\t</div>\n \t\t\t\t<div class=\"column-compatibility\">\n \t\t\t\t\t<?php\n-\t\t\t\t\tif ( ! empty( $plugin['tested'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['tested'] ) ), $plugin['tested'], '>' ) ) {\n+\t\t\t\t\tif ( ! empty( $plugin['tested'] ) && version_compare( substr( (string) $GLOBALS['wp_version'], 0, strlen( (string) $plugin['tested'] ) ), $plugin['tested'], '>' ) ) {\n \t\t\t\t\t\techo '<span class=\"compatibility-untested\">' . __( '<strong>Untested</strong> with your version of WordPress' ) . '</span>';\n-\t\t\t\t\t} elseif ( ! empty( $plugin['requires'] ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $plugin['requires'] ) ), $plugin['requires'], '<' ) ) {\n+\t\t\t\t\t} elseif ( ! empty( $plugin['requires'] ) && version_compare( substr( (string) $GLOBALS['wp_version'], 0, strlen( (string) $plugin['requires'] ) ), $plugin['requires'], '<' ) ) {\n \t\t\t\t\t\techo '<span class=\"compatibility-incompatible\">' . __( '<strong>Incompatible</strong> with your version of WordPress' ) . '</span>';\n \t\t\t\t\t} else {\n \t\t\t\t\t\techo '<span class=\"compatibility-compatible\">' . __( '<strong>Compatible</strong> with your version of WordPress' ) . '</span>';\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/140_class-wp-plugin-install-list-table.php"
+    ]
+  }
+}

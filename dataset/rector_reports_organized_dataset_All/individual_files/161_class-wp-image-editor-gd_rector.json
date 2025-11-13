@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\161_class-wp-image-editor-gd.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_71": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 117
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:24.042402",
+    "file_size_kb": 12.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/161_class-wp-image-editor-gd.php",
+        "diff": "--- Original\n+++ New\n@@ -33,7 +33,7 @@\n \t *\n \t * @return boolean\n \t */\n-\tpublic static function test( $args = array() ) {\n+\tpublic static function test( $args = [] ) {\n \t\tif ( ! extension_loaded('gd') || ! function_exists('gd_info') )\n \t\t\treturn false;\n \n@@ -59,16 +59,12 @@\n \t */\n \tpublic static function supports_mime_type( $mime_type ) {\n \t\t$image_types = imagetypes();\n-\t\tswitch( $mime_type ) {\n-\t\t\tcase 'image/jpeg':\n-\t\t\t\treturn ($image_types & IMG_JPG) != 0;\n-\t\t\tcase 'image/png':\n-\t\t\t\treturn ($image_types & IMG_PNG) != 0;\n-\t\t\tcase 'image/gif':\n-\t\t\t\treturn ($image_types & IMG_GIF) != 0;\n-\t\t}\n-\n-\t\treturn false;\n+        return match ($mime_type) {\n+            'image/jpeg' => ($image_types & IMG_JPG) != 0,\n+            'image/png' => ($image_types & IMG_PNG) != 0,\n+            'image/gif' => ($image_types & IMG_GIF) != 0,\n+            default => false,\n+        };\n \t}\n \n \t/**\n@@ -174,7 +170,7 @@\n \t\tif ( ! $dims ) {\n \t\t\treturn new WP_Error( 'error_getting_dimensions', __('Could not calculate resized image dimensions'), $this->file );\n \t\t}\n-\t\tlist( $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h ) = $dims;\n+\t\t[$dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h] = $dims;\n \n \t\t$resized = wp_imagecreatetruecolor( $dst_w, $dst_h );\n \t\timagecopyresampled( $resized, $this->image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h );\n@@ -209,7 +205,7 @@\n \t * @return array An array of resized images' metadata by size.\n \t */\n \tpublic function multi_resize( $sizes ) {\n-\t\t$metadata = array();\n+\t\t$metadata = [];\n \t\t$orig_size = $this->size;\n \n \t\tforeach ( $sizes as $size => $size_data ) {\n@@ -369,13 +365,13 @@\n \t}\n \n \tprotected function _save( $image, $filename = null, $mime_type = null ) {\n-\t\tlist( $filename, $extension, $mime_type ) = $this->get_output_format( $filename, $mime_type );\n+\t\t[$filename, $extension, $mime_type] = $this->get_output_format( $filename, $mime_type );\n \n \t\tif ( ! $filename )\n \t\t\t$filename = $this->generate_filename( null, null, $extension );\n \n \t\tif ( 'image/gif' == $mime_type ) {\n-\t\t\tif ( ! $this->make_image( $filename, 'imagegif', array( $image, $filename ) ) )\n+\t\t\tif ( ! $this->make_image( $filename, 'imagegif', [ $image, $filename ] ) )\n \t\t\t\treturn new WP_Error( 'image_save_error', __('Image Editor Save Failed') );\n \t\t}\n \t\telseif ( 'image/png' == $mime_type ) {\n@@ -383,11 +379,11 @@\n \t\t\tif ( function_exists('imageistruecolor') && ! imageistruecolor( $image ) )\n \t\t\t\timagetruecolortopalette( $image, false, imagecolorstotal( $image ) );\n \n-\t\t\tif ( ! $this->make_image( $filename, 'imagepng', array( $image, $filename ) ) )\n+\t\t\tif ( ! $this->make_image( $filename, 'imagepng', [ $image, $filename ] ) )\n \t\t\t\treturn new WP_Error( 'image_save_error', __('Image Editor Save Failed') );\n \t\t}\n \t\telseif ( 'image/jpeg' == $mime_type ) {\n-\t\t\tif ( ! $this->make_image( $filename, 'imagejpeg', array( $image, $filename, $this->get_quality() ) ) )\n+\t\t\tif ( ! $this->make_image( $filename, 'imagejpeg', [ $image, $filename, $this->get_quality() ] ) )\n \t\t\t\treturn new WP_Error( 'image_save_error', __('Image Editor Save Failed') );\n \t\t}\n \t\telse {\n@@ -395,7 +391,7 @@\n \t\t}\n \n \t\t// Set correct file permissions\n-\t\t$stat = stat( dirname( $filename ) );\n+\t\t$stat = stat( dirname( (string) $filename ) );\n \t\t$perms = $stat['mode'] & 0000666; //same permissions as parent folder, strip off the executable bits\n \t\t@ chmod( $filename, $perms );\n \n@@ -406,13 +402,13 @@\n \t\t *\n \t\t * @param string $filename Name of the file.\n \t\t */\n-\t\treturn array(\n+\t\treturn [\n \t\t\t'path'      => $filename,\n \t\t\t'file'      => wp_basename( apply_filters( 'image_make_intermediate_size', $filename ) ),\n \t\t\t'width'     => $this->size['width'],\n \t\t\t'height'    => $this->size['height'],\n \t\t\t'mime-type' => $mime_type,\n-\t\t);\n+\t\t];\n \t}\n \n \t/**\n@@ -424,7 +420,7 @@\n \t * @param string $mime_type\n \t */\n \tpublic function stream( $mime_type = null ) {\n-\t\tlist( $filename, $extension, $mime_type ) = $this->get_output_format( null, $mime_type );\n+\t\t[$filename, $extension, $mime_type] = $this->get_output_format( null, $mime_type );\n \n \t\tswitch ( $mime_type ) {\n \t\t\tcase 'image/png':\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/161_class-wp-image-editor-gd.php"
+    ]
+  }
+}

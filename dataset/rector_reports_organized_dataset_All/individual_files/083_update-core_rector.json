@@ -1,0 +1,50 @@
+{
+  "file_path": "organized_dataset_All\\083_update-core.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_71": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 164
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:04:20.520310",
+    "file_size_kb": 26.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/083_update-core.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n wp_enqueue_style( 'plugin-install' );\n wp_enqueue_script( 'plugin-install' );\n@@ -105,7 +105,7 @@\n }\n \n function dismissed_updates() {\n-\t$dismissed = get_core_updates( array( 'dismissed' => true, 'available' => false ) );\n+\t$dismissed = get_core_updates( [ 'dismissed' => true, 'available' => false ] );\n \tif ( $dismissed ) {\n \n \t\t$show_text = esc_js(__('Show hidden updates'));\n@@ -147,15 +147,15 @@\n \t\techo '<h3>';\n \t\t_e('You have the latest version of WordPress.');\n \n-\t\tif ( wp_http_supports( array( 'ssl' ) ) ) {\n+\t\tif ( wp_http_supports( [ 'ssl' ] ) ) {\n \t\t\trequire_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';\n \t\t\t$upgrader = new WP_Automatic_Updater;\n-\t\t\t$future_minor_update = (object) array(\n+\t\t\t$future_minor_update = (object) [\n \t\t\t\t'current'       => $wp_version . '.1.next.minor',\n \t\t\t\t'version'       => $wp_version . '.1.next.minor',\n \t\t\t\t'php_version'   => $required_php_version,\n \t\t\t\t'mysql_version' => $required_mysql_version,\n-\t\t\t);\n+\t\t\t];\n \t\t\t$should_auto_update = $upgrader->should_update( 'core', $future_minor_update, ABSPATH );\n \t\t\tif ( $should_auto_update )\n \t\t\t\techo ' ' . __( 'Future security updates will be applied automatically.' );\n@@ -192,7 +192,7 @@\n \tif ( $updates && ( count( $updates ) > 1 || $updates[0]->response != 'latest' ) ) {\n \t\techo '<p>' . __( 'While your site is being updated, it will be in maintenance mode. As soon as your updates are complete, your site will return to normal.' ) . '</p>';\n \t} elseif ( ! $updates ) {\n-\t\tlist( $normalized_version ) = explode( '-', $wp_version );\n+\t\t[$normalized_version] = explode( '-', (string) $wp_version );\n \t\techo '<p>' . sprintf( __( '<a href=\"%s\">Learn more about WordPress %s</a>.' ), esc_url( self_admin_url( 'about.php' ) ), $normalized_version ) . '</p>';\n \t}\n \tdismissed_updates();\n@@ -201,7 +201,7 @@\n function list_plugin_updates() {\n \tglobal $wp_version;\n \n-\t$cur_wp_version = preg_replace('/-.*$/', '', $wp_version);\n+\t$cur_wp_version = preg_replace('/-.*$/', '', (string) $wp_version);\n \n \trequire_once(ABSPATH . 'wp-admin/includes/plugin-install.php');\n \t$plugins = get_plugin_updates();\n@@ -240,7 +240,7 @@\n \t<tbody class=\"plugins\">\n <?php\n \tforeach ( (array) $plugins as $plugin_file => $plugin_data) {\n-\t\t$info = plugins_api('plugin_information', array('slug' => $plugin_data->update->slug ));\n+\t\t$info = plugins_api('plugin_information', ['slug' => $plugin_data->update->slug ]);\n \t\t// Get plugin compat for running version of WordPress.\n \t\tif ( isset($info->tested) && version_compare($info->tested, $cur_wp_version, '>=') ) {\n \t\t\t$compat = '<br />' . sprintf(__('Compatibility with WordPress %1$s: 100%% (according to its author)'), $cur_wp_version);\n@@ -371,8 +371,8 @@\n \t\t$url = 'update-core.php?action=do-core-upgrade';\n \t$url = wp_nonce_url($url, 'upgrade-core');\n \n-\t$version = isset( $_POST['version'] )? $_POST['version'] : false;\n-\t$locale = isset( $_POST['locale'] )? $_POST['locale'] : 'en_US';\n+\t$version = $_POST['version'] ?? false;\n+\t$locale = $_POST['locale'] ?? 'en_US';\n \t$update = find_core_update( $version, $locale );\n \tif ( !$update )\n \t\treturn;\n@@ -429,8 +429,8 @@\n }\n \n function do_dismiss_core_update() {\n-\t$version = isset( $_POST['version'] )? $_POST['version'] : false;\n-\t$locale = isset( $_POST['locale'] )? $_POST['locale'] : 'en_US';\n+\t$version = $_POST['version'] ?? false;\n+\t$locale = $_POST['locale'] ?? 'en_US';\n \t$update = find_core_update( $version, $locale );\n \tif ( !$update )\n \t\treturn;\n@@ -440,8 +440,8 @@\n }\n \n function do_undismiss_core_update() {\n-\t$version = isset( $_POST['version'] )? $_POST['version'] : false;\n-\t$locale = isset( $_POST['locale'] )? $_POST['locale'] : 'en_US';\n+\t$version = $_POST['version'] ?? false;\n+\t$locale = $_POST['locale'] ?? 'en_US';\n \t$update = find_core_update( $version, $locale );\n \tif ( !$update )\n \t\treturn;\n@@ -450,7 +450,7 @@\n \texit;\n }\n \n-$action = isset($_GET['action']) ? $_GET['action'] : 'upgrade-core';\n+$action = $_GET['action'] ?? 'upgrade-core';\n \n $upgrade_error = false;\n if ( ( 'do-theme-upgrade' == $action || ( 'do-plugin-upgrade' == $action && ! isset( $_GET['plugins'] ) ) )\n@@ -465,11 +465,11 @@\n $updates_overview  = '<p>' . __( 'On this screen, you can update to the latest version of WordPress, as well as update your themes and plugins from the WordPress.org repositories.' ) . '</p>';\n $updates_overview .= '<p>' . __( 'If an update is available, you&#8127;ll see a notification appear in the Toolbar and navigation menu.' ) . ' ' . __( 'Keeping your site updated is important for security. It also makes the internet a safer place for you and your readers.' ) . '</p>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __( 'Overview' ),\n \t'content' => $updates_overview\n-) );\n+] );\n \n $updates_howto  = '<p>' . __( '<strong>WordPress</strong> &mdash; Updating your WordPress installation is a simple one-click procedure: just <strong>click on the &#8220;Update Now&#8221; button</strong> when you are notified that a new version is available.' ) . ' ' . __( 'In most cases, WordPress will automatically apply maintenance and security updates in the background for you.' ) . '</p>';\n $updates_howto .= '<p>' . __( '<strong>Themes and Plugins</strong> &mdash; To update individual themes or plugins from this screen, use the checkboxes to make your selection, then <strong>click on the appropriate &#8220;Update&#8221; button</strong>. To update all of your themes or plugins at once, you can check the box at the top of the section to select all before clicking the update button.' ) . '</p>';\n@@ -478,11 +478,11 @@\n \t$updates_howto .= '<p>' . __( '<strong>Translations</strong> &mdash; The files translating WordPress into your language are updated for you whenever any other updates occur. But if these files are out of date, you can <strong>click the &#8220;Update Translations&#8221;</strong> button.' ) . '</p>';\n }\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'how-to-update',\n \t'title'   => __( 'How to Update' ),\n \t'content' => $updates_howto\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -493,7 +493,7 @@\n if ( 'upgrade-core' == $action ) {\n \t// Force a update check when requested\n \t$force_check = ! empty( $_GET['force-check'] );\n-\twp_version_check( array(), $force_check );\n+\twp_version_check( [], $force_check );\n \n \trequire_once(ABSPATH . 'wp-admin/admin-header.php');\n \t?>\n@@ -565,7 +565,7 @@\n \tcheck_admin_referer('upgrade-core');\n \n \tif ( isset( $_GET['plugins'] ) ) {\n-\t\t$plugins = explode( ',', $_GET['plugins'] );\n+\t\t$plugins = explode( ',', (string) $_GET['plugins'] );\n \t} elseif ( isset( $_POST['checked'] ) ) {\n \t\t$plugins = (array) $_POST['checked'];\n \t} else {\n@@ -593,7 +593,7 @@\n \tcheck_admin_referer('upgrade-core');\n \n \tif ( isset( $_GET['themes'] ) ) {\n-\t\t$themes = explode( ',', $_GET['themes'] );\n+\t\t$themes = explode( ',', (string) $_GET['themes'] );\n \t} elseif ( isset( $_POST['checked'] ) ) {\n \t\t$themes = (array) $_POST['checked'];\n \t} else {\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/083_update-core.php"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\211_bookmark.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 77
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:36.508561",
+    "file_size_kb": 8.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/211_bookmark.php",
+        "diff": "--- Original\n+++ New\n@@ -90,7 +90,7 @@\n \n \twp_delete_object_term_relationships( $link_id, 'link_category' );\n \n-\t$wpdb->delete( $wpdb->links, array( 'link_id' => $link_id ) );\n+\t$wpdb->delete( $wpdb->links, [ 'link_id' => $link_id ] );\n \t/**\n \t * Fires after a link has been deleted.\n \t *\n@@ -115,7 +115,7 @@\n  */\n function wp_get_link_cats( $link_id = 0 ) {\n \n-\t$cats = wp_get_object_terms( $link_id, 'link_category', array('fields' => 'ids') );\n+\t$cats = wp_get_object_terms( $link_id, 'link_category', ['fields' => 'ids'] );\n \n \treturn array_unique( $cats );\n }\n@@ -144,7 +144,7 @@\n function wp_insert_link( $linkdata, $wp_error = false ) {\n \tglobal $wpdb;\n \n-\t$defaults = array( 'link_id' => 0, 'link_name' => '', 'link_url' => '', 'link_rating' => 0 );\n+\t$defaults = [ 'link_id' => 0, 'link_name' => '', 'link_url' => '', 'link_rating' => 0 ];\n \n \t$args = wp_parse_args( $linkdata, $defaults );\n \t$r = wp_unslash( sanitize_bookmark( $args, 'db' ) );\n@@ -158,8 +158,8 @@\n \t\t$update = true;\n \t}\n \n-\tif ( trim( $link_name ) == '' ) {\n-\t\tif ( trim( $link_url ) != '' ) {\n+\tif ( trim( (string) $link_name ) == '' ) {\n+\t\tif ( trim( (string) $link_url ) != '' ) {\n \t\t\t$link_name = $link_url;\n \t\t} else {\n \t\t\treturn 0;\n@@ -166,7 +166,7 @@\n \t\t}\n \t}\n \n-\tif ( trim( $link_url ) == '' ) {\n+\tif ( trim( (string) $link_url ) == '' ) {\n \t\treturn 0;\n \t}\n \n@@ -179,11 +179,11 @@\n \t$link_description = ( ! empty( $r['link_description'] ) ) ? $r['link_description'] : '';\n \t$link_rss         = ( ! empty( $r['link_rss'] ) ) ? $r['link_rss'] : '';\n \t$link_rel         = ( ! empty( $r['link_rel'] ) ) ? $r['link_rel'] : '';\n-\t$link_category    = ( ! empty( $r['link_category'] ) ) ? $r['link_category'] : array();\n+\t$link_category    = ( ! empty( $r['link_category'] ) ) ? $r['link_category'] : [];\n \n \t// Make sure we set a valid category\n \tif ( ! is_array( $link_category ) || 0 == count( $link_category ) ) {\n-\t\t$link_category = array( get_option( 'default_link_category' ) );\n+\t\t$link_category = [ get_option( 'default_link_category' ) ];\n \t}\n \n \tif ( $update ) {\n@@ -239,10 +239,10 @@\n  * @param int $link_id ID of link to update\n  * @param array $link_categories Array of categories to\n  */\n-function wp_set_link_cats( $link_id = 0, $link_categories = array() ) {\n+function wp_set_link_cats( $link_id = 0, $link_categories = [] ) {\n \t// If $link_categories isn't already an array, make it one:\n \tif ( !is_array( $link_categories ) || 0 == count( $link_categories ) )\n-\t\t$link_categories = array( get_option( 'default_link_category' ) );\n+\t\t$link_categories = [ get_option( 'default_link_category' ) ];\n \n \t$link_categories = array_map( 'intval', $link_categories );\n \t$link_categories = array_unique( $link_categories );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/211_bookmark.php"
+    ]
+  }
+}

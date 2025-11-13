@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\252_class-wp-links-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_71": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 117
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:19.330324",
+    "file_size_kb": 6.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/252_class-wp-links-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -19,11 +19,11 @@\n \t *\n \t * @param array $args An associative array of arguments.\n \t */\n-\tpublic function __construct( $args = array() ) {\n-\t\tparent::__construct( array(\n+\tpublic function __construct( $args = [] ) {\n+\t\tparent::__construct( [\n \t\t\t'plural' => 'bookmarks',\n-\t\t\t'screen' => isset( $args['screen'] ) ? $args['screen'] : null,\n-\t\t) );\n+\t\t\t'screen' => $args['screen'] ?? null,\n+\t\t] );\n \t}\n \n \tpublic function ajax_user_can() {\n@@ -33,9 +33,9 @@\n \tpublic function prepare_items() {\n \t\tglobal $cat_id, $s, $orderby, $order;\n \n-\t\twp_reset_vars( array( 'action', 'cat_id', 'link_id', 'orderby', 'order', 's' ) );\n+\t\twp_reset_vars( [ 'action', 'cat_id', 'link_id', 'orderby', 'order', 's' ] );\n \n-\t\t$args = array( 'hide_invisible' => 0, 'hide_empty' => 0 );\n+\t\t$args = [ 'hide_invisible' => 0, 'hide_empty' => 0 ];\n \n \t\tif ( 'all' != $cat_id )\n \t\t\t$args['category'] = $cat_id;\n@@ -54,7 +54,7 @@\n \t}\n \n \tprotected function get_bulk_actions() {\n-\t\t$actions = array();\n+\t\t$actions = [];\n \t\t$actions['delete'] = __( 'Delete' );\n \n \t\treturn $actions;\n@@ -68,7 +68,7 @@\n ?>\n \t\t<div class=\"alignleft actions\">\n <?php\n-\t\t\t$dropdown_options = array(\n+\t\t\t$dropdown_options = [\n \t\t\t\t'selected' => $cat_id,\n \t\t\t\t'name' => 'cat_id',\n \t\t\t\t'taxonomy' => 'link_category',\n@@ -77,9 +77,9 @@\n \t\t\t\t'hierarchical' => 1,\n \t\t\t\t'show_count' => 0,\n \t\t\t\t'orderby' => 'name',\n-\t\t\t);\n+\t\t\t];\n \t\t\twp_dropdown_categories( $dropdown_options );\n-\t\t\tsubmit_button( __( 'Filter' ), 'button', 'filter_action', false, array( 'id' => 'post-query-submit' ) );\n+\t\t\tsubmit_button( __( 'Filter' ), 'button', 'filter_action', false, [ 'id' => 'post-query-submit' ] );\n ?>\n \t\t</div>\n <?php\n@@ -86,7 +86,7 @@\n \t}\n \n \tpublic function get_columns() {\n-\t\treturn array(\n+\t\treturn [\n \t\t\t'cb'         => '<input type=\"checkbox\" />',\n \t\t\t'name'       => _x( 'Name', 'link name' ),\n \t\t\t'url'        => __( 'URL' ),\n@@ -94,16 +94,16 @@\n \t\t\t'rel'        => __( 'Relationship' ),\n \t\t\t'visible'    => __( 'Visible' ),\n \t\t\t'rating'     => __( 'Rating' )\n-\t\t);\n+\t\t];\n \t}\n \n \tprotected function get_sortable_columns() {\n-\t\treturn array(\n+\t\treturn [\n \t\t\t'name'    => 'name',\n \t\t\t'url'     => 'url',\n \t\t\t'visible' => 'visible',\n \t\t\t'rating'  => 'rating'\n-\t\t);\n+\t\t];\n \t}\n \n \tpublic function display_rows() {\n@@ -127,7 +127,7 @@\n \t\t<tr id=\"link-<?php echo $link->link_id; ?>\" <?php echo $style; ?>>\n <?php\n \n-\t\t\tlist( $columns, $hidden ) = $this->get_column_info();\n+\t\t\t[$columns, $hidden] = $this->get_column_info();\n \n \t\t\tforeach ( $columns as $column_name => $column_display_name ) {\n \t\t\t\t$class = \"class='column-$column_name'\";\n@@ -150,7 +150,7 @@\n \t\t\t\t\tcase 'name':\n \t\t\t\t\t\techo \"<td $attributes><strong><a class='row-title' href='$edit_link' title='\" . esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;' ), $link->link_name ) ) . \"'>$link->link_name</a></strong><br />\";\n \n-\t\t\t\t\t\t$actions = array();\n+\t\t\t\t\t\t$actions = [];\n \t\t\t\t\t\t$actions['edit'] = '<a href=\"' . $edit_link . '\">' . __( 'Edit' ) . '</a>';\n \t\t\t\t\t\t$actions['delete'] = \"<a class='submitdelete' href='\" . wp_nonce_url( \"link.php?action=delete&amp;link_id=$link->link_id\", 'delete-bookmark_' . $link->link_id ) . \"' onclick=\\\"if ( confirm( '\" . esc_js( sprintf( __( \"You are about to delete this link '%s'\\n  'Cancel' to stop, 'OK' to delete.\" ), $link->link_name ) ) . \"' ) ) { return true;}return false;\\\">\" . __( 'Delete' ) . \"</a>\";\n \t\t\t\t\t\techo $this->row_actions( $actions );\n@@ -162,7 +162,7 @@\n \t\t\t\t\t\tbreak;\n \t\t\t\t\tcase 'categories':\n \t\t\t\t\t\t?><td <?php echo $attributes ?>><?php\n-\t\t\t\t\t\t$cat_names = array();\n+\t\t\t\t\t\t$cat_names = [];\n \t\t\t\t\t\tforeach ( $link->link_category as $category ) {\n \t\t\t\t\t\t\t$cat = get_term( $category, 'link_category', OBJECT, 'display' );\n \t\t\t\t\t\t\tif ( is_wp_error( $cat ) )\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/252_class-wp-links-list-table.php"
+    ]
+  }
+}

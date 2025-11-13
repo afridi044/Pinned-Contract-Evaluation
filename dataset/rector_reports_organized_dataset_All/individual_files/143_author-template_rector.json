@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\143_author-template.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 59
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:32.146356",
+    "file_size_kb": 14.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/143_author-template.php",
+        "diff": "--- Original\n+++ New\n@@ -116,15 +116,15 @@\n function get_the_author_meta( $field = '', $user_id = false ) {\n \tif ( ! $user_id ) {\n \t\tglobal $authordata;\n-\t\t$user_id = isset( $authordata->ID ) ? $authordata->ID : 0;\n+\t\t$user_id = $authordata->ID ?? 0;\n \t} else {\n \t\t$authordata = get_userdata( $user_id );\n \t}\n \n-\tif ( in_array( $field, array( 'login', 'pass', 'nicename', 'email', 'url', 'registered', 'activation_key', 'status' ) ) )\n+\tif ( in_array( $field, [ 'login', 'pass', 'nicename', 'email', 'url', 'registered', 'activation_key', 'status' ] ) )\n \t\t$field = 'user_' . $field;\n \n-\t$value = isset( $authordata->$field ) ? $authordata->$field : '';\n+\t$value = $authordata->$field ?? '';\n \n \t/**\n \t * Filter the value of the requested user metadata.\n@@ -337,23 +337,23 @@\n function wp_list_authors( $args = '' ) {\n \tglobal $wpdb;\n \n-\t$defaults = array(\n+\t$defaults = [\n \t\t'orderby' => 'name', 'order' => 'ASC', 'number' => '',\n \t\t'optioncount' => false, 'exclude_admin' => true,\n \t\t'show_fullname' => false, 'hide_empty' => true,\n \t\t'feed' => '', 'feed_image' => '', 'feed_type' => '', 'echo' => true,\n \t\t'style' => 'list', 'html' => true, 'exclude' => '', 'include' => ''\n-\t);\n+\t];\n \n \t$args = wp_parse_args( $args, $defaults );\n \n \t$return = '';\n \n-\t$query_args = wp_array_slice_assoc( $args, array( 'orderby', 'order', 'number', 'exclude', 'include' ) );\n+\t$query_args = wp_array_slice_assoc( $args, [ 'orderby', 'order', 'number', 'exclude', 'include' ] );\n \t$query_args['fields'] = 'ids';\n \t$authors = get_users( $query_args );\n \n-\t$author_count = array();\n+\t$author_count = [];\n \tforeach ( (array) $wpdb->get_results( \"SELECT DISTINCT post_author, COUNT(ID) AS count FROM $wpdb->posts WHERE post_type = 'post' AND \" . get_private_posts_cap_sql( 'post' ) . \" GROUP BY post_author\" ) as $row ) {\n \t\t$author_count[$row->post_author] = $row->count;\n \t}\n@@ -364,7 +364,7 @@\n \t\t\tcontinue;\n \t\t}\n \n-\t\t$posts = isset( $author_count[$author->ID] ) ? $author_count[$author->ID] : 0;\n+\t\t$posts = $author_count[$author->ID] ?? 0;\n \n \t\tif ( ! $posts && $args['hide_empty'] ) {\n \t\t\tcontinue;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/143_author-template.php"
+    ]
+  }
+}

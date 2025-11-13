@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\287_File.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 68
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:47.834109",
+    "file_size_kb": 4.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/287_File.php",
+        "diff": "--- Original\n+++ New\n@@ -51,28 +51,6 @@\n class SimplePie_Cache_File implements SimplePie_Cache_Base\n {\n \t/**\n-\t * Location string\n-\t *\n-\t * @see SimplePie::$cache_location\n-\t * @var string\n-\t */\n-\tprotected $location;\n-\n-\t/**\n-\t * Filename\n-\t *\n-\t * @var string\n-\t */\n-\tprotected $filename;\n-\n-\t/**\n-\t * File extension\n-\t *\n-\t * @var string\n-\t */\n-\tprotected $extension;\n-\n-\t/**\n \t * File path\n \t *\n \t * @var string\n@@ -80,17 +58,25 @@\n \tprotected $name;\n \n \t/**\n-\t * Create a new cache object\n-\t *\n-\t * @param string $location Location string (from SimplePie::$cache_location)\n-\t * @param string $name Unique ID for the cache\n-\t * @param string $type Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data\n-\t */\n-\tpublic function __construct($location, $name, $type)\n+     * Create a new cache object\n+     *\n+     * @param string $location Location string (from SimplePie::$cache_location)\n+     * @param string $filename Unique ID for the cache\n+     * @param string $extension Either TYPE_FEED for SimplePie data, or TYPE_IMAGE for image data\n+     */\n+    public function __construct(/**\n+     * Location string\n+     *\n+     * @see SimplePie::$cache_location\n+     */\n+    protected $location, /**\n+     * Filename\n+     */\n+    protected $filename, /**\n+     * File extension\n+     */\n+    protected $extension)\n \t{\n-\t\t$this->location = $location;\n-\t\t$this->filename = $name;\n-\t\t$this->extension = $type;\n \t\t$this->name = \"$this->location/$this->filename.$this->extension\";\n \t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/287_File.php"
+    ]
+  }
+}

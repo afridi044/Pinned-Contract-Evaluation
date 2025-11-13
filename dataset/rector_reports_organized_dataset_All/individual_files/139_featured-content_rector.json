@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\139_featured-content.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_55": 1,
+      "php_70": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 200
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:20.310164",
+    "file_size_kb": 14.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/139_featured-content.php",
+        "diff": "--- Original\n+++ New\n@@ -39,7 +39,7 @@\n \t * @since Twenty Fourteen 1.0\n \t */\n \tpublic static function setup() {\n-\t\tadd_action( 'init', array( __CLASS__, 'init' ), 30 );\n+\t\tadd_action( 'init', self::init(...), 30 );\n \t}\n \n \t/**\n@@ -83,15 +83,15 @@\n \t\t\tself::$max_posts = absint( $theme_support[0]['max_posts'] );\n \t\t}\n \n-\t\tadd_filter( $filter,                              array( __CLASS__, 'get_featured_posts' )    );\n-\t\tadd_action( 'customize_register',                 array( __CLASS__, 'customize_register' ), 9 );\n-\t\tadd_action( 'admin_init',                         array( __CLASS__, 'register_setting'   )    );\n-\t\tadd_action( 'switch_theme',                       array( __CLASS__, 'delete_transient'   )    );\n-\t\tadd_action( 'save_post',                          array( __CLASS__, 'delete_transient'   )    );\n-\t\tadd_action( 'delete_post_tag',                    array( __CLASS__, 'delete_post_tag'    )    );\n-\t\tadd_action( 'customize_controls_enqueue_scripts', array( __CLASS__, 'enqueue_scripts'    )    );\n-\t\tadd_action( 'pre_get_posts',                      array( __CLASS__, 'pre_get_posts'      )    );\n-\t\tadd_action( 'wp_loaded',                          array( __CLASS__, 'wp_loaded'          )    );\n+\t\tadd_filter( $filter,                              self::get_featured_posts(...)    );\n+\t\tadd_action( 'customize_register',                 self::customize_register(...), 9 );\n+\t\tadd_action( 'admin_init',                         self::register_setting(...)    );\n+\t\tadd_action( 'switch_theme',                       self::delete_transient(...)    );\n+\t\tadd_action( 'save_post',                          self::delete_transient(...)    );\n+\t\tadd_action( 'delete_post_tag',                    self::delete_post_tag(...)    );\n+\t\tadd_action( 'customize_controls_enqueue_scripts', self::enqueue_scripts(...)    );\n+\t\tadd_action( 'pre_get_posts',                      self::pre_get_posts(...)    );\n+\t\tadd_action( 'wp_loaded',                          self::wp_loaded(...)    );\n \t}\n \n \t/**\n@@ -106,8 +106,8 @@\n \t */\n \tpublic static function wp_loaded() {\n \t\tif ( self::get_setting( 'hide-tag' ) ) {\n-\t\t\tadd_filter( 'get_terms',     array( __CLASS__, 'hide_featured_term'     ), 10, 3 );\n-\t\t\tadd_filter( 'get_the_terms', array( __CLASS__, 'hide_the_featured_term' ), 10, 3 );\n+\t\t\tadd_filter( 'get_terms',     self::hide_featured_term(...), 10, 3 );\n+\t\t\tadd_filter( 'get_the_terms', self::hide_the_featured_term(...), 10, 3 );\n \t\t}\n \t}\n \n@@ -125,13 +125,13 @@\n \n \t\t// No need to query if there is are no featured posts.\n \t\tif ( empty( $post_ids ) ) {\n-\t\t\treturn array();\n+\t\t\treturn [];\n \t\t}\n \n-\t\t$featured_posts = get_posts( array(\n+\t\t$featured_posts = get_posts( [\n \t\t\t'include'        => $post_ids,\n \t\t\t'posts_per_page' => count( $post_ids ),\n-\t\t) );\n+\t\t] );\n \n \t\treturn $featured_posts;\n \t}\n@@ -160,18 +160,18 @@\n \n \t\t\tif ( $term ) {\n \t\t\t\t// Query for featured posts.\n-\t\t\t\t$featured_ids = get_posts( array(\n+\t\t\t\t$featured_ids = get_posts( [\n \t\t\t\t\t'fields'           => 'ids',\n \t\t\t\t\t'numberposts'      => self::$max_posts,\n \t\t\t\t\t'suppress_filters' => false,\n-\t\t\t\t\t'tax_query'        => array(\n-\t\t\t\t\t\tarray(\n+\t\t\t\t\t'tax_query'        => [\n+\t\t\t\t\t\t[\n \t\t\t\t\t\t\t'field'    => 'term_id',\n \t\t\t\t\t\t\t'taxonomy' => 'post_tag',\n \t\t\t\t\t\t\t'terms'    => $term->term_id,\n-\t\t\t\t\t\t),\n-\t\t\t\t\t),\n-\t\t\t\t) );\n+\t\t\t\t\t\t],\n+\t\t\t\t\t],\n+\t\t\t\t] );\n \t\t\t}\n \n \t\t\t// Get sticky posts if no Featured Content exists.\n@@ -196,7 +196,7 @@\n \t * @return array Array of sticky posts.\n \t */\n \tpublic static function get_sticky_posts() {\n-\t\treturn array_slice( get_option( 'sticky_posts', array() ), 0, self::$max_posts );\n+\t\treturn array_slice( get_option( 'sticky_posts', [] ), 0, self::$max_posts );\n \t}\n \n \t/**\n@@ -388,7 +388,7 @@\n \t * @since Twenty Fourteen 1.0\n \t */\n \tpublic static function register_setting() {\n-\t\tregister_setting( 'featured-content', 'featured-content', array( __CLASS__, 'validate_settings' ) );\n+\t\tregister_setting( 'featured-content', 'featured-content', self::validate_settings(...) );\n \t}\n \n \t/**\n@@ -401,7 +401,7 @@\n \t * @param WP_Customize_Manager $wp_customize Theme Customizer object.\n \t */\n \tpublic static function customize_register( $wp_customize ) {\n-\t\t$wp_customize->add_section( 'featured_content', array(\n+\t\t$wp_customize->add_section( 'featured_content', [\n \t\t\t'title'          => __( 'Featured Content', 'twentyfourteen' ),\n \t\t\t'description'    => sprintf( __( 'Use a <a href=\"%1$s\">tag</a> to feature your posts. If no posts match the tag, <a href=\"%2$s\">sticky posts</a> will be displayed instead.', 'twentyfourteen' ),\n \t\t\t\tesc_url( add_query_arg( 'tag', _x( 'featured', 'featured content default tag slug', 'twentyfourteen' ), admin_url( 'edit.php' ) ) ),\n@@ -409,32 +409,32 @@\n \t\t\t),\n \t\t\t'priority'       => 130,\n \t\t\t'theme_supports' => 'featured-content',\n-\t\t) );\n+\t\t] );\n \n \t\t// Add Featured Content settings.\n-\t\t$wp_customize->add_setting( 'featured-content[tag-name]', array(\n+\t\t$wp_customize->add_setting( 'featured-content[tag-name]', [\n \t\t\t'default'              => _x( 'featured', 'featured content default tag slug', 'twentyfourteen' ),\n \t\t\t'type'                 => 'option',\n-\t\t\t'sanitize_js_callback' => array( __CLASS__, 'delete_transient' ),\n-\t\t) );\n-\t\t$wp_customize->add_setting( 'featured-content[hide-tag]', array(\n+\t\t\t'sanitize_js_callback' => self::delete_transient(...),\n+\t\t] );\n+\t\t$wp_customize->add_setting( 'featured-content[hide-tag]', [\n \t\t\t'default'              => true,\n \t\t\t'type'                 => 'option',\n-\t\t\t'sanitize_js_callback' => array( __CLASS__, 'delete_transient' ),\n-\t\t) );\n+\t\t\t'sanitize_js_callback' => self::delete_transient(...),\n+\t\t] );\n \n \t\t// Add Featured Content controls.\n-\t\t$wp_customize->add_control( 'featured-content[tag-name]', array(\n+\t\t$wp_customize->add_control( 'featured-content[tag-name]', [\n \t\t\t'label'    => __( 'Tag Name', 'twentyfourteen' ),\n \t\t\t'section'  => 'featured_content',\n \t\t\t'priority' => 20,\n-\t\t) );\n-\t\t$wp_customize->add_control( 'featured-content[hide-tag]', array(\n+\t\t] );\n+\t\t$wp_customize->add_control( 'featured-content[hide-tag]', [\n \t\t\t'label'    => __( 'Don&rsquo;t display tag on front end.', 'twentyfourteen' ),\n \t\t\t'section'  => 'featured_content',\n \t\t\t'type'     => 'checkbox',\n \t\t\t'priority' => 30,\n-\t\t) );\n+\t\t] );\n \t}\n \n \t/**\n@@ -445,7 +445,7 @@\n \t * @since Twenty Fourteen 1.0\n \t */\n \tpublic static function enqueue_scripts() {\n-\t\twp_enqueue_script( 'featured-content-suggest', get_template_directory_uri() . '/js/featured-content-admin.js', array( 'jquery', 'suggest' ), '20131022', true );\n+\t\twp_enqueue_script( 'featured-content-suggest', get_template_directory_uri() . '/js/featured-content-admin.js', [ 'jquery', 'suggest' ], '20131022', true );\n \t}\n \n \t/**\n@@ -470,17 +470,17 @@\n \tpublic static function get_setting( $key = 'all' ) {\n \t\t$saved = (array) get_option( 'featured-content' );\n \n-\t\t$defaults = array(\n+\t\t$defaults = [\n \t\t\t'hide-tag' => 1,\n \t\t\t'tag-id'   => 0,\n \t\t\t'tag-name' => _x( 'featured', 'featured content default tag slug', 'twentyfourteen' ),\n-\t\t);\n+\t\t];\n \n \t\t$options = wp_parse_args( $saved, $defaults );\n \t\t$options = array_intersect_key( $options, $defaults );\n \n \t\tif ( 'all' != $key ) {\n-\t\t\treturn isset( $options[ $key ] ) ? $options[ $key ] : false;\n+\t\t\treturn $options[ $key ] ?? false;\n \t\t}\n \n \t\treturn $options;\n@@ -501,7 +501,7 @@\n \t * @return array Validated settings output.\n \t */\n \tpublic static function validate_settings( $input ) {\n-\t\t$output = array();\n+\t\t$output = [];\n \n \t\tif ( empty( $input['tag-name'] ) ) {\n \t\t\t$output['tag-id'] = 0;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/139_featured-content.php"
+    ]
+  }
+}

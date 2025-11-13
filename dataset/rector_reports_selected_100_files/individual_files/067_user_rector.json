@@ -1,0 +1,47 @@
+{
+  "file_path": "selected_100_files\\medium_201_500\\067_user.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 117
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:27:55.969053",
+    "file_size_kb": 14.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/medium_201_500/067_user.php",
+        "diff": "--- Original\n+++ New\n@@ -50,7 +50,7 @@\n \n \tif ( isset( $_POST['role'] ) && current_user_can( 'edit_users' ) ) {\n \t\t$new_role = sanitize_text_field( $_POST['role'] );\n-\t\t$potential_role = isset($wp_roles->role_objects[$new_role]) ? $wp_roles->role_objects[$new_role] : false;\n+\t\t$potential_role = $wp_roles->role_objects[$new_role] ?? false;\n \t\t// Don't let anyone with 'edit_users' (admins) edit their own role to something without it.\n \t\t// Multisite super admins can freely edit their blog roles -- they possess all caps.\n \t\tif ( ( is_multisite() && current_user_can( 'manage_sites' ) ) || $user_id != get_current_user_id() || ($potential_role && $potential_role->has_cap( 'edit_users' ) ) )\n@@ -83,7 +83,7 @@\n \t\t$user->display_name = sanitize_text_field( $_POST['display_name'] );\n \n \tif ( isset( $_POST['description'] ) )\n-\t\t$user->description = trim( $_POST['description'] );\n+\t\t$user->description = trim( (string) $_POST['description'] );\n \n \tforeach ( wp_get_user_contact_methods( $user ) as $method => $name ) {\n \t\tif ( isset( $_POST[$method] ))\n@@ -118,27 +118,27 @@\n \t * @param string &$pass1     The password, passed by reference.\n \t * @param string &$pass2     The confirmed password, passed by reference.\n \t */\n-\tdo_action_ref_array( 'check_passwords', array( $user->user_login, &$pass1, &$pass2 ) );\n+\tdo_action_ref_array( 'check_passwords', [ $user->user_login, &$pass1, &$pass2 ] );\n \n \tif ( $update ) {\n \t\tif ( empty($pass1) && !empty($pass2) )\n-\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: You entered your new password only once.' ), array( 'form-field' => 'pass1' ) );\n+\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: You entered your new password only once.' ), [ 'form-field' => 'pass1' ] );\n \t\telseif ( !empty($pass1) && empty($pass2) )\n-\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: You entered your new password only once.' ), array( 'form-field' => 'pass2' ) );\n+\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: You entered your new password only once.' ), [ 'form-field' => 'pass2' ] );\n \t} else {\n \t\tif ( empty($pass1) )\n-\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter your password.' ), array( 'form-field' => 'pass1' ) );\n+\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter your password.' ), [ 'form-field' => 'pass1' ] );\n \t\telseif ( empty($pass2) )\n-\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter your password twice.' ), array( 'form-field' => 'pass2' ) );\n+\t\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter your password twice.' ), [ 'form-field' => 'pass2' ] );\n \t}\n \n \t/* Check for \"\\\" in password */\n-\tif ( false !== strpos( wp_unslash( $pass1 ), \"\\\\\" ) )\n-\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Passwords may not contain the character \"\\\\\".' ), array( 'form-field' => 'pass1' ) );\n+\tif ( str_contains( wp_unslash( $pass1 ), \"\\\\\" ) )\n+\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Passwords may not contain the character \"\\\\\".' ), [ 'form-field' => 'pass1' ] );\n \n \t/* checking the password has been typed twice the same */\n \tif ( $pass1 != $pass2 )\n-\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter the same password in the two password fields.' ), array( 'form-field' => 'pass1' ) );\n+\t\t$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter the same password in the two password fields.' ), [ 'form-field' => 'pass1' ] );\n \n \tif ( !empty( $pass1 ) )\n \t\t$user->user_pass = $pass1;\n@@ -151,11 +151,11 @@\n \n \t/* checking e-mail address */\n \tif ( empty( $user->user_email ) ) {\n-\t\t$errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an e-mail address.' ), array( 'form-field' => 'email' ) );\n+\t\t$errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an e-mail address.' ), [ 'form-field' => 'email' ] );\n \t} elseif ( !is_email( $user->user_email ) ) {\n-\t\t$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address isn&#8217;t correct.' ), array( 'form-field' => 'email' ) );\n+\t\t$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address isn&#8217;t correct.' ), [ 'form-field' => 'email' ] );\n \t} elseif ( ( $owner_id = email_exists($user->user_email) ) && ( !$update || ( $owner_id != $user->ID ) ) ) {\n-\t\t$errors->add( 'email_exists', __('<strong>ERROR</strong>: This email is already registered, please choose another one.'), array( 'form-field' => 'email' ) );\n+\t\t$errors->add( 'email_exists', __('<strong>ERROR</strong>: This email is already registered, please choose another one.'), [ 'form-field' => 'email' ] );\n \t}\n \n \t/**\n@@ -167,7 +167,7 @@\n \t * @param bool    $update  Whether this is a user update.\n \t * @param WP_User &$user   WP_User object, passed by reference.\n \t */\n-\tdo_action_ref_array( 'user_profile_update_errors', array( &$errors, $update, &$user ) );\n+\tdo_action_ref_array( 'user_profile_update_errors', [ &$errors, $update, &$user ] );\n \n \tif ( $errors->get_error_codes() )\n \t\treturn $errors;\n@@ -296,8 +296,8 @@\n \tdo_action( 'delete_user', $id, $reassign );\n \n \tif ( null === $reassign ) {\n-\t\t$post_types_to_delete = array();\n-\t\tforeach ( get_post_types( array(), 'objects' ) as $post_type ) {\n+\t\t$post_types_to_delete = [];\n+\t\tforeach ( get_post_types( [], 'objects' ) as $post_type ) {\n \t\t\tif ( $post_type->delete_with_user ) {\n \t\t\t\t$post_types_to_delete[] = $post_type->name;\n \t\t\t} elseif ( null === $post_type->delete_with_user && post_type_supports( $post_type->name, 'author' ) ) {\n@@ -330,13 +330,13 @@\n \t\t}\n \t} else {\n \t\t$post_ids = $wpdb->get_col( $wpdb->prepare( \"SELECT ID FROM $wpdb->posts WHERE post_author = %d\", $id ) );\n-\t\t$wpdb->update( $wpdb->posts, array('post_author' => $reassign), array('post_author' => $id) );\n+\t\t$wpdb->update( $wpdb->posts, ['post_author' => $reassign], ['post_author' => $id] );\n \t\tif ( ! empty( $post_ids ) ) {\n \t\t\tforeach ( $post_ids as $post_id )\n \t\t\t\tclean_post_cache( $post_id );\n \t\t}\n \t\t$link_ids = $wpdb->get_col( $wpdb->prepare(\"SELECT link_id FROM $wpdb->links WHERE link_owner = %d\", $id) );\n-\t\t$wpdb->update( $wpdb->links, array('link_owner' => $reassign), array('link_owner' => $id) );\n+\t\t$wpdb->update( $wpdb->links, ['link_owner' => $reassign], ['link_owner' => $id] );\n \t\tif ( ! empty( $link_ids ) ) {\n \t\t\tforeach ( $link_ids as $link_id )\n \t\t\t\tclean_bookmark_cache( $link_id );\n@@ -351,7 +351,7 @@\n \t\tforeach ( $meta as $mid )\n \t\t\tdelete_metadata_by_mid( 'user', $mid );\n \n-\t\t$wpdb->delete( $wpdb->users, array( 'ID' => $id ) );\n+\t\t$wpdb->delete( $wpdb->users, [ 'ID' => $id ] );\n \t}\n \n \tclean_user_cache( $user );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/medium_201_500/067_user.php"
+    ]
+  }
+}

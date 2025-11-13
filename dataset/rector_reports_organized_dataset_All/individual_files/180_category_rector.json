@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\180_category.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:15.659946",
+    "file_size_kb": 10.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/180_category.php",
+        "diff": "--- Original\n+++ New\n@@ -20,7 +20,7 @@\n  * @return array List of categories.\n  */\n function get_categories( $args = '' ) {\n-\t$defaults = array( 'taxonomy' => 'category' );\n+\t$defaults = [ 'taxonomy' => 'category' ];\n \t$args = wp_parse_args( $args, $defaults );\n \n \t$taxonomy = $args['taxonomy'];\n@@ -111,7 +111,7 @@\n \tforeach ( (array) $category_paths as $pathdir )\n \t\t$full_path .= ( $pathdir != '' ? '/' : '' ) . sanitize_title( $pathdir );\n \n-\t$categories = get_terms( 'category', array('get' => 'all', 'slug' => $leaf_path) );\n+\t$categories = get_terms( 'category', ['get' => 'all', 'slug' => $leaf_path] );\n \n \tif ( empty( $categories ) )\n \t\treturn null;\n@@ -252,7 +252,7 @@\n \t$tags = get_terms( 'post_tag', $args );\n \n \tif ( empty( $tags ) ) {\n-\t\t$return = array();\n+\t\t$return = [];\n \t\treturn $return;\n \t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/180_category.php"
+    ]
+  }
+}

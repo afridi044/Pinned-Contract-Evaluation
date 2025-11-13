@@ -1,0 +1,44 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\085_async-upload.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 27
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:28:47.004979",
+    "file_size_kb": 4.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/085_async-upload.php",
+        "diff": "--- Original\n+++ New\n@@ -17,7 +17,7 @@\n if ( defined('ABSPATH') )\n \trequire_once(ABSPATH . 'wp-load.php');\n else\n-\trequire_once( dirname( dirname( __FILE__ ) ) . '/wp-load.php' );\n+\trequire_once( dirname(__FILE__, 2) . '/wp-load.php' );\n \n if ( ! ( isset( $_REQUEST['action'] ) && 'upload-attachment' == $_REQUEST['action'] ) ) {\n \t// Flash often fails to send cookies with the POST or upload, so we need to pass it in GET or POST instead\n@@ -60,12 +60,12 @@\n \t\t\tif ( $thumb_url = wp_get_attachment_image_src( $id, 'thumbnail', true ) )\n \t\t\t\techo '<img class=\"pinkynail\" src=\"' . esc_url( $thumb_url[0] ) . '\" alt=\"\" />';\n \t\t\techo '<a class=\"edit-attachment\" href=\"' . esc_url( get_edit_post_link( $id ) ) . '\" target=\"_blank\">' . _x( 'Edit', 'media item' ) . '</a>';\n-\t\t\t$title = $post->post_title ? $post->post_title : wp_basename( $post->guid ); // title shouldn't ever be empty, but use filename just in cas.e\n+\t\t\t$title = $post->post_title ?: wp_basename( $post->guid ); // title shouldn't ever be empty, but use filename just in cas.e\n \t\t\techo '<div class=\"filename new\"><span class=\"title\">' . esc_html( wp_html_excerpt( $title, 60, '&hellip;' ) ) . '</span></div>';\n \t\t\tbreak;\n \t\tcase 2 :\n \t\t\tadd_filter('attachment_fields_to_edit', 'media_single_attachment_fields_to_edit', 10, 2);\n-\t\t\techo get_media_item($id, array( 'send' => false, 'delete' => true ));\n+\t\t\techo get_media_item($id, [ 'send' => false, 'delete' => true ]);\n \t\t\tbreak;\n \t\tdefault:\n \t\t\tadd_filter('attachment_fields_to_edit', 'media_post_single_attachment_fields_to_edit', 10, 2);\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/085_async-upload.php"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "file_path": "organized_dataset_All\\123_custom-background.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 113
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:06:32.062611",
+    "file_size_kb": 16.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/123_custom-background.php",
+        "diff": "--- Original\n+++ New\n@@ -54,8 +54,8 @@\n \t\t$this->admin_header_callback = $admin_header_callback;\n \t\t$this->admin_image_div_callback = $admin_image_div_callback;\n \n-\t\tadd_action( 'admin_menu', array( $this, 'init' ) );\n-\t\tadd_action( 'wp_ajax_set-background-image', array( $this, 'wp_set_background_image' ) );\n+\t\tadd_action( 'admin_menu', $this->init(...) );\n+\t\tadd_action( 'wp_ajax_set-background-image', $this->wp_set_background_image(...) );\n \t}\n \n \t/**\n@@ -119,11 +119,11 @@\n \t\tif ( ! current_user_can('edit_theme_options') )\n \t\t\treturn;\n \n-\t\t$this->page = $page = add_theme_page(__('Background'), __('Background'), 'edit_theme_options', 'custom-background', array($this, 'admin_page'));\n+\t\t$this->page = $page = add_theme_page(__('Background'), __('Background'), 'edit_theme_options', 'custom-background', $this->admin_page(...));\n \n-\t\tadd_action(\"load-$page\", array($this, 'admin_load'));\n-\t\tadd_action(\"load-$page\", array($this, 'take_action'), 49);\n-\t\tadd_action(\"load-$page\", array($this, 'handle_upload'), 49);\n+\t\tadd_action(\"load-$page\", $this->admin_load(...));\n+\t\tadd_action(\"load-$page\", $this->take_action(...), 49);\n+\t\tadd_action(\"load-$page\", $this->handle_upload(...), 49);\n \n \t\tif ( $this->admin_header_callback )\n \t\t\tadd_action(\"admin_head-$page\", $this->admin_header_callback, 51);\n@@ -135,7 +135,7 @@\n \t * @since 3.0.0\n \t */\n \tpublic function admin_load() {\n-\t\tget_current_screen()->add_help_tab( array(\n+\t\tget_current_screen()->add_help_tab( [\n \t\t\t'id'      => 'overview',\n \t\t\t'title'   => __('Overview'),\n \t\t\t'content' =>\n@@ -143,7 +143,7 @@\n \t\t\t\t'<p>' . __( 'To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site.' ) . '</p>' .\n \t\t\t\t'<p>' . __( 'You can also choose a background color by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker.' ) . '</p>' .\n \t\t\t\t'<p>' . __( 'Don&#8217;t forget to click on the Save Changes button when you are finished.' ) . '</p>'\n-\t\t) );\n+\t\t] );\n \n \t\tget_current_screen()->set_help_sidebar(\n \t\t\t'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .\n@@ -186,7 +186,7 @@\n \n \t\tif ( isset($_POST['background-repeat']) ) {\n \t\t\tcheck_admin_referer('custom-background');\n-\t\t\tif ( in_array($_POST['background-repeat'], array('repeat', 'no-repeat', 'repeat-x', 'repeat-y')) )\n+\t\t\tif ( in_array($_POST['background-repeat'], ['repeat', 'no-repeat', 'repeat-x', 'repeat-y']) )\n \t\t\t\t$repeat = $_POST['background-repeat'];\n \t\t\telse\n \t\t\t\t$repeat = 'repeat';\n@@ -195,7 +195,7 @@\n \n \t\tif ( isset($_POST['background-position-x']) ) {\n \t\t\tcheck_admin_referer('custom-background');\n-\t\t\tif ( in_array($_POST['background-position-x'], array('center', 'right', 'left')) )\n+\t\t\tif ( in_array($_POST['background-position-x'], ['center', 'right', 'left']) )\n \t\t\t\t$position = $_POST['background-position-x'];\n \t\t\telse\n \t\t\t\t$position = 'left';\n@@ -204,7 +204,7 @@\n \n \t\tif ( isset($_POST['background-attachment']) ) {\n \t\t\tcheck_admin_referer('custom-background');\n-\t\t\tif ( in_array($_POST['background-attachment'], array('fixed', 'scroll')) )\n+\t\t\tif ( in_array($_POST['background-attachment'], ['fixed', 'scroll']) )\n \t\t\t\t$attachment = $_POST['background-attachment'];\n \t\t\telse\n \t\t\t\t$attachment = 'fixed';\n@@ -402,7 +402,7 @@\n \t\t\treturn;\n \n \t\tcheck_admin_referer('custom-background-upload', '_wpnonce-custom-background-upload');\n-\t\t$overrides = array('test_form' => false);\n+\t\t$overrides = ['test_form' => false];\n \n \t\t$uploaded_file = $_FILES['import'];\n \t\t$wp_filetype = wp_check_filetype_and_ext( $uploaded_file['tmp_name'], $uploaded_file['name'], false );\n@@ -417,16 +417,16 @@\n \t\t$url = $file['url'];\n \t\t$type = $file['type'];\n \t\t$file = $file['file'];\n-\t\t$filename = basename($file);\n+\t\t$filename = basename((string) $file);\n \n \t\t// Construct the object array\n-\t\t$object = array(\n+\t\t$object = [\n \t\t\t'post_title' => $filename,\n \t\t\t'post_content' => $url,\n \t\t\t'post_mime_type' => $type,\n \t\t\t'guid' => $url,\n \t\t\t'context' => 'custom-background'\n-\t\t);\n+\t\t];\n \n \t\t// Save the data\n \t\t$id = wp_insert_attachment($object, $file);\n@@ -467,7 +467,7 @@\n \t\tif ( ! current_user_can('edit_theme_options') || ! isset( $_POST['attachment_id'] ) ) exit;\n \t\t$attachment_id = absint($_POST['attachment_id']);\n \t\t/** This filter is documented in wp-admin/includes/media.php */\n-\t\t$sizes = array_keys(apply_filters( 'image_size_names_choose', array('thumbnail' => __('Thumbnail'), 'medium' => __('Medium'), 'large' => __('Large'), 'full' => __('Full Size')) ));\n+\t\t$sizes = array_keys(apply_filters( 'image_size_names_choose', ['thumbnail' => __('Thumbnail'), 'medium' => __('Medium'), 'large' => __('Large'), 'full' => __('Full Size')] ));\n \t\t$size = 'thumbnail';\n \t\tif ( in_array( $_POST['size'], $sizes ) )\n \t\t\t$size = esc_attr( $_POST['size'] );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/123_custom-background.php"
+    ]
+  }
+}

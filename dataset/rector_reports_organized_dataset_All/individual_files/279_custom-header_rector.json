@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\279_custom-header.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:28.498830",
+    "file_size_kb": 4.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/279_custom-header.php",
+        "diff": "--- Original\n+++ New\n@@ -20,7 +20,7 @@\n  * @since Twenty Twelve 1.0\n  */\n function twentytwelve_custom_header_setup() {\n-\t$args = array(\n+\t$args = [\n \t\t// Text color and image (empty to use none).\n \t\t'default-text-color'     => '515151',\n \t\t'default-image'          => '',\n@@ -41,7 +41,7 @@\n \t\t'wp-head-callback'       => 'twentytwelve_header_style',\n \t\t'admin-head-callback'    => 'twentytwelve_admin_header_style',\n \t\t'admin-preview-callback' => 'twentytwelve_admin_header_image',\n-\t);\n+\t];\n \n \tadd_theme_support( 'custom-header', $args );\n }\n@@ -55,7 +55,7 @@\n function twentytwelve_custom_header_fonts() {\n \t$font_url = twentytwelve_get_font_url();\n \tif ( ! empty( $font_url ) )\n-\t\twp_enqueue_style( 'twentytwelve-fonts', esc_url_raw( $font_url ), array(), null );\n+\t\twp_enqueue_style( 'twentytwelve-fonts', esc_url_raw( $font_url ), [], null );\n }\n add_action( 'admin_print_styles-appearance_page_custom-header', 'twentytwelve_custom_header_fonts' );\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/279_custom-header.php"
+    ]
+  }
+}

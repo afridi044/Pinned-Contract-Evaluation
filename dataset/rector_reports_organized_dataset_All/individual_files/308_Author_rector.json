@@ -1,0 +1,43 @@
+{
+  "file_path": "organized_dataset_All\\308_Author.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 82
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:14:39.661674",
+    "file_size_kb": 3.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/308_Author.php",
+        "diff": "--- Original\n+++ New\n@@ -52,33 +52,9 @@\n  * @package SimplePie\n  * @subpackage API\n  */\n-class SimplePie_Author\n+class SimplePie_Author implements \\Stringable\n {\n \t/**\n-\t * Author's name\n-\t *\n-\t * @var string\n-\t * @see get_name()\n-\t */\n-\tvar $name;\n-\n-\t/**\n-\t * Author's link\n-\t *\n-\t * @var string\n-\t * @see get_link()\n-\t */\n-\tvar $link;\n-\n-\t/**\n-\t * Author's email address\n-\t *\n-\t * @var string\n-\t * @see get_email()\n-\t */\n-\tvar $email;\n-\n-\t/**\n \t * Constructor, used to input the data\n \t *\n \t * @param string $name\n@@ -85,12 +61,28 @@\n \t * @param string $link\n \t * @param string $email\n \t */\n-\tpublic function __construct($name = null, $link = null, $email = null)\n-\t{\n-\t\t$this->name = $name;\n-\t\t$this->link = $link;\n-\t\t$this->email = $email;\n-\t}\n+\tpublic function __construct(\n+        /**\n+         * Author's name\n+         *\n+         * @see get_name()\n+         */\n+        public $name = null,\n+        /**\n+         * Author's link\n+         *\n+         * @see get_link()\n+         */\n+        public $link = null,\n+        /**\n+         * Author's email address\n+         *\n+         * @see get_email()\n+         */\n+        public $email = null\n+    )\n+    {\n+    }\n \n \t/**\n \t * String-ified version\n@@ -97,7 +89,7 @@\n \t *\n \t * @return string\n \t */\n-\tpublic function __toString()\n+\tpublic function __toString(): string\n \t{\n \t\t// There is no $this->data here\n \t\treturn md5(serialize($this));\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/308_Author.php"
+    ]
+  }
+}

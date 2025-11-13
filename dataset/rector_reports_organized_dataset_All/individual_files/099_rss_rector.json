@@ -1,0 +1,50 @@
+{
+  "file_path": "organized_dataset_All\\099_rss.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\EregToPregMatchRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_71": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 206
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:05:18.878163",
+    "file_size_kb": 22.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/099_rss.php",
+        "diff": "--- Original\n+++ New\n@@ -32,30 +32,30 @@\n define('MAGPIE_USER_AGENT', 'WordPress/' . $GLOBALS['wp_version']);\n \n class MagpieRSS {\n-\tvar $parser;\n-\tvar $current_item\t= array();\t// item currently being parsed\n-\tvar $items\t\t\t= array();\t// collection of parsed items\n-\tvar $channel\t\t= array();\t// hash of channel fields\n-\tvar $textinput\t\t= array();\n-\tvar $image\t\t\t= array();\n-\tvar $feed_type;\n-\tvar $feed_version;\n+\tpublic $parser;\n+\tpublic $current_item\t= [];\t// item currently being parsed\n+\tpublic $items\t\t\t= [];\t// collection of parsed items\n+\tpublic $channel\t\t= [];\t// hash of channel fields\n+\tpublic $textinput\t\t= [];\n+\tpublic $image\t\t\t= [];\n+\tpublic $feed_type;\n+\tpublic $feed_version;\n \n \t// parser variables\n-\tvar $stack\t\t\t\t= array(); // parser stack\n-\tvar $inchannel\t\t\t= false;\n-\tvar $initem \t\t\t= false;\n-\tvar $incontent\t\t\t= false; // if in Atom <content mode=\"xml\"> field\n-\tvar $intextinput\t\t= false;\n-\tvar $inimage \t\t\t= false;\n-\tvar $current_field\t\t= '';\n-\tvar $current_namespace\t= false;\n+\tpublic $stack\t\t\t\t= []; // parser stack\n+\tpublic $inchannel\t\t\t= false;\n+\tpublic $initem \t\t\t= false;\n+\tpublic $incontent\t\t\t= false; // if in Atom <content mode=\"xml\"> field\n+\tpublic $intextinput\t\t= false;\n+\tpublic $inimage \t\t\t= false;\n+\tpublic $current_field\t\t= '';\n+\tpublic $current_namespace\t= false;\n \n \t//var $ERROR = \"\";\n \n-\tvar $_CONTENT_CONSTRUCTS = array('content', 'summary', 'info', 'title', 'tagline', 'copyright');\n+\tpublic $_CONTENT_CONSTRUCTS = ['content', 'summary', 'info', 'title', 'tagline', 'copyright'];\n \n-\tfunction MagpieRSS ($source) {\n+\tfunction __construct ($source) {\n \n \t\t# if PHP xml isn't compiled in, die\n \t\t#\n@@ -78,7 +78,7 @@\n \n \t\txml_set_character_data_handler( $this->parser, 'feed_cdata' );\n \n-\t\t$status = xml_parse( $this->parser, $source );\n+\t\t$status = xml_parse( $this->parser, (string) $source );\n \n \t\tif (! $status ) {\n \t\t\t$errorcode = xml_get_error_code( $this->parser );\n@@ -98,13 +98,13 @@\n \t}\n \n \tfunction feed_start_element($p, $element, &$attrs) {\n-\t\t$el = $element = strtolower($element);\n+\t\t$el = $element = strtolower((string) $element);\n \t\t$attrs = array_change_key_case($attrs, CASE_LOWER);\n \n \t\t// check for a namespace, and split if found\n \t\t$ns\t= false;\n \t\tif ( strpos( $element, ':' ) ) {\n-\t\t\tlist($ns, $el) = split( ':', $element, 2);\n+\t\t\t[$ns, $el] = preg_split( '#:#m', $element, 2);\n \t\t}\n \t\tif ( $ns and $ns != 'rdf' ) {\n \t\t\t$this->current_namespace = $ns;\n@@ -177,7 +177,7 @@\n \t\t{\n \t\t\t// if tags are inlined, then flatten\n \t\t\t$attrs_str = join(' ',\n-\t\t\t\t\tarray_map(array('MagpieRSS', 'map_attrs'),\n+\t\t\t\t\tarray_map(['MagpieRSS', 'map_attrs'],\n \t\t\t\t\tarray_keys($attrs),\n \t\t\t\t\tarray_values($attrs) ) );\n \n@@ -221,12 +221,12 @@\n \t}\n \n \tfunction feed_end_element ($p, $el) {\n-\t\t$el = strtolower($el);\n+\t\t$el = strtolower((string) $el);\n \n \t\tif ( $el == 'item' or $el == 'entry' )\n \t\t{\n \t\t\t$this->items[] = $this->current_item;\n-\t\t\t$this->current_item = array();\n+\t\t\t$this->current_item = [];\n \t\t\t$this->initem = false;\n \t\t}\n \t\telseif ($this->feed_type == RSS and $this->current_namespace == '' and $el == 'textinput' )\n@@ -437,7 +437,7 @@\n \t\t}\n \n \t\t$cache_status \t = 0;\t\t// response of check_cache\n-\t\t$request_headers = array(); // HTTP headers to send with fetch\n+\t\t$request_headers = []; // HTTP headers to send with fetch\n \t\t$rss \t\t\t = 0;\t\t// parsed RSS object\n \t\t$errormsg\t\t = 0;\t\t// errors, if any\n \n@@ -497,7 +497,7 @@\n \t\t\t\tif ( $resp->error ) {\n \t\t\t\t\t# compensate for Snoopy's annoying habbit to tacking\n \t\t\t\t\t# on '\\n'\n-\t\t\t\t\t$http_error = substr($resp->error, 0, -2);\n+\t\t\t\t\t$http_error = substr((string) $resp->error, 0, -2);\n \t\t\t\t\t$errormsg .= \"(HTTP Error: $http_error)\";\n \t\t\t\t}\n \t\t\t\telse {\n@@ -540,7 +540,7 @@\n  * @return Snoopy style response\n  */\n function _fetch_remote_file($url, $headers = \"\" ) {\n-\t$resp = wp_safe_remote_request( $url, array( 'headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT ) );\n+\t$resp = wp_safe_remote_request( $url, [ 'headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT ] );\n \tif ( is_wp_error($resp) ) {\n \t\t$error = array_shift($resp->errors);\n \n@@ -553,7 +553,7 @@\n \n \t// Snoopy returns headers unprocessed.\n \t// Also note, WP_HTTP lowercases all keys, Snoopy did not.\n-\t$return_headers = array();\n+\t$return_headers = [];\n \tforeach ( wp_remote_retrieve_headers( $resp ) as $key => $value ) {\n \t\tif ( !is_array($value) ) {\n \t\t\t$return_headers[] = \"$key: $value\";\n@@ -591,8 +591,8 @@\n \t\t// find Etag, and Last-Modified\n \t\tforeach( (array) $resp->headers as $h) {\n \t\t\t// 2003-03-02 - Nicola Asuni (www.tecnick.com) - fixed bug \"Undefined offset: 1\"\n-\t\t\tif (strpos($h, \": \")) {\n-\t\t\t\tlist($field, $val) = explode(\": \", $h, 2);\n+\t\t\tif (strpos((string) $h, \": \")) {\n+\t\t\t\t[$field, $val] = explode(\": \", (string) $h, 2);\n \t\t\t}\n \t\t\telse {\n \t\t\t\t$field = $h;\n@@ -705,11 +705,11 @@\n }\n \n class RSSCache {\n-\tvar $BASE_CACHE;\t// where the cache files are stored\n-\tvar $MAX_AGE\t= 43200;  \t\t// when are files stale, default twelve hours\n-\tvar $ERROR \t\t= '';\t\t\t// accumulate error messages\n+\tpublic $BASE_CACHE;\t// where the cache files are stored\n+\tpublic $MAX_AGE\t= 43200;  \t\t// when are files stale, default twelve hours\n+\tpublic $ERROR \t\t= '';\t\t\t// accumulate error messages\n \n-\tfunction RSSCache ($base='', $age='') {\n+\tfunction __construct ($base='', $age='') {\n \t\t$this->BASE_CACHE = WP_CONTENT_DIR . '/cache';\n \t\tif ( $base ) {\n \t\t\t$this->BASE_CACHE = $base;\n@@ -795,7 +795,7 @@\n \tOutput:\t\ta file name\n \\*=======================================================================*/\n \tfunction file_name ($url) {\n-\t\treturn md5( $url );\n+\t\treturn md5( (string) $url );\n \t}\n \n /*=======================================================================*\\\n@@ -828,9 +828,9 @@\n \t# regex to match wc3dtf\n \t$pat = \"/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})(:(\\d{2}))?(?:([-+])(\\d{2}):?(\\d{2})|(Z))?/\";\n \n-\tif ( preg_match( $pat, $date_str, $match ) ) {\n-\t\tlist( $year, $month, $day, $hours, $minutes, $seconds) =\n-\t\t\tarray( $match[1], $match[2], $match[3], $match[4], $match[5], $match[7]);\n+\tif ( preg_match( $pat, (string) $date_str, $match ) ) {\n+\t\t[$year, $month, $day, $hours, $minutes, $seconds] =\n+\t\t\t[ $match[1], $match[2], $match[3], $match[4], $match[5], $match[7]];\n \n \t\t# calc epoch for current date assuming GMT\n \t\t$epoch = gmmktime( $hours, $minutes, $seconds, $month, $day, $year);\n@@ -840,8 +840,8 @@\n \t\t\t# zulu time, aka GMT\n \t\t}\n \t\telse {\n-\t\t\tlist( $tz_mod, $tz_hour, $tz_min ) =\n-\t\t\t\tarray( $match[8], $match[9], $match[10]);\n+\t\t\t[$tz_mod, $tz_hour, $tz_min] =\n+\t\t\t\t[ $match[8], $match[9], $match[10]];\n \n \t\t\t# zero out the variables\n \t\t\tif ( ! $tz_hour ) { $tz_hour = 0; }\n@@ -889,7 +889,7 @@\n \t\t\tprintf(\n \t\t\t\t'<li><a href=\"%1$s\" title=\"%2$s\">%3$s</a></li>',\n \t\t\t\tesc_url( $item['link'] ),\n-\t\t\t\tesc_attr( strip_tags( $item['description'] ) ),\n+\t\t\t\tesc_attr( strip_tags( (string) $item['description'] ) ),\n \t\t\t\tesc_html( $item['title'] )\n \t\t\t);\n \t\t}\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\EregToPregMatchRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/099_rss.php"
+    ]
+  }
+}

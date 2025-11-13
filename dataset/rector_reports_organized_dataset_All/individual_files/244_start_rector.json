@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\244_start.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 28
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:59.153635",
+    "file_size_kb": 6.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/244_start.php",
+        "diff": "--- Original\n+++ New\n@@ -1,5 +1,5 @@\n <div class=\"no-key config-wrap\"><?php\n-\tif ( $akismet_user && in_array( $akismet_user->status, array( 'active', 'active-dunning', 'no-sub', 'missing', 'cancelled', 'suspended' ) ) ) :\n+\tif ( $akismet_user && in_array( $akismet_user->status, [ 'active', 'active-dunning', 'no-sub', 'missing', 'cancelled', 'suspended' ] ) ) :\n \t\tif ( $akismet_user->status == 'missing' ) :?>\n <p><?php esc_html_e('Akismet eliminates the comment and trackback spam you get on your site. Register your email address below to get started.', 'akismet'); ?></p>\n <div class=\"activate-highlight activate-option\">\n@@ -56,7 +56,7 @@\n \t\t<strong><?php esc_html_e('Create a new API key with a different email address', 'akismet'); ?></strong>\n \t\t<p><?php esc_html_e('Use this option if you want to setup a new Akismet account.', 'akismet'); ?></p>\n \t</div>\n-\t<?php Akismet::view( 'get', array( 'text' => __( 'Register a different email address' , 'akismet'), 'classes' => array( 'right', 'button', 'button-secondary' ) ) ); ?>\n+\t<?php Akismet::view( 'get', [ 'text' => __( 'Register a different email address' , 'akismet'), 'classes' => [ 'right', 'button', 'button-secondary' ] ] ); ?>\n </div>\n <div class=\"activate-highlight secondary activate-option\">\n \t<div class=\"option-description\">\n@@ -77,7 +77,7 @@\n \t\t<strong><?php esc_html_e( 'Activate Akismet' , 'akismet');?></strong>\n \t\t<p><?php esc_html_e('Log in or create an account to get your API key.', 'akismet'); ?></p>\n \t</div>\n-\t<?php Akismet::view( 'get', array( 'text' => __( 'Get your API key' , 'akismet'), 'classes' => array( 'right', 'button', 'button-primary' ) ) ); ?>\n+\t<?php Akismet::view( 'get', [ 'text' => __( 'Get your API key' , 'akismet'), 'classes' => [ 'right', 'button', 'button-primary' ] ] ); ?>\n </div>\n <div class=\"activate-highlight secondary activate-option\">\n \t<div class=\"option-description\">\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/244_start.php"
+    ]
+  }
+}

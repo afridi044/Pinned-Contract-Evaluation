@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\158_class-wp-walker.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 148
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:15.798466",
+    "file_size_kb": 13.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/158_class-wp-walker.php",
+        "diff": "--- Original\n+++ New\n@@ -115,7 +115,7 @@\n \t * @param int    $depth  Depth of the item.\n \t * @param array  $args   An array of additional arguments.\n \t */\n-\tpublic function start_lvl( &$output, $depth = 0, $args = array() ) {}\n+\tpublic function start_lvl( &$output, $depth = 0, $args = [] ) {}\n \n \t/**\n \t * Ends the list of after the elements are added.\n@@ -130,7 +130,7 @@\n \t * @param int    $depth  Depth of the item.\n \t * @param array  $args   An array of additional arguments.\n \t */\n-\tpublic function end_lvl( &$output, $depth = 0, $args = array() ) {}\n+\tpublic function end_lvl( &$output, $depth = 0, $args = [] ) {}\n \n \t/**\n \t * Start the element output.\n@@ -147,7 +147,7 @@\n \t * @param array  $args              An array of additional arguments.\n \t * @param int    $current_object_id ID of the current item.\n \t */\n-\tpublic function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {}\n+\tpublic function start_el( &$output, $object, $depth = 0, $args = [], $current_object_id = 0 ) {}\n \n \t/**\n \t * Ends the element output, if needed.\n@@ -162,7 +162,7 @@\n \t * @param int    $depth  Depth of the item.\n \t * @param array  $args   An array of additional arguments.\n \t */\n-\tpublic function end_el( &$output, $object, $depth = 0, $args = array() ) {}\n+\tpublic function end_el( &$output, $object, $depth = 0, $args = [] ) {}\n \n \t/**\n \t * Traverse elements to create list from elements.\n@@ -198,8 +198,8 @@\n \t\t\t$args[0]['has_children'] = $this->has_children; // Backwards compatibility.\n \t\t}\n \n-\t\t$cb_args = array_merge( array(&$output, $element, $depth), $args);\n-\t\tcall_user_func_array(array($this, 'start_el'), $cb_args);\n+\t\t$cb_args = array_merge( [&$output, $element, $depth], $args);\n+\t\tcall_user_func_array($this->start_el(...), $cb_args);\n \n \t\t// descend only when the depth is right and there are childrens for this element\n \t\tif ( ($max_depth == 0 || $max_depth > $depth+1 ) && isset( $children_elements[$id]) ) {\n@@ -209,8 +209,8 @@\n \t\t\t\tif ( !isset($newlevel) ) {\n \t\t\t\t\t$newlevel = true;\n \t\t\t\t\t//start the child delimiter\n-\t\t\t\t\t$cb_args = array_merge( array(&$output, $depth), $args);\n-\t\t\t\t\tcall_user_func_array(array($this, 'start_lvl'), $cb_args);\n+\t\t\t\t\t$cb_args = array_merge( [&$output, $depth], $args);\n+\t\t\t\t\tcall_user_func_array($this->start_lvl(...), $cb_args);\n \t\t\t\t}\n \t\t\t\t$this->display_element( $child, $children_elements, $max_depth, $depth + 1, $args, $output );\n \t\t\t}\n@@ -219,13 +219,13 @@\n \n \t\tif ( isset($newlevel) && $newlevel ){\n \t\t\t//end the child delimiter\n-\t\t\t$cb_args = array_merge( array(&$output, $depth), $args);\n-\t\t\tcall_user_func_array(array($this, 'end_lvl'), $cb_args);\n+\t\t\t$cb_args = array_merge( [&$output, $depth], $args);\n+\t\t\tcall_user_func_array($this->end_lvl(...), $cb_args);\n \t\t}\n \n \t\t//end this element\n-\t\t$cb_args = array_merge( array(&$output, $element, $depth), $args);\n-\t\tcall_user_func_array(array($this, 'end_el'), $cb_args);\n+\t\t$cb_args = array_merge( [&$output, $element, $depth], $args);\n+\t\tcall_user_func_array($this->end_el(...), $cb_args);\n \t}\n \n \t/**\n@@ -258,7 +258,7 @@\n \n \t\t// flat display\n \t\tif ( -1 == $max_depth ) {\n-\t\t\t$empty_array = array();\n+\t\t\t$empty_array = [];\n \t\t\tforeach ( $elements as $e )\n \t\t\t\t$this->display_element( $e, $empty_array, 1, 0, $args, $output );\n \t\t\treturn $output;\n@@ -270,8 +270,8 @@\n \t\t * Children_elements is two dimensional array, eg.\n \t\t * Children_elements[10][] contains all sub-elements whose parent is 10.\n \t\t */\n-\t\t$top_level_elements = array();\n-\t\t$children_elements  = array();\n+\t\t$top_level_elements = [];\n+\t\t$children_elements  = [];\n \t\tforeach ( $elements as $e) {\n \t\t\tif ( 0 == $e->$parent_field )\n \t\t\t\t$top_level_elements[] = $e;\n@@ -288,8 +288,8 @@\n \t\t\t$first = array_slice( $elements, 0, 1 );\n \t\t\t$root = $first[0];\n \n-\t\t\t$top_level_elements = array();\n-\t\t\t$children_elements  = array();\n+\t\t\t$top_level_elements = [];\n+\t\t\t$children_elements  = [];\n \t\t\tforeach ( $elements as $e) {\n \t\t\t\tif ( $root->$parent_field == $e->$parent_field )\n \t\t\t\t\t$top_level_elements[] = $e;\n@@ -306,7 +306,7 @@\n \t\t * then we got orphans, which should be displayed regardless.\n \t\t */\n \t\tif ( ( $max_depth == 0 ) && count( $children_elements ) > 0 ) {\n-\t\t\t$empty_array = array();\n+\t\t\t$empty_array = [];\n \t\t\tforeach ( $children_elements as $orphans )\n \t\t\t\tforeach( $orphans as $op )\n \t\t\t\t\t$this->display_element( $op, $empty_array, 1, 0, $args, $output );\n@@ -369,7 +369,7 @@\n \t\t\t\t$end = $total_top - $oldstart;\n \t\t\t}\n \n-\t\t\t$empty_array = array();\n+\t\t\t$empty_array = [];\n \t\t\tforeach ( $elements as $e ) {\n \t\t\t\t$count++;\n \t\t\t\tif ( $count < $start )\n@@ -386,8 +386,8 @@\n \t\t * Children_elements is two dimensional array, e.g.\n \t\t * $children_elements[10][] contains all sub-elements whose parent is 10.\n \t\t */\n-\t\t$top_level_elements = array();\n-\t\t$children_elements  = array();\n+\t\t$top_level_elements = [];\n+\t\t$children_elements  = [];\n \t\tforeach ( $elements as $e) {\n \t\t\tif ( 0 == $e->$parent_field )\n \t\t\t\t$top_level_elements[] = $e;\n@@ -429,7 +429,7 @@\n \t\t}\n \n \t\tif ( $end >= $total_top && count( $children_elements ) > 0 ) {\n-\t\t\t$empty_array = array();\n+\t\t\t$empty_array = [];\n \t\t\tforeach ( $children_elements as $orphans )\n \t\t\t\tforeach( $orphans as $op )\n \t\t\t\t\t$this->display_element( $op, $empty_array, 1, 0, $args, $output );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/158_class-wp-walker.php"
+    ]
+  }
+}

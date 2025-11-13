@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\100_class-wp-filesystem-base.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_73": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 54
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:05:21.738194",
+    "file_size_kb": 22.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/100_class-wp-filesystem-base.php",
+        "diff": "--- Original\n+++ New\n@@ -28,7 +28,7 @@\n \t * @since 2.7.0\n \t * @var array\n \t */\n-\tprivate $cache = array();\n+\tprivate $cache = [];\n \n \t/**\n \t * The Access method of the current connection, Set automatically.\n@@ -225,12 +225,12 @@\n \t\t\treturn $this->cache[ $folder ];\n \n \t\tif ( stripos($this->method, 'ftp') !== false ) {\n-\t\t\t$constant_overrides = array(\n+\t\t\t$constant_overrides = [\n \t\t\t\t'FTP_BASE' => ABSPATH,\n \t\t\t\t'FTP_CONTENT_DIR' => WP_CONTENT_DIR,\n \t\t\t\t'FTP_PLUGIN_DIR' => WP_PLUGIN_DIR,\n \t\t\t\t'FTP_LANG_DIR' => WP_LANG_DIR\n-\t\t\t);\n+\t\t\t];\n \n \t\t\t// Direct matches ( folder = CONSTANT/ )\n \t\t\tforeach ( $constant_overrides as $constant => $dir ) {\n@@ -244,7 +244,7 @@\n \t\t\tforeach ( $constant_overrides as $constant => $dir ) {\n \t\t\t\tif ( ! defined( $constant ) )\n \t\t\t\t\tcontinue;\n-\t\t\t\tif ( 0 === stripos( $folder, $dir ) ) { // $folder starts with $dir\n+\t\t\t\tif ( 0 === stripos( $folder, (string) $dir ) ) { // $folder starts with $dir\n \t\t\t\t\t$potential_folder = preg_replace( '#^' . preg_quote( $dir, '#' ) . '/#i', trailingslashit( constant( $constant ) ), $folder );\n \t\t\t\t\t$potential_folder = trailingslashit( $potential_folder );\n \n@@ -418,7 +418,7 @@\n \t */\n \tpublic function getnumchmodfromh( $mode ) {\n \t\t$realmode = '';\n-\t\t$legal =  array('', 'w', 'r', 'x', '-');\n+\t\t$legal =  ['', 'w', 'r', 'x', '-'];\n \t\t$attarray = preg_split('//', $mode);\n \n \t\tfor ($i=0; $i < count($attarray); $i++)\n@@ -426,7 +426,7 @@\n \t\t\t   $realmode .= $legal[$key];\n \n \t\t$mode = str_pad($realmode, 10, '-', STR_PAD_LEFT);\n-\t\t$trans = array('-'=>'0', 'r'=>'4', 'w'=>'2', 'x'=>'1');\n+\t\t$trans = ['-'=>'0', 'r'=>'4', 'w'=>'2', 'x'=>'1'];\n \t\t$mode = strtr($mode,$trans);\n \n \t\t$newmode = $mode[0];\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/100_class-wp-filesystem-base.php"
+    ]
+  }
+}

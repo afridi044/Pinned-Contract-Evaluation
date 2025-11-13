@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\172_edit-comments.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 86
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:54.285992",
+    "file_size_kb": 11.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/172_edit-comments.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n if ( !current_user_can('edit_posts') )\n \twp_die(__('Cheatin&#8217; uh?'));\n \n@@ -28,7 +28,7 @@\n \t\t$comment_ids = $_REQUEST['delete_comments'];\n \t\t$doaction = ( $_REQUEST['action'] != -1 ) ? $_REQUEST['action'] : $_REQUEST['action2'];\n \t} elseif ( isset( $_REQUEST['ids'] ) ) {\n-\t\t$comment_ids = array_map( 'absint', explode( ',', $_REQUEST['ids'] ) );\n+\t\t$comment_ids = array_map( 'absint', explode( ',', (string) $_REQUEST['ids'] ) );\n \t} elseif ( wp_get_referer() ) {\n \t\twp_safe_redirect( wp_get_referer() );\n \t\texit;\n@@ -36,7 +36,7 @@\n \n \t$approved = $unapproved = $spammed = $unspammed = $trashed = $untrashed = $deleted = 0;\n \n-\t$redirect_to = remove_query_arg( array( 'trashed', 'untrashed', 'deleted', 'spammed', 'unspammed', 'approved', 'unapproved', 'ids' ), wp_get_referer() );\n+\t$redirect_to = remove_query_arg( [ 'trashed', 'untrashed', 'deleted', 'spammed', 'unspammed', 'approved', 'unapproved', 'ids' ], wp_get_referer() );\n \t$redirect_to = add_query_arg( 'paged', $pagenum, $redirect_to );\n \n \tforeach ( $comment_ids as $comment_id ) { // Check the permissions on each\n@@ -95,7 +95,7 @@\n \twp_safe_redirect( $redirect_to );\n \texit;\n } elseif ( ! empty( $_GET['_wp_http_referer'] ) ) {\n-\t wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );\n+\t wp_redirect( remove_query_arg( [ '_wp_http_referer', '_wpnonce' ], wp_unslash( $_SERVER['REQUEST_URI'] ) ) );\n \t exit;\n }\n \n@@ -109,15 +109,15 @@\n else\n \t$title = __('Comments');\n \n-add_screen_option( 'per_page', array('label' => _x( 'Comments', 'comments per page (screen options)' )) );\n+add_screen_option( 'per_page', ['label' => _x( 'Comments', 'comments per page (screen options)' )] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'overview',\n 'title'\t\t=> __('Overview'),\n 'content'\t=>\n \t'<p>' . __( 'You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the Bulk Actions.' ) . '</p>'\n-) );\n-get_current_screen()->add_help_tab( array(\n+] );\n+get_current_screen()->add_help_tab( [\n 'id'\t\t=> 'moderating-comments',\n 'title'\t\t=> __('Moderating Comments'),\n 'content'\t=>\n@@ -126,7 +126,7 @@\n \t\t'<p>' . __( 'In the <strong>Comment</strong> column, above each comment it says &#8220;Submitted on,&#8221; followed by the date and time the comment was left on your site. Clicking on the date/time link will take you to that comment on your live site. Hovering over any comment gives you options to approve, reply (and approve), quick edit, edit, spam mark, or trash that comment.' ) . '</p>' .\n \t\t'<p>' . __( 'In the <strong>In Response To</strong> column, there are three elements. The text is the name of the post that inspired the comment, and links to the post editor for that entry. The View Post link leads to that post on your live site. The small bubble with the number in it shows the number of approved comments that post has received. If the bubble is gray, you have moderated all comments for that post. If it is blue, there are pending comments. Clicking the bubble will filter the comments screen to show only comments on that post.' ) . '</p>' .\n \t\t'<p>' . __( 'Many people take advantage of keyboard shortcuts to moderate their comments more quickly. Use the link to the side to learn more.' ) . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .\n@@ -185,7 +185,7 @@\n \t\t\t$messages[] = sprintf( _n( '%s comment approved', '%s comments approved', $approved ), $approved );\n \n \t\tif ( $spammed > 0 ) {\n-\t\t\t$ids = isset($_REQUEST['ids']) ? $_REQUEST['ids'] : 0;\n+\t\t\t$ids = $_REQUEST['ids'] ?? 0;\n \t\t\t$messages[] = sprintf( _n( '%s comment marked as spam.', '%s comments marked as spam.', $spammed ), $spammed ) . ' <a href=\"' . esc_url( wp_nonce_url( \"edit-comments.php?doaction=undo&action=unspam&ids=$ids\", \"bulk-comments\" ) ) . '\">' . __('Undo') . '</a><br />';\n \t\t}\n \n@@ -193,7 +193,7 @@\n \t\t\t$messages[] = sprintf( _n( '%s comment restored from the spam', '%s comments restored from the spam', $unspammed ), $unspammed );\n \n \t\tif ( $trashed > 0 ) {\n-\t\t\t$ids = isset($_REQUEST['ids']) ? $_REQUEST['ids'] : 0;\n+\t\t\t$ids = $_REQUEST['ids'] ?? 0;\n \t\t\t$messages[] = sprintf( _n( '%s comment moved to the Trash.', '%s comments moved to the Trash.', $trashed ), $trashed ) . ' <a href=\"' . esc_url( wp_nonce_url( \"edit-comments.php?doaction=undo&action=untrash&ids=$ids\", \"bulk-comments\" ) ) . '\">' . __('Undo') . '</a><br />';\n \t\t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/172_edit-comments.php"
+    ]
+  }
+}

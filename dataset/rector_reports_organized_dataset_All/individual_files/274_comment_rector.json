@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\274_comment.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:15.898327",
+    "file_size_kb": 4.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/274_comment.php",
+        "diff": "--- Original\n+++ New\n@@ -49,7 +49,7 @@\n \tif ( isset( $_POST['comment_ID'] ) )\n \t\t$_POST['comment_ID'] = (int) $_POST['comment_ID'];\n \n-\tforeach ( array ('aa', 'mm', 'jj', 'hh', 'mn') as $timeunit ) {\n+\tforeach (  ['aa', 'mm', 'jj', 'hh', 'mn'] as $timeunit ) {\n \t\tif ( !empty( $_POST['hidden_' . $timeunit] ) && $_POST['hidden_' . $timeunit] != $_POST[$timeunit] ) {\n \t\t\t$_POST['edit_date'] = '1';\n \t\t\tbreak;\n@@ -137,7 +137,7 @@\n \t\t\treturn absint($pending[0]['num_comments']);\n \t}\n \n-\t$pending_keyed = array();\n+\t$pending_keyed = [];\n \n \t// Default to zero pending for all posts in request\n \tforeach ( $post_id_array as $id )\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/274_comment.php"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\075_my-sites.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 37
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:28:20.564680",
+    "file_size_kb": 4.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/075_my-sites.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  * @since 3.0.0\n  */\n \n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( !is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -15,7 +15,7 @@\n if ( ! current_user_can('read') )\n \twp_die( __( 'You do not have sufficient permissions to view this page.' ) );\n \n-$action = isset( $_POST['action'] ) ? $_POST['action'] : 'splash';\n+$action = $_POST['action'] ?? 'splash';\n \n $blogs = get_blogs_of_user( $current_user->ID );\n \n@@ -35,13 +35,13 @@\n $title = __( 'My Sites' );\n $parent_file = 'index.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n \t\t'<p>' . __('This screen shows an individual user all of their sites in this network, and also allows that user to set a primary site. They can use the links under each site to visit either the frontend or the dashboard for that site.') . '</p>' .\n \t\t'<p>' . __('Up until WordPress version 3.0, what is now called a Multisite Network had to be installed separately as WordPress MU (multi-user).') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/075_my-sites.php"
+    ]
+  }
+}

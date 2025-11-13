@@ -1,0 +1,43 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\087_Restriction.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 87
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:28:52.131251",
+    "file_size_kb": 3.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/087_Restriction.php",
+        "diff": "--- Original\n+++ New\n@@ -52,51 +52,46 @@\n  * @package SimplePie\n  * @subpackage API\n  */\n-class SimplePie_Restriction\n+class SimplePie_Restriction implements \\Stringable\n {\n \t/**\n-\t * Relationship ('allow'/'deny')\n-\t *\n-\t * @var string\n-\t * @see get_relationship()\n-\t */\n-\tvar $relationship;\n+     * Constructor, used to input the data\n+     *\n+     * For documentation on all the parameters, see the corresponding\n+     * properties and their accessors\n+     * @param string $relationship\n+     * @param string $type\n+     * @param string $value\n+     */\n+    public function __construct(\n+        /**\n+         * Relationship ('allow'/'deny')\n+         *\n+         * @see get_relationship()\n+         */\n+        public $relationship = null,\n+        /**\n+         * Type of restriction\n+         *\n+         * @see get_type()\n+         */\n+        public $type = null,\n+        /**\n+         * Restricted values\n+         *\n+         * @see get_value()\n+         */\n+        public $value = null\n+    )\n+    {\n+    }\n \n \t/**\n-\t * Type of restriction\n-\t *\n-\t * @var string\n-\t * @see get_type()\n-\t */\n-\tvar $type;\n-\n-\t/**\n-\t * Restricted values\n-\t *\n-\t * @var string\n-\t * @see get_value()\n-\t */\n-\tvar $value;\n-\n-\t/**\n-\t * Constructor, used to input the data\n-\t *\n-\t * For documentation on all the parameters, see the corresponding\n-\t * properties and their accessors\n-\t */\n-\tpublic function __construct($relationship = null, $type = null, $value = null)\n-\t{\n-\t\t$this->relationship = $relationship;\n-\t\t$this->type = $type;\n-\t\t$this->value = $value;\n-\t}\n-\n-\t/**\n \t * String-ified version\n \t *\n \t * @return string\n \t */\n-\tpublic function __toString()\n+\tpublic function __toString(): string\n \t{\n \t\t// There is no $this->data here\n \t\treturn md5(serialize($this));\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/087_Restriction.php"
+    ]
+  }
+}

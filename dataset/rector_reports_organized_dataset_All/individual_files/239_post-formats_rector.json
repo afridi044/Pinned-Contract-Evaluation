@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\239_post-formats.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 41
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:47.597586",
+    "file_size_kb": 6.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/239_post-formats.php",
+        "diff": "--- Original\n+++ New\n@@ -42,8 +42,8 @@\n  * @param object|int $post Optional. The post to check. If not supplied, defaults to the current post if used in the loop.\n  * @return bool True if the post has any of the given formats (or any format, if no format specified), false otherwise.\n  */\n-function has_post_format( $format = array(), $post = null ) {\n-\t$prefixed = array();\n+function has_post_format( $format = [], $post = null ) {\n+\t$prefixed = [];\n \n \tif ( $format ) {\n \t\tforeach ( (array) $format as $single ) {\n@@ -88,7 +88,7 @@\n  * @return array The array of translated post format names.\n  */\n function get_post_format_strings() {\n-\t$strings = array(\n+\t$strings = [\n \t\t'standard' => _x( 'Standard', 'Post format' ), // Special case. any value that evals to false will be considered standard\n \t\t'aside'    => _x( 'Aside',    'Post format' ),\n \t\t'chat'     => _x( 'Chat',     'Post format' ),\n@@ -99,7 +99,7 @@\n \t\t'status'   => _x( 'Status',   'Post format' ),\n \t\t'video'    => _x( 'Video',    'Post format' ),\n \t\t'audio'    => _x( 'Audio',    'Post format' ),\n-\t);\n+\t];\n \treturn $strings;\n }\n \n@@ -132,7 +132,7 @@\n \tif ( !$slug )\n \t\treturn $strings['standard'];\n \telse\n-\t\treturn ( isset( $strings[$slug] ) ) ? $strings[$slug] : '';\n+\t\treturn $strings[$slug] ?? '';\n }\n \n /**\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/239_post-formats.php"
+    ]
+  }
+}

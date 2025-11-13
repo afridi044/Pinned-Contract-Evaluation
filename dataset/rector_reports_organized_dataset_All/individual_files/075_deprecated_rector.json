@@ -1,0 +1,50 @@
+{
+  "file_path": "organized_dataset_All\\075_deprecated.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 306
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:03:45.369833",
+    "file_size_kb": 28.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/075_deprecated.php",
+        "diff": "--- Original\n+++ New\n@@ -84,7 +84,7 @@\n  * @param unknown_type $parent\n  * @param unknown_type $popular_ids\n  */\n-function dropdown_categories( $default = 0, $parent = 0, $popular_ids = array() ) {\n+function dropdown_categories( $default = 0, $parent = 0, $popular_ids = [] ) {\n \t_deprecated_function( __FUNCTION__, '2.6', 'wp_category_checklist()' );\n \tglobal $post_ID;\n \twp_category_checklist( $post_ID );\n@@ -140,7 +140,7 @@\n function wp_dropdown_cats( $currentcat = 0, $currentparent = 0, $parent = 0, $level = 0, $categories = 0 ) {\n \t_deprecated_function( __FUNCTION__, '3.0', 'wp_dropdown_categories()' );\n \tif (!$categories )\n-\t\t$categories = get_categories( array('hide_empty' => 0) );\n+\t\t$categories = get_categories( ['hide_empty' => 0] );\n \n \tif ( $categories ) {\n \t\tforeach ( $categories as $category ) {\n@@ -284,14 +284,14 @@\n \tglobal $wpdb;\n \n \tif ( ! $user = get_userdata( $user_id ) )\n-\t\treturn array();\n+\t\treturn [];\n \t$post_type_obj = get_post_type_object($post_type);\n \n \tif ( ! $user->has_cap($post_type_obj->cap->edit_others_posts) ) {\n \t\tif ( $user->has_cap($post_type_obj->cap->edit_posts) || ! $exclude_zeros )\n-\t\t\treturn array($user->ID);\n+\t\t\treturn [$user->ID];\n \t\telse\n-\t\t\treturn array();\n+\t\t\treturn [];\n \t}\n \n \tif ( !is_multisite() )\n@@ -338,7 +338,7 @@\n \t * @access private\n \t * @var unknown_type\n \t */\n-\tvar $results;\n+\tpublic $results;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -347,7 +347,7 @@\n \t * @access private\n \t * @var unknown_type\n \t */\n-\tvar $search_term;\n+\tpublic $search_term;\n \n \t/**\n \t * Page number.\n@@ -356,18 +356,9 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $page;\n+\tpublic $page;\n \n \t/**\n-\t * Role name that users have.\n-\t *\n-\t * @since 2.5.0\n-\t * @access private\n-\t * @var string\n-\t */\n-\tvar $role;\n-\n-\t/**\n \t * Raw page number.\n \t *\n \t * @since 2.1.0\n@@ -374,7 +365,7 @@\n \t * @access private\n \t * @var int|bool\n \t */\n-\tvar $raw_page;\n+\tpublic $raw_page;\n \n \t/**\n \t * Amount of users to display per page.\n@@ -383,7 +374,7 @@\n \t * @access public\n \t * @var int\n \t */\n-\tvar $users_per_page = 50;\n+\tpublic $users_per_page = 50;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -392,7 +383,7 @@\n \t * @access private\n \t * @var unknown_type\n \t */\n-\tvar $first_user;\n+\tpublic $first_user;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -401,7 +392,7 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $last_user;\n+\tpublic $last_user;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -410,7 +401,7 @@\n \t * @access private\n \t * @var string\n \t */\n-\tvar $query_limit;\n+\tpublic $query_limit;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -419,7 +410,7 @@\n \t * @access private\n \t * @var string\n \t */\n-\tvar $query_orderby;\n+\tpublic $query_orderby;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -428,7 +419,7 @@\n \t * @access private\n \t * @var string\n \t */\n-\tvar $query_from;\n+\tpublic $query_from;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -437,7 +428,7 @@\n \t * @access private\n \t * @var string\n \t */\n-\tvar $query_where;\n+\tpublic $query_where;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -446,7 +437,7 @@\n \t * @access private\n \t * @var int\n \t */\n-\tvar $total_users_for_query = 0;\n+\tpublic $total_users_for_query = 0;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -455,7 +446,7 @@\n \t * @access private\n \t * @var bool\n \t */\n-\tvar $too_many_total_users = false;\n+\tpublic $too_many_total_users = false;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -464,7 +455,7 @@\n \t * @access private\n \t * @var unknown_type\n \t */\n-\tvar $search_errors;\n+\tpublic $search_errors;\n \n \t/**\n \t * {@internal Missing Description}}\n@@ -473,7 +464,7 @@\n \t * @access private\n \t * @var unknown_type\n \t */\n-\tvar $paging_text;\n+\tpublic $paging_text;\n \n \t/**\n \t * PHP4 Constructor - Sets up the object properties.\n@@ -485,13 +476,18 @@\n \t * @param string $role Role name.\n \t * @return WP_User_Search\n \t */\n-\tfunction WP_User_Search ($search_term = '', $page = '', $role = '') {\n+\tfunction __construct ($search_term = '', $page = '', /**\n+     * Role name that users have.\n+     *\n+     * @since 2.5.0\n+     * @access private\n+     */\n+    public $role = '') {\n \t\t_deprecated_function( __FUNCTION__, '3.1', 'WP_User_Query' );\n \n \t\t$this->search_term = wp_unslash( $search_term );\n \t\t$this->raw_page = ( '' == $page ) ? false : (int) $page;\n \t\t$this->page = (int) ( '' == $page ) ? 1 : $page;\n-\t\t$this->role = $role;\n \n \t\t$this->prepare_query();\n \t\t$this->query();\n@@ -515,9 +511,9 @@\n \n \t\t$search_sql = '';\n \t\tif ( $this->search_term ) {\n-\t\t\t$searches = array();\n+\t\t\t$searches = [];\n \t\t\t$search_sql = 'AND (';\n-\t\t\tforeach ( array('user_login', 'user_nicename', 'user_email', 'user_url', 'display_name') as $col )\n+\t\t\tforeach ( ['user_login', 'user_nicename', 'user_email', 'user_url', 'display_name'] as $col )\n \t\t\t\t$searches[] = $wpdb->prepare( $col . ' LIKE %s', '%' . like_escape($this->search_term) . '%' );\n \t\t\t$search_sql .= implode(' OR ', $searches);\n \t\t\t$search_sql .= ')';\n@@ -535,7 +531,7 @@\n \t\t\t$this->query_where .= \" AND $wpdb->users.ID = $wpdb->usermeta.user_id AND meta_key = '{$level_key}'\";\n \t\t}\n \n-\t\tdo_action_ref_array( 'pre_user_search', array( &$this ) );\n+\t\tdo_action_ref_array( 'pre_user_search', [ &$this ] );\n \t}\n \n \t/**\n@@ -577,19 +573,19 @@\n \t */\n \tfunction do_paging() {\n \t\tif ( $this->total_users_for_query > $this->users_per_page ) { // have to page the results\n-\t\t\t$args = array();\n+\t\t\t$args = [];\n \t\t\tif( ! empty($this->search_term) )\n \t\t\t\t$args['usersearch'] = urlencode($this->search_term);\n \t\t\tif( ! empty($this->role) )\n \t\t\t\t$args['role'] = urlencode($this->role);\n \n-\t\t\t$this->paging_text = paginate_links( array(\n+\t\t\t$this->paging_text = paginate_links( [\n \t\t\t\t'total' => ceil($this->total_users_for_query / $this->users_per_page),\n \t\t\t\t'current' => $this->page,\n \t\t\t\t'base' => 'users.php?%_%',\n \t\t\t\t'format' => 'userspage=%#%',\n \t\t\t\t'add_args' => $args\n-\t\t\t) );\n+\t\t\t] );\n \t\t\tif ( $this->paging_text ) {\n \t\t\t\t$this->paging_text = sprintf( '<span class=\"displaying-num\">' . __( 'Displaying %s&#8211;%s of %s' ) . '</span>%s',\n \t\t\t\t\tnumber_format_i18n( ( $this->page - 1 ) * $this->users_per_page + 1 ),\n@@ -675,7 +671,7 @@\n \n \t$editable = get_editable_user_ids( $user_id );\n \n-\tif ( in_array($type, array('draft', 'pending')) )\n+\tif ( in_array($type, ['draft', 'pending']) )\n \t\t$type_sql = \" post_status = '$type' \";\n \telse\n \t\t$type_sql = \" ( post_status = 'draft' OR post_status = 'pending' ) \";\n@@ -749,11 +745,11 @@\n \n \t$editor_id = 'content' . $num++;\n \n-\t$set = array(\n+\t$set = [\n \t\t'teeny' => $teeny,\n-\t\t'tinymce' => $settings ? $settings : true,\n+\t\t'tinymce' => $settings ?: true,\n \t\t'quicktags' => false\n-\t);\n+\t];\n \n \t$set = _WP_Editors::parse_settings($editor_id, $set);\n \t_WP_Editors::editor_settings($editor_id, $set);\n@@ -926,9 +922,9 @@\n function get_allowed_themes() {\n \t_deprecated_function( __FUNCTION__, '3.4', \"wp_get_themes( array( 'allowed' => true ) )\" );\n \n-\t$themes = wp_get_themes( array( 'allowed' => true ) );\n+\t$themes = wp_get_themes( [ 'allowed' => true ] );\n \n-\t$wp_themes = array();\n+\t$wp_themes = [];\n \tforeach ( $themes as $theme ) {\n \t\t$wp_themes[ $theme->get('Name') ] = $theme;\n \t}\n@@ -947,15 +943,15 @@\n function get_broken_themes() {\n \t_deprecated_function( __FUNCTION__, '3.4', \"wp_get_themes( array( 'errors' => true )\" );\n \n-\t$themes = wp_get_themes( array( 'errors' => true ) );\n-\t$broken = array();\n+\t$themes = wp_get_themes( [ 'errors' => true ] );\n+\t$broken = [];\n \tforeach ( $themes as $theme ) {\n \t\t$name = $theme->get('Name');\n-\t\t$broken[ $name ] = array(\n+\t\t$broken[ $name ] = [\n \t\t\t'Name' => $name,\n \t\t\t'Title' => $name,\n \t\t\t'Description' => $theme->errors()->get_error_message(),\n-\t\t);\n+\t\t];\n \t}\n \treturn $broken;\n }\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/075_deprecated.php"
+    ]
+  }
+}

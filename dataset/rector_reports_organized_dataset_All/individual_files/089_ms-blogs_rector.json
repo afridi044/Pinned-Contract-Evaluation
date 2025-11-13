@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\089_ms-blogs.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 113
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:04:41.424373",
+    "file_size_kb": 25.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/089_ms-blogs.php",
+        "diff": "--- Original\n+++ New\n@@ -16,7 +16,7 @@\n function wpmu_update_blogs_date() {\n \tglobal $wpdb;\n \n-\tupdate_blog_details( $wpdb->blogid, array('last_updated' => current_time('mysql', true)) );\n+\tupdate_blog_details( $wpdb->blogid, ['last_updated' => current_time('mysql', true)] );\n \t/**\n \t * Fires after the blog details are updated.\n \t *\n@@ -112,7 +112,7 @@\n \t\t\t$blog = wp_cache_get($key, 'blog-lookup');\n \t\t\tif ( false !== $blog )\n \t\t\t\treturn $blog;\n-\t\t\tif ( substr( $fields['domain'], 0, 4 ) == 'www.' ) {\n+\t\t\tif ( str_starts_with($fields['domain'], 'www.') ) {\n \t\t\t\t$nowww = substr( $fields['domain'], 4 );\n \t\t\t\t$blog = $wpdb->get_row( $wpdb->prepare( \"SELECT * FROM $wpdb->blogs WHERE domain IN (%s,%s) AND path = %s ORDER BY CHAR_LENGTH(domain) DESC\", $nowww, $fields['domain'], $fields['path'] ) );\n \t\t\t} else {\n@@ -129,7 +129,7 @@\n \t\t\t$blog = wp_cache_get($key, 'blog-lookup');\n \t\t\tif ( false !== $blog )\n \t\t\t\treturn $blog;\n-\t\t\tif ( substr( $fields['domain'], 0, 4 ) == 'www.' ) {\n+\t\t\tif ( str_starts_with($fields['domain'], 'www.') ) {\n \t\t\t\t$nowww = substr( $fields['domain'], 4 );\n \t\t\t\t$blog = $wpdb->get_row( $wpdb->prepare( \"SELECT * FROM $wpdb->blogs WHERE domain IN (%s,%s) ORDER BY CHAR_LENGTH(domain) DESC\", $nowww, $fields['domain'] ) );\n \t\t\t} else {\n@@ -248,11 +248,11 @@\n \t\t// Make sure clean_blog_cache() gets the blog ID\n \t\t// when the blog has been previously cached as\n \t\t// non-existent.\n-\t\t$details = (object) array(\n+\t\t$details = (object) [\n \t\t\t'blog_id' => $blog_id,\n \t\t\t'domain' => null,\n \t\t\t'path' => null\n-\t\t);\n+\t\t];\n \t}\n \n \tclean_blog_cache( $details );\n@@ -276,7 +276,7 @@\n  * @param array $details Array of details keyed by blogs table field names.\n  * @return bool True if update succeeds, false otherwise.\n  */\n-function update_blog_details( $blog_id, $details = array() ) {\n+function update_blog_details( $blog_id, $details = [] ) {\n \tglobal $wpdb;\n \n \tif ( empty($details) )\n@@ -294,12 +294,12 @@\n \t$details = array_merge($current_details, $details);\n \t$details['last_updated'] = current_time('mysql', true);\n \n-\t$update_details = array();\n-\t$fields = array( 'site_id', 'domain', 'path', 'registered', 'last_updated', 'public', 'archived', 'mature', 'spam', 'deleted', 'lang_id');\n+\t$update_details = [];\n+\t$fields = [ 'site_id', 'domain', 'path', 'registered', 'last_updated', 'public', 'archived', 'mature', 'spam', 'deleted', 'lang_id'];\n \tforeach ( array_intersect( array_keys( $details ), $fields ) as $field )\n \t\t$update_details[$field] = $details[$field];\n \n-\t$result = $wpdb->update( $wpdb->blogs, $update_details, array('blog_id' => $blog_id) );\n+\t$result = $wpdb->update( $wpdb->blogs, $update_details, ['blog_id' => $blog_id] );\n \n \tif ( false === $result )\n \t\treturn false;\n@@ -423,7 +423,7 @@\n \twp_cache_delete(  $domain_path_key, 'blog-lookup' );\n \twp_cache_delete( 'current_blog_' . $blog->domain, 'site-options' );\n \twp_cache_delete( 'current_blog_' . $blog->domain . $blog->path, 'site-options' );\n-\twp_cache_delete( 'get_id_from_blogname_' . trim( $blog->path, '/' ), 'blog-details' );\n+\twp_cache_delete( 'get_id_from_blogname_' . trim( (string) $blog->path, '/' ), 'blog-details' );\n \twp_cache_delete( $domain_path_key, 'blog-id-cache' );\n }\n \n@@ -623,8 +623,8 @@\n \t\t\tif ( is_array( $global_groups ) )\n \t\t\t\twp_cache_add_global_groups( $global_groups );\n \t\t\telse\n-\t\t\t\twp_cache_add_global_groups( array( 'users', 'userlogins', 'usermeta', 'user_meta', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', ' blog-id-cache' ) );\n-\t\t\twp_cache_add_non_persistent_groups( array( 'comment', 'counts', 'plugins' ) );\n+\t\t\t\twp_cache_add_global_groups( [ 'users', 'userlogins', 'usermeta', 'user_meta', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', ' blog-id-cache' ] );\n+\t\t\twp_cache_add_non_persistent_groups( [ 'comment', 'counts', 'plugins' ] );\n \t\t}\n \t}\n \n@@ -686,8 +686,8 @@\n \t\t\tif ( is_array( $global_groups ) )\n \t\t\t\twp_cache_add_global_groups( $global_groups );\n \t\t\telse\n-\t\t\t\twp_cache_add_global_groups( array( 'users', 'userlogins', 'usermeta', 'user_meta', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', ' blog-id-cache' ) );\n-\t\t\twp_cache_add_non_persistent_groups( array( 'comment', 'counts', 'plugins' ) );\n+\t\t\t\twp_cache_add_global_groups( [ 'users', 'userlogins', 'usermeta', 'user_meta', 'site-transient', 'site-options', 'site-lookup', 'blog-lookup', 'blog-details', 'rss', 'global-posts', ' blog-id-cache' ] );\n+\t\t\twp_cache_add_non_persistent_groups( [ 'comment', 'counts', 'plugins' ] );\n \t\t}\n \t}\n \n@@ -759,10 +759,10 @@\n \tif ( null !== $deprecated  )\n \t\t_deprecated_argument( __FUNCTION__, '3.1' );\n \n-\tif ( ! in_array( $pref, array( 'site_id', 'domain', 'path', 'registered', 'last_updated', 'public', 'archived', 'mature', 'spam', 'deleted', 'lang_id') ) )\n+\tif ( ! in_array( $pref, [ 'site_id', 'domain', 'path', 'registered', 'last_updated', 'public', 'archived', 'mature', 'spam', 'deleted', 'lang_id'] ) )\n \t\treturn $value;\n \n-\t$result = $wpdb->update( $wpdb->blogs, array($pref => $value, 'last_updated' => current_time('mysql', true)), array('blog_id' => $blog_id) );\n+\t$result = $wpdb->update( $wpdb->blogs, [$pref => $value, 'last_updated' => current_time('mysql', true)], ['blog_id' => $blog_id] );\n \n \tif ( false === $result )\n \t\treturn false;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/089_ms-blogs.php"
+    ]
+  }
+}

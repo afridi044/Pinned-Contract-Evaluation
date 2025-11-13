@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\327_class-wp-http-ixr-client.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 31
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:25.238499",
+    "file_size_kb": 2.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/327_class-wp-http-ixr-client.php",
+        "diff": "--- Original\n+++ New\n@@ -11,10 +11,10 @@\n \tpublic function __construct($server, $path = false, $port = false, $timeout = 15) {\n \t\tif ( ! $path ) {\n \t\t\t// Assume we have been given a URL instead\n-\t\t\t$bits = parse_url($server);\n+\t\t\t$bits = parse_url((string) $server);\n \t\t\t$this->scheme = $bits['scheme'];\n \t\t\t$this->server = $bits['host'];\n-\t\t\t$this->port = isset($bits['port']) ? $bits['port'] : $port;\n+\t\t\t$this->port = $bits['port'] ?? $port;\n \t\t\t$this->path = !empty($bits['path']) ? $bits['path'] : '/';\n \n \t\t\t// Make absolutely sure we have a path\n@@ -43,11 +43,11 @@\n \n \t\t$port = $this->port ? \":$this->port\" : '';\n \t\t$url = $this->scheme . '://' . $this->server . $port . $this->path;\n-\t\t$args = array(\n-\t\t\t'headers'    => array('Content-Type' => 'text/xml'),\n+\t\t$args = [\n+\t\t\t'headers'    => ['Content-Type' => 'text/xml'],\n \t\t\t'user-agent' => $this->useragent,\n \t\t\t'body'       => $xml,\n-\t\t);\n+\t\t];\n \n \t\t// Merge Custom headers ala #8145\n \t\tforeach ( $this->headers as $header => $value )\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/327_class-wp-http-ixr-client.php"
+    ]
+  }
+}

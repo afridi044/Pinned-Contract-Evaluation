@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\173_class-wp-embed.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 90
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:57.268149",
+    "file_size_kb": 11.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/173_class-wp-embed.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  * @since 2.9.0\n  */\n class WP_Embed {\n-\tpublic $handlers = array();\n+\tpublic $handlers = [];\n \tpublic $post_ID;\n \tpublic $usecache = true;\n \tpublic $linkifunknown = true;\n@@ -23,16 +23,16 @@\n \t */\n \tpublic function __construct() {\n \t\t// Hack to get the [embed] shortcode to run before wpautop()\n-\t\tadd_filter( 'the_content', array( $this, 'run_shortcode' ), 8 );\n+\t\tadd_filter( 'the_content', $this->run_shortcode(...), 8 );\n \n \t\t// Shortcode placeholder for strip_shortcodes()\n \t\tadd_shortcode( 'embed', '__return_false' );\n \n \t\t// Attempts to embed all URLs in a post\n-\t\tadd_filter( 'the_content', array( $this, 'autoembed' ), 8 );\n+\t\tadd_filter( 'the_content', $this->autoembed(...), 8 );\n \n \t\t// After a post is saved, cache oEmbed items via AJAX\n-\t\tadd_action( 'edit_form_advanced', array( $this, 'maybe_run_ajax_cache' ) );\n+\t\tadd_action( 'edit_form_advanced', $this->maybe_run_ajax_cache(...) );\n \t}\n \n \t/**\n@@ -57,7 +57,7 @@\n \t\t$orig_shortcode_tags = $shortcode_tags;\n \t\tremove_all_shortcodes();\n \n-\t\tadd_shortcode( 'embed', array( $this, 'shortcode' ) );\n+\t\tadd_shortcode( 'embed', $this->shortcode(...) );\n \n \t\t// Do the shortcode (only the [embed] one is registered)\n \t\t$content = do_shortcode( $content );\n@@ -99,10 +99,10 @@\n \t * @param int $priority Optional. Used to specify the order in which the registered handlers will be tested (default: 10). Lower numbers correspond with earlier testing, and handlers with the same priority are tested in the order in which they were added to the action.\n \t */\n \tpublic function register_handler( $id, $regex, $callback, $priority = 10 ) {\n-\t\t$this->handlers[$priority][$id] = array(\n+\t\t$this->handlers[$priority][$id] = [\n \t\t\t'regex'    => $regex,\n \t\t\t'callback' => $callback,\n-\t\t);\n+\t\t];\n \t}\n \n \t/**\n@@ -280,7 +280,7 @@\n \t\t\treturn;\n \n \t\tforeach( $post_metas as $post_meta_key ) {\n-\t\t\tif ( '_oembed_' == substr( $post_meta_key, 0, 8 ) )\n+\t\t\tif ( str_starts_with($post_meta_key, '_oembed_') )\n \t\t\t\tdelete_post_meta( $post_ID, $post_meta_key );\n \t\t}\n \t}\n@@ -293,7 +293,7 @@\n \tpublic function cache_oembed( $post_ID ) {\n \t\t$post = get_post( $post_ID );\n \n-\t\t$post_types = get_post_types( array( 'show_ui' => true ) );\n+\t\t$post_types = get_post_types( [ 'show_ui' => true ] );\n \t\t/**\n \t\t * Filter the array of post types to cache oEmbed results for.\n \t\t *\n@@ -326,7 +326,7 @@\n \t * @return string Potentially modified $content.\n \t */\n \tpublic function autoembed( $content ) {\n-\t\treturn preg_replace_callback( '|^\\s*(https?://[^\\s\"]+)\\s*$|im', array( $this, 'autoembed_callback' ), $content );\n+\t\treturn preg_replace_callback( '|^\\s*(https?://[^\\s\"]+)\\s*$|im', $this->autoembed_callback(...), $content );\n \t}\n \n \t/**\n@@ -340,7 +340,7 @@\n \tpublic function autoembed_callback( $match ) {\n \t\t$oldval = $this->linkifunknown;\n \t\t$this->linkifunknown = false;\n-\t\t$return = $this->shortcode( array(), $match[1] );\n+\t\t$return = $this->shortcode( [], $match[1] );\n \t\t$this->linkifunknown = $oldval;\n \n \t\treturn \"\\n$return\\n\";\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/173_class-wp-embed.php"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "file_path": "organized_dataset_All\\481_index.php",
+  "rector_analysis": {
+    "php_version_changes": 0,
+    "rules_triggered": [],
+    "changes_by_php_version": {},
+    "has_diff": false,
+    "diff_line_count": 0
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:19:01.230305",
+    "file_size_kb": 0.0,
+    "analysis_type": "version_specific_only"
+  }
+}

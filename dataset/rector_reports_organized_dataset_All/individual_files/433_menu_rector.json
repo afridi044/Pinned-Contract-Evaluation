@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\433_menu.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 26
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:17:43.432032",
+    "file_size_kb": 0.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/433_menu.php",
+        "diff": "--- Original\n+++ New\n@@ -7,16 +7,16 @@\n  * @since 3.1.0\n  */\n \n-$menu[2] = array(__('Dashboard'), 'exist', 'index.php', '', 'menu-top menu-top-first menu-icon-dashboard', 'menu-dashboard', 'dashicons-dashboard');\n+$menu[2] = [__('Dashboard'), 'exist', 'index.php', '', 'menu-top menu-top-first menu-icon-dashboard', 'menu-dashboard', 'dashicons-dashboard'];\n \n-$menu[4] = array( '', 'exist', 'separator1', '', 'wp-menu-separator' );\n+$menu[4] = [ '', 'exist', 'separator1', '', 'wp-menu-separator' ];\n \n-$menu[70] = array( __('Profile'), 'exist', 'profile.php', '', 'menu-top menu-icon-users', 'menu-users', 'dashicons-admin-users' );\n+$menu[70] = [ __('Profile'), 'exist', 'profile.php', '', 'menu-top menu-icon-users', 'menu-users', 'dashicons-admin-users' ];\n \n-$menu[99] = array( '', 'exist', 'separator-last', '', 'wp-menu-separator' );\n+$menu[99] = [ '', 'exist', 'separator-last', '', 'wp-menu-separator' ];\n \n $_wp_real_parent_file['users.php'] = 'profile.php';\n-$compat = array();\n-$submenu = array();\n+$compat = [];\n+$submenu = [];\n \n require_once(ABSPATH . 'wp-admin/includes/menu.php');\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/433_menu.php"
+    ]
+  }
+}

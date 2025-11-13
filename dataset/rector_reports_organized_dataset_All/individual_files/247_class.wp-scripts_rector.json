@@ -1,0 +1,49 @@
+{
+  "file_path": "organized_dataset_All\\247_class.wp-scripts.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 63
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:06.088489",
+    "file_size_kb": 6.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/247_class.wp-scripts.php",
+        "diff": "--- Original\n+++ New\n@@ -20,7 +20,7 @@\n \tpublic $base_url; // Full URL with trailing slash\n \tpublic $content_url;\n \tpublic $default_version;\n-\tpublic $in_footer = array();\n+\tpublic $in_footer = [];\n \tpublic $concat = '';\n \tpublic $concat_version = '';\n \tpublic $do_concat = false;\n@@ -32,7 +32,7 @@\n \n \tpublic function __construct() {\n \t\t$this->init();\n-\t\tadd_action( 'init', array( $this, 'init' ), 0 );\n+\t\tadd_action( 'init', $this->init(...), 0 );\n \t}\n \n \tpublic function init() {\n@@ -43,7 +43,7 @@\n \t\t *\n \t\t * @param WP_Scripts &$this WP_Scripts instance, passed by reference.\n \t\t */\n-\t\tdo_action_ref_array( 'wp_default_scripts', array(&$this) );\n+\t\tdo_action_ref_array( 'wp_default_scripts', [&$this] );\n \t}\n \n \t/**\n@@ -96,7 +96,7 @@\n \t\tif ( null === $this->registered[$handle]->ver )\n \t\t\t$ver = '';\n \t\telse\n-\t\t\t$ver = $this->registered[$handle]->ver ? $this->registered[$handle]->ver : $this->default_version;\n+\t\t\t$ver = $this->registered[$handle]->ver ?: $this->default_version;\n \n \t\tif ( isset($this->args[$handle]) )\n \t\t\t$ver = $ver ? $ver . '&amp;' . $this->args[$handle] : $this->args[$handle];\n@@ -125,7 +125,7 @@\n \t\t}\n \n \t\t$this->print_extra_script( $handle );\n-\t\tif ( !preg_match('|^(https?:)?//|', $src) && ! ( $this->content_url && 0 === strpos($src, $this->content_url) ) ) {\n+\t\tif ( !preg_match('|^(https?:)?//|', (string) $src) && ! ( $this->content_url && str_starts_with((string) $src, (string) $this->content_url) ) ) {\n \t\t\t$src = $this->base_url . $src;\n \t\t}\n \n@@ -223,12 +223,12 @@\n \t\t\treturn true;\n \t\t}\n \n-\t\tif ( 0 === strpos( $src, '/' . WPINC . '/js/l10n' ) ) {\n+\t\tif ( str_starts_with((string) $src, '/' . WPINC . '/js/l10n') ) {\n \t\t\treturn false;\n \t\t}\n \n \t\tforeach ( (array) $this->default_dirs as $test ) {\n-\t\t\tif ( 0 === strpos( $src, $test ) ) {\n+\t\t\tif ( str_starts_with((string) $src, (string) $test) ) {\n \t\t\t\treturn true;\n \t\t\t}\n \t\t}\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/247_class.wp-scripts.php"
+    ]
+  }
+}

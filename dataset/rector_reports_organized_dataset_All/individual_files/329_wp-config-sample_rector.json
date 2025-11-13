@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\329_wp-config-sample.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:27.972029",
+    "file_size_kb": 2.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/329_wp-config-sample.php",
+        "diff": "--- Original\n+++ New\n@@ -74,7 +74,7 @@\n \n /** Absolute path to the WordPress directory. */\n if ( !defined('ABSPATH') )\n-\tdefine('ABSPATH', dirname(__FILE__) . '/');\n+\tdefine('ABSPATH', __DIR__ . '/');\n \n /** Sets up WordPress vars and included files. */\n require_once(ABSPATH . 'wp-settings.php');\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/329_wp-config-sample.php"
+    ]
+  }
+}

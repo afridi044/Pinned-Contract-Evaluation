@@ -1,0 +1,43 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\091_Rating.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 71
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:29:01.979060",
+    "file_size_kb": 3.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/091_Rating.php",
+        "diff": "--- Original\n+++ New\n@@ -52,42 +52,39 @@\n  * @package SimplePie\n  * @subpackage API\n  */\n-class SimplePie_Rating\n+class SimplePie_Rating implements \\Stringable\n {\n \t/**\n-\t * Rating scheme\n-\t *\n-\t * @var string\n-\t * @see get_scheme()\n-\t */\n-\tvar $scheme;\n+     * Constructor, used to input the data\n+     *\n+     * For documentation on all the parameters, see the corresponding\n+     * properties and their accessors\n+     * @param string $scheme\n+     * @param string $value\n+     */\n+    public function __construct(\n+        /**\n+         * Rating scheme\n+         *\n+         * @see get_scheme()\n+         */\n+        public $scheme = null,\n+        /**\n+         * Rating value\n+         *\n+         * @see get_value()\n+         */\n+        public $value = null\n+    )\n+    {\n+    }\n \n \t/**\n-\t * Rating value\n-\t *\n-\t * @var string\n-\t * @see get_value()\n-\t */\n-\tvar $value;\n-\n-\t/**\n-\t * Constructor, used to input the data\n-\t *\n-\t * For documentation on all the parameters, see the corresponding\n-\t * properties and their accessors\n-\t */\n-\tpublic function __construct($scheme = null, $value = null)\n-\t{\n-\t\t$this->scheme = $scheme;\n-\t\t$this->value = $value;\n-\t}\n-\n-\t/**\n \t * String-ified version\n \t *\n \t * @return string\n \t */\n-\tpublic function __toString()\n+\tpublic function __toString(): string\n \t{\n \t\t// There is no $this->data here\n \t\treturn md5(serialize($this));\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/091_Rating.php"
+    ]
+  }
+}

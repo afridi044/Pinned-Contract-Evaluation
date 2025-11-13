@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\155_template.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 107
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:06.902472",
+    "file_size_kb": 13.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/155_template.php",
+        "diff": "--- Original\n+++ New\n@@ -20,11 +20,11 @@\n  * @param array $templates An optional list of template candidates\n  * @return string Full path to template file.\n  */\n-function get_query_template( $type, $templates = array() ) {\n+function get_query_template( $type, $templates = [] ) {\n \t$type = preg_replace( '|[^a-z0-9-]+|', '', $type );\n \n \tif ( empty( $templates ) )\n-\t\t$templates = array(\"{$type}.php\");\n+\t\t$templates = [\"{$type}.php\"];\n \n \t$template = locate_template( $templates );\n \t/**\n@@ -85,7 +85,7 @@\n function get_archive_template() {\n \t$post_types = array_filter( (array) get_query_var( 'post_type' ) );\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( count( $post_types ) == 1 ) {\n \t\t$post_type = reset( $post_types );\n@@ -133,7 +133,7 @@\n function get_author_template() {\n \t$author = get_queried_object();\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( is_a( $author, 'WP_User' ) ) {\n \t\t$templates[] = \"author-{$author->user_nicename}.php\";\n@@ -162,7 +162,7 @@\n function get_category_template() {\n \t$category = get_queried_object();\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( ! empty( $category->slug ) ) {\n \t\t$templates[] = \"category-{$category->slug}.php\";\n@@ -191,7 +191,7 @@\n function get_tag_template() {\n \t$tag = get_queried_object();\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( ! empty( $tag->slug ) ) {\n \t\t$templates[] = \"tag-{$tag->slug}.php\";\n@@ -225,7 +225,7 @@\n function get_taxonomy_template() {\n \t$term = get_queried_object();\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( ! empty( $term->slug ) ) {\n \t\t$taxonomy = $term->taxonomy;\n@@ -267,7 +267,7 @@\n  * @return string Full path to home template file.\n  */\n function get_home_template() {\n-\t$templates = array( 'home.php', 'index.php' );\n+\t$templates = [ 'home.php', 'index.php' ];\n \n \treturn get_query_template( 'home', $templates );\n }\n@@ -285,7 +285,7 @@\n  * @return string Full path to front page template file.\n  */\n function get_front_page_template() {\n-\t$templates = array('front-page.php');\n+\t$templates = ['front-page.php'];\n \n \treturn get_query_template( 'front_page', $templates );\n }\n@@ -317,7 +317,7 @@\n \t\t\t$pagename = $post->post_name;\n \t}\n \n-\t$templates = array();\n+\t$templates = [];\n \tif ( $template && 0 === validate_file( $template ) )\n \t\t$templates[] = $template;\n \tif ( $pagename )\n@@ -373,7 +373,7 @@\n function get_single_template() {\n \t$object = get_queried_object();\n \n-\t$templates = array();\n+\t$templates = [];\n \n \tif ( ! empty( $object->post_type ) )\n \t\t$templates[] = \"single-{$object->post_type}.php\";\n@@ -437,7 +437,7 @@\n  * @return string Full path to comments popup template file.\n  */\n function get_comments_popup_template() {\n-\t$template = get_query_template( 'comments_popup', array( 'comments-popup.php' ) );\n+\t$template = get_query_template( 'comments_popup', [ 'comments-popup.php' ] );\n \n \t// Backward compat code will be removed in a future release\n \tif ('' == $template)\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/155_template.php"
+    ]
+  }
+}

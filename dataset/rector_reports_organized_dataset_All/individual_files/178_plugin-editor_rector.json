@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\178_plugin-editor.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 79
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:10.558291",
+    "file_size_kb": 11.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/178_plugin-editor.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( is_multisite() && ! is_network_admin() ) {\n \twp_redirect( network_admin_url( 'plugin-editor.php' ) );\n@@ -20,7 +20,7 @@\n $title = __(\"Edit Plugins\");\n $parent_file = 'plugins.php';\n \n-wp_reset_vars( array( 'action', 'error', 'file', 'plugin' ) );\n+wp_reset_vars( [ 'action', 'error', 'file', 'plugin' ] );\n \n $plugins = get_plugins();\n \n@@ -72,7 +72,7 @@\n \t\t\t\tdeactivate_plugins($file, true);\n \n \t\t\tif ( ! is_network_admin() )\n-\t\t\t\tupdate_option( 'recently_activated', array( $file => time() ) + (array) get_option( 'recently_activated' ) );\n+\t\t\t\tupdate_option( 'recently_activated', [ $file => time() ] + (array) get_option( 'recently_activated' ) );\n \n \t\t\twp_redirect(add_query_arg('_wpnonce', wp_create_nonce('edit-plugin-test_' . $file), \"plugin-editor.php?file=$file&liveupdate=1&scrollto=$scrollto&networkwide=\" . $network_wide));\n \t\t\texit;\n@@ -100,7 +100,7 @@\n \t}\n \n \t// List of allowable extensions\n-\t$editable_extensions = array('php', 'txt', 'text', 'js', 'css', 'html', 'htm', 'xml', 'inc', 'include');\n+\t$editable_extensions = ['php', 'txt', 'text', 'js', 'css', 'html', 'htm', 'xml', 'inc', 'include'];\n \n \t/**\n \t * Filter file type extensions editable in the plugin editor.\n@@ -123,7 +123,7 @@\n \t\t}\n \t}\n \n-\tget_current_screen()->add_help_tab( array(\n+\tget_current_screen()->add_help_tab( [\n \t'id'\t\t=> 'overview',\n \t'title'\t\t=> __('Overview'),\n \t'content'\t=>\n@@ -133,7 +133,7 @@\n \t\t'<p id=\"newcontent-description\">' . __('In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key.') . '</p>' .\n \t\t'<p>' . __('If you want to make changes but don&#8217;t want them to be overwritten when the plugin is updated, you may be ready to think about writing your own plugin. For information on how to edit plugins, write your own from scratch, or just better understand their anatomy, check out the links below.') . '</p>' .\n \t\t( is_network_admin() ? '<p>' . __('Any edits to files from this screen will be reflected on all sites in the network.') . '</p>' : '' )\n-\t) );\n+\t] );\n \n \tget_current_screen()->set_help_sidebar(\n \t\t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -232,7 +232,7 @@\n \t\tcontinue;\n \t}\n ?>\n-\t\t<li<?php echo $file == $plugin_file ? ' class=\"highlight\"' : ''; ?>><a href=\"plugin-editor.php?file=<?php echo urlencode( $plugin_file ) ?>&amp;plugin=<?php echo urlencode( $plugin ) ?>\"><?php echo $plugin_file ?></a></li>\n+\t\t<li<?php echo $file == $plugin_file ? ' class=\"highlight\"' : ''; ?>><a href=\"plugin-editor.php?file=<?php echo urlencode( $plugin_file ) ?>&amp;plugin=<?php echo urlencode( (string) $plugin ) ?>\"><?php echo $plugin_file ?></a></li>\n <?php endforeach; ?>\n \t</ul>\n </div>\n@@ -245,10 +245,10 @@\n \t\t<input type=\"hidden\" name=\"scrollto\" id=\"scrollto\" value=\"<?php echo $scrollto; ?>\" />\n \t\t</div>\n \t\t<?php if ( !empty( $docs_select ) ) : ?>\n-\t\t<div id=\"documentation\" class=\"hide-if-no-js\"><label for=\"docs-list\"><?php _e('Documentation:') ?></label> <?php echo $docs_select ?> <input type=\"button\" class=\"button\" value=\"<?php esc_attr_e( 'Look Up' ) ?> \" onclick=\"if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $wp_version ) ?>&amp;redirect=true'); }\" /></div>\n+\t\t<div id=\"documentation\" class=\"hide-if-no-js\"><label for=\"docs-list\"><?php _e('Documentation:') ?></label> <?php echo $docs_select ?> <input type=\"button\" class=\"button\" value=\"<?php esc_attr_e( 'Look Up' ) ?> \" onclick=\"if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( (string) $wp_version ) ?>&amp;redirect=true'); }\" /></div>\n \t\t<?php endif; ?>\n <?php if ( is_writeable($real_file) ) : ?>\n-\t<?php if ( in_array( $file, (array) get_option( 'active_plugins', array() ) ) ) { ?>\n+\t<?php if ( in_array( $file, (array) get_option( 'active_plugins', [] ) ) ) { ?>\n \t\t<p><?php _e('<strong>Warning:</strong> Making changes to active plugins is not recommended. If your changes cause a fatal error, the plugin will be automatically deactivated.'); ?></p>\n \t<?php } ?>\n \t<p class=\"submit\">\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/178_plugin-editor.php"
+    ]
+  }
+}

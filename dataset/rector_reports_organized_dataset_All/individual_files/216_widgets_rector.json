@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\216_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 104
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:48.721991",
+    "file_size_kb": 8.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/216_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -16,7 +16,7 @@\n \n \t$sort = $wp_registered_widgets;\n \tusort( $sort, '_sort_name_callback' );\n-\t$done = array();\n+\t$done = [];\n \n \tforeach ( $sort as $widget ) {\n \t\tif ( in_array( $widget['callback'], $done, true ) ) // We already showed this multi-widget\n@@ -26,9 +26,9 @@\n \t\t$done[] = $widget['callback'];\n \n \t\tif ( ! isset( $widget['params'][0] ) )\n-\t\t\t$widget['params'][0] = array();\n+\t\t\t$widget['params'][0] = [];\n \n-\t\t$args = array( 'widget_id' => $widget['id'], 'widget_name' => $widget['name'], '_display' => 'template' );\n+\t\t$args = [ 'widget_id' => $widget['id'], 'widget_name' => $widget['name'], '_display' => 'template' ];\n \n \t\tif ( isset($wp_registered_widget_controls[$widget['id']]['id_base']) && isset($widget['params'][0]['number']) ) {\n \t\t\t$id_base = $wp_registered_widget_controls[$widget['id']]['id_base'];\n@@ -41,7 +41,7 @@\n \t\t\t\t$args['_hide'] = '1';\n \t\t}\n \n-\t\t$args = wp_list_widget_controls_dynamic_sidebar( array( 0 => $args, 1 => $widget['params'][0] ) );\n+\t\t$args = wp_list_widget_controls_dynamic_sidebar( [ 0 => $args, 1 => $widget['params'][0] ] );\n \t\tcall_user_func_array( 'wp_widget_control', $args );\n \t}\n }\n@@ -53,7 +53,7 @@\n  * @access private\n  */\n function _sort_name_callback( $a, $b ) {\n-\treturn strnatcasecmp( $a['name'], $b['name'] );\n+\treturn strnatcasecmp( (string) $a['name'], (string) $b['name'] );\n }\n \n /**\n@@ -108,7 +108,7 @@\n \t$i++;\n \n \t$widget_id = $params[0]['widget_id'];\n-\t$id = isset($params[0]['_temp_id']) ? $params[0]['_temp_id'] : $widget_id;\n+\t$id = $params[0]['_temp_id'] ?? $widget_id;\n \t$hidden = isset($params[0]['_hide']) ? ' style=\"display:none;\"' : '';\n \n \t$params[0]['before_widget'] = \"<div id='widget-{$i}_{$id}' class='widget'$hidden>\";\n@@ -128,7 +128,7 @@\n \t$number = 1;\n \n \tforeach ( $wp_registered_widgets as $widget_id => $widget ) {\n-\t\tif ( preg_match( '/' . $id_base . '-([0-9]+)$/', $widget_id, $matches ) )\n+\t\tif ( preg_match( '/' . $id_base . '-([0-9]+)$/', (string) $widget_id, $matches ) )\n \t\t\t$number = max($number, $matches[1]);\n \t}\n \t$number++;\n@@ -150,18 +150,18 @@\n \tglobal $wp_registered_widgets, $wp_registered_widget_controls, $sidebars_widgets;\n \n \t$widget_id = $sidebar_args['widget_id'];\n-\t$sidebar_id = isset($sidebar_args['id']) ? $sidebar_args['id'] : false;\n+\t$sidebar_id = $sidebar_args['id'] ?? false;\n \t$key = $sidebar_id ? array_search( $widget_id, $sidebars_widgets[$sidebar_id] ) : '-1'; // position of widget in sidebar\n-\t$control = isset($wp_registered_widget_controls[$widget_id]) ? $wp_registered_widget_controls[$widget_id] : array();\n+\t$control = $wp_registered_widget_controls[$widget_id] ?? [];\n \t$widget = $wp_registered_widgets[$widget_id];\n \n \t$id_format = $widget['id'];\n-\t$widget_number = isset($control['params'][0]['number']) ? $control['params'][0]['number'] : '';\n-\t$id_base = isset($control['id_base']) ? $control['id_base'] : $widget_id;\n-\t$multi_number = isset($sidebar_args['_multi_num']) ? $sidebar_args['_multi_num'] : '';\n-\t$add_new = isset($sidebar_args['_add']) ? $sidebar_args['_add'] : '';\n+\t$widget_number = $control['params'][0]['number'] ?? '';\n+\t$id_base = $control['id_base'] ?? $widget_id;\n+\t$multi_number = $sidebar_args['_multi_num'] ?? '';\n+\t$add_new = $sidebar_args['_add'] ?? '';\n \n-\t$query_arg = array( 'editwidget' => $widget['id'] );\n+\t$query_arg = [ 'editwidget' => $widget['id'] ];\n \tif ( $add_new ) {\n \t\t$query_arg['addnew'] = 1;\n \t\tif ( $multi_number ) {\n@@ -188,7 +188,7 @@\n \t$wp_registered_widgets[$widget_id]['callback'] = $wp_registered_widgets[$widget_id]['_callback'];\n \tunset($wp_registered_widgets[$widget_id]['_callback']);\n \n-\t$widget_title = esc_html( strip_tags( $sidebar_args['widget_name'] ) );\n+\t$widget_title = esc_html( strip_tags( (string) $sidebar_args['widget_name'] ) );\n \t$has_form = 'noform';\n \n \techo $sidebar_args['before_widget']; ?>\n@@ -227,7 +227,7 @@\n \t\t<a class=\"widget-control-close\" href=\"#close\"><?php _e('Close'); ?></a>\n \t\t</div>\n \t\t<div class=\"alignright<?php if ( 'noform' === $has_form ) echo ' widget-control-noform'; ?>\">\n-\t\t\t<?php submit_button( __( 'Save' ), 'button-primary widget-control-save right', 'savewidget', false, array( 'id' => 'widget-' . esc_attr( $id_format ) . '-savewidget' ) ); ?>\n+\t\t\t<?php submit_button( __( 'Save' ), 'button-primary widget-control-save right', 'savewidget', false, [ 'id' => 'widget-' . esc_attr( $id_format ) . '-savewidget' ] ); ?>\n \t\t\t<span class=\"spinner\"></span>\n \t\t</div>\n \t\t<br class=\"clear\" />\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/216_widgets.php"
+    ]
+  }
+}

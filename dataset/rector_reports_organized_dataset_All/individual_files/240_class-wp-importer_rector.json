@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\240_class-wp-importer.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php74\\Rector\\ArrayDimFetch\\CurlyToSquareBracketArrayStringRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_71": 1,
+      "php_74": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 127
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:49.908354",
+    "file_size_kb": 6.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/240_class-wp-importer.php",
+        "diff": "--- Original\n+++ New\n@@ -19,7 +19,7 @@\n \tpublic function get_imported_posts( $importer_name, $bid ) {\n \t\tglobal $wpdb;\n \n-\t\t$hashtable = array();\n+\t\t$hashtable = [];\n \n \t\t$limit = 100;\n \t\t$offset = 0;\n@@ -82,7 +82,7 @@\n \tpublic function get_imported_comments( $bid ) {\n \t\tglobal $wpdb;\n \n-\t\t$hashtable = array();\n+\t\t$hashtable = [];\n \n \t\t$limit = 100;\n \t\t$offset = 0;\n@@ -98,7 +98,7 @@\n \t\t\tif ( !empty( $results ) ) {\n \t\t\t\tforeach ( $results as $r ) {\n \t\t\t\t\t// Explode comment_agent key\n-\t\t\t\t\tlist ( $ca_bid, $source_comment_id ) = explode( '-', $r->comment_agent );\n+\t\t\t\t\t[$ca_bid, $source_comment_id] = explode( '-', (string) $r->comment_agent );\n \t\t\t\t\t$source_comment_id = intval( $source_comment_id );\n \n \t\t\t\t\t// Check if this comment came from this blog\n@@ -119,14 +119,14 @@\n \t\tif ( is_numeric( $blog_id ) ) {\n \t\t\t$blog_id = (int) $blog_id;\n \t\t} else {\n-\t\t\t$blog = 'http://' . preg_replace( '#^https?://#', '', $blog_id );\n-\t\t\tif ( ( !$parsed = parse_url( $blog ) ) || empty( $parsed['host'] ) ) {\n+\t\t\t$blog = 'http://' . preg_replace( '#^https?://#', '', (string) $blog_id );\n+\t\t\tif ( ( !$parsed = parse_url( (string) $blog ) ) || empty( $parsed['host'] ) ) {\n \t\t\t\tfwrite( STDERR, \"Error: can not determine blog_id from $blog_id\\n\" );\n \t\t\t\texit();\n \t\t\t}\n \t\t\tif ( empty( $parsed['path'] ) )\n \t\t\t\t$parsed['path'] = '/';\n-\t\t\t$blog = get_blog_details( array( 'domain' => $parsed['host'], 'path' => $parsed['path'] ) );\n+\t\t\t$blog = get_blog_details( [ 'domain' => $parsed['host'], 'path' => $parsed['path'] ] );\n \t\t\tif ( !$blog ) {\n \t\t\t\tfwrite( STDERR, \"Error: Could not find blog\\n\" );\n \t\t\t\texit();\n@@ -165,7 +165,7 @@\n \t * @return int\n \t */\n \tpublic function cmpr_strlen( $a, $b ) {\n-\t\treturn strlen( $b ) - strlen( $a );\n+\t\treturn strlen( (string) $b ) - strlen( (string) $a );\n \t}\n \n \t/**\n@@ -179,10 +179,10 @@\n \t */\n \tpublic function get_page( $url, $username = '', $password = '', $head = false ) {\n \t\t// Increase the timeout\n-\t\tadd_filter( 'http_request_timeout', array( $this, 'bump_request_timeout' ) );\n+\t\tadd_filter( 'http_request_timeout', [ $this, 'bump_request_timeout' ] );\n \n-\t\t$headers = array();\n-\t\t$args = array();\n+\t\t$headers = [];\n+\t\t$args = [];\n \t\tif ( true === $head )\n \t\t\t$args['method'] = 'HEAD';\n \t\tif ( !empty( $username ) && !empty( $password ) )\n@@ -226,7 +226,7 @@\n \t * @return string\n \t */\n \tpublic function min_whitespace( $string ) {\n-\t\treturn preg_replace( '|[\\r\\n\\t ]+|', ' ', $string );\n+\t\treturn preg_replace( '|[\\r\\n\\t ]+|', ' ', (string) $string );\n \t}\n \n \t/**\n@@ -237,9 +237,9 @@\n \tpublic function stop_the_insanity() {\n \t\tglobal $wpdb, $wp_actions;\n \t\t// Or define( 'WP_IMPORTING', true );\n-\t\t$wpdb->queries = array();\n+\t\t$wpdb->queries = [];\n \t\t// Reset $wp_actions to keep it from growing out of control\n-\t\t$wp_actions = array();\n+\t\t$wp_actions = [];\n \t}\n }\n \n@@ -254,7 +254,7 @@\n function get_cli_args( $param, $required = false ) {\n \t$args = $_SERVER['argv'];\n \n-\t$out = array();\n+\t$out = [];\n \n \t$last_arg = null;\n \t$return = null;\n@@ -262,9 +262,9 @@\n \t$il = sizeof( $args );\n \n \tfor ( $i = 1, $il; $i < $il; $i++ ) {\n-\t\tif ( (bool) preg_match( \"/^--(.+)/\", $args[$i], $match ) ) {\n-\t\t\t$parts = explode( \"=\", $match[1] );\n-\t\t\t$key = preg_replace( \"/[^a-z0-9]+/\", \"\", $parts[0] );\n+\t\tif ( (bool) preg_match( \"/^--(.+)/\", (string) $args[$i], $match ) ) {\n+\t\t\t$parts = explode( \"=\", (string) $match[1] );\n+\t\t\t$key = preg_replace( \"/[^a-z0-9]+/\", \"\", (string) $parts[0] );\n \n \t\t\tif ( isset( $parts[1] ) ) {\n \t\t\t\t$out[$key] = $parts[1];\n@@ -273,9 +273,9 @@\n \t\t\t}\n \n \t\t\t$last_arg = $key;\n-\t\t} else if ( (bool) preg_match( \"/^-([a-zA-Z0-9]+)/\", $args[$i], $match ) ) {\n-\t\t\tfor ( $j = 0, $jl = strlen( $match[1] ); $j < $jl; $j++ ) {\n-\t\t\t\t$key = $match[1]{$j};\n+\t\t} else if ( (bool) preg_match( \"/^-([a-zA-Z0-9]+)/\", (string) $args[$i], $match ) ) {\n+\t\t\tfor ( $j = 0, $jl = strlen( (string) $match[1] ); $j < $jl; $j++ ) {\n+\t\t\t\t$key = $match[1][$j];\n \t\t\t\t$out[$key] = true;\n \t\t\t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php74\\Rector\\ArrayDimFetch\\CurlyToSquareBracketArrayStringRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/240_class-wp-importer.php"
+    ]
+  }
+}

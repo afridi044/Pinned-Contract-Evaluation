@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\087_network.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 80
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:04:35.062871",
+    "file_size_kb": 25.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/087_network.php",
+        "diff": "--- Original\n+++ New\n@@ -13,7 +13,7 @@\n define( 'WP_INSTALLING_NETWORK', true );\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_super_admin() )\n \twp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );\n@@ -123,11 +123,11 @@\n \t'<p>' . __('<a href=\"http://codex.wordpress.org/Create_A_Network\" target=\"_blank\">Documentation on Creating a Network</a>') . '</p>' .\n \t'<p>' . __('<a href=\"http://codex.wordpress.org/Tools_Network_Screen\" target=\"_blank\">Documentation on the Network Screen</a>') . '</p>';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'network',\n \t'title'   => __('Network'),\n \t'content' => $network_help,\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -170,7 +170,7 @@\n \n \t$hostname = get_clean_basedomain();\n \t$has_ports = strstr( $hostname, ':' );\n-\tif ( ( false !== $has_ports && ! in_array( $has_ports, array( ':80', ':443' ) ) ) ) {\n+\tif ( ( false !== $has_ports && ! in_array( $has_ports, [ ':80', ':443' ] ) ) ) {\n \t\techo '<div class=\"error\"><p><strong>' . __( 'ERROR:') . '</strong> ' . __( 'You cannot install a network of sites with your server address.' ) . '</p></div>';\n \t\techo '<p>' . sprintf( __( 'You cannot use port numbers such as <code>%s</code>.' ), $has_ports ) . '</p>';\n \t\techo '<a href=\"' . esc_url( admin_url() ) . '\">' . __( 'Return to Dashboard' ) . '</a>';\n@@ -183,7 +183,7 @@\n \n \twp_nonce_field( 'install-network-1' );\n \n-\t$error_codes = array();\n+\t$error_codes = [];\n \tif ( is_wp_error( $errors ) ) {\n \t\techo '<div class=\"error\"><p><strong>' . __( 'ERROR: The network could not be created.' ) . '</strong></p>';\n \t\tforeach ( $errors->get_error_messages() as $error )\n@@ -237,7 +237,7 @@\n \t\tif ( WP_CONTENT_DIR != ABSPATH . 'wp-content' && ( allow_subdirectory_install() || ! allow_subdomain_install() ) )\n \t\t\techo '<div class=\"error inline\"><p><strong>' . __('Warning!') . '</strong> ' . __( 'Subdirectory networks may not be fully compatible with custom wp-content directories.' ) . '</p></div>';\n \n-\t\t$is_www = ( 0 === strpos( $hostname, 'www.' ) );\n+\t\t$is_www = ( str_starts_with($hostname, 'www.') );\n \t\tif ( $is_www ) :\n \t\t?>\n \t\t<h3><?php esc_html_e( 'Server Address' ); ?></h3>\n@@ -327,7 +327,7 @@\n \t$base              = parse_url( $slashed_home, PHP_URL_PATH );\n \t$document_root_fix = str_replace( '\\\\', '/', realpath( $_SERVER['DOCUMENT_ROOT'] ) );\n \t$abspath_fix       = str_replace( '\\\\', '/', ABSPATH );\n-\t$home_path         = 0 === strpos( $abspath_fix, $document_root_fix ) ? $document_root_fix . $base : get_home_path();\n+\t$home_path         = str_starts_with($abspath_fix, $document_root_fix) ? $document_root_fix . $base : get_home_path();\n \t$wp_siteurl_subdir = preg_replace( '#^' . preg_quote( $home_path, '#' ) . '#', '', $abspath_fix );\n \t$rewrite_base      = ! empty( $wp_siteurl_subdir ) ? ltrim( trailingslashit( $wp_siteurl_subdir ), '/' ) : '';\n \n@@ -391,7 +391,7 @@\n define('SITE_ID_CURRENT_SITE', 1);\n define('BLOG_ID_CURRENT_SITE', 1);</textarea>\n <?php\n-\t$keys_salts = array( 'AUTH_KEY' => '', 'SECURE_AUTH_KEY' => '', 'LOGGED_IN_KEY' => '', 'NONCE_KEY' => '', 'AUTH_SALT' => '', 'SECURE_AUTH_SALT' => '', 'LOGGED_IN_SALT' => '', 'NONCE_SALT' => '' );\n+\t$keys_salts = [ 'AUTH_KEY' => '', 'SECURE_AUTH_KEY' => '', 'LOGGED_IN_KEY' => '', 'NONCE_KEY' => '', 'AUTH_SALT' => '', 'SECURE_AUTH_SALT' => '', 'LOGGED_IN_SALT' => '', 'NONCE_SALT' => '' ];\n \tforeach ( $keys_salts as $c => $v ) {\n \t\tif ( defined( $c ) )\n \t\t\tunset( $keys_salts[ $c ] );\n@@ -407,7 +407,7 @@\n \t\t} else {\n \t\t\t$from_api = explode( \"\\n\", wp_remote_retrieve_body( $from_api ) );\n \t\t\tforeach ( $keys_salts as $c => $v ) {\n-\t\t\t\t$keys_salts_str .= \"\\ndefine( '$c', '\" . substr( array_shift( $from_api ), 28, 64 ) . \"' );\";\n+\t\t\t\t$keys_salts_str .= \"\\ndefine( '$c', '\" . substr( (string) array_shift( $from_api ), 28, 64 ) . \"' );\";\n \t\t\t}\n \t\t}\n \t\t$num_keys_salts = count( $keys_salts );\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/087_network.php"
+    ]
+  }
+}

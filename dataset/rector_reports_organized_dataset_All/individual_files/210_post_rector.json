@@ -1,0 +1,46 @@
+{
+  "file_path": "organized_dataset_All\\210_post.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 78
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:33.727564",
+    "file_size_kb": 8.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/210_post.php",
+        "diff": "--- Original\n+++ New\n@@ -9,12 +9,12 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n $parent_file = 'edit.php';\n $submenu_file = 'edit.php';\n \n-wp_reset_vars( array( 'action' ) );\n+wp_reset_vars( [ 'action' ] );\n \n if ( isset( $_GET['post'] ) )\n  \t$post_id = $post_ID = (int) $_GET['post'];\n@@ -43,16 +43,11 @@\n \t\t$status = get_post_status( $post_id );\n \n \t\tif ( isset( $_POST['publish'] ) ) {\n-\t\t\tswitch ( $status ) {\n-\t\t\t\tcase 'pending':\n-\t\t\t\t\t$message = 8;\n-\t\t\t\t\tbreak;\n-\t\t\t\tcase 'future':\n-\t\t\t\t\t$message = 9;\n-\t\t\t\t\tbreak;\n-\t\t\t\tdefault:\n-\t\t\t\t\t$message = 6;\n-\t\t\t}\n+\t\t\t$message = match ($status) {\n+                'pending' => 8,\n+                'future' => 9,\n+                default => 6,\n+            };\n \t\t} else {\n \t\t\t\t$message = 'draft' == $status ? 10 : 1;\n \t\t}\n@@ -89,8 +84,8 @@\n \n $sendback = wp_get_referer();\n if ( ! $sendback ||\n-     strpos( $sendback, 'post.php' ) !== false ||\n-     strpos( $sendback, 'post-new.php' ) !== false ) {\n+     str_contains( $sendback, 'post.php' ) ||\n+     str_contains( $sendback, 'post-new.php' ) ) {\n \tif ( 'attachment' == $post_type ) {\n \t\t$sendback = admin_url( 'upload.php' );\n \t} else {\n@@ -98,7 +93,7 @@\n \t\t$sendback .= ( ! empty( $post_type ) ) ? '?post_type=' . $post_type : '';\n \t}\n } else {\n-\t$sendback = remove_query_arg( array('trashed', 'untrashed', 'deleted', 'ids'), $sendback );\n+\t$sendback = remove_query_arg( ['trashed', 'untrashed', 'deleted', 'ids'], $sendback );\n }\n \n switch($action) {\n@@ -190,7 +185,7 @@\n \tif ( is_multisite() ) {\n \t\tadd_action( 'admin_footer', '_admin_notice_post_locked' );\n \t} else {\n-\t\t$check_users = get_users( array( 'fields' => 'ID', 'number' => 2 ) );\n+\t\t$check_users = get_users( [ 'fields' => 'ID', 'number' => 2 ] );\n \n \t\tif ( count( $check_users ) > 1 )\n \t\t\tadd_action( 'admin_footer', '_admin_notice_post_locked' );\n@@ -257,7 +252,7 @@\n \tif ( ! wp_trash_post( $post_id ) )\n \t\twp_die( __( 'Error in moving to Trash.' ) );\n \n-\twp_redirect( add_query_arg( array('trashed' => 1, 'ids' => $post_id), $sendback ) );\n+\twp_redirect( add_query_arg( ['trashed' => 1, 'ids' => $post_id], $sendback ) );\n \texit();\n \n case 'untrash':\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/210_post.php"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\288_image.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:50.348457",
+    "file_size_kb": 4.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/288_image.php",
+        "diff": "--- Original\n+++ New\n@@ -52,7 +52,7 @@\n  * Grab the IDs of all the image attachments in a gallery so we can get the URL of the next adjacent image in a gallery,\n  * or the first image (if we're looking at the last image in a gallery), or, in a gallery of one, just the link to that image file\n  */\n-$attachments = array_values( get_children( array( 'post_parent' => $post->post_parent, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC', 'orderby' => 'menu_order ID' ) ) );\n+$attachments = array_values( get_children( [ 'post_parent' => $post->post_parent, 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => 'ASC', 'orderby' => 'menu_order ID' ] ) );\n foreach ( $attachments as $k => $attachment ) :\n \tif ( $attachment->ID == $post->ID )\n \t\tbreak;\n@@ -84,7 +84,7 @@\n \t\t\t\t\t\t\t\t *     @type int The attachment width in pixels.\n \t\t\t\t\t\t\t\t * }\n \t\t\t\t\t\t\t\t */\n-\t\t\t\t\t\t\t\t$attachment_size = apply_filters( 'twentytwelve_attachment_size', array( 960, 960 ) );\n+\t\t\t\t\t\t\t\t$attachment_size = apply_filters( 'twentytwelve_attachment_size', [ 960, 960 ] );\n \t\t\t\t\t\t\t\techo wp_get_attachment_image( $post->ID, $attachment_size );\n \t\t\t\t\t\t\t\t?></a>\n \n@@ -99,7 +99,7 @@\n \n \t\t\t\t\t\t<div class=\"entry-description\">\n \t\t\t\t\t\t\t<?php the_content(); ?>\n-\t\t\t\t\t\t\t<?php wp_link_pages( array( 'before' => '<div class=\"page-links\">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>\n+\t\t\t\t\t\t\t<?php wp_link_pages( [ 'before' => '<div class=\"page-links\">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ] ); ?>\n \t\t\t\t\t\t</div><!-- .entry-description -->\n \n \t\t\t\t\t</div><!-- .entry-content -->\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/288_image.php"
+    ]
+  }
+}

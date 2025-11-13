@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\164_MySQL.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 55
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:32.428485",
+    "file_size_kb": 12.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/164_MySQL.php",
+        "diff": "--- Original\n+++ New\n@@ -86,26 +86,26 @@\n \t */\n \tpublic function __construct($location, $name, $type)\n \t{\n-\t\t$this->options = array(\n+\t\t$this->options = [\n \t\t\t'user' => null,\n \t\t\t'pass' => null,\n \t\t\t'host' => '127.0.0.1',\n \t\t\t'port' => '3306',\n \t\t\t'path' => '',\n-\t\t\t'extras' => array(\n+\t\t\t'extras' => [\n \t\t\t\t'prefix' => '',\n-\t\t\t),\n-\t\t);\n+\t\t\t],\n+\t\t];\n \t\t$this->options = array_merge_recursive($this->options, SimplePie_Cache::parse_URL($location));\n \n \t\t// Path is prefixed with a \"/\"\n-\t\t$this->options['dbname'] = substr($this->options['path'], 1);\n+\t\t$this->options['dbname'] = substr((string) $this->options['path'], 1);\n \n \t\ttry\n \t\t{\n-\t\t\t$this->mysql = new PDO(\"mysql:dbname={$this->options['dbname']};host={$this->options['host']};port={$this->options['port']}\", $this->options['user'], $this->options['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));\n+\t\t\t$this->mysql = new PDO(\"mysql:dbname={$this->options['dbname']};host={$this->options['host']};port={$this->options['port']}\", $this->options['user'], $this->options['pass'], [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);\n \t\t}\n-\t\tcatch (PDOException $e)\n+\t\tcatch (PDOException)\n \t\t{\n \t\t\t$this->mysql = null;\n \t\t\treturn;\n@@ -119,7 +119,7 @@\n \t\t\treturn;\n \t\t}\n \n-\t\t$db = array();\n+\t\t$db = [];\n \t\twhile ($row = $query->fetchColumn())\n \t\t{\n \t\t\t$db[] = $row;\n@@ -216,7 +216,7 @@\n \n \t\t\t\t\tif ($query->execute())\n \t\t\t\t\t{\n-\t\t\t\t\t\t$existing_ids = array();\n+\t\t\t\t\t\t$existing_ids = [];\n \t\t\t\t\t\twhile ($row = $query->fetchColumn())\n \t\t\t\t\t\t{\n \t\t\t\t\t\t\t$existing_ids[] = $row;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/164_MySQL.php"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\439_update.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 17
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:17:49.021334",
+    "file_size_kb": 0.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/439_update.php",
+        "diff": "--- Original\n+++ New\n@@ -7,11 +7,11 @@\n  * @since 3.1.0\n  */\n \n-if ( isset( $_GET['action'] ) && in_array( $_GET['action'], array( 'update-selected', 'activate-plugin', 'update-selected-themes' ) ) )\n+if ( isset( $_GET['action'] ) && in_array( $_GET['action'], [ 'update-selected', 'activate-plugin', 'update-selected-themes' ] ) )\n \tdefine( 'IFRAME_REQUEST', true );\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/439_update.php"
+    ]
+  }
+}

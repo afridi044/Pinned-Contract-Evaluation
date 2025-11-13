@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\215_config.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:46.260231",
+    "file_size_kb": 8.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/215_config.php",
+        "diff": "--- Original\n+++ New\n@@ -159,7 +159,7 @@\n \t\t\t\t\t\t\t</div>\n \t\t\t\t\t\t\t<div id=\"major-publishing-actions\">\n \t\t\t\t\t\t\t\t<div id=\"publishing-action\">\n-\t\t\t\t\t\t\t\t\t<?php Akismet::view( 'get', array( 'text' => ( $akismet_user->account_type == 'free-api-key' && $akismet_user->status == 'active' ? __( 'Upgrade' , 'akismet') : __( 'Change' , 'akismet') ), 'redirect' => 'upgrade' ) ); ?>\n+\t\t\t\t\t\t\t\t\t<?php Akismet::view( 'get', [ 'text' => ( $akismet_user->account_type == 'free-api-key' && $akismet_user->status == 'active' ? __( 'Upgrade' , 'akismet') : __( 'Change' , 'akismet') ), 'redirect' => 'upgrade' ] ); ?>\n \t\t\t\t\t\t\t\t</div>\n \t\t\t\t\t\t\t\t<div class=\"clear\"></div>\n \t\t\t\t\t\t\t</div>\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/215_config.php"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\284_upgrade.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 48
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:42.326686",
+    "file_size_kb": 4.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/284_upgrade.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -18,7 +18,7 @@\n $title = __( 'Upgrade Network' );\n $parent_file = 'upgrade.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n@@ -25,7 +25,7 @@\n \t\t'<p>' . __('Only use this screen once you have updated to a new version of WordPress through Updates/Available Updates (via the Network Administration navigation menu or the Toolbar). Clicking the Upgrade Network button will step through each site in the network, five at a time, and make sure any database updates are applied.') . '</p>' .\n \t\t'<p>' . __('If a version update to core has not happened, clicking this button won&#8217;t affect anything.') . '</p>' .\n \t\t'<p>' . __('If this process fails for any reason, users logging in to their sites will force the same update.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -41,7 +41,7 @@\n echo '<div class=\"wrap\">';\n echo '<h2>' . __( 'Upgrade Network' ) . '</h2>';\n \n-$action = isset($_GET['action']) ? $_GET['action'] : 'show';\n+$action = $_GET['action'] ?? 'show';\n \n switch ( $action ) {\n \tcase \"upgrade\":\n@@ -64,7 +64,7 @@\n \t\t\t$upgrade_url = admin_url( 'upgrade.php?step=upgrade_db' );\n \t\t\trestore_current_blog();\n \t\t\techo \"<li>$siteurl</li>\";\n-\t\t\t$response = wp_remote_get( $upgrade_url, array( 'timeout' => 120, 'httpversion' => '1.1' ) );\n+\t\t\t$response = wp_remote_get( $upgrade_url, [ 'timeout' => 120, 'httpversion' => '1.1' ] );\n \t\t\tif ( is_wp_error( $response ) )\n \t\t\t\twp_die( sprintf( __( 'Warning! Problem updating %1$s. Your server may not be able to connect to sites running on it. Error message: <em>%2$s</em>' ), $siteurl, $response->get_error_message() ) );\n \t\t\t/**\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/284_upgrade.php"
+    ]
+  }
+}

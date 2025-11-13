@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\128_update.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 124
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:06:46.251948",
+    "file_size_kb": 15.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/128_update.php",
+        "diff": "--- Original\n+++ New\n@@ -16,7 +16,7 @@\n \tif ( ! is_array( $updates ) )\n \t\treturn false;\n \tif ( empty( $updates ) )\n-\t\treturn (object) array( 'response' => 'latest' );\n+\t\treturn (object) [ 'response' => 'latest' ];\n \treturn $updates[0];\n }\n \n@@ -27,12 +27,12 @@\n  * \tset $options['available'] to false to skip not-dismissed updates.\n  * @return bool|array Array of the update objects on success, false on failure.\n  */\n-function get_core_updates( $options = array() ) {\n-\t$options = array_merge( array( 'available' => true, 'dismissed' => false ), $options );\n+function get_core_updates( $options = [] ) {\n+\t$options = array_merge( [ 'available' => true, 'dismissed' => false ], $options );\n \t$dismissed = get_site_option( 'dismissed_update_core' );\n \n \tif ( ! is_array( $dismissed ) )\n-\t\t$dismissed = array();\n+\t\t$dismissed = [];\n \n \t$from_api = get_site_transient( 'update_core' );\n \n@@ -40,7 +40,7 @@\n \t\treturn false;\n \n \t$updates = $from_api->updates;\n-\t$result = array();\n+\t$result = [];\n \tforeach ( $updates as $update ) {\n \t\tif ( $update->response == 'autoupdate' )\n \t\t\tcontinue;\n@@ -103,12 +103,12 @@\n function get_core_checksums( $version, $locale ) {\n \t$url = $http_url = 'http://api.wordpress.org/core/checksums/1.0/?' . http_build_query( compact( 'version', 'locale' ), null, '&' );\n \n-\tif ( $ssl = wp_http_supports( array( 'ssl' ) ) )\n+\tif ( $ssl = wp_http_supports( [ 'ssl' ] ) )\n \t\t$url = set_url_scheme( $url, 'https' );\n \n-\t$options = array(\n+\t$options = [\n \t\t'timeout' => ( ( defined('DOING_CRON') && DOING_CRON ) ? 30 : 3 ),\n-\t);\n+\t];\n \n \t$response = wp_remote_get( $url, $options );\n \tif ( $ssl && is_wp_error( $response ) ) {\n@@ -176,17 +176,11 @@\n \tif ( ! isset( $cur->response ) )\n \t\t$cur->response = '';\n \n-\tswitch ( $cur->response ) {\n-\tcase 'development' :\n-\t\treturn sprintf( __( 'You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>.' ), get_bloginfo( 'version', 'display' ), network_admin_url( 'update-core.php' ) );\n-\n-\tcase 'upgrade' :\n-\t\treturn sprintf( '<strong>'.__( '<a href=\"%1$s\">Get Version %2$s</a>' ).'</strong>', network_admin_url( 'update-core.php' ), $cur->current);\n-\n-\tcase 'latest' :\n-\tdefault :\n-\t\treturn sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) );\n-\t}\n+\treturn match ($cur->response) {\n+        'development' => sprintf( __( 'You are using a development version (%1$s). Cool! Please <a href=\"%2$s\">stay updated</a>.' ), get_bloginfo( 'version', 'display' ), network_admin_url( 'update-core.php' ) ),\n+        'upgrade' => sprintf( '<strong>'.__( '<a href=\"%1$s\">Get Version %2$s</a>' ).'</strong>', network_admin_url( 'update-core.php' ), $cur->current),\n+        default => sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) ),\n+    };\n }\n add_filter( 'update_footer', 'core_update_footer' );\n \n@@ -227,7 +221,7 @@\n \t\t$cur = get_preferred_from_update_core();\n \n \t\tif ( isset( $cur->response ) && $cur->response == 'upgrade' )\n-\t\t\t$msg .= \" <a href='\" . network_admin_url( 'update-core.php' ) . \"' class='button'>\" . sprintf( __('Update to %s'), $cur->current ? $cur->current : __( 'Latest' ) ) . '</a>';\n+\t\t\t$msg .= \" <a href='\" . network_admin_url( 'update-core.php' ) . \"' class='button'>\" . sprintf( __('Update to %s'), $cur->current ?: __( 'Latest' ) ) . '</a>';\n \t}\n \n \techo \"<p id='wp-version-message'>$msg</p>\";\n@@ -235,7 +229,7 @@\n \n function get_plugin_updates() {\n \t$all_plugins = get_plugins();\n-\t$upgrade_plugins = array();\n+\t$upgrade_plugins = [];\n \t$current = get_site_transient( 'update_plugins' );\n \tforeach ( (array)$all_plugins as $plugin_file => $plugin_data) {\n \t\tif ( isset( $current->response[ $plugin_file ] ) ) {\n@@ -268,7 +262,7 @@\n \n \t$r = $current->response[ $file ];\n \n-\t$plugins_allowedtags = array('a' => array('href' => array(),'title' => array()),'abbr' => array('title' => array()),'acronym' => array('title' => array()),'code' => array(),'em' => array(),'strong' => array());\n+\t$plugins_allowedtags = ['a' => ['href' => [],'title' => []],'abbr' => ['title' => []],'acronym' => ['title' => []],'code' => [],'em' => [],'strong' => []];\n \t$plugin_name = wp_kses( $plugin_data['Name'], $plugins_allowedtags );\n \n \t$details_url = self_admin_url('plugin-install.php?tab=plugin-information&plugin=' . $r->slug . '&section=changelog&TB_iframe=true&width=600&height=800');\n@@ -330,9 +324,9 @@\n \t$current = get_site_transient('update_themes');\n \n \tif ( ! isset( $current->response ) )\n-\t\treturn array();\n+\t\treturn [];\n \n-\t$update_themes = array();\n+\t$update_themes = [];\n \tforeach ( $current->response as $stylesheet => $data ) {\n \t\t$update_themes[ $stylesheet ] = wp_get_theme( $stylesheet );\n \t\t$update_themes[ $stylesheet ]->update = $data;\n@@ -362,7 +356,7 @@\n \t\treturn false;\n \t$r = $current->response[ $theme_key ];\n \n-\t$details_url = add_query_arg( array( 'TB_iframe' => 'true', 'width' => 1024, 'height' => 800 ), $current->response[ $theme_key ]['url'] );\n+\t$details_url = add_query_arg( [ 'TB_iframe' => 'true', 'width' => 1024, 'height' => 800 ], $current->response[ $theme_key ]['url'] );\n \n \t$wp_list_table = _get_list_table('WP_MS_Themes_List_Table');\n \n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/128_update.php"
+    ]
+  }
+}

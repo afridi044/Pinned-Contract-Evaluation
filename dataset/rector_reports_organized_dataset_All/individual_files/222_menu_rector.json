@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\222_menu.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\If_\\IfToSpaceshipRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 79
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:04.543222",
+    "file_size_kb": 8.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/222_menu.php",
+        "diff": "--- Original\n+++ New\n@@ -43,10 +43,10 @@\n \n // Create list of page plugin hook names.\n foreach ($menu as $menu_page) {\n-\tif ( false !== $pos = strpos($menu_page[2], '?') ) {\n+\tif ( false !== $pos = strpos((string) $menu_page[2], '?') ) {\n \t\t// Handle post_type=post|page|foo pages.\n-\t\t$hook_name = substr($menu_page[2], 0, $pos);\n-\t\t$hook_args = substr($menu_page[2], $pos + 1);\n+\t\t$hook_name = substr((string) $menu_page[2], 0, $pos);\n+\t\t$hook_args = substr((string) $menu_page[2], $pos + 1);\n \t\twp_parse_str($hook_args, $hook_args);\n \t\t// Set the hook name to be the post type.\n \t\tif ( isset($hook_args['post_type']) )\n@@ -55,7 +55,7 @@\n \t\t\t$hook_name = basename($hook_name, '.php');\n \t\tunset($hook_args);\n \t} else {\n-\t\t$hook_name = basename($menu_page[2], '.php');\n+\t\t$hook_name = basename((string) $menu_page[2], '.php');\n \t}\n \t$hook_name = sanitize_title($hook_name);\n \n@@ -68,8 +68,8 @@\n }\n unset($menu_page, $compat);\n \n-$_wp_submenu_nopriv = array();\n-$_wp_menu_nopriv = array();\n+$_wp_submenu_nopriv = [];\n+$_wp_menu_nopriv = [];\n // Loop over submenus and remove pages for which the user does not have privs.\n foreach ($submenu as $parent => $sub) {\n \tforeach ($sub as $index => $data) {\n@@ -181,7 +181,7 @@\n // Remove any duplicated separators\n $separator_found = false;\n foreach ( $menu as $id => $data ) {\n-\tif ( 0 == strcmp('wp-menu-separator', $data[4] ) ) {\n+\tif ( 0 == strcmp('wp-menu-separator', (string) $data[4] ) ) {\n \t\tif (false == $separator_found) {\n \t\t\t$separator_found = true;\n \t\t} else {\n@@ -213,7 +213,7 @@\n \t\t\tcontinue;\n \t\t}\n \n-\t\tif ( 0 === strpos($top[2], 'separator') && false !== $lastorder ) { // if separator\n+\t\tif ( str_starts_with((string) $top[2], 'separator') && false !== $lastorder ) { // if separator\n \t\t\t$first = true;\n \t\t\t$c = $menu[$lastorder][4];\n \t\t\t$menu[$lastorder][4] = add_cssclass('menu-top-last', $c);\n@@ -256,7 +256,7 @@\n  * @param bool $custom Whether custom ordering is enabled. Default false.\n  */\n if ( apply_filters( 'custom_menu_order', false ) ) {\n-\t$menu_order = array();\n+\t$menu_order = [];\n \tforeach ( $menu as $menu_item ) {\n \t\t$menu_order[] = $menu_item[2];\n \t}\n@@ -287,11 +287,9 @@\n \t\t\treturn -1;\n \t\t} elseif ( !isset($menu_order[$a]) && isset($menu_order[$b]) ) {\n \t\t\treturn 1;\n-\t\t} elseif ( isset($menu_order[$a]) && isset($menu_order[$b]) ) {\n-\t\t\tif ( $menu_order[$a] == $menu_order[$b] )\n-\t\t\t\treturn 0;\n-\t\t\treturn ($menu_order[$a] < $menu_order[$b]) ? -1 : 1;\n-\t\t} else {\n+\t\t} elseif (isset($menu_order[$a]) && isset($menu_order[$b])) {\n+            return $menu_order[$a] <=> $menu_order[$b];\n+        } else {\n \t\t\treturn ($default_menu_order[$a] <= $default_menu_order[$b]) ? -1 : 1;\n \t\t}\n \t}\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\If_\\IfToSpaceshipRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/222_menu.php"
+    ]
+  }
+}

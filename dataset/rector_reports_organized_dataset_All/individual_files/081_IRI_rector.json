@@ -1,0 +1,57 @@
+{
+  "file_path": "organized_dataset_All\\081_IRI.php",
+  "rector_analysis": {
+    "php_version_changes": 9,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_71": 1,
+      "php_80": 6,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 293
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:04:12.918194",
+    "file_size_kb": 27.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/081_IRI.php",
+        "diff": "--- Original\n+++ New\n@@ -53,7 +53,7 @@\n  * @copyright 2007-2012 Geoffrey Sneddon, Steve Minutillo, Ryan McCue\n  * @license http://www.opensource.org/licenses/bsd-license.php\n  */\n-class SimplePie_IRI\n+class SimplePie_IRI implements \\Stringable\n {\n \t/**\n \t * Scheme\n@@ -110,25 +110,25 @@\n \t * Each key is the scheme, each value is an array with each key as the IRI\n \t * part and value as the default value for that part.\n \t */\n-\tprotected $normalization = array(\n-\t\t'acap' => array(\n+\tprotected $normalization = [\n+\t\t'acap' => [\n \t\t\t'port' => 674\n-\t\t),\n-\t\t'dict' => array(\n+\t\t],\n+\t\t'dict' => [\n \t\t\t'port' => 2628\n-\t\t),\n-\t\t'file' => array(\n+\t\t],\n+\t\t'file' => [\n \t\t\t'ihost' => 'localhost'\n-\t\t),\n-\t\t'http' => array(\n+\t\t],\n+\t\t'http' => [\n \t\t\t'port' => 80,\n \t\t\t'ipath' => '/'\n-\t\t),\n-\t\t'https' => array(\n+\t\t],\n+\t\t'https' => [\n \t\t\t'port' => 443,\n \t\t\t'ipath' => '/'\n-\t\t),\n-\t);\n+\t\t],\n+\t];\n \n \t/**\n \t * Return the entire IRI when you try and read the object as a string\n@@ -135,7 +135,7 @@\n \t *\n \t * @return string\n \t */\n-\tpublic function __toString()\n+\tpublic function __toString(): string\n \t{\n \t\treturn $this->get_iri();\n \t}\n@@ -150,7 +150,7 @@\n \t{\n \t\tif (method_exists($this, 'set_' . $name))\n \t\t{\n-\t\t\tcall_user_func(array($this, 'set_' . $name), $value);\n+\t\t\tcall_user_func([$this, 'set_' . $name], $value);\n \t\t}\n \t\telseif (\n \t\t\t   $name === 'iauthority'\n@@ -161,7 +161,7 @@\n \t\t\t|| $name === 'ifragment'\n \t\t)\n \t\t{\n-\t\t\tcall_user_func(array($this, 'set_' . substr($name, 1)), $value);\n+\t\t\tcall_user_func([$this, 'set_' . substr($name, 1)], $value);\n \t\t}\n \t}\n \n@@ -204,7 +204,7 @@\n \t\t}\n \t\telse\n \t\t{\n-\t\t\ttrigger_error('Undefined property: ' . get_class($this) . '::' . $name, E_USER_NOTICE);\n+\t\t\ttrigger_error('Undefined property: ' . static::class . '::' . $name, E_USER_NOTICE);\n \t\t\t$return = null;\n \t\t}\n \n@@ -245,7 +245,7 @@\n \t{\n \t\tif (method_exists($this, 'set_' . $name))\n \t\t{\n-\t\t\tcall_user_func(array($this, 'set_' . $name), '');\n+\t\t\tcall_user_func([$this, 'set_' . $name], '');\n \t\t}\n \t}\n \n@@ -404,19 +404,19 @@\n \tprotected function remove_dot_segments($input)\n \t{\n \t\t$output = '';\n-\t\twhile (strpos($input, './') !== false || strpos($input, '/.') !== false || $input === '.' || $input === '..')\n+\t\twhile (str_contains($input, './') || str_contains($input, '/.') || $input === '.' || $input === '..')\n \t\t{\n \t\t\t// A: If the input buffer begins with a prefix of \"../\" or \"./\", then remove that prefix from the input buffer; otherwise,\n-\t\t\tif (strpos($input, '../') === 0)\n+\t\t\tif (str_starts_with($input, '../'))\n \t\t\t{\n \t\t\t\t$input = substr($input, 3);\n \t\t\t}\n-\t\t\telseif (strpos($input, './') === 0)\n+\t\t\telseif (str_starts_with($input, './'))\n \t\t\t{\n \t\t\t\t$input = substr($input, 2);\n \t\t\t}\n \t\t\t// B: if the input buffer begins with a prefix of \"/./\" or \"/.\", where \".\" is a complete path segment, then replace that prefix with \"/\" in the input buffer; otherwise,\n-\t\t\telseif (strpos($input, '/./') === 0)\n+\t\t\telseif (str_starts_with($input, '/./'))\n \t\t\t{\n \t\t\t\t$input = substr($input, 2);\n \t\t\t}\n@@ -425,7 +425,7 @@\n \t\t\t\t$input = '/';\n \t\t\t}\n \t\t\t// C: if the input buffer begins with a prefix of \"/../\" or \"/..\", where \"..\" is a complete path segment, then replace that prefix with \"/\" in the input buffer and remove the last segment and its preceding \"/\" (if any) from the output buffer; otherwise,\n-\t\t\telseif (strpos($input, '/../') === 0)\n+\t\t\telseif (str_starts_with($input, '/../'))\n \t\t\t{\n \t\t\t\t$input = substr($input, 3);\n \t\t\t\t$output = substr_replace($output, '', strrpos($output, '/'));\n@@ -467,10 +467,10 @@\n \tprotected function replace_invalid_with_pct_encoding($string, $extra_chars, $iprivate = false)\n \t{\n \t\t// Normalize as many pct-encoded sections as possible\n-\t\t$string = preg_replace_callback('/(?:%[A-Fa-f0-9]{2})+/', array($this, 'remove_iunreserved_percent_encoded'), $string);\n+\t\t$string = preg_replace_callback('/(?:%[A-Fa-f0-9]{2})+/', [$this, 'remove_iunreserved_percent_encoded'], $string);\n \n \t\t// Replace invalid percent characters\n-\t\t$string = preg_replace('/%(?![A-Fa-f0-9]{2})/', '%25', $string);\n+\t\t$string = preg_replace('/%(?![A-Fa-f0-9]{2})/', '%25', (string) $string);\n \n \t\t// Add unreserved and % to $extra_chars (the latter is safe because all\n \t\t// pct-encoded sections are now valid).\n@@ -478,8 +478,8 @@\n \n \t\t// Now replace any bytes that aren't allowed with their pct-encoded versions\n \t\t$position = 0;\n-\t\t$strlen = strlen($string);\n-\t\twhile (($position += strspn($string, $extra_chars, $position)) < $strlen)\n+\t\t$strlen = strlen((string) $string);\n+\t\twhile (($position += strspn((string) $string, $extra_chars, $position)) < $strlen)\n \t\t{\n \t\t\t$value = ord($string[$position]);\n \n@@ -604,7 +604,7 @@\n \t{\n \t\t// As we just have valid percent encoded sequences we can just explode\n \t\t// and ignore the first member of the returned array (an empty string).\n-\t\t$bytes = explode('%', $match[0]);\n+\t\t$bytes = explode('%', (string) $match[0]);\n \n \t\t// Initialize the new string (this is what will be returned) and that\n \t\t// there are no bytes remaining in the current sequence (unsurprising\n@@ -773,13 +773,13 @@\n \t\t\t(\n \t\t\t\t$isauthority && (\n \t\t\t\t\t$this->ipath[0] !== '/' ||\n-\t\t\t\t\tsubstr($this->ipath, 0, 2) === '//'\n+\t\t\t\t\tstr_starts_with($this->ipath, '//')\n \t\t\t\t) ||\n \t\t\t\t(\n \t\t\t\t\t$this->scheme === null &&\n \t\t\t\t\t!$isauthority &&\n-\t\t\t\t\tstrpos($this->ipath, ':') !== false &&\n-\t\t\t\t\t(strpos($this->ipath, '/') === false ? true : strpos($this->ipath, ':') < strpos($this->ipath, '/'))\n+\t\t\t\t\tstr_contains($this->ipath, ':') &&\n+\t\t\t\t\t(!str_contains($this->ipath, '/') ? true : strpos($this->ipath, ':') < strpos($this->ipath, '/'))\n \t\t\t\t)\n \t\t\t)\n \t\t)\n@@ -802,7 +802,7 @@\n \t\tstatic $cache;\n \t\tif (!$cache)\n \t\t{\n-\t\t\t$cache = array();\n+\t\t\t$cache = [];\n \t\t}\n \n \t\tif ($iri === null)\n@@ -811,14 +811,7 @@\n \t\t}\n \t\telseif (isset($cache[$iri]))\n \t\t{\n-\t\t\tlist($this->scheme,\n-\t\t\t\t $this->iuserinfo,\n-\t\t\t\t $this->ihost,\n-\t\t\t\t $this->port,\n-\t\t\t\t $this->ipath,\n-\t\t\t\t $this->iquery,\n-\t\t\t\t $this->ifragment,\n-\t\t\t\t $return) = $cache[$iri];\n+\t\t\t[$this->scheme, $this->iuserinfo, $this->ihost, $this->port, $this->ipath, $this->iquery, $this->ifragment, $return] = $cache[$iri];\n \t\t\treturn $return;\n \t\t}\n \t\telse\n@@ -835,7 +828,7 @@\n \t\t\t\t&& $this->set_query($parsed['query'])\n \t\t\t\t&& $this->set_fragment($parsed['fragment']);\n \n-\t\t\t$cache[$iri] = array($this->scheme,\n+\t\t\t$cache[$iri] = [$this->scheme,\n \t\t\t\t\t\t\t\t $this->iuserinfo,\n \t\t\t\t\t\t\t\t $this->ihost,\n \t\t\t\t\t\t\t\t $this->port,\n@@ -842,7 +835,7 @@\n \t\t\t\t\t\t\t\t $this->ipath,\n \t\t\t\t\t\t\t\t $this->iquery,\n \t\t\t\t\t\t\t\t $this->ifragment,\n-\t\t\t\t\t\t\t\t $return);\n+\t\t\t\t\t\t\t\t $return];\n \t\t\treturn $return;\n \t\t}\n \t}\n@@ -883,7 +876,7 @@\n \t{\n \t\tstatic $cache;\n \t\tif (!$cache)\n-\t\t\t$cache = array();\n+\t\t\t$cache = [];\n \n \t\tif ($authority === null)\n \t\t{\n@@ -894,10 +887,7 @@\n \t\t}\n \t\telseif (isset($cache[$authority]))\n \t\t{\n-\t\t\tlist($this->iuserinfo,\n-\t\t\t\t $this->ihost,\n-\t\t\t\t $this->port,\n-\t\t\t\t $return) = $cache[$authority];\n+\t\t\t[$this->iuserinfo, $this->ihost, $this->port, $return] = $cache[$authority];\n \n \t\t\treturn $return;\n \t\t}\n@@ -930,10 +920,10 @@\n \t\t\t\t\t  $this->set_host($remaining) &&\n \t\t\t\t\t  $this->set_port($port);\n \n-\t\t\t$cache[$authority] = array($this->iuserinfo,\n+\t\t\t$cache[$authority] = [$this->iuserinfo,\n \t\t\t\t\t\t\t\t\t   $this->ihost,\n \t\t\t\t\t\t\t\t\t   $this->port,\n-\t\t\t\t\t\t\t\t\t   $return);\n+\t\t\t\t\t\t\t\t\t   $return];\n \n \t\t\treturn $return;\n \t\t}\n@@ -974,7 +964,7 @@\n \t\t\t$this->ihost = null;\n \t\t\treturn true;\n \t\t}\n-\t\telseif (substr($ihost, 0, 1) === '[' && substr($ihost, -1) === ']')\n+\t\telseif (str_starts_with($ihost, '[') && str_ends_with($ihost, ']'))\n \t\t{\n \t\t\tif (SimplePie_Net_IPv6::check_ipv6(substr($ihost, 1, -1)))\n \t\t\t{\n@@ -1054,7 +1044,7 @@\n \t\tstatic $cache;\n \t\tif (!$cache)\n \t\t{\n-\t\t\t$cache = array();\n+\t\t\t$cache = [];\n \t\t}\n \n \t\t$ipath = (string) $ipath;\n@@ -1068,7 +1058,7 @@\n \t\t\t$valid = $this->replace_invalid_with_pct_encoding($ipath, '!$&\\'()*+,;=@:/');\n \t\t\t$removed = $this->remove_dot_segments($valid);\n \n-\t\t\t$cache[$ipath] = array($valid, $removed);\n+\t\t\t$cache[$ipath] = [$valid, $removed];\n \t\t\t$this->ipath =  ($this->scheme !== null) ? $removed : $valid;\n \t\t}\n \n@@ -1130,8 +1120,8 @@\n \t\t}\n \n \t\t$position = 0;\n-\t\t$strlen = strlen($string);\n-\t\twhile (($position += strcspn($string, $non_ascii, $position)) < $strlen)\n+\t\t$strlen = strlen((string) $string);\n+\t\twhile (($position += strcspn((string) $string, (string) $non_ascii, $position)) < $strlen)\n \t\t{\n \t\t\t$string = substr_replace($string, sprintf('%%%02X', ord($string[$position])), $position, 1);\n \t\t\t$position += 3;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/081_IRI.php"
+    ]
+  }
+}

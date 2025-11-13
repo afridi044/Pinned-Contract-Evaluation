@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\228_revision.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 139
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:19.908593",
+    "file_size_kb": 7.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/228_revision.php",
+        "diff": "--- Original\n+++ New\n@@ -40,7 +40,7 @@\n \tif ( $compare_to->post_parent !== $post->ID && $compare_to->ID !== $post->ID )\n \t\treturn false;\n \n-\tif ( $compare_from && strtotime( $compare_from->post_date_gmt ) > strtotime( $compare_to->post_date_gmt ) ) {\n+\tif ( $compare_from && strtotime( (string) $compare_from->post_date_gmt ) > strtotime( (string) $compare_to->post_date_gmt ) ) {\n \t\t$temp = $compare_from;\n \t\t$compare_from = $compare_to;\n \t\t$compare_to = $temp;\n@@ -52,7 +52,7 @@\n \tif ( empty( $compare_to->post_title ) )\n \t\t$compare_to->post_title = __( '(no title)' );\n \n-\t$return = array();\n+\t$return = [];\n \n \tforeach ( _wp_post_revision_fields() as $field => $name ) {\n \t\t/**\n@@ -73,7 +73,7 @@\n \t\t/** This filter is documented in wp-admin/includes/revision.php */\n \t\t$content_to = apply_filters( \"_wp_post_revision_field_$field\", $compare_to->$field, $field, $compare_to, 'to' );\n \n-\t\t$diff = wp_text_diff( $content_from, $content_to, array( 'show_split_view' => true ) );\n+\t\t$diff = wp_text_diff( $content_from, $content_to, [ 'show_split_view' => true ] );\n \n \t\tif ( ! $diff && 'post_title' === $field ) {\n \t\t\t// It's a better user experience to still show the Title, even if it didn't change.\n@@ -85,11 +85,11 @@\n \t\t}\n \n \t\tif ( $diff ) {\n-\t\t\t$return[] = array(\n+\t\t\t$return[] = [\n \t\t\t\t'id' => $field,\n \t\t\t\t'name' => $name,\n \t\t\t\t'diff' => $diff,\n-\t\t\t);\n+\t\t\t];\n \t\t}\n \t}\n \treturn $return;\n@@ -108,10 +108,10 @@\n  */\n function wp_prepare_revisions_for_js( $post, $selected_revision_id, $from = null ) {\n \t$post = get_post( $post );\n-\t$authors = array();\n+\t$authors = [];\n \t$now_gmt = time();\n \n-\t$revisions = wp_get_post_revisions( $post->ID, array( 'order' => 'ASC', 'check_enabled' => false ) );\n+\t$revisions = wp_get_post_revisions( $post->ID, [ 'order' => 'ASC', 'check_enabled' => false ] );\n \t// If revisions are disabled, we only want autosaves and the current post.\n \tif ( ! wp_revisions_enabled( $post ) ) {\n \t\tforeach ( $revisions as $revision_id => $revision ) {\n@@ -118,7 +118,7 @@\n \t\t\tif ( ! wp_is_post_autosave( $revision ) )\n \t\t\t\tunset( $revisions[ $revision_id ] );\n \t\t}\n-\t\t$revisions = array( $post->ID => $post ) + $revisions;\n+\t\t$revisions = [ $post->ID => $post ] + $revisions;\n \t}\n \n \t$show_avatars = get_option( 'show_avatars' );\n@@ -129,13 +129,13 @@\n \t$current_id = false;\n \n \tforeach ( $revisions as $revision ) {\n-\t\t$modified = strtotime( $revision->post_modified );\n-\t\t$modified_gmt = strtotime( $revision->post_modified_gmt );\n+\t\t$modified = strtotime( (string) $revision->post_modified );\n+\t\t$modified_gmt = strtotime( (string) $revision->post_modified_gmt );\n \t\tif ( $can_restore ) {\n \t\t\t$restore_link = str_replace( '&amp;', '&', wp_nonce_url(\n \t\t\t\tadd_query_arg(\n-\t\t\t\t\tarray( 'revision' => $revision->ID,\n-\t\t\t\t\t\t'action' => 'restore' ),\n+\t\t\t\t\t[ 'revision' => $revision->ID,\n+\t\t\t\t\t\t'action' => 'restore' ],\n \t\t\t\t\t\tadmin_url( 'revision.php' )\n \t\t\t\t),\n \t\t\t\t\"restore-post_{$revision->ID}\"\n@@ -143,11 +143,11 @@\n \t\t}\n \n \t\tif ( ! isset( $authors[ $revision->post_author ] ) ) {\n-\t\t\t$authors[ $revision->post_author ] = array(\n+\t\t\t$authors[ $revision->post_author ] = [\n \t\t\t\t'id' => (int) $revision->post_author,\n \t\t\t\t'avatar' => $show_avatars ? get_avatar( $revision->post_author, 32 ) : '',\n \t\t\t\t'name' => get_the_author_meta( 'display_name', $revision->post_author ),\n-\t\t\t);\n+\t\t\t];\n \t\t}\n \n \t\t$autosave = (bool) wp_is_post_autosave( $revision );\n@@ -164,7 +164,7 @@\n \t\t\t$current_id = $revision->ID;\n \t\t}\n \n-\t\t$revisions[ $revision->ID ] = array(\n+\t\t$revisions[ $revision->ID ] = [\n \t\t\t'id'         => $revision->ID,\n \t\t\t'title'      => get_the_title( $post->ID ),\n \t\t\t'author'     => $authors[ $revision->post_author ],\n@@ -174,7 +174,7 @@\n \t\t\t'autosave'   => $autosave,\n \t\t\t'current'    => $current,\n \t\t\t'restoreUrl' => $can_restore ? $restore_link : false,\n-\t\t);\n+\t\t];\n \t}\n \n \t/*\n@@ -209,12 +209,12 @@\n \n \t$from = absint( $from );\n \n-\t$diffs = array( array(\n+\t$diffs = [ [\n \t\t'id' => $from . ':' . $selected_revision_id,\n \t\t'fields' => wp_get_revision_ui_diff( $post->ID, $from, $selected_revision_id ),\n-\t));\n+\t]];\n \n-\treturn array(\n+\treturn [\n \t\t'postId'           => $post->ID,\n \t\t'nonce'            => wp_create_nonce( 'revisions-ajax-nonce' ),\n \t\t'revisionData'     => array_values( $revisions ),\n@@ -224,5 +224,5 @@\n \t\t'baseUrl'          => parse_url( admin_url( 'revision.php' ), PHP_URL_PATH ),\n \t\t'compareTwoMode'   => absint( $compare_two_mode ), // Apparently booleans are not allowed\n \t\t'revisionIds'      => array_keys( $revisions ),\n-\t);\n+\t];\n }\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/228_revision.php"
+    ]
+  }
+}

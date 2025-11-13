@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\115_revision.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 185
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:06:12.348213",
+    "file_size_kb": 18.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/115_revision.php",
+        "diff": "--- Original\n+++ New\n@@ -25,11 +25,11 @@\n \n \tif ( !$fields ) {\n \t\t// Allow these to be versioned\n-\t\t$fields = array(\n+\t\t$fields = [\n \t\t\t'post_title' => __( 'Title' ),\n \t\t\t'post_content' => __( 'Content' ),\n \t\t\t'post_excerpt' => __( 'Excerpt' ),\n-\t\t);\n+\t\t];\n \n \t\t/**\n \t\t * Filter the list of fields saved in post revisions.\n@@ -48,7 +48,7 @@\n \t\t$fields = apply_filters( '_wp_post_revision_fields', $fields );\n \n \t\t// WP uses these internally either in versioning or elsewhere - they cannot be versioned\n-\t\tforeach ( array( 'ID', 'post_name', 'post_parent', 'post_date', 'post_date_gmt', 'post_status', 'post_type', 'comment_count', 'post_author' ) as $protect )\n+\t\tforeach ( [ 'ID', 'post_name', 'post_parent', 'post_date', 'post_date_gmt', 'post_status', 'post_type', 'comment_count', 'post_author' ] as $protect )\n \t\t\tunset( $fields[$protect] );\n \t}\n \n@@ -55,7 +55,7 @@\n \tif ( !is_array($post) )\n \t\treturn $fields;\n \n-\t$return = array();\n+\t$return = [];\n \tforeach ( array_intersect( array_keys( $post ), array_keys( $fields ) ) as $field )\n \t\t$return[$field] = $post[$field];\n \n@@ -63,8 +63,8 @@\n \t$return['post_status']   = 'inherit';\n \t$return['post_type']     = 'revision';\n \t$return['post_name']     = $autosave ? \"$post[ID]-autosave-v1\" : \"$post[ID]-revision-v1\"; // \"1\" is the revisioning system version\n-\t$return['post_date']     = isset($post['post_modified']) ? $post['post_modified'] : '';\n-\t$return['post_date_gmt'] = isset($post['post_modified_gmt']) ? $post['post_modified_gmt'] : '';\n+\t$return['post_date']     = $post['post_modified'] ?? '';\n+\t$return['post_date_gmt'] = $post['post_modified_gmt'] ?? '';\n \n \treturn $return;\n }\n@@ -104,7 +104,7 @@\n \tif ( $revisions = wp_get_post_revisions( $post_id ) ) {\n \t\t// grab the last revision, but not an autosave\n \t\tforeach ( $revisions as $revision ) {\n-\t\t\tif ( false !== strpos( $revision->post_name, \"{$revision->post_parent}-revision\" ) ) {\n+\t\t\tif ( str_contains( (string) $revision->post_name, \"{$revision->post_parent}-revision\" ) ) {\n \t\t\t\t$last_revision = $revision;\n \t\t\t\tbreak;\n \t\t\t}\n@@ -147,7 +147,7 @@\n \t\treturn $return;\n \n \t// all revisions and autosaves\n-\t$revisions = wp_get_post_revisions( $post_id, array( 'order' => 'ASC' ) );\n+\t$revisions = wp_get_post_revisions( $post_id, [ 'order' => 'ASC' ] );\n \n \t$delete = count($revisions) - $revisions_to_keep;\n \n@@ -157,7 +157,7 @@\n \t$revisions = array_slice( $revisions, 0, $delete );\n \n \tfor ( $i = 0; isset( $revisions[$i] ); $i++ ) {\n-\t\tif ( false !== strpos( $revisions[ $i ]->post_name, 'autosave' ) )\n+\t\tif ( str_contains( (string) $revisions[ $i ]->post_name, 'autosave' ) )\n \t\t\tcontinue;\n \n \t\twp_delete_post_revision( $revisions[ $i ]->ID );\n@@ -182,10 +182,10 @@\n  * @return object|bool The autosaved data or false on failure or when no autosave exists.\n  */\n function wp_get_post_autosave( $post_id, $user_id = 0 ) {\n-\t$revisions = wp_get_post_revisions( $post_id, array( 'check_enabled' => false ) );\n+\t$revisions = wp_get_post_revisions( $post_id, [ 'check_enabled' => false ] );\n \n \tforeach ( $revisions as $revision ) {\n-\t\tif ( false !== strpos( $revision->post_name, \"{$post_id}-autosave\" ) ) {\n+\t\tif ( str_contains( (string) $revision->post_name, \"{$post_id}-autosave\" ) ) {\n \t\t\tif ( $user_id && $user_id != $revision->post_author )\n \t\t\t\tcontinue;\n \n@@ -223,7 +223,7 @@\n \tif ( !$post = wp_get_post_revision( $post ) )\n \t\treturn false;\n \n-\tif ( false !== strpos( $post->post_name, \"{$post->post_parent}-autosave\" ) )\n+\tif ( str_contains( (string) $post->post_name, \"{$post->post_parent}-autosave\" ) )\n \t\treturn (int) $post->post_parent;\n \n \treturn false;\n@@ -326,7 +326,7 @@\n \tif ( !is_array( $fields ) )\n \t\t$fields = array_keys( _wp_post_revision_fields() );\n \n-\t$update = array();\n+\t$update = [];\n \tforeach( array_intersect( array_keys( $revision ), $fields ) as $field ) {\n \t\t$update[$field] = $revision[$field];\n \t}\n@@ -343,11 +343,11 @@\n \t\treturn $post_id;\n \n \t// Add restore from details\n-\t$restore_details = array(\n+\t$restore_details = [\n \t\t'restored_revision_id' => $revision_id,\n \t\t'restored_by_user'     => get_current_user_id(),\n \t\t'restored_time'        => time()\n-\t);\n+\t];\n \tupdate_post_meta( $post_id, '_post_restored_from', $restore_details );\n \n \t// Update last edit user\n@@ -415,18 +415,18 @@\n function wp_get_post_revisions( $post_id = 0, $args = null ) {\n \t$post = get_post( $post_id );\n \tif ( ! $post || empty( $post->ID ) )\n-\t\treturn array();\n+\t\treturn [];\n \n-\t$defaults = array( 'order' => 'DESC', 'orderby' => 'date ID', 'check_enabled' => true );\n+\t$defaults = [ 'order' => 'DESC', 'orderby' => 'date ID', 'check_enabled' => true ];\n \t$args = wp_parse_args( $args, $defaults );\n \n \tif ( $args['check_enabled'] && ! wp_revisions_enabled( $post ) )\n-\t\treturn array();\n+\t\treturn [];\n \n-\t$args = array_merge( $args, array( 'post_parent' => $post->ID, 'post_type' => 'revision', 'post_status' => 'inherit' ) );\n+\t$args = array_merge( $args, [ 'post_parent' => $post->ID, 'post_type' => 'revision', 'post_status' => 'inherit' ] );\n \n \tif ( ! $revisions = get_children( $args ) )\n-\t\treturn array();\n+\t\treturn [];\n \n \treturn $revisions;\n }\n@@ -539,9 +539,9 @@\n \t\treturn $terms;\n \n \tif ( 'standard' == $_REQUEST['post_format'] )\n-\t\t$terms = array();\n+\t\t$terms = [];\n \telseif ( $term = get_term_by( 'slug', 'post-format-' . sanitize_key( $_REQUEST['post_format'] ), 'post_format' ) )\n-\t\t$terms = array( $term ); // Can only have one post format\n+\t\t$terms = [ $term ]; // Can only have one post format\n \n \treturn $terms;\n }\n@@ -558,7 +558,7 @@\n \telseif ( !is_array( $revision ) )\n \t\treturn false;\n \n-\tif ( preg_match( '/^\\d+-(?:autosave|revision)-v(\\d+)$/', $revision['post_name'], $matches ) )\n+\tif ( preg_match( '/^\\d+-(?:autosave|revision)-v(\\d+)$/', (string) $revision['post_name'], $matches ) )\n \t\treturn (int) $matches[1];\n \n \treturn 0;\n@@ -624,9 +624,9 @@\n \t\t}\n \n \t\t// Always update the revision version\n-\t\t$update = array(\n-\t\t\t'post_name' => preg_replace( '/^(\\d+-(?:autosave|revision))[\\d-]*$/', '$1-v1', $this_revision->post_name ),\n-\t\t);\n+\t\t$update = [\n+\t\t\t'post_name' => preg_replace( '/^(\\d+-(?:autosave|revision))[\\d-]*$/', '$1-v1', (string) $this_revision->post_name ),\n+\t\t];\n \n \t\t// If this revision is the oldest revision of the post, i.e. no $prev_revision,\n \t\t// the correct post_author is probably $post->post_author, but that's only a good guess.\n@@ -640,7 +640,7 @@\n \t\t}\n \n \t\t// Upgrade this revision\n-\t\t$result = $wpdb->update( $wpdb->posts, $update, array( 'ID' => $this_revision->ID ) );\n+\t\t$result = $wpdb->update( $wpdb->posts, $update, [ 'ID' => $this_revision->ID ] );\n \n \t\tif ( $result )\n \t\t\twp_cache_delete( $this_revision->ID, 'posts' );\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/115_revision.php"
+    ]
+  }
+}

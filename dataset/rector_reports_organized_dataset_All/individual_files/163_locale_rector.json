@@ -1,0 +1,43 @@
+{
+  "file_path": "organized_dataset_All\\163_locale.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 96
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:08:29.369490",
+    "file_size_kb": 12.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/163_locale.php",
+        "diff": "--- Original\n+++ New\n@@ -19,7 +19,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $weekday;\n+\tpublic $weekday;\n \n \t/**\n \t * Stores the translated strings for the one character weekday names.\n@@ -33,7 +33,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $weekday_initial;\n+\tpublic $weekday_initial;\n \n \t/**\n \t * Stores the translated strings for the abbreviated weekday names.\n@@ -42,7 +42,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $weekday_abbrev;\n+\tpublic $weekday_abbrev;\n \n \t/**\n \t * Stores the translated strings for the full month names.\n@@ -51,7 +51,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $month;\n+\tpublic $month;\n \n \t/**\n \t * Stores the translated strings for the abbreviated month names.\n@@ -60,7 +60,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $month_abbrev;\n+\tpublic $month_abbrev;\n \n \t/**\n \t * Stores the translated strings for 'am' and 'pm'.\n@@ -71,7 +71,7 @@\n \t * @var array\n \t * @access private\n \t */\n-\tvar $meridiem;\n+\tpublic $meridiem;\n \n \t/**\n \t * The text direction of the locale language.\n@@ -82,7 +82,7 @@\n \t * @var string\n \t * @access private\n \t */\n-\tvar $text_direction = 'ltr';\n+\tpublic $text_direction = 'ltr';\n \n \t/**\n \t * Sets up the translated strings and object properties.\n@@ -115,7 +115,7 @@\n \t\t$this->weekday_initial[__('Saturday')]  = /* translators: one-letter abbreviation of the weekday */ __('S_Saturday_initial');\n \n \t\tforeach ($this->weekday_initial as $weekday_ => $weekday_initial_) {\n-\t\t\t$this->weekday_initial[$weekday_] = preg_replace('/_.+_initial$/', '', $weekday_initial_);\n+\t\t\t$this->weekday_initial[$weekday_] = preg_replace('/_.+_initial$/', '', (string) $weekday_initial_);\n \t\t}\n \n \t\t// Abbreviations for each day.\n@@ -157,7 +157,7 @@\n \t\t$this->month_abbrev[__('December')] = /* translators: three-letter abbreviation of the month */ __('Dec_December_abbreviation');\n \n \t\tforeach ($this->month_abbrev as $month_ => $month_abbrev_) {\n-\t\t\t$this->month_abbrev[$month_] = preg_replace('/_.+_abbreviation$/', '', $month_abbrev_);\n+\t\t\t$this->month_abbrev[$month_] = preg_replace('/_.+_abbreviation$/', '', (string) $month_abbrev_);\n \t\t}\n \n \t\t// The Meridiems\n@@ -184,9 +184,9 @@\n \t\telseif ( 'rtl' == _x( 'ltr', 'text direction' ) )\n \t\t\t$this->text_direction = 'rtl';\n \n-\t\tif ( 'rtl' === $this->text_direction && strpos( $GLOBALS['wp_version'], '-src' ) ) {\n+\t\tif ( 'rtl' === $this->text_direction && strpos( (string) $GLOBALS['wp_version'], '-src' ) ) {\n \t\t\t$this->text_direction = 'ltr';\n-\t\t\tadd_action( 'all_admin_notices', array( $this, 'rtl_src_admin_notice' ) );\n+\t\t\tadd_action( 'all_admin_notices', $this->rtl_src_admin_notice(...) );\n \t\t}\n \t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/163_locale.php"
+    ]
+  }
+}

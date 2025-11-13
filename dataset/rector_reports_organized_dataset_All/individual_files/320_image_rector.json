@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\320_image.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:10.348613",
+    "file_size_kb": 3.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/320_image.php",
+        "diff": "--- Original\n+++ New\n@@ -67,7 +67,7 @@\n \t\t\t\t\t<?php if ( ! empty( $post->post_content ) ) : ?>\n \t\t\t\t\t<div class=\"entry-description\">\n \t\t\t\t\t\t<?php the_content(); ?>\n-\t\t\t\t\t\t<?php wp_link_pages( array( 'before' => '<div class=\"page-links\">' . __( 'Pages:', 'twentythirteen' ), 'after' => '</div>' ) ); ?>\n+\t\t\t\t\t\t<?php wp_link_pages( [ 'before' => '<div class=\"page-links\">' . __( 'Pages:', 'twentythirteen' ), 'after' => '</div>' ] ); ?>\n \t\t\t\t\t</div><!-- .entry-description -->\n \t\t\t\t\t<?php endif; ?>\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/320_image.php"
+    ]
+  }
+}

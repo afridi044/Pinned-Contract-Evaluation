@@ -1,0 +1,44 @@
+{
+  "file_path": "selected_100_files\\small_1_200\\074_site-themes.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 98
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:28:18.012001",
+    "file_size_kb": 7.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/small_1_200/074_site-themes.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -16,7 +16,7 @@\n if ( ! current_user_can( 'manage_sites' ) )\n \twp_die( __( 'You do not have sufficient permissions to manage themes for this site.' ) );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n@@ -25,7 +25,7 @@\n \t\t'<p>' . __('<strong>Users</strong> - This displays the users associated with this site. You can also change their role, reset their password, or remove them from the site. Removing the user from the site does not remove the user from the network.') . '</p>' .\n \t\t'<p>' . sprintf( __('<strong>Themes</strong> - This area shows themes that are not already enabled across the network. Enabling a theme in this menu makes it accessible to this site. It does not activate the theme, but allows it to show in the site&#8217;s Appearance menu. To enable a theme for the entire network, see the <a href=\"%s\">Network Themes</a> screen.' ), network_admin_url( 'themes.php' ) ) . '</p>' .\n \t\t'<p>' . __('<strong>Settings</strong> - This page shows a list of all settings associated with this site. Some are created by WordPress and others are created by plugins you activate. Note that some fields are grayed out and say Serialized Data. You cannot modify these values due to the way the setting is stored in the database.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -37,10 +37,10 @@\n \n $action = $wp_list_table->current_action();\n \n-$s = isset($_REQUEST['s']) ? $_REQUEST['s'] : '';\n+$s = $_REQUEST['s'] ?? '';\n \n // Clean up request URI from temporary args for screen options/paging uri's to work as expected.\n-$temp_args = array( 'enabled', 'disabled', 'error' );\n+$temp_args = [ 'enabled', 'disabled', 'error' ];\n $_SERVER['REQUEST_URI'] = remove_query_arg( $temp_args, $_SERVER['REQUEST_URI'] );\n $referer = remove_query_arg( $temp_args, wp_get_referer() );\n \n@@ -72,7 +72,7 @@\n \t\t\t$action = 'enabled';\n \t\t\t$n = 1;\n \t\t\tif ( !$allowed_themes )\n-\t\t\t\t$allowed_themes = array( $theme => true );\n+\t\t\t\t$allowed_themes = [ $theme => true ];\n \t\t\telse\n \t\t\t\t$allowed_themes[$theme] = true;\n \t\t\tbreak;\n@@ -82,7 +82,7 @@\n \t\t\t$action = 'disabled';\n \t\t\t$n = 1;\n \t\t\tif ( !$allowed_themes )\n-\t\t\t\t$allowed_themes = array();\n+\t\t\t\t$allowed_themes = [];\n \t\t\telse\n \t\t\t\tunset( $allowed_themes[$theme] );\n \t\t\tbreak;\n@@ -117,7 +117,7 @@\n \tupdate_option( 'allowedthemes', $allowed_themes );\n \trestore_current_blog();\n \n-\twp_safe_redirect( add_query_arg( array( 'id' => $id, $action => $n ), $referer ) );\n+\twp_safe_redirect( add_query_arg( [ 'id' => $id, $action => $n ], $referer ) );\n \texit;\n }\n \n@@ -127,7 +127,7 @@\n }\n \n add_thickbox();\n-add_screen_option( 'per_page', array( 'label' => _x( 'Themes', 'themes per page (screen options)' ) ) );\n+add_screen_option( 'per_page', [ 'label' => _x( 'Themes', 'themes per page (screen options)' ) ] );\n \n $site_url_no_http = preg_replace( '#^http(s)?://#', '', get_blogaddress_by_id( $id ) );\n $title_site_url_linked = sprintf( __('Edit Site: <a href=\"%1$s\">%2$s</a>'), get_blogaddress_by_id( $id ), $site_url_no_http );\n@@ -142,12 +142,12 @@\n <h2 id=\"edit-site\"><?php echo $title_site_url_linked ?></h2>\n <h3 class=\"nav-tab-wrapper\">\n <?php\n-$tabs = array(\n-\t'site-info'     => array( 'label' => __( 'Info' ),     'url' => 'site-info.php'     ),\n-\t'site-users'    => array( 'label' => __( 'Users' ),    'url' => 'site-users.php'    ),\n-\t'site-themes'   => array( 'label' => __( 'Themes' ),   'url' => 'site-themes.php'   ),\n-\t'site-settings' => array( 'label' => __( 'Settings' ), 'url' => 'site-settings.php' ),\n-);\n+$tabs = [\n+\t'site-info'     => [ 'label' => __( 'Info' ),     'url' => 'site-info.php'     ],\n+\t'site-users'    => [ 'label' => __( 'Users' ),    'url' => 'site-users.php'    ],\n+\t'site-themes'   => [ 'label' => __( 'Themes' ),   'url' => 'site-themes.php'   ],\n+\t'site-settings' => [ 'label' => __( 'Settings' ), 'url' => 'site-settings.php' ],\n+];\n foreach ( $tabs as $tab_id => $tab ) {\n \t$class = ( $tab['url'] == $pagenow ) ? ' nav-tab-active' : '';\n \techo '<a href=\"' . $tab['url'] . '?id=' . $id .'\" class=\"nav-tab' . $class . '\">' . esc_html( $tab['label'] ) . '</a>';\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/small_1_200/074_site-themes.php"
+    ]
+  }
+}

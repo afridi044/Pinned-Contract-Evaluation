@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\223_translation-install.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 71
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:11:07.114864",
+    "file_size_kb": 8.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/223_translation-install.php",
+        "diff": "--- Original\n+++ New\n@@ -19,7 +19,7 @@\n function translations_api( $type, $args = null ) {\n \tinclude( ABSPATH . WPINC . '/version.php' ); // include an unmodified $wp_version\n \n-\tif ( ! in_array( $type, array( 'plugins', 'themes', 'core' ) ) ) {\n+\tif ( ! in_array( $type, [ 'plugins', 'themes', 'core' ] ) ) {\n \t\treturn\tnew WP_Error( 'invalid_type', __( 'Invalid translation type.' ) );\n \t}\n \n@@ -36,18 +36,18 @@\n \n \tif ( false === $res ) {\n \t\t$url = $http_url = 'http://api.wordpress.org/translations/' . $type . '/1.0/';\n-\t\tif ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {\n+\t\tif ( $ssl = wp_http_supports( [ 'ssl' ] ) ) {\n \t\t\t$url = set_url_scheme( $url, 'https' );\n \t\t}\n \n-\t\t$options = array(\n+\t\t$options = [\n \t\t\t'timeout' => 3,\n-\t\t\t'body' => array(\n+\t\t\t'body' => [\n \t\t\t\t'wp_version' => $wp_version,\n \t\t\t\t'locale'     => get_locale(),\n \t\t\t\t'version'    => $args['version'], // Version of plugin, theme or core\n-\t\t\t),\n-\t\t);\n+\t\t\t],\n+\t\t];\n \n \t\tif ( 'core' !== $type ) {\n \t\t\t$options['body']['slug'] = $args['slug']; // Plugin or theme slug\n@@ -100,13 +100,13 @@\n \n \tinclude( ABSPATH . WPINC . '/version.php' ); // include an unmodified $wp_version\n \n-\t$api = translations_api( 'core', array( 'version' => $wp_version ) );\n+\t$api = translations_api( 'core', [ 'version' => $wp_version ] );\n \n \tif ( is_wp_error( $api ) || empty( $api['translations'] ) ) {\n-\t\treturn array();\n+\t\treturn [];\n \t}\n \n-\t$translations = array();\n+\t$translations = [];\n \t// Key the array with the language code for now.\n \tforeach ( $api['translations'] as $translation ) {\n \t\t$translations[ $translation['language'] ] = $translation;\n@@ -204,7 +204,7 @@\n \t$skin = new Automatic_Upgrader_Skin;\n \t$upgrader = new Language_Pack_Upgrader( $skin );\n \t$translation->type = 'core';\n-\t$result = $upgrader->upgrade( $translation, array( 'clear_update_cache' => false ) );\n+\t$result = $upgrader->upgrade( $translation, [ 'clear_update_cache' => false ] );\n \n \tif ( ! $result || is_wp_error( $result ) ) {\n \t\treturn false;\n@@ -230,7 +230,7 @@\n \t$skin = new Automatic_Upgrader_Skin;\n \t$upgrader = new Language_Pack_Upgrader( $skin );\n \n-\t$check = $upgrader->fs_connect( array( WP_CONTENT_DIR, WP_LANG_DIR ) );\n+\t$check = $upgrader->fs_connect( [ WP_CONTENT_DIR, WP_LANG_DIR ] );\n \n \tif ( ! $check || is_wp_error( $check ) ) {\n \t\treturn false;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/223_translation-install.php"
+    ]
+  }
+}

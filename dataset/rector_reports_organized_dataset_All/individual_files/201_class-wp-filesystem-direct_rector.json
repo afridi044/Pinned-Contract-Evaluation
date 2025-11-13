@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\201_class-wp-filesystem-direct.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 36
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:10.149505",
+    "file_size_kb": 9.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/201_class-wp-filesystem-direct.php",
+        "diff": "--- Original\n+++ New\n@@ -329,8 +329,8 @@\n \n \tpublic function dirlist($path, $include_hidden = true, $recursive = false) {\n \t\tif ( $this->is_file($path) ) {\n-\t\t\t$limit_file = basename($path);\n-\t\t\t$path = dirname($path);\n+\t\t\t$limit_file = basename((string) $path);\n+\t\t\t$path = dirname((string) $path);\n \t\t} else {\n \t\t\t$limit_file = false;\n \t\t}\n@@ -342,10 +342,10 @@\n \t\tif ( ! $dir )\n \t\t\treturn false;\n \n-\t\t$ret = array();\n+\t\t$ret = [];\n \n \t\twhile (false !== ($entry = $dir->read()) ) {\n-\t\t\t$struc = array();\n+\t\t\t$struc = [];\n \t\t\t$struc['name'] = $entry;\n \n \t\t\tif ( '.' == $struc['name'] || '..' == $struc['name'] )\n@@ -372,7 +372,7 @@\n \t\t\t\tif ( $recursive )\n \t\t\t\t\t$struc['files'] = $this->dirlist($path . '/' . $struc['name'], $include_hidden, $recursive);\n \t\t\t\telse\n-\t\t\t\t\t$struc['files'] = array();\n+\t\t\t\t\t$struc['files'] = [];\n \t\t\t}\n \n \t\t\t$ret[ $struc['name'] ] = $struc;\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/201_class-wp-filesystem-direct.php"
+    ]
+  }
+}

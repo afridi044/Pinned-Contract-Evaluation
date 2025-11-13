@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\198_options-writing.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 83
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:02.431563",
+    "file_size_kb": 9.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/198_options-writing.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! current_user_can( 'manage_options' ) )\n \twp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );\n@@ -15,35 +15,35 @@\n $title = __('Writing Settings');\n $parent_file = 'options-general.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' => '<p>' . __('You can submit content in several different ways; this screen holds the settings for all of them. The top section controls the editor within the dashboard, while the rest control external publishing methods. For more information on any of these methods, use the documentation links.') . '</p>' .\n \t\t'<p>' . __('You must click the Save Changes button at the bottom of the screen for new settings to take effect.') . '</p>',\n-) );\n+] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'options-press',\n \t'title'   => __('Press This'),\n \t'content' => '<p>' . __('Press This is a bookmarklet that makes it easy to blog about something you come across on the web. You can use it to just grab a link, or to post an excerpt. Press This will even allow you to choose from images included on the page and use them in your post. Just drag the Press This link on this screen to your bookmarks bar in your browser, and you&#8217;ll be on your way to easier content creation. Clicking on it while on another website opens a popup window with all these options.') . '</p>',\n-) );\n+] );\n \n /** This filter is documented in wp-admin/options.php */\n if ( apply_filters( 'enable_post_by_email_configuration', true ) ) {\n-\tget_current_screen()->add_help_tab( array(\n+\tget_current_screen()->add_help_tab( [\n \t\t'id'      => 'options-postemail',\n \t\t'title'   => __( 'Post Via Email' ),\n \t\t'content' => '<p>' . __( 'Post via email settings allow you to send your WordPress install an email with the content of your post. You must set up a secret e-mail account with POP3 access to use this, and any mail received at this address will be posted, so it&#8217;s a good idea to keep this address very secret.' ) . '</p>',\n-\t) );\n+\t] );\n }\n \n /** This filter is documented in wp-admin/options-writing.php */\n if ( apply_filters( 'enable_update_services_configuration', true ) ) {\n-\tget_current_screen()->add_help_tab( array(\n+\tget_current_screen()->add_help_tab( [\n \t\t'id'      => 'options-services',\n \t\t'title'   => __( 'Update Services' ),\n \t\t'content' => '<p>' . __( 'If desired, WordPress will automatically alert various services of your new posts.' ) . '</p>',\n-\t) );\n+\t] );\n }\n \n get_current_screen()->set_help_sidebar(\n@@ -75,7 +75,7 @@\n <th scope=\"row\"><label for=\"default_category\"><?php _e('Default Post Category') ?></label></th>\n <td>\n <?php\n-wp_dropdown_categories(array('hide_empty' => 0, 'name' => 'default_category', 'orderby' => 'name', 'selected' => get_option('default_category'), 'hierarchical' => true));\n+wp_dropdown_categories(['hide_empty' => 0, 'name' => 'default_category', 'orderby' => 'name', 'selected' => get_option('default_category'), 'hierarchical' => true]);\n ?>\n </td>\n </tr>\n@@ -101,7 +101,7 @@\n <th scope=\"row\"><label for=\"default_link_category\"><?php _e('Default Link Category') ?></label></th>\n <td>\n <?php\n-wp_dropdown_categories(array('hide_empty' => 0, 'name' => 'default_link_category', 'orderby' => 'name', 'selected' => get_option('default_link_category'), 'hierarchical' => true, 'taxonomy' => 'link_category'));\n+wp_dropdown_categories(['hide_empty' => 0, 'name' => 'default_link_category', 'orderby' => 'name', 'selected' => get_option('default_link_category'), 'hierarchical' => true, 'taxonomy' => 'link_category']);\n ?>\n </td>\n </tr>\n@@ -152,7 +152,7 @@\n <th scope=\"row\"><label for=\"default_email_category\"><?php _e('Default Mail Category') ?></label></th>\n <td>\n <?php\n-wp_dropdown_categories(array('hide_empty' => 0, 'name' => 'default_email_category', 'orderby' => 'name', 'selected' => get_option('default_email_category'), 'hierarchical' => true));\n+wp_dropdown_categories(['hide_empty' => 0, 'name' => 'default_email_category', 'orderby' => 'name', 'selected' => get_option('default_email_category'), 'hierarchical' => true]);\n ?>\n </td>\n </tr>\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/198_options-writing.php"
+    ]
+  }
+}

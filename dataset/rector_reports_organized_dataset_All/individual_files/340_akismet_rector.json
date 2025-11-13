@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\340_akismet.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 25
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:47.623755",
+    "file_size_kb": 2.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/340_akismet.php",
+        "diff": "--- Original\n+++ New\n@@ -41,17 +41,17 @@\n define( 'AKISMET__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );\n define( 'AKISMET_DELETE_LIMIT', 100000 );\n \n-register_activation_hook( __FILE__, array( 'Akismet', 'plugin_activation' ) );\n-register_deactivation_hook( __FILE__, array( 'Akismet', 'plugin_deactivation' ) );\n+register_activation_hook( __FILE__, [ 'Akismet', 'plugin_activation' ] );\n+register_deactivation_hook( __FILE__, [ 'Akismet', 'plugin_deactivation' ] );\n \n require_once( AKISMET__PLUGIN_DIR . 'class.akismet.php' );\n require_once( AKISMET__PLUGIN_DIR . 'class.akismet-widget.php' );\n \n-add_action( 'init', array( 'Akismet', 'init' ) );\n+add_action( 'init', [ 'Akismet', 'init' ] );\n \n if ( is_admin() ) {\n \trequire_once( AKISMET__PLUGIN_DIR . 'class.akismet-admin.php' );\n-\tadd_action( 'init', array( 'Akismet_Admin', 'init' ) );\n+\tadd_action( 'init', [ 'Akismet_Admin', 'init' ] );\n }\n \n //add wrapper class around deprecated akismet functions that are referenced elsewhere\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/340_akismet.php"
+    ]
+  }
+}

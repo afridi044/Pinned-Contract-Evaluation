@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\138_options-permalink.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 83
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:17.338099",
+    "file_size_kb": 14.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/138_options-permalink.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! current_user_can( 'manage_options' ) )\n \twp_die( __( 'You do not have sufficient permissions to manage options for this site.' ) );\n@@ -15,15 +15,15 @@\n $title = __('Permalink Settings');\n $parent_file = 'options-general.php';\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' => '<p>' . __('Permalinks are the permanent URLs to your individual pages and blog posts, as well as your category and tag archives. A permalink is the web address used to link to your content. The URL to each post should be permanent, and never change &#8212; hence the name permalink.') . '</p>' .\n \t\t'<p>' . __('This screen allows you to choose your default permalink structure. You can choose from common settings or create custom URL structures.') . '</p>' .\n \t\t'<p>' . __('You must click the Save Changes button at the bottom of the screen for new settings to take effect.') . '</p>',\n-) );\n+] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'common-settings',\n \t'title'   => __('Common Settings'),\n \t'content' => '<p>' . __('Many people choose to use &#8220;pretty permalinks,&#8221; URLs that contain useful information such as the post title rather than generic post ID numbers. You can choose from any of the permalink formats under Common Settings, or can craft your own if you select Custom Structure.') . '</p>' .\n@@ -30,14 +30,14 @@\n \t\t'<p>' . __('If you pick an option other than Default, your general URL path with structure tags, terms surrounded by <code>%</code>, will also appear in the custom structure field and your path can be further modified there.') . '</p>' .\n \t\t'<p>' . __('When you assign multiple categories or tags to a post, only one can show up in the permalink: the lowest numbered category. This applies if your custom structure includes <code>%category%</code> or <code>%tag%</code>.') . '</p>' .\n \t\t'<p>' . __('You must click the Save Changes button at the bottom of the screen for new settings to take effect.') . '</p>',\n-) );\n+] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'custom-structures',\n \t'title'   => __('Custom Structures'),\n \t'content' => '<p>' . __('The Optional fields let you customize the &#8220;category&#8221; and &#8220;tag&#8221; base names that will appear in archive URLs. For example, the page listing all posts in the &#8220;Uncategorized&#8221; category could be <code>/topics/uncategorized</code> instead of <code>/category/uncategorized</code>.') . '</p>' .\n \t\t'<p>' . __('You must click the Save Changes button at the bottom of the screen for new settings to take effect.') . '</p>',\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n@@ -92,7 +92,7 @@\n \t\tif ( ! empty( $permalink_structure ) ) {\n \t\t\t$permalink_structure = preg_replace( '#/+#', '/', '/' . str_replace( '#', '', $permalink_structure ) );\n \t\t\tif ( $prefix && $blog_prefix )\n-\t\t\t\t$permalink_structure = $prefix . preg_replace( '#^/?index\\.php#', '', $permalink_structure );\n+\t\t\t\t$permalink_structure = $prefix . preg_replace( '#^/?index\\.php#', '', (string) $permalink_structure );\n \t\t\telse\n \t\t\t\t$permalink_structure = $blog_prefix . $permalink_structure;\n \t\t}\n@@ -135,7 +135,7 @@\n \t} else {\n \t\t$writable = false;\n \t\t$existing_rules  = array_filter( extract_from_markers( $home_path . '.htaccess', 'WordPress' ) );\n-\t\t$new_rules       = array_filter( explode( \"\\n\", $wp_rewrite->mod_rewrite_rules() ) );\n+\t\t$new_rules       = array_filter( explode( \"\\n\", (string) $wp_rewrite->mod_rewrite_rules() ) );\n \t\t$update_required = ( $new_rules !== $existing_rules );\n \t}\n }\n@@ -190,13 +190,13 @@\n \t$tag_base = preg_replace( '|^/?blog|', '', $tag_base );\n }\n \n-$structures = array(\n+$structures = [\n \t0 => '',\n \t1 => $prefix . '/%year%/%monthnum%/%day%/%postname%/',\n \t2 => $prefix . '/%year%/%monthnum%/%postname%/',\n \t3 => $prefix . '/' . _x( 'archives', 'sample permalink base' ) . '/%post_id%',\n \t4 => $prefix . '/%postname%/',\n-);\n+];\n ?>\n <h3 class=\"title\"><?php _e('Common Settings'); ?></h3>\n <table class=\"form-table permalink-structure\">\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/138_options-permalink.php"
+    ]
+  }
+}

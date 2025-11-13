@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\145_default-filters.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 130
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:07:37.793557",
+    "file_size_kb": 14.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/145_default-filters.php",
+        "diff": "--- Original\n+++ New\n@@ -13,7 +13,7 @@\n  */\n \n // Strip, trim, kses, special chars for string saves\n-foreach ( array( 'pre_term_name', 'pre_comment_author_name', 'pre_link_name', 'pre_link_target', 'pre_link_rel', 'pre_user_display_name', 'pre_user_first_name', 'pre_user_last_name', 'pre_user_nickname' ) as $filter ) {\n+foreach ( [ 'pre_term_name', 'pre_comment_author_name', 'pre_link_name', 'pre_link_target', 'pre_link_rel', 'pre_user_display_name', 'pre_user_first_name', 'pre_user_last_name', 'pre_user_nickname' ] as $filter ) {\n \tadd_filter( $filter, 'sanitize_text_field'  );\n \tadd_filter( $filter, 'wp_filter_kses'       );\n \tadd_filter( $filter, '_wp_specialchars', 30 );\n@@ -20,7 +20,7 @@\n }\n \n // Strip, kses, special chars for string display\n-foreach ( array( 'term_name', 'comment_author_name', 'link_name', 'link_target', 'link_rel', 'user_display_name', 'user_first_name', 'user_last_name', 'user_nickname' ) as $filter ) {\n+foreach ( [ 'term_name', 'comment_author_name', 'link_name', 'link_target', 'link_rel', 'user_display_name', 'user_first_name', 'user_last_name', 'user_nickname' ] as $filter ) {\n \tif ( is_admin() ) {\n \t\t// These are expensive. Run only on admin pages for defense in depth.\n \t\tadd_filter( $filter, 'sanitize_text_field'  );\n@@ -30,13 +30,13 @@\n }\n \n // Kses only for textarea saves\n-foreach ( array( 'pre_term_description', 'pre_link_description', 'pre_link_notes', 'pre_user_description' ) as $filter ) {\n+foreach ( [ 'pre_term_description', 'pre_link_description', 'pre_link_notes', 'pre_user_description' ] as $filter ) {\n \tadd_filter( $filter, 'wp_filter_kses' );\n }\n \n // Kses only for textarea admin displays\n if ( is_admin() ) {\n-\tforeach ( array( 'term_description', 'link_description', 'link_notes', 'user_description' ) as $filter ) {\n+\tforeach ( [ 'term_description', 'link_description', 'link_notes', 'user_description' ] as $filter ) {\n \t\tadd_filter( $filter, 'wp_kses_data' );\n \t}\n \tadd_filter( 'comment_text', 'wp_kses_post' );\n@@ -43,7 +43,7 @@\n }\n \n // Email saves\n-foreach ( array( 'pre_comment_author_email', 'pre_user_email' ) as $filter ) {\n+foreach ( [ 'pre_comment_author_email', 'pre_user_email' ] as $filter ) {\n \tadd_filter( $filter, 'trim'           );\n \tadd_filter( $filter, 'sanitize_email' );\n \tadd_filter( $filter, 'wp_filter_kses' );\n@@ -50,7 +50,7 @@\n }\n \n // Email admin display\n-foreach ( array( 'comment_author_email', 'user_email' ) as $filter ) {\n+foreach ( [ 'comment_author_email', 'user_email' ] as $filter ) {\n \tadd_filter( $filter, 'sanitize_email' );\n \tif ( is_admin() )\n \t\tadd_filter( $filter, 'wp_kses_data' );\n@@ -57,8 +57,8 @@\n }\n \n // Save URL\n-foreach ( array( 'pre_comment_author_url', 'pre_user_url', 'pre_link_url', 'pre_link_image',\n-\t'pre_link_rss', 'pre_post_guid' ) as $filter ) {\n+foreach ( [ 'pre_comment_author_url', 'pre_user_url', 'pre_link_url', 'pre_link_image',\n+\t'pre_link_rss', 'pre_post_guid' ] as $filter ) {\n \tadd_filter( $filter, 'wp_strip_all_tags' );\n \tadd_filter( $filter, 'esc_url_raw'       );\n \tadd_filter( $filter, 'wp_filter_kses'    );\n@@ -65,7 +65,7 @@\n }\n \n // Display URL\n-foreach ( array( 'user_url', 'link_url', 'link_image', 'link_rss', 'comment_url', 'post_guid' ) as $filter ) {\n+foreach ( [ 'user_url', 'link_url', 'link_image', 'link_rss', 'comment_url', 'post_guid' ] as $filter ) {\n \tif ( is_admin() )\n \t\tadd_filter( $filter, 'wp_strip_all_tags' );\n \tadd_filter( $filter, 'esc_url'           );\n@@ -77,7 +77,7 @@\n add_filter( 'pre_term_slug', 'sanitize_title' );\n \n // Keys\n-foreach ( array( 'pre_post_type', 'pre_post_status', 'pre_post_comment_status', 'pre_post_ping_status' ) as $filter ) {\n+foreach ( [ 'pre_post_type', 'pre_post_status', 'pre_post_comment_status', 'pre_post_ping_status' ] as $filter ) {\n \tadd_filter( $filter, 'sanitize_key' );\n }\n \n@@ -86,12 +86,12 @@\n add_filter( 'post_mime_type', 'sanitize_mime_type' );\n \n // Places to balance tags on input\n-foreach ( array( 'content_save_pre', 'excerpt_save_pre', 'comment_save_pre', 'pre_comment_content' ) as $filter ) {\n+foreach ( [ 'content_save_pre', 'excerpt_save_pre', 'comment_save_pre', 'pre_comment_content' ] as $filter ) {\n \tadd_filter( $filter, 'balanceTags', 50 );\n }\n \n // Format strings for display.\n-foreach ( array( 'comment_author', 'term_name', 'link_name', 'link_description', 'link_notes', 'bloginfo', 'wp_title', 'widget_title' ) as $filter ) {\n+foreach ( [ 'comment_author', 'term_name', 'link_name', 'link_description', 'link_notes', 'bloginfo', 'wp_title', 'widget_title' ] as $filter ) {\n \tadd_filter( $filter, 'wptexturize'   );\n \tadd_filter( $filter, 'convert_chars' );\n \tadd_filter( $filter, 'esc_html'      );\n@@ -98,18 +98,18 @@\n }\n \n // Format WordPress\n-foreach ( array( 'the_content', 'the_title', 'wp_title' ) as $filter )\n+foreach ( [ 'the_content', 'the_title', 'wp_title' ] as $filter )\n \tadd_filter( $filter, 'capital_P_dangit', 11 );\n add_filter( 'comment_text', 'capital_P_dangit', 31 );\n \n // Format titles\n-foreach ( array( 'single_post_title', 'single_cat_title', 'single_tag_title', 'single_month_title', 'nav_menu_attr_title', 'nav_menu_description' ) as $filter ) {\n+foreach ( [ 'single_post_title', 'single_cat_title', 'single_tag_title', 'single_month_title', 'nav_menu_attr_title', 'nav_menu_description' ] as $filter ) {\n \tadd_filter( $filter, 'wptexturize' );\n \tadd_filter( $filter, 'strip_tags'  );\n }\n \n // Format text area for display.\n-foreach ( array( 'term_description' ) as $filter ) {\n+foreach ( [ 'term_description' ] as $filter ) {\n \tadd_filter( $filter, 'wptexturize'      );\n \tadd_filter( $filter, 'convert_chars'    );\n \tadd_filter( $filter, 'wpautop'          );\n@@ -224,7 +224,7 @@\n add_action( 'login_init',          'send_frame_options_header',     10, 0 );\n \n // Feed Generator Tags\n-foreach ( array( 'rss2_head', 'commentsrss2_head', 'rss_head', 'rdf_header', 'atom_head', 'comments_atom_head', 'opml_head', 'app_head' ) as $action ) {\n+foreach ( [ 'rss2_head', 'commentsrss2_head', 'rss_head', 'rdf_header', 'atom_head', 'comments_atom_head', 'opml_head', 'app_head' ] as $action ) {\n \tadd_action( $action, 'the_generator' );\n }\n \n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/145_default-filters.php"
+    ]
+  }
+}

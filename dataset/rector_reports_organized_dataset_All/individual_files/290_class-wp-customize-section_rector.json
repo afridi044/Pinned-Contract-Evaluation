@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\290_class-wp-customize-section.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 45
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:55.711781",
+    "file_size_kb": 4.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/290_class-wp-customize-section.php",
+        "diff": "--- Original\n+++ New\n@@ -20,15 +20,6 @@\n \tpublic $manager;\n \n \t/**\n-\t * Unique identifier.\n-\t *\n-\t * @since 3.4.0\n-\t * @access public\n-\t * @var string\n-\t */\n-\tpublic $id;\n-\n-\t/**\n \t * Priority of the section which informs load order of sections.\n \t *\n \t * @since 3.4.0\n@@ -102,7 +93,13 @@\n \t * @param string               $id      An specific ID of the section.\n \t * @param array                $args    Section arguments.\n \t */\n-\tpublic function __construct( $manager, $id, $args = array() ) {\n+\tpublic function __construct( $manager, /**\n+     * Unique identifier.\n+     *\n+     * @since 3.4.0\n+     * @access public\n+     */\n+    public $id, $args = [] ) {\n \t\t$keys = array_keys( get_object_vars( $this ) );\n \t\tforeach ( $keys as $key ) {\n \t\t\tif ( isset( $args[ $key ] ) )\n@@ -110,9 +107,8 @@\n \t\t}\n \n \t\t$this->manager = $manager;\n-\t\t$this->id = $id;\n \n-\t\t$this->controls = array(); // Users cannot customize the $controls array.\n+\t\t$this->controls = []; // Users cannot customize the $controls array.\n \n \t\treturn $this;\n \t}\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/290_class-wp-customize-section.php"
+    ]
+  }
+}

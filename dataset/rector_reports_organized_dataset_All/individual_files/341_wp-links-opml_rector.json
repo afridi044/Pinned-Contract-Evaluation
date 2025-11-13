@@ -1,0 +1,44 @@
+{
+  "file_path": "organized_dataset_All\\341_wp-links-opml.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 42
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:50.028458",
+    "file_size_kb": 2.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/341_wp-links-opml.php",
+        "diff": "--- Original\n+++ New\n@@ -12,14 +12,14 @@\n  * @package WordPress\n  */\n \n-require_once( dirname( __FILE__ ) . '/wp-load.php' );\n+require_once( __DIR__ . '/wp-load.php' );\n \n header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);\n $link_cat = '';\n if ( !empty($_GET['link_cat']) ) {\n \t$link_cat = $_GET['link_cat'];\n-\tif ( !in_array($link_cat, array('all', '0')) )\n-\t\t$link_cat = absint( (string)urldecode($link_cat) );\n+\tif ( !in_array($link_cat, ['all', '0']) )\n+\t\t$link_cat = absint( (string)urldecode((string) $link_cat) );\n }\n \n echo '<?xml version=\"1.0\"?'.\">\\n\";\n@@ -40,9 +40,9 @@\n \t<body>\n <?php\n if ( empty($link_cat) )\n-\t$cats = get_categories(array('taxonomy' => 'link_category', 'hierarchical' => 0));\n+\t$cats = get_categories(['taxonomy' => 'link_category', 'hierarchical' => 0]);\n else\n-\t$cats = get_categories(array('taxonomy' => 'link_category', 'hierarchical' => 0, 'include' => $link_cat));\n+\t$cats = get_categories(['taxonomy' => 'link_category', 'hierarchical' => 0, 'include' => $link_cat]);\n \n foreach ( (array)$cats as $cat ) :\n \t/**\n@@ -57,7 +57,7 @@\n ?>\n <outline type=\"category\" title=\"<?php echo esc_attr($catname); ?>\">\n <?php\n-\t$bookmarks = get_bookmarks(array(\"category\" => $cat->term_id));\n+\t$bookmarks = get_bookmarks([\"category\" => $cat->term_id]);\n \tforeach ( (array)$bookmarks as $bookmark ) :\n \t\t/**\n \t\t * Filter the OPML outline link title text.\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/341_wp-links-opml.php"
+    ]
+  }
+}

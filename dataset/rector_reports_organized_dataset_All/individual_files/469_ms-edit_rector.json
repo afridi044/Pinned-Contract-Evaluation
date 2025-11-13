@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\469_ms-edit.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:18:44.548664",
+    "file_size_kb": 0.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/469_ms-edit.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  * @since 3.0.0\n  */\n \n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n wp_redirect( network_admin_url() );\n exit;\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/469_ms-edit.php"
+    ]
+  }
+}

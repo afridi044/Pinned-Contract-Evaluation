@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\276_wp-mce-help.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:13:21.053997",
+    "file_size_kb": 4.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/276_wp-mce-help.php",
+        "diff": "--- Original\n+++ New\n@@ -6,7 +6,7 @@\n  */\n \n /** @ignore */\n-require_once( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/wp-load.php' );\n+require_once( dirname(__FILE__, 4) . '/wp-load.php' );\n header('Content-Type: text/html; charset=' . get_bloginfo('charset'));\n ?>\n <!DOCTYPE html>\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/276_wp-mce-help.php"
+    ]
+  }
+}

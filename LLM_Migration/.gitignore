@@ -1,0 +1,87 @@
+# Vendor dependencies
+vendor/
+node_modules/
+composer.phar
+
+# API Keys and sensitive data
+.env
+.env.local
+.env.production
+config.json
+secrets.json
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Model outputs (large files)
+model_output/
+chunked_model_output/
+outputs/new-version/
+outputs/evaluation_reports/
+
+# Large source files
+selected_100_files/
+original_files/
+large_files/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+temp_parser.php
+
+# Rector cache
+.rector_cache/
+
+# Archives and compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# API response logs
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.pytest_cache/

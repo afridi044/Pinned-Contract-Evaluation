@@ -1,0 +1,46 @@
+{
+  "file_path": "organized_dataset_All\\207_comment.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnNeverTypeRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 108
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:25.728401",
+    "file_size_kb": 8.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/207_comment.php",
+        "diff": "--- Original\n+++ New\n@@ -7,12 +7,12 @@\n  */\n \n /** Load WordPress Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n $parent_file = 'edit-comments.php';\n $submenu_file = 'edit-comments.php';\n \n-wp_reset_vars( array('action') );\n+wp_reset_vars( ['action'] );\n \n if ( isset( $_POST['deletecomment'] ) )\n \t$action = 'deletecomment';\n@@ -34,7 +34,7 @@\n  *\n  * @param string $msg Error Message. Assumed to contain HTML and be sanitized.\n  */\n-function comment_footer_die( $msg ) {\n+function comment_footer_die( $msg ): never {\n \techo \"<div class='wrap'><p>$msg</p></div>\";\n \tinclude( ABSPATH . 'wp-admin/admin-footer.php' );\n \tdie;\n@@ -45,13 +45,13 @@\n case 'editcomment' :\n \t$title = __('Edit Comment');\n \n-\tget_current_screen()->add_help_tab( array(\n+\tget_current_screen()->add_help_tab( [\n \t\t'id'      => 'overview',\n \t\t'title'   => __('Overview'),\n \t\t'content' =>\n \t\t\t'<p>' . __( 'You can edit the information left in a comment if needed. This is often useful when you notice that a commenter has made a typographical error.' ) . '</p>' .\n \t\t\t'<p>' . __( 'You can also moderate the comment from this screen using the Status box, where you can also change the timestamp of the comment.' ) . '</p>'\n-\t) );\n+\t] );\n \n \tget_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .\n@@ -210,7 +210,7 @@\n case 'unapprovecomment' :\n \t$comment_id = absint( $_REQUEST['c'] );\n \n-\tif ( in_array( $action, array( 'approvecomment', 'unapprovecomment' ) ) )\n+\tif ( in_array( $action, [ 'approvecomment', 'unapprovecomment' ] ) )\n \t\tcheck_admin_referer( 'approve-comment_' . $comment_id );\n \telse\n \t\tcheck_admin_referer( 'delete-comment_' . $comment_id );\n@@ -222,45 +222,45 @@\n \tif ( !current_user_can( 'edit_comment', $comment->comment_ID ) )\n \t\tcomment_footer_die( __('You are not allowed to edit comments on this post.') );\n \n-\tif ( '' != wp_get_referer() && ! $noredir && false === strpos(wp_get_referer(), 'comment.php') )\n+\tif ( '' != wp_get_referer() && ! $noredir && !str_contains(wp_get_referer(), 'comment.php') )\n \t\t$redir = wp_get_referer();\n \telseif ( '' != wp_get_original_referer() && ! $noredir )\n \t\t$redir = wp_get_original_referer();\n-\telseif ( in_array( $action, array( 'approvecomment', 'unapprovecomment' ) ) )\n+\telseif ( in_array( $action, [ 'approvecomment', 'unapprovecomment' ] ) )\n \t\t$redir = admin_url('edit-comments.php?p=' . absint( $comment->comment_post_ID ) );\n \telse\n \t\t$redir = admin_url('edit-comments.php');\n \n-\t$redir = remove_query_arg( array('spammed', 'unspammed', 'trashed', 'untrashed', 'deleted', 'ids', 'approved', 'unapproved'), $redir );\n+\t$redir = remove_query_arg( ['spammed', 'unspammed', 'trashed', 'untrashed', 'deleted', 'ids', 'approved', 'unapproved'], $redir );\n \n \tswitch ( $action ) {\n \t\tcase 'deletecomment' :\n \t\t\twp_delete_comment( $comment_id );\n-\t\t\t$redir = add_query_arg( array('deleted' => '1'), $redir );\n+\t\t\t$redir = add_query_arg( ['deleted' => '1'], $redir );\n \t\t\tbreak;\n \t\tcase 'trashcomment' :\n \t\t\twp_trash_comment($comment_id);\n-\t\t\t$redir = add_query_arg( array('trashed' => '1', 'ids' => $comment_id), $redir );\n+\t\t\t$redir = add_query_arg( ['trashed' => '1', 'ids' => $comment_id], $redir );\n \t\t\tbreak;\n \t\tcase 'untrashcomment' :\n \t\t\twp_untrash_comment($comment_id);\n-\t\t\t$redir = add_query_arg( array('untrashed' => '1'), $redir );\n+\t\t\t$redir = add_query_arg( ['untrashed' => '1'], $redir );\n \t\t\tbreak;\n \t\tcase 'spamcomment' :\n \t\t\twp_spam_comment($comment_id);\n-\t\t\t$redir = add_query_arg( array('spammed' => '1', 'ids' => $comment_id), $redir );\n+\t\t\t$redir = add_query_arg( ['spammed' => '1', 'ids' => $comment_id], $redir );\n \t\t\tbreak;\n \t\tcase 'unspamcomment' :\n \t\t\twp_unspam_comment($comment_id);\n-\t\t\t$redir = add_query_arg( array('unspammed' => '1'), $redir );\n+\t\t\t$redir = add_query_arg( ['unspammed' => '1'], $redir );\n \t\t\tbreak;\n \t\tcase 'approvecomment' :\n \t\t\twp_set_comment_status( $comment_id, 'approve' );\n-\t\t\t$redir = add_query_arg( array( 'approved' => 1 ), $redir );\n+\t\t\t$redir = add_query_arg( [ 'approved' => 1 ], $redir );\n \t\t\tbreak;\n \t\tcase 'unapprovecomment' :\n \t\t\twp_set_comment_status( $comment_id, 'hold' );\n-\t\t\t$redir = add_query_arg( array( 'unapproved' => 1 ), $redir );\n+\t\t\t$redir = add_query_arg( [ 'unapproved' => 1 ], $redir );\n \t\t\tbreak;\n \t}\n \n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnNeverTypeRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/207_comment.php"
+    ]
+  }
+}

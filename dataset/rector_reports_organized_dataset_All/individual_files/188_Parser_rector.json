@@ -1,0 +1,45 @@
+{
+  "file_path": "organized_dataset_All\\188_Parser.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 3
+    },
+    "has_diff": true,
+    "diff_line_count": 67
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:37.493877",
+    "file_size_kb": 10.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/188_Parser.php",
+        "diff": "--- Original\n+++ New\n@@ -77,7 +77,7 @@\n \t *\n \t * @var array\n \t */\n-\tpublic $headers = array();\n+\tpublic $headers = [];\n \n \t/**\n \t * Body of the response\n@@ -94,13 +94,6 @@\n \tprotected $state = 'http_version';\n \n \t/**\n-\t * Input data\n-\t *\n-\t * @var string\n-\t */\n-\tprotected $data = '';\n-\n-\t/**\n \t * Input data length (to avoid calling strlen() everytime this is needed)\n \t *\n \t * @var int\n@@ -133,9 +126,11 @@\n \t *\n \t * @param string $data Input data\n \t */\n-\tpublic function __construct($data)\n+\tpublic function __construct(/**\n+     * Input data\n+     */\n+    protected $data)\n \t{\n-\t\t$this->data = $data;\n \t\t$this->data_length = strlen($this->data);\n \t}\n \n@@ -161,7 +156,7 @@\n \t\t\t$this->http_version = '';\n \t\t\t$this->status_code = '';\n \t\t\t$this->reason = '';\n-\t\t\t$this->headers = array();\n+\t\t\t$this->headers = [];\n \t\t\t$this->body = '';\n \t\t\treturn false;\n \t\t}\n@@ -196,7 +191,7 @@\n \t */\n \tprotected function http_version()\n \t{\n-\t\tif (strpos($this->data, \"\\x0A\") !== false && strtoupper(substr($this->data, 0, 5)) === 'HTTP/')\n+\t\tif (str_contains($this->data, \"\\x0A\") && strtoupper(substr($this->data, 0, 5)) === 'HTTP/')\n \t\t{\n \t\t\t$len = strspn($this->data, '0123456789.', 5);\n \t\t\t$this->http_version = substr($this->data, 5, $len);\n@@ -267,7 +262,7 @@\n \t\t}\n \t\t$this->name = '';\n \t\t$this->value = '';\n-\t\tif (substr($this->data[$this->position], 0, 2) === \"\\x0D\\x0A\")\n+\t\tif (str_starts_with($this->data[$this->position], \"\\x0D\\x0A\"))\n \t\t{\n \t\t\t$this->position += 2;\n \t\t\t$this->state = 'body';\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/188_Parser.php"
+    ]
+  }
+}

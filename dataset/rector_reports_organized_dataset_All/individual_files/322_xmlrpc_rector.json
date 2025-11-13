@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\322_xmlrpc.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:15:14.920700",
+    "file_size_kb": 3.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/322_xmlrpc.php",
+        "diff": "--- Original\n+++ New\n@@ -13,7 +13,7 @@\n define('XMLRPC_REQUEST', true);\n \n // Some browser-embedded clients send cookies. We don't want them.\n-$_COOKIE = array();\n+$_COOKIE = [];\n \n // A bug in PHP < 5.2.2 makes $HTTP_RAW_POST_DATA not set by default,\n // but we can do it ourself.\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/322_xmlrpc.php"
+    ]
+  }
+}

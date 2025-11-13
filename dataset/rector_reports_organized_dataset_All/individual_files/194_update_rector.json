@@ -1,0 +1,47 @@
+{
+  "file_path": "organized_dataset_All\\194_update.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_70": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 81
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:52.910539",
+    "file_size_kb": 9.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/194_update.php",
+        "diff": "--- Original\n+++ New\n@@ -6,18 +6,18 @@\n  * @subpackage Administration\n  */\n \n-if ( ! defined( 'IFRAME_REQUEST' ) && isset( $_GET['action'] ) && in_array( $_GET['action'], array( 'update-selected', 'activate-plugin', 'update-selected-themes' ) ) )\n+if ( ! defined( 'IFRAME_REQUEST' ) && isset( $_GET['action'] ) && in_array( $_GET['action'], [ 'update-selected', 'activate-plugin', 'update-selected-themes' ] ) )\n \tdefine( 'IFRAME_REQUEST', true );\n \n /** WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );\n \n if ( isset($_GET['action']) ) {\n-\t$plugin = isset($_REQUEST['plugin']) ? trim($_REQUEST['plugin']) : '';\n-\t$theme = isset($_REQUEST['theme']) ? urldecode($_REQUEST['theme']) : '';\n-\t$action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';\n+\t$plugin = isset($_REQUEST['plugin']) ? trim((string) $_REQUEST['plugin']) : '';\n+\t$theme = isset($_REQUEST['theme']) ? urldecode((string) $_REQUEST['theme']) : '';\n+\t$action = $_REQUEST['action'] ?? '';\n \n \tif ( 'update-selected' == $action ) {\n \t\tif ( ! current_user_can( 'update_plugins' ) )\n@@ -30,7 +30,7 @@\n \t\telseif ( isset( $_POST['checked'] ) )\n \t\t\t$plugins = (array) $_POST['checked'];\n \t\telse\n-\t\t\t$plugins = array();\n+\t\t\t$plugins = [];\n \n \t\t$plugins = array_map('urldecode', $plugins);\n \n@@ -98,7 +98,7 @@\n \t\tinclude_once( ABSPATH . 'wp-admin/includes/plugin-install.php' ); //for plugins_api..\n \n \t\tcheck_admin_referer('install-plugin_' . $plugin);\n-\t\t$api = plugins_api('plugin_information', array('slug' => $plugin, 'fields' => array('sections' => false) ) ); //Save on a bit of bandwidth.\n+\t\t$api = plugins_api('plugin_information', ['slug' => $plugin, 'fields' => ['sections' => false] ] ); //Save on a bit of bandwidth.\n \n \t\tif ( is_wp_error($api) )\n \t \t\twp_die($api);\n@@ -138,7 +138,7 @@\n \n \t\t$title = sprintf( __('Installing Plugin from uploaded file: %s'), esc_html( basename( $file_upload->filename ) ) );\n \t\t$nonce = 'plugin-upload';\n-\t\t$url = add_query_arg(array('package' => $file_upload->id), 'update.php?action=upload-plugin');\n+\t\t$url = add_query_arg(['package' => $file_upload->id], 'update.php?action=upload-plugin');\n \t\t$type = 'upload'; //Install plugin type, From Web or an Upload.\n \n \t\t$upgrader = new Plugin_Upgrader( new Plugin_Installer_Skin( compact('type', 'title', 'nonce', 'url') ) );\n@@ -182,7 +182,7 @@\n \t\telseif ( isset( $_POST['checked'] ) )\n \t\t\t$themes = (array) $_POST['checked'];\n \t\telse\n-\t\t\t$themes = array();\n+\t\t\t$themes = [];\n \n \t\t$themes = array_map('urldecode', $themes);\n \n@@ -204,7 +204,7 @@\n \t\tinclude_once( ABSPATH . 'wp-admin/includes/theme-install.php' ); //for themes_api..\n \n \t\tcheck_admin_referer( 'install-theme_' . $theme );\n-\t\t$api = themes_api('theme_information', array('slug' => $theme, 'fields' => array('sections' => false, 'tags' => false) ) ); //Save on a bit of bandwidth.\n+\t\t$api = themes_api('theme_information', ['slug' => $theme, 'fields' => ['sections' => false, 'tags' => false] ] ); //Save on a bit of bandwidth.\n \n \t\tif ( is_wp_error($api) )\n \t \t\twp_die($api);\n@@ -246,7 +246,7 @@\n \n \t\t$title = sprintf( __('Installing Theme from uploaded file: %s'), esc_html( basename( $file_upload->filename ) ) );\n \t\t$nonce = 'theme-upload';\n-\t\t$url = add_query_arg(array('package' => $file_upload->id), 'update.php?action=upload-theme');\n+\t\t$url = add_query_arg(['package' => $file_upload->id], 'update.php?action=upload-theme');\n \t\t$type = 'upload'; //Install plugin type, From Web or an Upload.\n \n \t\t$upgrader = new Theme_Upgrader( new Theme_Installer_Skin( compact('type', 'title', 'nonce', 'url') ) );\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/194_update.php"
+    ]
+  }
+}

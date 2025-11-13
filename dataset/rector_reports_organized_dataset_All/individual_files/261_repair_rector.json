@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\261_repair.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:43.468465",
+    "file_size_kb": 5.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/261_repair.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\n define('WP_REPAIRING', true);\n \n-require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/wp-load.php' );\n+require_once( dirname(__FILE__, 3) . '/wp-load.php' );\n \n header( 'Content-Type: text/html; charset=utf-8' );\n ?>\n@@ -31,7 +31,7 @@\n } elseif ( isset( $_GET['repair'] ) ) {\n \t$optimize = 2 == $_GET['repair'];\n \t$okay = true;\n-\t$problems = array();\n+\t$problems = [];\n \n \t$tables = $wpdb->tables();\n \n@@ -48,7 +48,7 @@\n \t *\n \t * @param array $tables Array of prefixed table names to be repaired.\n \t */\n-\t$tables = array_merge( $tables, (array) apply_filters( 'tables_to_repair', array() ) );\n+\t$tables = array_merge( $tables, (array) apply_filters( 'tables_to_repair', [] ) );\n \n \t// Loop over the tables, checking and repairing as needed.\n \tforeach ( $tables as $table ) {\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/261_repair.php"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "organized_dataset_All\\254_Registry.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 85
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:12:24.690320",
+    "file_size_kb": 5.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/254_Registry.php",
+        "diff": "--- Original\n+++ New\n@@ -58,7 +58,7 @@\n \t *\n \t * @var array\n \t */\n-\tprotected $default = array(\n+\tprotected $default = [\n \t\t'Cache' => 'SimplePie_Cache',\n \t\t'Locator' => 'SimplePie_Locator',\n \t\t'Parser' => 'SimplePie_Parser',\n@@ -78,7 +78,7 @@\n \t\t'Misc' => 'SimplePie_Misc',\n \t\t'XML_Declaration_Parser' => 'SimplePie_XML_Declaration_Parser',\n \t\t'Parse_Date' => 'SimplePie_Parse_Date',\n-\t);\n+\t];\n \n \t/**\n \t * Class mapping\n@@ -86,7 +86,7 @@\n \t * @see register()\n \t * @var array\n \t */\n-\tprotected $classes = array();\n+\tprotected $classes = [];\n \n \t/**\n \t * Legacy classes\n@@ -94,7 +94,7 @@\n \t * @see register()\n \t * @var array\n \t */\n-\tprotected $legacy = array();\n+\tprotected $legacy = [];\n \n \t/**\n \t * Constructor\n@@ -157,7 +157,7 @@\n \t * @param array $parameters Parameters to pass to the constructor\n \t * @return object Instance of class\n \t */\n-\tpublic function &create($type, $parameters = array())\n+\tpublic function &create($type, $parameters = [])\n \t{\n \t\t$class = $this->get_class($type);\n \n@@ -168,7 +168,7 @@\n \t\t\t\tcase 'locator':\n \t\t\t\t\t// Legacy: file, timeout, useragent, file_class, max_checked_feeds, content_type_sniffer_class\n \t\t\t\t\t// Specified: file, timeout, useragent, max_checked_feeds\n-\t\t\t\t\t$replacement = array($this->get_class('file'), $parameters[3], $this->get_class('content_type_sniffer'));\n+\t\t\t\t\t$replacement = [$this->get_class('file'), $parameters[3], $this->get_class('content_type_sniffer')];\n \t\t\t\t\tarray_splice($parameters, 3, 1, $replacement);\n \t\t\t\t\tbreak;\n \t\t\t}\n@@ -199,7 +199,7 @@\n \t * @param array $parameters\n \t * @return mixed\n \t */\n-\tpublic function &call($type, $method, $parameters = array())\n+\tpublic function &call($type, $method, $parameters = [])\n \t{\n \t\t$class = $this->get_class($type);\n \n@@ -212,7 +212,7 @@\n \t\t\t\t\t// Cache::create() methods\n \t\t\t\t\tif ($method === 'get_handler')\n \t\t\t\t\t{\n-\t\t\t\t\t\t$result = @call_user_func_array(array($class, 'create'), $parameters);\n+\t\t\t\t\t\t$result = @call_user_func_array([$class, 'create'], $parameters);\n \t\t\t\t\t\treturn $result;\n \t\t\t\t\t}\n \t\t\t\t\tbreak;\n@@ -219,7 +219,7 @@\n \t\t\t}\n \t\t}\n \n-\t\t$result = call_user_func_array(array($class, $method), $parameters);\n+\t\t$result = call_user_func_array([$class, $method], $parameters);\n \t\treturn $result;\n \t}\n }\n\\ No newline at end of file\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/254_Registry.php"
+    ]
+  }
+}

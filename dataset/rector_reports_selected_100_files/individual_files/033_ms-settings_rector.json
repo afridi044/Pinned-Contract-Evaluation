@@ -1,0 +1,52 @@
+{
+  "file_path": "selected_100_files\\medium_201_500\\033_ms-settings.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_71": 1,
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 101
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:26:05.560880",
+    "file_size_kb": 8.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/selected_100_files/medium_201_500/033_ms-settings.php",
+        "diff": "--- Original\n+++ New\n@@ -27,20 +27,20 @@\n \t// Usually, it's easier to query the site first, which declares its network.\n \t// In limited situations, though, we either can or must find the network first.\n \n-\t$domain = strtolower( stripslashes( $_SERVER['HTTP_HOST'] ) );\n-\tif ( substr( $domain, -3 ) == ':80' ) {\n+\t$domain = strtolower( stripslashes( (string) $_SERVER['HTTP_HOST'] ) );\n+\tif ( str_ends_with($domain, ':80') ) {\n \t\t$domain = substr( $domain, 0, -3 );\n-\t\t$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, -3 );\n-\t} elseif ( substr( $domain, -4 ) == ':443' ) {\n+\t\t$_SERVER['HTTP_HOST'] = substr( (string) $_SERVER['HTTP_HOST'], 0, -3 );\n+\t} elseif ( str_ends_with($domain, ':443') ) {\n \t\t$domain = substr( $domain, 0, -4 );\n-\t\t$_SERVER['HTTP_HOST'] = substr( $_SERVER['HTTP_HOST'], 0, -4 );\n+\t\t$_SERVER['HTTP_HOST'] = substr( (string) $_SERVER['HTTP_HOST'], 0, -4 );\n \t}\n \n-\t$path = stripslashes( $_SERVER['REQUEST_URI'] );\n+\t$path = stripslashes( (string) $_SERVER['REQUEST_URI'] );\n \tif ( is_admin() ) {\n \t\t$path = preg_replace( '#(.*)/wp-admin/.*#', '$1/', $path );\n \t}\n-\tlist( $path ) = explode( '?', $path );\n+\t[$path] = explode( '?', (string) $path );\n \n \t// If the network is defined in wp-config.php, we can simply use that.\n \tif ( defined( 'DOMAIN_CURRENT_SITE' ) && defined( 'PATH_CURRENT_SITE' ) ) {\n@@ -54,12 +54,12 @@\n \t\t\t$current_site->blog_id = BLOGID_CURRENT_SITE;\n \t\t}\n \n-\t\tif ( 0 === strcasecmp( $current_site->domain, $domain ) && 0 === strcasecmp( $current_site->path, $path ) ) {\n+\t\tif ( 0 === strcasecmp( (string) $current_site->domain, $domain ) && 0 === strcasecmp( (string) $current_site->path, $path ) ) {\n \t\t\t$current_blog = get_site_by_path( $domain, $path );\n-\t\t} elseif ( '/' !== $current_site->path && 0 === strcasecmp( $current_site->domain, $domain ) && 0 === stripos( $path, $current_site->path ) ) {\n+\t\t} elseif ( '/' !== $current_site->path && 0 === strcasecmp( (string) $current_site->domain, $domain ) && 0 === stripos( $path, (string) $current_site->path ) ) {\n \t\t\t// If the current network has a path and also matches the domain and path of the request,\n \t\t\t// we need to look for a site using the first path segment following the network's path.\n-\t\t\t$current_blog = get_site_by_path( $domain, $path, 1 + count( explode( '/', trim( $current_site->path, '/' ) ) ) );\n+\t\t\t$current_blog = get_site_by_path( $domain, $path, 1 + count( explode( '/', trim( (string) $current_site->path, '/' ) ) ) );\n \t\t} else {\n \t\t\t// Otherwise, use the first path segment (as usual).\n \t\t\t$current_blog = get_site_by_path( $domain, $path, 1 );\n@@ -91,13 +91,13 @@\n \t\t\t$current_blog = get_site_by_path( $domain, $path );\n \t\t} else {\n \t\t\t// Search the network path + one more path segment (on top of the network path).\n-\t\t\t$current_blog = get_site_by_path( $domain, $path, substr_count( $current_site->path, '/' ) );\n+\t\t\t$current_blog = get_site_by_path( $domain, $path, substr_count( (string) $current_site->path, '/' ) );\n \t\t}\n \t} else {\n \t\t// Find the site by the domain and at most the first path segment.\n \t\t$current_blog = get_site_by_path( $domain, $path, 1 );\n \t\tif ( $current_blog ) {\n-\t\t\t$current_site = wp_get_network( $current_blog->site_id ? $current_blog->site_id : 1 );\n+\t\t\t$current_site = wp_get_network( $current_blog->site_id ?: 1 );\n \t\t} else {\n \t\t\t// If you don't have a site with the same domain/path as a network, you're pretty screwed, but:\n \t\t\t$current_site = get_network_by_path( $domain, $path, 1 );\n@@ -150,7 +150,7 @@\n \t\t\tif ( '%siteurl%' !== NOBLOGREDIRECT ) {\n \t\t\t\t$destination = NOBLOGREDIRECT;\n \t\t\t}\n-\t\t} elseif ( 0 === strcasecmp( $current_site->domain, $domain ) ) {\n+\t\t} elseif ( 0 === strcasecmp( (string) $current_site->domain, $domain ) ) {\n \t\t\t/*\n \t\t\t * If the domain we were searching for matches the network's domain,\n \t\t\t * it's no use redirecting back to ourselves -- it'll cause a loop.\n@@ -165,8 +165,8 @@\n \n \t// @todo What if the domain of the network doesn't match the current site?\n \t$current_site->cookie_domain = $current_site->domain;\n-\tif ( 'www.' === substr( $current_site->cookie_domain, 0, 4 ) ) {\n-\t\t$current_site->cookie_domain = substr( $current_site->cookie_domain, 4 );\n+\tif ( str_starts_with((string) $current_site->cookie_domain, 'www.') ) {\n+\t\t$current_site->cookie_domain = substr( (string) $current_site->cookie_domain, 4 );\n \t}\n \n \t// Figure out the current network's main site.\n@@ -196,7 +196,7 @@\n $wpdb->set_prefix( $table_prefix, false ); // $table_prefix can be set in sunrise.php\n $wpdb->set_blog_id( $current_blog->blog_id, $current_blog->site_id );\n $table_prefix = $wpdb->get_blog_prefix();\n-$_wp_switched_stack = array();\n+$_wp_switched_stack = [];\n $switched = false;\n \n // need to init cache again after blog_id is set\n@@ -205,7 +205,7 @@\n if ( ! isset( $current_site->site_name ) ) {\n \t$current_site->site_name = get_site_option( 'site_name' );\n \tif ( ! $current_site->site_name ) {\n-\t\t$current_site->site_name = ucfirst( $current_site->domain );\n+\t\t$current_site->site_name = ucfirst( (string) $current_site->domain );\n \t}\n }\n \n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/selected_100_files/medium_201_500/033_ms-settings.php"
+    ]
+  }
+}

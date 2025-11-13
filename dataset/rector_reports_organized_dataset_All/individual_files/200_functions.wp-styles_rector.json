@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\200_functions.wp-styles.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 39
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:10:07.498602",
+    "file_size_kb": 9.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/200_functions.wp-styles.php",
+        "diff": "--- Original\n+++ New\n@@ -40,7 +40,7 @@\n \t\t\t\t'<code>wp_enqueue_scripts</code>', '<code>admin_enqueue_scripts</code>', '<code>login_enqueue_scripts</code>' ), '3.3' );\n \n \t\tif ( !$handles )\n-\t\t\treturn array(); // No need to instantiate if nothing is there.\n+\t\t\treturn []; // No need to instantiate if nothing is there.\n \t\telse\n \t\t\t$wp_styles = new WP_Styles();\n \t}\n@@ -76,7 +76,7 @@\n \n \tif ( false !== stripos( $data, '</style>' ) ) {\n \t\t_doing_it_wrong( __FUNCTION__, 'Do not pass style tags to wp_add_inline_style().', '3.7' );\n-\t\t$data = trim( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $data ) );\n+\t\t$data = trim( (string) preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $data ) );\n \t}\n \n \treturn $wp_styles->add_inline_style( $handle, $data );\n@@ -100,7 +100,7 @@\n  *                            Default 'all'. Accepts 'all', 'aural', 'braille', 'handheld', 'projection', 'print',\n  *                            'screen', 'tty', or 'tv'.\n  */\n-function wp_register_style( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {\n+function wp_register_style( $handle, $src, $deps = [], $ver = false, $media = 'all' ) {\n \tglobal $wp_styles;\n \tif ( ! is_a( $wp_styles, 'WP_Styles' ) ) {\n \t\tif ( ! did_action( 'init' ) )\n@@ -155,7 +155,7 @@\n  *                            Default 'all'. Accepts 'all', 'aural', 'braille', 'handheld', 'projection', 'print',\n  *                            'screen', 'tty', or 'tv'.\n  */\n-function wp_enqueue_style( $handle, $src = false, $deps = array(), $ver = false, $media = 'all' ) {\n+function wp_enqueue_style( $handle, $src = false, $deps = [], $ver = false, $media = 'all' ) {\n \tglobal $wp_styles;\n \tif ( ! is_a( $wp_styles, 'WP_Styles' ) ) {\n \t\tif ( ! did_action( 'init' ) )\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/200_functions.wp-styles.php"
+    ]
+  }
+}

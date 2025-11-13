@@ -1,0 +1,41 @@
+{
+  "file_path": "organized_dataset_All\\185_users.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 69
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2025-11-13T04:09:29.163605",
+    "file_size_kb": 10.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "dataset/organized_dataset_All/185_users.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\n \n /** Load WordPress Administration Bootstrap */\n-require_once( dirname( __FILE__ ) . '/admin.php' );\n+require_once( __DIR__ . '/admin.php' );\n \n if ( ! is_multisite() )\n \twp_die( __( 'Multisite support is not enabled.' ) );\n@@ -48,7 +48,7 @@\n \t\t\t\t<br /><fieldset><p><legend><?php printf( __( \"What should be done with content owned by %s?\" ), '<em>' . $delete_user->user_login . '</em>' ); ?></legend></p>\n \t\t\t\t<?php\n \t\t\t\tforeach ( (array) $blogs as $key => $details ) {\n-\t\t\t\t\t$blog_users = get_users( array( 'blog_id' => $details->userblog_id, 'fields' => array( 'ID', 'user_login' ) ) );\n+\t\t\t\t\t$blog_users = get_users( [ 'blog_id' => $details->userblog_id, 'fields' => [ 'ID', 'user_login' ] ] );\n \t\t\t\t\tif ( is_array( $blog_users ) && !empty( $blog_users ) ) {\n \t\t\t\t\t\t$user_site = \"<a href='\" . esc_url( get_home_url( $details->userblog_id ) ) . \"'>{$details->blogname}</a>\";\n \t\t\t\t\t\t$user_dropdown = \"<select name='blog[$val][{$key}]'>\";\n@@ -100,7 +100,7 @@\n \n \t\t\t$id = intval( $_GET['id'] );\n \t\t\tif ( $id != '0' && $id != '1' ) {\n-\t\t\t\t$_POST['allusers'] = array( $id ); // confirm_delete_users() can only handle with arrays\n+\t\t\t\t$_POST['allusers'] = [ $id ]; // confirm_delete_users() can only handle with arrays\n \t\t\t\t$title = __( 'Users' );\n \t\t\t\t$parent_file = 'users.php';\n \t\t\t\trequire_once( ABSPATH . 'wp-admin/admin-header.php' );\n@@ -164,7 +164,7 @@\n \t\t\t\t\t}\n \t\t\t\t}\n \n-\t\t\t\twp_safe_redirect( add_query_arg( array( 'updated' => 'true', 'action' => $userfunction ), wp_get_referer() ) );\n+\t\t\t\twp_safe_redirect( add_query_arg( [ 'updated' => 'true', 'action' => $userfunction ], wp_get_referer() ) );\n \t\t\t} else {\n \t\t\t\t$location = network_admin_url( 'users.php' );\n \n@@ -206,7 +206,7 @@\n \t\t\telse\n \t\t\t\t$deletefunction = 'all_delete';\n \n-\t\t\twp_redirect( add_query_arg( array( 'updated' => 'true', 'action' => $deletefunction ), network_admin_url( 'users.php' ) ) );\n+\t\t\twp_redirect( add_query_arg( [ 'updated' => 'true', 'action' => $deletefunction ], network_admin_url( 'users.php' ) ) );\n \t\t\texit();\n \t}\n }\n@@ -223,9 +223,9 @@\n $title = __( 'Users' );\n $parent_file = 'users.php';\n \n-add_screen_option( 'per_page', array('label' => _x( 'Users', 'users per page (screen options)' )) );\n+add_screen_option( 'per_page', ['label' => _x( 'Users', 'users per page (screen options)' )] );\n \n-get_current_screen()->add_help_tab( array(\n+get_current_screen()->add_help_tab( [\n \t'id'      => 'overview',\n \t'title'   => __('Overview'),\n \t'content' =>\n@@ -235,7 +235,7 @@\n \t\t'<p>' . __('You can sort the table by clicking on any of the bold headings and switch between list and excerpt views by using the icons in the upper right.') . '</p>' .\n \t\t'<p>' . __('The bulk action will permanently delete selected users, or mark/unmark those selected as spam. Spam users will have posts removed and will be unable to sign up again with the same email addresses.') . '</p>' .\n \t\t'<p>' . __('You can make an existing user an additional super admin by going to the Edit User profile page and checking the box to grant that privilege.') . '</p>'\n-) );\n+] );\n \n get_current_screen()->set_help_sidebar(\n \t'<p><strong>' . __('For more information:') . '</strong></p>' .\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "dataset/organized_dataset_All/185_users.php"
+    ]
+  }
+}
