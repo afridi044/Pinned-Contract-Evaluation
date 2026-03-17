@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\067_user.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 104
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:24:54.755232",
+    "file_size_kb": 16.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/067_user.php",
+        "diff": "--- Original\n+++ New\n@@ -130,30 +130,30 @@\n      * @param string &$pass1     The password, passed by reference.\r\n      * @param string &$pass2     The confirmed password, passed by reference.\r\n      */\r\n-    do_action_ref_array('check_passwords', array($user->user_login, &$pass1, &$pass2));\r\n+    do_action_ref_array('check_passwords', [$user->user_login, &$pass1, &$pass2]);\r\n \r\n     if ($update) {\r\n         if (empty($pass1) && !empty($pass2)) {\r\n-            $errors->add('pass', __('<strong>ERROR</strong>: You entered your new password only once.'), array('form-field' => 'pass1'));\r\n+            $errors->add('pass', __('<strong>ERROR</strong>: You entered your new password only once.'), ['form-field' => 'pass1']);\r\n         } elseif (!empty($pass1) && empty($pass2)) {\r\n-            $errors->add('pass', __('<strong>ERROR</strong>: You entered your new password only once.'), array('form-field' => 'pass2'));\r\n+            $errors->add('pass', __('<strong>ERROR</strong>: You entered your new password only once.'), ['form-field' => 'pass2']);\r\n         }\r\n     } else {\r\n         if (empty($pass1)) {\r\n-            $errors->add('pass', __('<strong>ERROR</strong>: Please enter your password.'), array('form-field' => 'pass1'));\r\n+            $errors->add('pass', __('<strong>ERROR</strong>: Please enter your password.'), ['form-field' => 'pass1']);\r\n         } elseif (empty($pass2)) {\r\n-            $errors->add('pass', __('<strong>ERROR</strong>: Please enter your password twice.'), array('form-field' => 'pass2'));\r\n+            $errors->add('pass', __('<strong>ERROR</strong>: Please enter your password twice.'), ['form-field' => 'pass2']);\r\n         }\r\n     }\r\n \r\n     /* Check for \"\\\" in password */\r\n-    if (false !== strpos(wp_unslash($pass1), \"\\\\\")) {\r\n-        $errors->add('pass', __('<strong>ERROR</strong>: Passwords may not contain the character \"\\\\\".'), array('form-field' => 'pass1'));\r\n+    if (str_contains(wp_unslash($pass1), \"\\\\\")) {\r\n+        $errors->add('pass', __('<strong>ERROR</strong>: Passwords may not contain the character \"\\\\\".'), ['form-field' => 'pass1']);\r\n     }\r\n \r\n     /* checking the password has been typed twice the same */\r\n     if ($pass1 !== $pass2) {\r\n-        $errors->add('pass', __('<strong>ERROR</strong>: Please enter the same password in the two password fields.'), array('form-field' => 'pass1'));\r\n+        $errors->add('pass', __('<strong>ERROR</strong>: Please enter the same password in the two password fields.'), ['form-field' => 'pass1']);\r\n     }\r\n \r\n     if (!empty($pass1)) {\r\n@@ -170,11 +170,11 @@\n \r\n     /* checking e-mail address */\r\n     if (empty($user->user_email)) {\r\n-        $errors->add('empty_email', __('<strong>ERROR</strong>: Please enter an e-mail address.'), array('form-field' => 'email'));\r\n+        $errors->add('empty_email', __('<strong>ERROR</strong>: Please enter an e-mail address.'), ['form-field' => 'email']);\r\n     } elseif (!is_email($user->user_email)) {\r\n-        $errors->add('invalid_email', __('<strong>ERROR</strong>: The email address isn&#8217;t correct.'), array('form-field' => 'email'));\r\n+        $errors->add('invalid_email', __('<strong>ERROR</strong>: The email address isn&#8217;t correct.'), ['form-field' => 'email']);\r\n     } elseif (($owner_id = email_exists($user->user_email)) && (!$update || ($owner_id !== $user->ID))) {\r\n-        $errors->add('email_exists', __('<strong>ERROR</strong>: This email is already registered, please choose another one.'), array('form-field' => 'email'));\r\n+        $errors->add('email_exists', __('<strong>ERROR</strong>: This email is already registered, please choose another one.'), ['form-field' => 'email']);\r\n     }\r\n \r\n     /**\r\n@@ -186,7 +186,7 @@\n      * @param bool    $update  Whether this is a user update.\r\n      * @param WP_User &$user   WP_User object, passed by reference.\r\n      */\r\n-    do_action_ref_array('user_profile_update_errors', array(&$errors, $update, &$user));\r\n+    do_action_ref_array('user_profile_update_errors', [&$errors, $update, &$user]);\r\n \r\n     if ($errors->get_error_codes()) {\r\n         return $errors;\r\n@@ -321,8 +321,8 @@\n     do_action('delete_user', $id, $reassign);\r\n \r\n     if (null === $reassign) {\r\n-        $post_types_to_delete = array();\r\n-        foreach (get_post_types(array(), 'objects') as $post_type) {\r\n+        $post_types_to_delete = [];\r\n+        foreach (get_post_types([], 'objects') as $post_type) {\r\n             if ($post_type->delete_with_user) {\r\n                 $post_types_to_delete[] = $post_type->name;\r\n             } elseif (null === $post_type->delete_with_user && post_type_supports($post_type->name, 'author')) {\r\n@@ -357,7 +357,7 @@\n         }\r\n     } else {\r\n         $post_ids = $wpdb->get_col($wpdb->prepare(\"SELECT ID FROM $wpdb->posts WHERE post_author = %d\", $id));\r\n-        $wpdb->update($wpdb->posts, array('post_author' => $reassign), array('post_author' => $id));\r\n+        $wpdb->update($wpdb->posts, ['post_author' => $reassign], ['post_author' => $id]);\r\n         if (!empty($post_ids)) {\r\n             foreach ($post_ids as $post_id) {\r\n                 clean_post_cache($post_id);\r\n@@ -364,7 +364,7 @@\n             }\r\n         }\r\n         $link_ids = $wpdb->get_col($wpdb->prepare(\"SELECT link_id FROM $wpdb->links WHERE link_owner = %d\", $id));\r\n-        $wpdb->update($wpdb->links, array('link_owner' => $reassign), array('link_owner' => $id));\r\n+        $wpdb->update($wpdb->links, ['link_owner' => $reassign], ['link_owner' => $id]);\r\n         if (!empty($link_ids)) {\r\n             foreach ($link_ids as $link_id) {\r\n                 clean_bookmark_cache($link_id);\r\n@@ -381,7 +381,7 @@\n             delete_metadata_by_mid('user', $mid);\r\n         }\r\n \r\n-        $wpdb->delete($wpdb->users, array('ID' => $id));\r\n+        $wpdb->delete($wpdb->users, ['ID' => $id]);\r\n     }\r\n \r\n     clean_user_cache($user);\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/067_user.php"
+    ]
+  }
+}

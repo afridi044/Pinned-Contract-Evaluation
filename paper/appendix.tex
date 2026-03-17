@@ -1,0 +1,463 @@
+
+\clearpage
+\appendices
+
+
+% Appendix-style algorithm numbering (A1, A2, ...)
+\setcounter{algorithm}{0}
+\renewcommand{\thealgorithm}{A\arabic{algorithm}}
+
+\newenvironment{appalgorithm}[2]{%
+  \refstepcounter{algorithm}\label{#2}%
+  \Needspace{10\baselineskip}% avoid splitting header from first lines
+  \par\medskip
+  \noindent\hrule height 0.4pt\relax
+  \vspace{0.35em}
+  \noindent\textbf{Algorithm \thealgorithm.} #1\par
+  \vspace{0.35em}
+  \small
+}{%
+  \par\normalsize
+  \vspace{0.35em}
+  \noindent\hrule height 0.4pt\relax
+  \par\medskip
+}
+
+% ============================================================
+% Appendix A
+% ============================================================
+\section{Benchmark Construction and Chunking Algorithms}
+\label{app:benchmark_algorithms}
+
+\noindent This appendix summarizes three procedures used in benchmark construction and context-bounded migration:
+(i) relevance scoring, (ii) constraint-aware selection, and (iii) PHP-aware smart chunking.
+
+% ------------------------------------------------------------
+\subsection{Benchmark construction}
+\label{app:benchmark_construction}
+
+\paragraph{Relevance scoring.}
+We score candidate files by contract-triggered rule activity and migration relevance signals.
+
+\begin{appalgorithm}{File scoring for migration relevance under the pinned contract.}{alg:file_scoring}
+\begin{algorithmic}[1]
+  \Require file with $LOC$, $V$ (\texttt{php\_version\_changes}), and triggered rules $R$
+  \Ensure relevance score $s$
+  \State $s \gets 10 \cdot |R| + 5 \cdot V$
+  \If{$100 \le LOC \le 2000$}
+    \State $s \gets s + 20$
+  \ElsIf{$LOC > 2000$}
+    \State $s \gets s - 0.01 \cdot (LOC - 2000)$
+  \EndIf
+  \State $s \gets s + 8 \cdot \left|\{\text{PHP rule families covered by } R\}\right|$
+  \State $s \gets s + \textsc{ImportantRuleBonus}(R)$
+  \State \Return $s$
+\end{algorithmic}
+\end{appalgorithm}
+
+\paragraph{Constraint-aware selection.}
+We select 100 files while enforcing full rule coverage as the hard constraint.
+
+\begin{appalgorithm}{Constraint-aware selection of 100 files with full rule coverage.}{alg:selection_engine}
+\begin{algorithmic}[1]
+  \Require summary table, rule metadata, size bins, target counts $T$
+  \Ensure selected file set $S$
+  \State group files by size category
+  \State compute score for each file using Algorithm~\ref{alg:file_scoring}
+  \ForAll{size categories $c$}
+    \State select top $T[c]$ files by score into $S$
+  \EndFor
+  \State $S \gets \textsc{EnsureRuleCoverage}(S)$
+    \Comment{May add files outside bin quotas; coverage is the hard constraint}
+  \If{$|S| > 100$}
+    \State trim lowest-scoring files if coverage is preserved
+  \ElsIf{$|S| < 100$}
+    \State add highest-scoring remaining files until $|S| = 100$
+  \EndIf
+  \State \Return $S$
+\end{algorithmic}
+\end{appalgorithm}
+
+% ------------------------------------------------------------
+\subsection{PHP-aware chunking for bounded-context migration}
+\label{app:chunking}
+
+\paragraph{Smart chunking.}
+We split long PHP files into bounded-context segments while attempting to avoid mid-function splits under a fixed policy.
+
+\begin{appalgorithm}{PHP-aware smart chunking.}{alg:smart_chunking}
+\begin{algorithmic}[1]
+\Require $code$ (PHP source string), $chunk\_size$ (target lines), $MAX\_EXTENSION$ (max extension in lines)
+\Ensure $chunks$ (list of records $\{start\_line,end\_line,actual\_size,total\_lines,code\}$)
+\State $lines \gets \Call{Split}{code,\ "\backslash n"}$
+\State $total \gets |lines|$
+\If{$total \le chunk\_size$}
+  \State \Return $[\{1,total,total,total,code\}]$
+\EndIf
+\State $boundaries \gets \Call{FindFunctionBoundaries}{code}$
+\Comment{Tokenizer-guided detection via \texttt{token\_get\_all} when available; regex fallback; end lines approximated via brace matching}
+\State $chunks \gets [\ ]$
+\State $current \gets 0$
+\While{$current < total$}
+  \State $initial\_end \gets \min(current + chunk\_size - 1,\ total - 1)$
+  \State $final\_end \gets initial\_end$
+  \State $relevant \gets \{f \in boundaries \mid (current \le f.start \le initial\_end)\ \lor\ (f.start < current \land f.end \ge current)\}$
+  \ForAll{$f \in relevant$}
+    \If{$f.end \le initial\_end + MAX\_EXTENSION$}
+      \State $final\_end \gets \max(final\_end, f.end_prof)$
+      \State $final\_end \gets \max(final\_end, f.end)$
+    \EndIf
+  \EndFor
+  \State $chunk\_code \gets \Call{Join}{lines[current..final\_end],\ "\backslash n"}$
+  \State append $\{current+1,final\_end+1,(final\_end-current+1),total,chunk\_code\}$ to $chunks$
+  \State $current \gets final\_end + 1$
+\EndWhile
+\State \Return $chunks$
+\end{algorithmic}
+\end{appalgorithm}
+
+% ============================================================
+% Appendix B
+% ============================================================
+
+\section{Prompt Templates}
+\label{app:prompt_templates}
+
+We use prompting shared across models, with whole-file and chunk-segment variants.
+In both templates, \texttt{\{code\}} is replaced with the input PHP text.
+
+\subsection{Whole-file prompt}
+\noindent\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize]
+You are a senior PHP developer with expertise in legacy code modernization.
+Your task is to migrate this legacy PHP code up to PHP 8.3 standards using modern syntax and features while maintaining functional equivalence.
+
+Please migrate the following PHP code up to PHP 8.3 standards:
+
+{code}
+
+Your response should follow this EXACT format:
+
+// MIGRATION_START
+[your migrated PHP code here]
+// MIGRATION_END
+
+CRITICAL FORMATTING REQUIREMENT:
+- Place the MIGRATION_START marker BEFORE the opening <?php tag
+- Place the MIGRATION_END marker AFTER the closing PHP code
+- Do NOT place these markers inside the PHP code itself
+
+Provide only the migrated PHP code with the markers placed correctly outside the PHP code block, no additional commentary.
+\end{Verbatim}
+
+\subsection{Chunk-segment prompt}
+The placeholders \texttt{\{filename\}}, \texttt{\{start\_line\}}, \texttt{\{end\_line\}}, \texttt{\{total\_lines\}}, \texttt{\{chunk\_number\}}, and \texttt{\{total\_chunks\}} are filled from the chunk metadata.
+
+\noindent\begin{Verbatim}[breaklines=true,breakanywhere=true,fontsize=\footnotesize]
+You are a senior PHP developer with expertise in legacy code modernization.
+Your task is to migrate this PARTIAL SEGMENT of a larger PHP file up to PHP 8.3 standards using modern syntax and features.
+
+CONTEXT:
+- Original file: {filename}
+- Processing lines: {start_line} to {end_line} (of {total_lines} total lines)
+- This is chunk {chunk_number} of {total_chunks}
+
+CRITICAL INSTRUCTIONS FOR PARTIAL CODE SEGMENTS:
+1. This is ONLY a SEGMENT of a larger file - DO NOT try to complete it
+2. keep the original opening <?php tag if present. if the segment does not start with <?php, DO NOT add one
+3. keep the original closing ?> tag if present. If the segment does not end with ?>, DO NOT add one
+4. keep the original closing braces }} if present. DO NOT add any closing braces that are not in the original segment
+5. keep the original opening braces {{ if present. DO NOT add any opening braces that are not in the original segment
+6. DO NOT try to complete class definitions, function definitions, or any code structures
+7. Preserve the EXACT START and END boundaries of the provided code segment
+
+WARNING: Adding extra braces that are not in the original segment or completing code structures will break the reconstruction process!
+
+Please modernize ONLY the following PHP code segment up to PHP 8.3 standards:
+
+{code}
+
+Your response should follow this EXACT format:
+
+// MIGRATION_START
+[your modernized code segment here - exactly as provided, no additions]
+// MIGRATION_END
+
+CRITICAL FORMATTING REQUIREMENT:
+- Place the MIGRATION_START marker BEFORE the code segment
+- Place the MIGRATION_END marker AFTER the code segment
+- Do NOT place these markers inside the PHP code itself
+
+Migrate only the provided code segment. Do not add any missing parts or try to complete incomplete structures.
+\end{Verbatim}
+
+% ============================================================
+% Appendix C
+% ============================================================
+\section{Loadability Tripwire Slice Specification}
+\label{app:runtime_validation}
+
+This appendix documents the \emph{isolated, stubbed loadability tripwire} used on an execution slice to surface harness-visible load-time failures after migration.
+It specifies the execution environment, harness bootstrap, slice accounting, outcome taxonomy, and diagnostic coverage.
+
+\subsection{Scope and interpretation}
+This signal is \emph{harness-dependent} and is not an integration test or an end-to-end correctness guarantee.
+We interpret it primarily as a \emph{regression tripwire}: \emph{New failure} (Orig.\ Pass $\rightarrow$ Migr.\ Fail).
+Unless otherwise stated, all percentages are computed over the full slice size $N_{\mathrm{rt}}=55$ (no files are excluded).
+We therefore treat this tier as a \emph{within-harness regression detector} whose purpose is to flag newly introduced load-time failures under identical conditions.
+
+\subsection{Regression definition and harness-scoped interpretation}
+A \textbf{regression} is defined as a file that loaded successfully in the original snapshot (under PHP 8.3.22 + stubs) but fails to load after migration.
+These are harness-visible include-time failures: parse errors, fatal errors, uncaught exceptions, and missing-symbol errors that prevent \texttt{require\_once} from completing.
+
+Observed regression counts across the slice ($N_{\mathrm{rt}}=55$):
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Model} & \textbf{Regressions} & \textbf{Regression Rate} \\
+\midrule
+Rector Baseline & 7 & 12.7\% \\
+Claude Sonnet 4 & 8 & 14.5\% \\
+GPT-5 Codex & 9 & 16.4\% \\
+Llama 3.3 70B & 12 & 21.8\% \\
+Gemini 2.5 Pro & 12 & 21.8\% \\
+Gemini 2.5 Flash & 18 & 32.7\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textbf{Interpretation scope.}
+These failures represent \emph{harness-visible include-time defects}---i.e., the file cannot be included without a fatal condition under the tripwire harness---but they are detected under isolated-stub conditions, not full application bootstrap.
+Accordingly, the harness does not validate behavioral correctness, API contracts, or end-to-end functionality; it detects only include-time failures.
+A file that passes this tripwire may still contain behavioral regressions; conversely, some files that fail may succeed under full WordPress initialization.
+We treat \emph{New failure} counts as a \emph{lower bound} on migration breakage under the harness: they surface include-time breaks (e.g., syntax errors, missing symbols, invalid includes, or signature/parameter drops that trigger immediate fatals) that static contract discharge may not detect, but do not capture semantic or integration-level issues.
+
+%------------------------------------------------------------------------------
+\subsection{Execution environment}
+\label{appendix:exec-env}
+
+All tripwire checks are performed under a fixed environment for repeatability.
+\textbf{Execution environment:} We execute all code (original and migrated) under PHP 8.3.22.
+When we refer to ``original PHP 7.4 code,'' this denotes the source snapshot intended for PHP 7.4 compatibility, not the interpreter version used for execution.
+
+\begin{center}
+\footnotesize
+\captionof{table}{Execution Environment Specification (Loadability Tripwire)}
+\label{tab:runtime-env}
+\vspace{-0.3em}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Specification} \\
+\midrule
+PHP Version & 8.3.22 (cli) \\
+Operating System & Windows 11 (x64) \\
+Memory Limit & 512 MB \\
+Execution Timeout & 30 seconds per file \\
+Error Reporting & \texttt{E\_ALL} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{Note.}
+We use a single fixed OS and interpreter configuration for repeatability; this tier is interpreted only via regression direction (Orig.\ Pass $\rightarrow$ Migr.\ Fail) under the same harness, not as a portable runtime correctness metric.
+Because include-time behavior can be OS- and configuration-sensitive (e.g., filesystem case-sensitivity and path handling, extension availability), we treat cross-environment generalization as out of scope for this signal.
+
+%------------------------------------------------------------------------------
+\subsection{Execution slice definition ($N_{\mathrm{rt}}=55$)}
+\label{appendix:runtime-slice-def}
+
+We evaluate a fixed execution slice of size $N_{\mathrm{rt}}=55$ benchmark files.
+Each file is executed in isolation (fresh PHP process) under a minimal WordPress-core stub environment and then required once.
+We record \textbf{loadability outcomes} (load success vs.\ fatal error/exception).
+
+The tripwire checks only whether each file loads without fatal errors; it does not validate behavioral correctness, API contracts, or end-to-end functionality.
+Some files may fail to load even in the original snapshot due to isolation with stubs (e.g., external dependencies, cross-file coupling, or missing runtime initialization).
+\textbf{We retain all 55 files in-slice} and represent such cases via the outcome taxonomy in Section~\ref{appendix:outcome-taxonomy} rather than excluding them.
+
+%------------------------------------------------------------------------------
+\subsection{Harness bootstrap}
+\label{appendix:harness-bootstrap}
+
+\subsubsection{File loading procedure}
+Files are loaded using the following procedure implemented in \texttt{run\_one.php}:
+
+\begin{enumerate}
+    \item Load WordPress core stubs (\texttt{stubs/wp\_core.php})
+    \item Load translation entry stubs (\texttt{stubs/entry.php})
+    \item Include the file under test via \texttt{require\_once}
+    \item Record load success or fatal error
+\end{enumerate}
+
+\subsubsection{Stubs and mocks}
+The stub file \texttt{wp\_core.php} provides 82 function stubs, 7 class stubs, and 20 constant definitions.
+Table~\ref{tab:stubs} summarizes the stubbed APIs and globals.
+The harness does \emph{not} model full WordPress bootstrap; as a result, outcomes can reflect harness-visible interface drift, missing initialization, or unmodeled dependencies rather than end-to-end behavior.
+
+% NOTE: This is the only wide table (table*) to avoid float pile-ups in 2-column layout.
+\begin{table*}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.15}
+\caption{Stubbed WordPress APIs and Globals (Loadability Tripwire Harness)}
+\label{tab:stubs}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.8cm}X@{}}
+\toprule
+\textbf{Category} & \textbf{Stubbed Elements} \\
+\midrule
+Global Variables &
+\texttt{\$wpdb}, \texttt{\$wp\_filter}, \texttt{\$wp\_actions}, \texttt{\$wp\_current\_filter}, \texttt{\$wp\_query}, \texttt{\$post}, \texttt{\$wp\_rewrite} \\
+I18n Functions &
+\texttt{\_\_()}, \texttt{\_e()}, \texttt{\_x()}, \texttt{\_n()}, \texttt{\_nx()}, \texttt{esc\_html\_\_()}, \texttt{esc\_attr\_\_()} \\
+Hook System &
+\texttt{add\_action()}, \texttt{remove\_action()}, \texttt{do\_action()}, \texttt{add\_filter()}, \texttt{remove\_filter()}, \texttt{apply\_filters()}, \texttt{has\_filter()}, \texttt{has\_action()}, \texttt{did\_action()}, \texttt{current\_filter()} \\
+Sanitization &
+\texttt{esc\_url()}, \texttt{esc\_js()}, \texttt{esc\_sql()}, \texttt{wp\_kses\_post()} \\
+Utilities &
+\texttt{wp\_parse\_args()}, \texttt{absint()}, \texttt{wp\_unslash()}, \texttt{wp\_slash()}, \texttt{trailingslashit()} \\
+User Functions &
+\texttt{wp\_get\_current\_user()}, \texttt{get\_current\_user\_id()}, \texttt{current\_user\_can()} \\
+Option/Transient &
+\texttt{get\_option()}, \texttt{update\_option()}, \texttt{delete\_option()}, \texttt{get\_transient()}, \texttt{set\_transient()} \\
+Conditional Tags &
+\texttt{is\_admin()}, \texttt{is\_multisite()}, \texttt{is\_user\_logged\_in()}, \texttt{is\_singular()} \\
+Classes &
+\texttt{WP\_Error}, \texttt{WP\_Widget}, \texttt{WP\_List\_Table}, \texttt{WP\_Dependencies}, \texttt{IXR\_Client}, \texttt{ftp\_base}, \texttt{Translation\_Entry} \\
+\midrule
+\textit{Not modeled} &
+Database connections, HTTP requests, filesystem writes, session state, full WordPress core bootstrap \\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsubsection{Error handling policy}
+The runner implements a custom error handling policy:
+
+\begin{itemize}
+    \item \textbf{Fatal errors / Exceptions}: immediate failure (captured via try-catch)
+    \item \textbf{Errors (E\_ERROR, E\_PARSE)}: immediate failure
+    \item \textbf{Warnings (E\_WARNING)}: recorded; treated as failure only when attributed to the target file (by \texttt{\$errfile} path prefix match)
+    \item \textbf{Notices / Deprecations (E\_NOTICE, E\_DEPRECATED)}: recorded but tolerated; logged for analysis
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\subsection{Slice accounting}
+\label{appendix:slice-accounting}
+
+The harness is configured over a fixed slice of $N_{\mathrm{rt}}=55$ target files.
+Some files have known isolation limitations (external deps / cross-file coupling) but remain included in the slice and denominator.
+
+\begin{center}
+\footnotesize
+\captionsetup{skip=5pt, justification=raggedright, singlelinecheck=false}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\captionof{table}{Files with Known Isolation Limitations (Included in Slice)}
+\label{tab:isolation-limited}
+\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}p{0.42\columnwidth}
+                                >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{File} & \textbf{Reason} \\
+\midrule
+\texttt{getid3.php} & Requires getID3 core library classes. \\
+\texttt{module.audio.ac3.php} & Requires \texttt{getid3\_handler} base class. \\
+\texttt{class-ftp.php} & Cross-file dependency on FTP classes. \\
+\texttt{class-pop3.php} & Depends on network/socket initialization. \\
+\texttt{class-json.php} & Requires \texttt{Services\_JSON} library. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+%------------------------------------------------------------------------------
+\subsection{Outcome taxonomy}
+\label{appendix:outcome-taxonomy}
+
+A file is counted as \textbf{Pass} for a given codebase version iff it loads successfully without fatal errors.
+Include-time fatal errors (parse errors, fatal runtime errors, exceptions) are counted as failures.
+
+\begin{center}
+\footnotesize
+\captionof{table}{Outcome Categories for the Isolated Loadability Tripwire}
+\label{tab:runtime-outcomes}
+\vspace{0.3em}
+\begin{tabular}{@{}lp{0.72\columnwidth}@{}}
+\toprule
+\textbf{Outcome} & \textbf{Interpretation} \\
+\midrule
+Both pass & Both original and migrated load successfully. \\
+Fixed failure & Original fails to load, but migrated loads successfully. \\
+New failure & Original loads, but migrated fails to load. \\
+Both fail & Both original and migrated fail to load. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For concision in the main text, we aggregate:
+\textbf{Pass} = (Both pass + Fixed failure), \textbf{Regress} = (New failure), and \textbf{Other} = (Both fail).
+
+%------------------------------------------------------------------------------
+\subsection{Harness sanity checks}
+\label{appendix:bias-controls}
+
+For transparency, we report absolute pass rates (load success) under identical harness conditions, computed over the full $N_{\mathrm{rt}}=55$ slice.
+Because the harness does not boot WordPress and files are executed in isolation under stubs, these pass rates are harness-dependent and are \emph{not} interpreted as integration or correctness measures; we use this tier primarily to surface \emph{Regress} outcomes.
+
+\begin{center}
+\footnotesize
+\captionof{table}{Harness Pass Rates (Context Only; Not a Correctness Metric; $N_{\mathrm{rt}}=55$)}
+\label{tab:bias-control}
+\vspace{0.3em}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Codebase Version} & \textbf{Passed} & \textbf{Pass Rate} \\
+\midrule
+Original snapshot  & 50 & 90.9\% \\
+Rector-migrated baseline & 46 & 83.6\% \\
+Claude Sonnet 4 & 44 & 80.0\% \\
+GPT-5 Codex & 43 & 78.2\% \\
+Gemini 2.5 Pro & 40 & 72.7\% \\
+Llama 3.3 70B & 38 & 69.1\% \\
+Gemini 2.5 Flash & 33 & 60.0\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent We therefore emphasize \textbf{Regress} counts in the main text and do not use absolute pass rates for model ranking.
+
+\noindent\textbf{Interpretation.}
+The non-ceiling pass rate of the original snapshot (90.9\%) indicates unavoidable isolation limitations (Table~\ref{tab:isolation-limited}): 5 files fail to load due to external dependencies or deprecated PHP syntax (curly-brace array access) removed in PHP~8.
+Such cases are represented explicitly via the \emph{Both fail / Other} outcome rather than excluded.
+
+%------------------------------------------------------------------------------
+\subsection{Failure exemplars}
+\label{appendix:failure-exemplars}
+
+Representative harness-visible load-time failures from actual test results include:
+
+\begin{enumerate}[leftmargin=*, itemsep=2pt, topsep=2pt, parsep=0pt]
+  \item \textbf{Deprecated curly-brace array access syntax (original files).}\\
+  \emph{Files:} \texttt{class-ftp.php}, \texttt{class-pop3.php}, \texttt{getid3.php}, \texttt{module.audio.ac3.php}, \texttt{class-json.php}.
+  Original files use \texttt{\$var\{0\}} syntax (removed in PHP~8) or require external dependencies, causing 5 of 55 original files to fail (90.9\% baseline).
+
+  \item \textbf{Callback transformation drops required parameters (Rector).}\\
+  \emph{Files:} \texttt{class.akismet-widget.php}, \texttt{user.php}, \texttt{file.php}.
+  Rector converted closures to arrow functions and dropped required callback parameters, triggering fatal argument-count errors at callback invocation sites under the harness.
+
+  \item \textbf{Parse error from malformed syntax (Gemini models).}\\
+  \emph{Files:} \texttt{Parser.php}, \texttt{File.php}.
+  Gemini 2.5 Flash introduced malformed syntax including unexpected tokens (``unexpected token ?'' or ``unexpected token (''), causing include-time parse failures.
+
+  \item \textbf{Modified include path points to missing file (multiple models).}\\
+  \emph{File:} \texttt{translations.php}.
+  Both Rector and Gemini 2.5 Pro modified \texttt{require\_once} paths, causing ``Failed opening required'' errors when the referenced file doesn't exist.
+
+  \item \textbf{High regression rate correlates with low resolution.}\\
+  Gemini 2.5 Flash showed 18 regressions (32.7\% regression rate) with 53.5\% rule resolution, while Rector showed 7 regressions (12.7\%) with 98.3\% resolution, demonstrating the tripwire's sensitivity to incomplete migrations.
+\end{enumerate}
+
+\vspace{0.25em}
+\noindent\textbf{Summary.}
+The loadability tripwire detects include-time failures and harness-visible load-time regressions (parse errors, fatal errors, missing dependencies, broken inheritance) that static contract discharge may not surface.
+Because all metrics are computed over a fixed $N_{\mathrm{rt}}=55$ slice, unavoidable isolation limitations are represented via the \emph{Both fail / Other} category rather than excluded.
+This tier provides a complementary regression signal but does not validate behavioral correctness or end-to-end functionality.

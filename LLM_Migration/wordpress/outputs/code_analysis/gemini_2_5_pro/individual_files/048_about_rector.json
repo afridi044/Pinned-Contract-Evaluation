@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\048_about.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:29:56.034779",
+    "file_size_kb": 7.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/048_about.php",
+        "diff": "--- Original\n+++ New\n@@ -18,7 +18,7 @@\n \r\n $title = __( 'About' );\r\n \r\n-[$display_version] = explode( '-', $wp_version );\r\n+[$display_version] = explode( '-', (string) $wp_version );\r\n \r\n include ABSPATH . 'wp-admin/admin-header.php';\r\n ?>\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/048_about.php"
+    ]
+  }
+}

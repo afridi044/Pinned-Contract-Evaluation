@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\066_class.wp-dependencies.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 141
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:24.729487",
+    "file_size_kb": 14.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/066_class.wp-dependencies.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n \r\n /**\r\n@@ -120,7 +120,7 @@\n                  *\r\n                  * Unset the item from the to_do array.\r\n                  */\r\n-                if ($this->do_item($handle, $group)) {\r\n+                if ($this->do_item($handle)) {\r\n                     $this->done[] = $handle;\r\n                 }\r\n \r\n@@ -164,7 +164,7 @@\n         }\r\n \r\n         foreach ($handles as $handle) {\r\n-            $handle_parts = explode('?', $handle);\r\n+            $handle_parts = explode('?', (string) $handle);\r\n             $handle = $handle_parts[0];\r\n             $queued = in_array($handle, $this->to_do, true);\r\n \r\n@@ -304,7 +304,7 @@\n      */\r\n     public function enqueue($handles): void {\r\n         foreach ((array) $handles as $handle) {\r\n-            $handle = explode('?', $handle);\r\n+            $handle = explode('?', (string) $handle);\r\n             if (!in_array($handle[0], $this->queue) && isset($this->registered[$handle[0]])) {\r\n                 $this->queue[] = $handle[0];\r\n                 if (isset($handle[1])) {\r\n@@ -327,7 +327,7 @@\n      */\r\n     public function dequeue($handles): void {\r\n         foreach ((array) $handles as $handle) {\r\n-            $handle = explode('?', $handle);\r\n+            $handle = explode('?', (string) $handle);\r\n             $key = array_search($handle[0], $this->queue);\r\n             if (false !== $key) {\r\n                 unset($this->queue[$key]);\r\n@@ -420,44 +420,6 @@\n  */\r\n class _WP_Dependency {\r\n     /**\r\n-     * The handle name.\r\n-     *\r\n-     * @access public\r\n-     * @since 2.6.0\r\n-     * @var null\r\n-     */\r\n-    public string $handle;\r\n-\r\n-    /**\r\n-     * The handle source.\r\n-     *\r\n-     * @access public\r\n-     * @since 2.6.0\r\n-     * @var null\r\n-     */\r\n-    public string $src;\r\n-\r\n-    /**\r\n-     * An array of handle dependencies.\r\n-     *\r\n-     * @access public\r\n-     * @since 2.6.0\r\n-     * @var array\r\n-     */\r\n-    public array $deps = [];\r\n-\r\n-    /**\r\n-     * The handle version.\r\n-     *\r\n-     * Used for cache-busting.\r\n-     *\r\n-     * @access public\r\n-     * @since 2.6.0\r\n-     * @var bool|string\r\n-     */\r\n-    public bool|string $ver = false;\r\n-\r\n-    /**\r\n      * Additional arguments for the handle.\r\n      *\r\n      * @access public\r\n@@ -475,16 +437,42 @@\n      */\r\n     public array $extra = [];\r\n \r\n-    /**\r\n-     * Setup dependencies.\r\n-     *\r\n-     * @since 2.6.0\r\n-     */\r\n-    public function __construct($handle, $src, $deps = [], $ver = false, $args = null) {\r\n-        $this->handle = $handle;\r\n-        $this->src = $src;\r\n-        $this->deps = $deps;\r\n-        $this->ver = $ver;\r\n+    /**\n+     * Setup dependencies.\n+     *\n+     * @since 2.6.0\n+     * @param null $handle\n+     * @param null $src\n+     * @param mixed[] $deps\n+     * @param bool|string $ver\n+     */\n+    public function __construct(/**\n+     * The handle name.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public string $handle, /**\n+     * The handle source.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public string $src, /**\n+     * An array of handle dependencies.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public array $deps = [], /**\n+     * The handle version.\n+     *\n+     * Used for cache-busting.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public bool|string $ver = false, $args = null) {\r\n         $this->args = $args;\r\n     }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/066_class.wp-dependencies.php"
+    ]
+  }
+}

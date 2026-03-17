@@ -1,0 +1,40 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\031_class-wp-plugins-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:29:00.696314",
+    "file_size_kb": 24.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/031_class-wp-plugins-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -10,7 +10,7 @@\n class WP_Plugins_List_Table extends WP_List_Table {\r\n \r\n \tprivate string $status;\r\n-\tprivate int $page;\r\n+\tprivate readonly int $page;\r\n \tprivate ?string $orderby = null;\r\n \tprivate ?string $order = null;\r\n \tprivate ?string $s = null;\r\n@@ -212,7 +212,7 @@\n \t\t}\r\n \r\n \t\tforeach ( $plugin as $value ) {\r\n-\t\t\tif ( is_string( $value ) && stripos( strip_tags( $value ), $term ) !== false ) {\r\n+\t\t\tif ( is_string( $value ) && stripos( strip_tags( $value ), (string) $term ) !== false ) {\r\n \t\t\t\treturn true;\r\n \t\t\t}\r\n \t\t}\r\n@@ -474,7 +474,7 @@\n \t\t$actions = apply_filters( $prefix . \"plugin_action_links_$plugin_file\", $actions, $plugin_file, $plugin_data, $context );\r\n \r\n \t\t$class       = $is_active ? 'active' : 'inactive';\r\n-\t\t$checkbox_id = 'checkbox_' . md5( $plugin_data['Name'] );\r\n+\t\t$checkbox_id = 'checkbox_' . md5( (string) $plugin_data['Name'] );\r\n \t\tif ( in_array( $this->status, [ 'mustuse', 'dropins' ], true ) ) {\r\n \t\t\t$checkbox = '';\r\n \t\t} else {\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/031_class-wp-plugins-list-table.php"
+    ]
+  }
+}

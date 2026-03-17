@@ -10,7 +10,7 @@ from typing import Dict, Any
 
 
 class MultiProviderClient:
-    """Simplified multi-provider LLM client with automatic provider detection."""
+    """multi-provider LLM client with automatic provider detection."""
     
     # Provider detection patterns (data-driven approach)
     PROVIDER_PATTERNS = {
@@ -22,7 +22,7 @@ class MultiProviderClient:
     
     # Default configurations
     DEFAULT_CONFIG = {
-        'max_tokens': {'google': 16000, 'openrouter': 25000, 'anthropic': 16000},
+        'max_tokens': {'google': 32000, 'openrouter': 25000, 'anthropic': 24000},
         'temperature': 0.3,
         'timeout': 300
     }
@@ -58,8 +58,6 @@ class MultiProviderClient:
         # Check provider availability
         if not self.providers.get(provider, {}).get('enabled'):
             return self._error_response(f'Provider {provider} is not enabled')
-        
-        print(f"🔗 Using {provider.upper()} provider for {model_name}")
         
         # Route to appropriate provider method
         try:
@@ -108,7 +106,6 @@ class MultiProviderClient:
                 if response.status_code == 429:
                     if attempt < rate_config['max_retries']:
                         retry_delay = rate_config['retry_delay'] * (2 ** attempt)  # Exponential backoff
-                        print(f"⏳ Rate limited (429). Retrying in {retry_delay:.1f}s... (attempt {attempt + 1}/{rate_config['max_retries'] + 1})")
                         time.sleep(retry_delay)
                         continue
                     else:
@@ -128,7 +125,6 @@ class MultiProviderClient:
             except requests.exceptions.RequestException as e:
                 if attempt < rate_config['max_retries']:
                     retry_delay = rate_config['retry_delay']
-                    print(f"⏳ Request failed. Retrying in {retry_delay:.1f}s... (attempt {attempt + 1}/{rate_config['max_retries'] + 1})")
                     time.sleep(retry_delay)
                     continue
                 else:
@@ -175,46 +171,107 @@ class MultiProviderClient:
     def _call_anthropic(self, model_name: str, prompt: str, **kwargs) -> Dict[str, Any]:
         """Anthropic API call."""
         client = self.providers['anthropic']['client']
-        
+
+        max_tokens = kwargs.get('max_tokens', self.DEFAULT_CONFIG['max_tokens']['anthropic'])
+        temperature = kwargs.get('temperature', self.DEFAULT_CONFIG['temperature'])
+        timeout = kwargs.get('timeout', self.DEFAULT_CONFIG['timeout'])
+        messages = [{"role": "user", "content": prompt}]
+
+        def _extract_text_from_message(message_obj: Any) -> str:
+            content_local = ""
+            if hasattr(message_obj, 'content') and getattr(message_obj, 'content'):
+                message_content = getattr(message_obj, 'content')
+                if isinstance(message_content, list):
+                    content_local = "".join(
+                        [block.text if hasattr(block, 'text') else str(block) for block in message_content]
+                    )
+                else:
+                    content_local = str(message_content)
+            return content_local
+
         try:
+            # Anthropic SDK strongly recommends streaming for potentially long requests.
+            # Newer SDKs will raise on long non-streaming calls, so we stream by default.
+            if hasattr(getattr(client, 'messages', None), 'stream'):
+                text_parts = []
+                final_message = None
+
+                with client.messages.stream(
+                    model=model_name,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    messages=messages,
+                    timeout=timeout,
+                ) as stream:
+                    # Preferred API: iterate stream.text_stream
+                    if hasattr(stream, 'text_stream'):
+                        for text in stream.text_stream:
+                            if text:
+                                text_parts.append(text)
+                    else:
+                        # Fallback: try iterating events and extracting delta text
+                        try:
+                            for event in stream:
+                                delta = getattr(event, 'delta', None)
+                                delta_text = getattr(delta, 'text', None)
+                                if delta_text:
+                                    text_parts.append(delta_text)
+                        except TypeError:
+                            pass
+
+                    if hasattr(stream, 'get_final_message'):
+                        final_message = stream.get_final_message()
+
+                content = "".join(text_parts).strip()
+                if not content and final_message is not None:
+                    content = _extract_text_from_message(final_message).strip()
+
+                if not content:
+                    return self._error_response('Empty response from Anthropic')
+
+                usage_info = {}
+                if final_message is not None and hasattr(final_message, 'usage'):
+                    usage_info = {
+                        'prompt_tokens': getattr(final_message.usage, 'input_tokens', 0),
+                        'completion_tokens': getattr(final_message.usage, 'output_tokens', 0),
+                    }
+                    usage_info['total_tokens'] = usage_info['prompt_tokens'] + usage_info['completion_tokens']
+
+                return self._success_response(
+                    content=content,
+                    provider='anthropic',
+                    model=model_name,
+                    usage=usage_info,
+                )
+
+            # Fallback for older SDKs that don't implement messages.stream
             response = client.messages.create(
                 model=model_name,
-                max_tokens=kwargs.get('max_tokens', self.DEFAULT_CONFIG['max_tokens']['anthropic']),
-                temperature=kwargs.get('temperature', self.DEFAULT_CONFIG['temperature']),
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
+                max_tokens=max_tokens,
+                temperature=temperature,
+                messages=messages,
+                timeout=timeout,
             )
-            
-            # Extract content from response
-            content = ""
-            if hasattr(response, 'content') and response.content:
-                # Handle different content types
-                if isinstance(response.content, list):
-                    content = "".join([block.text if hasattr(block, 'text') else str(block) 
-                                     for block in response.content])
-                else:
-                    content = str(response.content)
-            
+
+            content = _extract_text_from_message(response).strip()
             if not content:
                 return self._error_response('Empty response from Anthropic')
-            
-            # Extract usage info
+
             usage_info = {}
             if hasattr(response, 'usage'):
                 usage_info = {
                     'prompt_tokens': getattr(response.usage, 'input_tokens', 0),
                     'completion_tokens': getattr(response.usage, 'output_tokens', 0),
-                    'total_tokens': getattr(response.usage, 'input_tokens', 0) + getattr(response.usage, 'output_tokens', 0)
                 }
-            
+                usage_info['total_tokens'] = usage_info['prompt_tokens'] + usage_info['completion_tokens']
+
             return self._success_response(
                 content=content,
                 provider='anthropic',
                 model=model_name,
-                usage=usage_info
+                usage=usage_info,
             )
-            
+
         except Exception as e:
             return self._error_response(f'Anthropic API error: {str(e)}')
     
@@ -233,17 +290,14 @@ class MultiProviderClient:
         return {'success': False, 'error': error_message}
     
     def test_provider_detection(self):
-        """Test provider detection with sample models."""
+        """Test provider detection with paper evaluation models."""
         test_models = [
-            'gemini-1.5-pro',
-            'claude-3-5-sonnet-20241022',
-            'claude-3-5-haiku-20241022',
-            'anthropic/claude-3.5-sonnet', 
-            'meta-llama/llama-3.1-8b-instruct',
-            'gemini-1.5-flash'
+            'gemini-2.5-pro',
+            'gpt-5-codex',
+            'gemini-2.5-flash',
+            'claude-sonnet-4-20250514',
+            'meta-llama/llama-3.3-70b-instruct'
         ]
         
-        print("\n🔍 Provider Detection Test:")
         for model in test_models:
             provider = self.detect_provider(model)
-            print(f"   {model} → {provider.upper()}")

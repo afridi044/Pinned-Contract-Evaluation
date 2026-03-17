@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\077_post-thumbnail-template.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector"
+    ],
+    "changes_by_php_version": {
+      "php_74": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:36:40.933663",
+    "file_size_kb": 3.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/077_post-thumbnail-template.php",
+        "diff": "--- Original\n+++ New\n@@ -31,7 +31,7 @@\n  * @return int\r\n  */\r\n function get_post_thumbnail_id($post_id = null) {\r\n-\t$post_id = $post_id ?? get_the_ID();\r\n+\t$post_id ??= get_the_ID();\r\n \r\n \treturn get_post_meta($post_id, '_thumbnail_id', true);\r\n }\r\n@@ -89,7 +89,7 @@\n  * @param string|array $attr Optional. Query string or array of attributes.\r\n  */\r\n function get_the_post_thumbnail($post_id = null, $size = 'post-thumbnail', $attr = '') {\r\n-\t$post_id            = $post_id ?? get_the_ID();\r\n+\t$post_id ??= get_the_ID();\r\n \t$post_thumbnail_id  = get_post_thumbnail_id($post_id);\r\n \r\n \t/**\r\n",
+        "applied_rectors": [
+          "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/077_post-thumbnail-template.php"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\052_class-wp-ms-themes-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 79
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:18:23.768529",
+    "file_size_kb": 15.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/052_class-wp-ms-themes-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -106,7 +106,7 @@\n \r\n \t\tif ( $s ) {\r\n \t\t\t$status = 'search';\r\n-\t\t\t$themes['search'] = array_filter( array_merge( $themes['all'], $themes['broken'] ), [ $this, '_search_callback' ] );\r\n+\t\t\t$themes['search'] = array_filter( array_merge( $themes['all'], $themes['broken'] ), $this->_search_callback(...) );\r\n \t\t}\r\n \r\n \t\t$totals = [];\r\n@@ -125,8 +125,8 @@\n \t\t$total_this_page = $totals[ $status ];\r\n \r\n \t\tif ( $orderby ) {\r\n-\t\t\t$orderby = ucfirst( $orderby );\r\n-\t\t\t$order = strtoupper( $order );\r\n+\t\t\t$orderby = ucfirst( (string) $orderby );\r\n+\t\t\t$order = strtoupper( (string) $order );\r\n \r\n \t\t\tif ( $orderby === 'Name' ) {\r\n \t\t\t\tif ( 'ASC' === $order ) {\r\n@@ -133,7 +133,7 @@\n \t\t\t\t\t$this->items = array_reverse( $this->items );\r\n \t\t\t\t}\r\n \t\t\t} else {\r\n-\t\t\t\tuasort( $this->items, [ $this, '_order_callback' ] );\r\n+\t\t\t\tuasort( $this->items, $this->_order_callback(...) );\r\n \t\t\t}\r\n \t\t}\r\n \r\n@@ -157,16 +157,16 @@\n \r\n \t\tforeach ( [ 'Name', 'Description', 'Author', 'Author', 'AuthorURI' ] as $field ) {\r\n \t\t\t// Don't mark up; Do translate.\r\n-\t\t\tif ( false !== stripos( $theme->display( $field, false, true ), $term ) ) {\r\n+\t\t\tif ( false !== stripos( (string) $theme->display( $field, false, true ), (string) $term ) ) {\r\n \t\t\t\treturn true;\r\n \t\t\t}\r\n \t\t}\r\n \r\n-\t\tif ( false !== stripos( $theme->get_stylesheet(), $term ) ) {\r\n+\t\tif ( false !== stripos( (string) $theme->get_stylesheet(), (string) $term ) ) {\r\n \t\t\treturn true;\r\n \t\t}\r\n \r\n-\t\tif ( false !== stripos( $theme->get_template(), $term ) ) {\r\n+\t\tif ( false !== stripos( (string) $theme->get_template(), (string) $term ) ) {\r\n \t\t\treturn true;\r\n \t\t}\r\n \r\n@@ -309,7 +309,7 @@\n \t\t];\r\n \r\n \t\t$stylesheet = $theme->get_stylesheet();\r\n-\t\t$theme_key = urlencode( $stylesheet );\r\n+\t\t$theme_key = urlencode( (string) $stylesheet );\r\n \r\n \t\tif ( ! $allowed ) {\r\n \t\t\tif ( ! $theme->errors() ) {\r\n@@ -368,7 +368,7 @@\n \t\t$actions = apply_filters( \"theme_action_links_$stylesheet\", $actions, $theme, $context );\r\n \r\n \t\t$class = ! $allowed ? 'inactive' : 'active';\r\n-\t\t$checkbox_id = \"checkbox_\" . md5( $theme->get('Name') );\r\n+\t\t$checkbox_id = \"checkbox_\" . md5( (string) $theme->get('Name') );\r\n \t\t$checkbox = \"<input type='checkbox' name='checked[]' value='\" . esc_attr( $stylesheet ) . \"' id='\" . $checkbox_id . \"' /><label class='screen-reader-text' for='\" . $checkbox_id . \"' >\" . __('Select') . \" \" . $theme->display('Name') . \"</label>\";\r\n \r\n \t\t$id = sanitize_html_class( $theme->get_stylesheet() );\r\n@@ -379,7 +379,7 @@\n \r\n \t\techo \"<tr id='$id' class='$class'>\";\r\n \r\n-\t\tlist( $columns, $hidden ) = $this->get_column_info();\r\n+\t\t[$columns, $hidden] = $this->get_column_info();\r\n \r\n \t\tforeach ( $columns as $column_name => $column_display_name ) {\r\n \t\t\t$style = '';\r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/052_class-wp-ms-themes-list-table.php"
+    ]
+  }
+}

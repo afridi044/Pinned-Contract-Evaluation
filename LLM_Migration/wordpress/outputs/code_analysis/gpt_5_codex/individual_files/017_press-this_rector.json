@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\017_press-this.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 26
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:33:45.507024",
+    "file_size_kb": 27.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/017_press-this.php",
+        "diff": "--- Original\n+++ New\n@@ -55,7 +55,7 @@\n \r\n \t\t\t\tif ( ! is_wp_error( $upload ) ) {\r\n \t\t\t\t\t$pattern = '/<img ([^>]*)src=\\\\\\?(\"|\\')' . preg_quote( htmlspecialchars( (string) $image ), '/' ) . '\\\\\\?(\\\\2)([^>\\/]*)\\/*>/is';\r\n-\t\t\t\t\t$content = preg_replace( $pattern, $upload, $content );\r\n+\t\t\t\t\t$content = preg_replace( $pattern, $upload, (string) $content );\r\n \t\t\t\t}\r\n \t\t\t}\r\n \t\t}\r\n@@ -425,11 +425,11 @@\n \t\t\t\t\t$content = '';\r\n \r\n \t\t\t\t\tif ( preg_match( '/youtube\\.com\\/watch/i', $url ) ) {\r\n-\t\t\t\t\t\tlist( $domain, $video_id ) = explode( 'v=', $url );\r\n+\t\t\t\t\t\t[$domain, $video_id] = explode( 'v=', $url );\r\n \t\t\t\t\t\t$video_id                  = esc_attr( $video_id );\r\n \t\t\t\t\t\t$content                   = '<object width=\"425\" height=\"350\"><param name=\"movie\" value=\"http://www.youtube.com/v/' . $video_id . '\"></param><param name=\"wmode\" value=\"transparent\"></param><embed src=\"http://www.youtube.com/v/' . $video_id . '\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"425\" height=\"350\"></embed></object>';\r\n \t\t\t\t\t} elseif ( preg_match( '/vimeo\\.com\\/[0-9]+/i', $url ) ) {\r\n-\t\t\t\t\t\tlist( $domain, $video_id ) = explode( '.com/', $url );\r\n+\t\t\t\t\t\t[$domain, $video_id] = explode( '.com/', $url );\r\n \t\t\t\t\t\t$video_id                  = esc_attr( $video_id );\r\n \t\t\t\t\t\t$content                   = '<object width=\"400\" height=\"225\"><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"movie\" value=\"http://www.vimeo.com/moogaloop.swf?clip_id=' . $video_id . '&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" />\t<embed src=\"http://www.vimeo.com/moogaloop.swf?clip_id=' . $video_id . '&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"400\" height=\"225\"></embed></object>';\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/017_press-this.php"
+    ]
+  }
+}

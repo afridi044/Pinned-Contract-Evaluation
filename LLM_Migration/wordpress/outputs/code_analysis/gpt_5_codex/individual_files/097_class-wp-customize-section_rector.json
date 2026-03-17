@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\097_class-wp-customize-section.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 63
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:37:28.282113",
+    "file_size_kb": 4.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/097_class-wp-customize-section.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n declare(strict_types=1);\r\n \r\n@@ -13,24 +13,6 @@\n class WP_Customize_Section {\r\n \r\n \t/**\r\n-\t * WP_Customize_Manager instance.\r\n-\t *\r\n-\t * @since 3.4.0\r\n-\t * @access public\r\n-\t * @var WP_Customize_Manager|null\r\n-\t */\r\n-\tpublic ?WP_Customize_Manager $manager = null;\r\n-\r\n-\t/**\r\n-\t * Unique identifier.\r\n-\t *\r\n-\t * @since 3.4.0\r\n-\t * @access public\r\n-\t * @var string\r\n-\t */\r\n-\tpublic string $id = '';\r\n-\r\n-\t/**\r\n \t * Priority of the section which informs load order of sections.\r\n \t *\r\n \t * @since 3.4.0\r\n@@ -104,7 +86,19 @@\n \t * @param string               $id      An specific ID of the section.\r\n \t * @param array                $args    Section arguments.\r\n \t */\r\n-\tpublic function __construct( WP_Customize_Manager $manager, string $id, array $args = [] ) {\r\n+\tpublic function __construct( /**\n+     * WP_Customize_Manager instance.\n+     *\n+     * @since 3.4.0\n+     * @access public\n+     */\n+    public ?WP_Customize_Manager $manager, /**\n+     * Unique identifier.\n+     *\n+     * @since 3.4.0\n+     * @access public\n+     */\n+    public string $id, array $args = [] ) {\r\n \t\t$keys = array_keys( get_object_vars( $this ) );\r\n \t\tforeach ( $keys as $key ) {\r\n \t\t\tif ( array_key_exists( $key, $args ) ) {\r\n@@ -111,9 +105,6 @@\n \t\t\t\t$this->{$key} = $args[ $key ];\r\n \t\t\t}\r\n \t\t}\r\n-\r\n-\t\t$this->manager  = $manager;\r\n-\t\t$this->id       = $id;\r\n \t\t$this->controls = []; // Users cannot customize the $controls array.\r\n \t}\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/097_class-wp-customize-section.php"
+    ]
+  }
+}

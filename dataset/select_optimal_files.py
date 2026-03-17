@@ -19,10 +19,21 @@ from datetime import datetime
 import shutil
 import os
 
+# Add parent directory to path to import shared modules
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from config import DATASET_NAME
+
 class OptimalFileSelector:
     """Select optimal subset of files for migration analysis."""
     
-    def __init__(self, reports_dir: str = "rector_reports_organized_dataset_All", dataset_dir: str = "organized_dataset_All"):
+    def __init__(self, reports_dir: str = None, dataset_dir: str = None):
+        # Use config-based defaults if not specified
+        if reports_dir is None:
+            reports_dir = f"{DATASET_NAME}/rector_reports_organized_dataset_All"
+        if dataset_dir is None:
+            dataset_dir = f"{DATASET_NAME}/organized_dataset_All"
+        
         self.reports_dir = Path(reports_dir)
         self.dataset_dir = Path(dataset_dir)
         self.metadata = self.load_metadata()
@@ -81,7 +92,7 @@ class OptimalFileSelector:
     
     def load_dataset_summary(self) -> Dict[str, str]:
         """Load original paths from dataset_summary.csv in organized_dataset_All."""
-        dataset_summary_file = Path("organized_dataset_All/dataset_summary.csv")
+        dataset_summary_file = Path(f"{DATASET_NAME}/organized_dataset_All/dataset_summary.csv")
         original_paths = {}
         
         if dataset_summary_file.exists():
@@ -463,7 +474,7 @@ class OptimalFileSelector:
         print("📁 Creating organized subset directories...")
         
         # Create main subset directory
-        subset_dir = Path("selected_100_files")
+        subset_dir = Path(f"{DATASET_NAME}/selected_100_files")
         if subset_dir.exists():
             shutil.rmtree(subset_dir)
         
@@ -564,7 +575,7 @@ class OptimalFileSelector:
     
     def save_selection_data(self, selected_files: List[Dict[str, Any]]) -> None:
         """Save selection data in multiple formats."""
-        output_dir = Path("selected_100_files")
+        output_dir = Path(f"{DATASET_NAME}/selected_100_files")
         
         # Load original paths from dataset_summary.csv
         original_paths = self.load_dataset_summary()
@@ -615,7 +626,7 @@ class OptimalFileSelector:
         report = self.generate_selection_report(selected_files)
         
         # Create output directory
-        output_dir = Path("selected_100_files")
+        output_dir = Path(f"{DATASET_NAME}/selected_100_files")
         output_dir.mkdir(exist_ok=True)
         
         # Save report
@@ -632,7 +643,7 @@ class OptimalFileSelector:
         
         print("\n" + "=" * 60)
         print("✅ SELECTION PROCESS COMPLETE!")
-        print(f"📁 Check the 'selected_100_files' directory for results")
+        print(f"📁 Check the '{DATASET_NAME}/selected_100_files' directory for results")
         print(f"📊 {len(selected_files)} files selected with complete rule coverage")
 
 def main():

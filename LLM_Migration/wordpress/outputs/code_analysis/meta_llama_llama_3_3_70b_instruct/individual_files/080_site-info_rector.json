@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\080_site-info.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 103
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:42:02.112840",
+    "file_size_kb": 9.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/080_site-info.php",
+        "diff": "--- Original\n+++ New\n@@ -8,7 +8,7 @@\n  */\r\n \r\n /** Load WordPress Administration Bootstrap */\r\n-require_once( dirname( __FILE__ ) . '/admin.php' );\r\n+require_once( __DIR__ . '/admin.php' );\r\n \r\n if ( ! is_multisite() ) {\r\n     wp_die( __( 'Multisite support is not enabled.' ) );\r\n@@ -18,7 +18,7 @@\n     wp_die( __( 'You do not have sufficient permissions to edit this site.' ) );\r\n }\r\n \r\n-get_current_screen()->add_help_tab( array(\r\n+get_current_screen()->add_help_tab( [\r\n     'id'      => 'overview',\r\n     'title'   => __('Overview'),\r\n     'content' =>\r\n@@ -27,7 +27,7 @@\n         '<p>' . __('<strong>Users</strong> - This displays the users associated with this site. You can also change their role, reset their password, or remove them from the site. Removing the user from the site does not remove the user from the network.') . '</p>' .\r\n         '<p>' . sprintf( __('<strong>Themes</strong> - This area shows themes that are not already enabled across the network. Enabling a theme in this menu makes it accessible to this site. It does not activate the theme, but allows it to show in the site&#8217;s Appearance menu. To enable a theme for the entire network, see the <a href=\"%s\">Network Themes</a> screen.' ), network_admin_url( 'themes.php' ) ) . '</p>' .\r\n         '<p>' . __('<strong>Settings</strong> - This page shows a list of all settings associated with this site. Some are created by WordPress and others are created by plugins you activate. Note that some fields are grayed out and say Serialized Data. You cannot modify these values due to the way the setting is stored in the database.') . '</p>'\r\n-) );\r\n+] );\r\n \r\n get_current_screen()->set_help_sidebar(\r\n     '<p><strong>' . __('For more information:') . '</strong></p>' .\r\n@@ -46,7 +46,7 @@\n     wp_die( __( 'You do not have permission to access this page.' ) );\r\n }\r\n \r\n-$parsed = parse_url( $details->siteurl );\r\n+$parsed = parse_url( (string) $details->siteurl );\r\n $is_main_site = is_main_site( $id );\r\n \r\n if ( filter_input( INPUT_GET, 'action' ) === 'update-site' ) {\r\n@@ -71,9 +71,9 @@\n     // Update blogs table.\r\n     $blog_data = filter_input( INPUT_POST, 'blog', FILTER_SANITIZE_STRING );\r\n     $existing_details = get_blog_details( $id, false );\r\n-    $blog_data_checkboxes = array( 'public', 'archived', 'spam', 'mature', 'deleted' );\r\n+    $blog_data_checkboxes = [ 'public', 'archived', 'spam', 'mature', 'deleted' ];\r\n     foreach ( $blog_data_checkboxes as $c ) {\r\n-        if ( ! in_array( $existing_details->$c, array( 0, 1 ) ) ) {\r\n+        if ( ! in_array( $existing_details->$c, [ 0, 1 ] ) ) {\r\n             $blog_data[ $c ] = $existing_details->$c;\r\n         } else {\r\n             $blog_data[ $c ] = filter_input( INPUT_POST, 'blog', FILTER_VALIDATE_BOOLEAN )[$c] ?? 0;\r\n@@ -82,12 +82,12 @@\n     update_blog_details( $id, $blog_data );\r\n \r\n     restore_current_blog();\r\n-    wp_redirect( add_query_arg( array( 'update' => 'updated', 'id' => $id ), 'site-info.php') );\r\n+    wp_redirect( add_query_arg( [ 'update' => 'updated', 'id' => $id ], 'site-info.php') );\r\n     exit;\r\n }\r\n \r\n if ( filter_input( INPUT_GET, 'update' ) === 'updated' ) {\r\n-    $messages = array();\r\n+    $messages = [];\r\n     $messages[] = __('Site info updated.');\r\n }\r\n \r\n@@ -106,12 +106,12 @@\n     <h2 id=\"edit-site\"><?php echo $title_site_url_linked ?></h2>\r\n     <h3 class=\"nav-tab-wrapper\">\r\n         <?php\r\n-        $tabs = array(\r\n-            'site-info'     => array( 'label' => __( 'Info' ),     'url' => 'site-info.php'     ),\r\n-            'site-users'    => array( 'label' => __( 'Users' ),    'url' => 'site-users.php'    ),\r\n-            'site-themes'   => array( 'label' => __( 'Themes' ),   'url' => 'site-themes.php'   ),\r\n-            'site-settings' => array( 'label' => __( 'Settings' ), 'url' => 'site-settings.php' ),\r\n-        );\r\n+        $tabs = [\r\n+            'site-info'     => [ 'label' => __( 'Info' ),     'url' => 'site-info.php'     ],\r\n+            'site-users'    => [ 'label' => __( 'Users' ),    'url' => 'site-users.php'    ],\r\n+            'site-themes'   => [ 'label' => __( 'Themes' ),   'url' => 'site-themes.php'   ],\r\n+            'site-settings' => [ 'label' => __( 'Settings' ), 'url' => 'site-settings.php' ],\r\n+        ];\r\n         foreach ( $tabs as $tab_id => $tab ) {\r\n             $class = ( $tab['url'] === $pagenow ) ? ' nav-tab-active' : '';\r\n             echo '<a href=\"' . $tab['url'] . '?id=' . $id .'\" class=\"nav-tab' . $class . '\">' . esc_html( $tab['label'] ) . '</a>';\r\n@@ -159,7 +159,7 @@\n                 <td><input name=\"blog[last_updated]\" type=\"text\" id=\"blog_last_updated\" value=\"<?php echo esc_attr( $details->last_updated ) ?>\" size=\"40\" /></td>\r\n             </tr>\r\n             <?php\r\n-            $attribute_fields = array( 'public' => __( 'Public' ) );\r\n+            $attribute_fields = [ 'public' => __( 'Public' ) ];\r\n             if ( ! $is_main_site ) {\r\n                 $attribute_fields['archived'] = __( 'Archived' );\r\n                 $attribute_fields['spam']     = _x( 'Spam', 'site' );\r\n@@ -171,7 +171,7 @@\n                 <th scope=\"row\"><?php _e( 'Attributes' ); ?></th>\r\n                 <td>\r\n                 <?php foreach ( $attribute_fields as $field_key => $field_label ) : ?>\r\n-                    <label><input type=\"checkbox\" name=\"blog[<?php echo $field_key; ?>]\" value=\"1\" <?php checked( (bool) $details->$field_key, true ); disabled( ! in_array( $details->$field_key, array( 0, 1 ) ) ); ?> />\r\n+                    <label><input type=\"checkbox\" name=\"blog[<?php echo $field_key; ?>]\" value=\"1\" <?php checked( (bool) $details->$field_key, true ); disabled( ! in_array( $details->$field_key, [ 0, 1 ] ) ); ?> />\r\n                     <?php echo $field_label; ?></label><br/>\r\n                 <?php endforeach; ?>\r\n                 </td>\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/080_site-info.php"
+    ]
+  }
+}

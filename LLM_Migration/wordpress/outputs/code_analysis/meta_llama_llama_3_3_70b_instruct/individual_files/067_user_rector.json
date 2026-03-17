@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\067_user.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:27.535860",
+    "file_size_kb": 16.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/067_user.php",
+        "diff": "--- Original\n+++ New\n@@ -93,7 +93,7 @@\n     }\r\n \r\n     if (isset($_POST['description'])) {\r\n-        $user->description = trim($_POST['description']);\r\n+        $user->description = trim((string) $_POST['description']);\r\n     }\r\n \r\n     foreach (wp_get_user_contact_methods($user) as $method => $name) {\r\n@@ -149,7 +149,7 @@\n     }\r\n \r\n     /* Check for \"\\\" in password */\r\n-    if (false !== strpos(wp_unslash($pass1), \"\\\\\")) {\r\n+    if (str_contains(wp_unslash($pass1), \"\\\\\")) {\r\n         $errors->add('pass', __('<strong>ERROR</strong>: Passwords may not contain the character \"\\\\\".'), ['form-field' => 'pass1']);\r\n     }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/067_user.php"
+    ]
+  }
+}

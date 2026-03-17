@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\082_import.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 45
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:42:07.189462",
+    "file_size_kb": 6.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/082_import.php",
+        "diff": "--- Original\n+++ New\n@@ -9,7 +9,7 @@\n define('WP_LOAD_IMPORTERS', true);\r\n \r\n /** Load WordPress Bootstrap */\r\n-require_once( dirname( __FILE__ ) . '/admin.php' );\r\n+require_once( __DIR__ . '/admin.php' );\r\n \r\n if ( !current_user_can('import') ) {\r\n     wp_die(__('You do not have sufficient permissions to import content in this site.'));\r\n@@ -17,12 +17,12 @@\n \r\n $title = __('Import');\r\n \r\n-get_current_screen()->add_help_tab( array(\r\n+get_current_screen()->add_help_tab( [\r\n     'id'      => 'overview',\r\n     'title'   => __('Overview'),\r\n     'content' => '<p>' . __('This screen lists links to plugins to import data from blogging/content management platforms. Choose the platform you want to import from, and click Install Now when you are prompted in the popup window. If your platform is not listed, click the link to search the plugin directory for other importer plugins to see if there is one for your platform.') . '</p>' .\r\n         '<p>' . __('In previous versions of WordPress, all importers were built-in. They have been turned into plugins since most people only use them once or infrequently.') . '</p>',\r\n-) );\r\n+] );\r\n \r\n get_current_screen()->set_help_sidebar(\r\n     '<p><strong>' . __('For more information:') . '</strong></p>' .\r\n@@ -66,7 +66,7 @@\n         if ( isset( $importers[ $pop_data['importer-id'] ] ) ) {\r\n             continue;\r\n         }\r\n-        $importers[ $pop_data['importer-id'] ] = array( $pop_data['name'], $pop_data['description'], 'install' => $pop_data['plugin-slug'] );\r\n+        $importers[ $pop_data['importer-id'] ] = [ $pop_data['name'], $pop_data['description'], 'install' => $pop_data['plugin-slug'] ];\r\n     }\r\n \r\n     if ( empty( $importers ) ) {\r\n@@ -102,7 +102,7 @@\n                         }\r\n                     }\r\n                 } else {\r\n-                    $action = \"<a href='\" . esc_url( \"admin.php?import=$importer_id\" ) . \"' title='\" . esc_attr( wptexturize( strip_tags( $data[1] ) ) ) .\"'>{$data[0]}</a>\";\r\n+                    $action = \"<a href='\" . esc_url( \"admin.php?import=$importer_id\" ) . \"' title='\" . esc_attr( wptexturize( strip_tags( (string) $data[1] ) ) ) .\"'>{$data[0]}</a>\";\r\n                 }\r\n \r\n                 $alt = $alt ? '' : ' class=\"alternate\"';\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/082_import.php"
+    ]
+  }
+}

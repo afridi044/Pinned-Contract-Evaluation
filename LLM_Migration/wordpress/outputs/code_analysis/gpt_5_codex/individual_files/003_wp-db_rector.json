@@ -1,0 +1,53 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\003_wp-db.php",
+  "rector_analysis": {
+    "php_version_changes": 7,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_55": 1,
+      "php_80": 3,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 223
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:32:57.526140",
+    "file_size_kb": 60.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/003_wp-db.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * WordPress DB Class\r\n@@ -228,8 +228,8 @@\n \t * @see wpdb::tables()\r\n \t * @var array\r\n \t */\r\n-\tprotected array $tables = array( 'posts', 'comments', 'links', 'options', 'postmeta',\r\n-\t\t'terms', 'term_taxonomy', 'term_relationships', 'commentmeta' );\r\n+\tprotected array $tables = [ 'posts', 'comments', 'links', 'options', 'postmeta',\r\n+\t\t'terms', 'term_taxonomy', 'term_relationships', 'commentmeta' ];\r\n \r\n \t/**\r\n \t * List of deprecated WordPress tables\r\n@@ -241,7 +241,7 @@\n \t * @see wpdb::tables()\r\n \t * @var array\r\n \t */\r\n-\tprotected array $old_tables = array( 'categories', 'post2cat', 'link2cat' );\r\n+\tprotected array $old_tables = [ 'categories', 'post2cat', 'link2cat' ];\r\n \r\n \t/**\r\n \t * List of WordPress global tables\r\n@@ -251,7 +251,7 @@\n \t * @see wpdb::tables()\r\n \t * @var array\r\n \t */\r\n-\tprotected array $global_tables = array( 'users', 'usermeta' );\r\n+\tprotected array $global_tables = [ 'users', 'usermeta' ];\r\n \r\n \t/**\r\n \t * List of Multisite global tables\r\n@@ -261,8 +261,8 @@\n \t * @see wpdb::tables()\r\n \t * @var array\r\n \t */\r\n-\tprotected array $ms_global_tables = array( 'blogs', 'signups', 'site', 'sitemeta',\r\n-\t\t'sitecategories', 'registration_log', 'blog_versions' );\r\n+\tprotected array $ms_global_tables = [ 'blogs', 'signups', 'site', 'sitemeta',\r\n+\t\t'sitecategories', 'registration_log', 'blog_versions' ];\r\n \r\n \t/**\r\n \t * WordPress Comments table\r\n@@ -444,7 +444,7 @@\n \t * @access public\r\n \t * @var array\r\n \t */\r\n-\tpublic array $field_types = array();\r\n+\tpublic array $field_types = [];\r\n \r\n \t/**\r\n \t * Database table columns charset\r\n@@ -465,42 +465,6 @@\n \tpublic ?string $collate = null;\r\n \r\n \t/**\r\n-\t * Database Username\r\n-\t *\r\n-\t * @since 2.9.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbuser = '';\r\n-\r\n-\t/**\r\n-\t * Database Password\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbpassword = '';\r\n-\r\n-\t/**\r\n-\t * Database Name\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbname = '';\r\n-\r\n-\t/**\r\n-\t * Database Host\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbhost = '';\r\n-\r\n-\t/**\r\n \t * Database Handle\r\n \t *\r\n \t * @since 0.71\r\n@@ -539,8 +503,8 @@\n \t * @access protected\r\n \t * @var array\r\n \t */\r\n-\tprotected array $incompatible_modes = array( 'NO_ZERO_DATE', 'ONLY_FULL_GROUP_BY',\r\n-\t\t'STRICT_TRANS_TABLES', 'STRICT_ALL_TABLES', 'TRADITIONAL' );\r\n+\tprotected array $incompatible_modes = [ 'NO_ZERO_DATE', 'ONLY_FULL_GROUP_BY',\r\n+\t\t'STRICT_TRANS_TABLES', 'STRICT_ALL_TABLES', 'TRADITIONAL' ];\r\n \r\n \t/**\r\n \t * Whether to use mysqli over mysql.\r\n@@ -575,8 +539,32 @@\n \t * @param string $dbname MySQL database name\r\n \t * @param string $dbhost MySQL database host\r\n \t */\r\n-\tpublic function __construct( $dbuser, $dbpassword, $dbname, $dbhost ) {\r\n-\t\tregister_shutdown_function( array( $this, '__destruct' ) );\r\n+\tpublic function __construct( /**\n+     * Database Username\n+     *\n+     * @since 2.9.0\n+     * @access protected\n+     */\n+    protected string $dbuser, /**\n+     * Database Password\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected string $dbpassword, /**\n+     * Database Name\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected string $dbname, /**\n+     * Database Host\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected string $dbhost ) {\r\n+\t\tregister_shutdown_function( [ $this, '__destruct' ] );\r\n \r\n \t\tif ( WP_DEBUG && WP_DEBUG_DISPLAY )\r\n \t\t\t$this->show_errors();\r\n@@ -592,7 +580,7 @@\n \t\t\t\t$this->use_mysqli = ! WP_USE_EXT_MYSQL;\r\n \t\t\t} elseif ( version_compare( phpversion(), '5.5', '>=' ) || ! function_exists( 'mysql_connect' ) ) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n-\t\t\t} elseif ( false !== strpos( $GLOBALS['wp_version'], '-' ) ) {\r\n+\t\t\t} elseif ( str_contains( (string) $GLOBALS['wp_version'], '-' ) ) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n \t\t\t}\r\n \t\t}\r\n@@ -599,11 +587,6 @@\n \r\n \t\t$this->init_charset();\r\n \r\n-\t\t$this->dbuser = $dbuser;\r\n-\t\t$this->dbpassword = $dbpassword;\r\n-\t\t$this->dbname = $dbname;\r\n-\t\t$this->dbhost = $dbhost;\r\n-\r\n \t\t// wp-config.php creation will manually connect when ready.\r\n \t\tif ( defined( 'WP_SETUP_CONFIG' ) ) {\r\n \t\t\treturn;\r\n@@ -741,7 +724,7 @@\n \t *\r\n \t * @param array $modes Optional. A list of SQL modes to set.\r\n \t */\r\n-\tpublic function set_sql_mode( $modes = array() ) {\r\n+\tpublic function set_sql_mode( $modes = [] ) {\r\n \t\tif ( empty( $modes ) ) {\r\n \t\t\tif ( $this->use_mysqli ) {\r\n \t\t\t\t$res = mysqli_query( $this->dbh, 'SELECT @@SESSION.sql_mode' );\r\n@@ -936,7 +919,7 @@\n \t\t\t\t$tables = $this->old_tables;\r\n \t\t\t\tbreak;\r\n \t\t\tdefault :\r\n-\t\t\t\treturn array();\r\n+\t\t\t\treturn [];\r\n \t\t}\r\n \r\n \t\tif ( $prefix ) {\r\n@@ -1152,7 +1135,7 @@\n \t\t}\r\n \r\n \t\t// This is not meant to be foolproof -- but it will catch obviously incorrect usage.\r\n-\t\tif (strpos($query, '%') === false) {\r\n+\t\tif (!str_contains($query, '%')) {\r\n \t\t\t_doing_it_wrong('wpdb::prepare', sprintf(__('The query argument of %s must have a placeholder.'), 'wpdb::prepare()'), '3.9');\r\n \t\t}\r\n \r\n@@ -1162,9 +1145,9 @@\n \r\n \t\t$query = str_replace([\"'%s'\", '\"%s\"'], '%s', $query);\r\n \t\t$query = preg_replace('|(?<!%)%f|', '%F', $query);\r\n-\t\t$query = preg_replace('|(?<!%)%s|', \"'%s'\", $query);\r\n+\t\t$query = preg_replace('|(?<!%)%s|', \"'%s'\", (string) $query);\r\n \r\n-\t\tarray_walk($args, [$this, 'escape_by_ref']);\r\n+\t\tarray_walk($args, $this->escape_by_ref(...));\r\n \r\n \t\ttry {\r\n \t\t\treturn vsprintf($query, $args);\r\n@@ -1361,7 +1344,7 @@\n \t\tif (!empty($port_or_socket)) {\r\n \t\t\t$host = substr($host, 0, strpos($host, ':'));\r\n \t\t\t$port_or_socket = substr($port_or_socket, 1);\r\n-\t\t\tif (0 !== strpos($port_or_socket, '/')) {\r\n+\t\t\tif (!str_starts_with($port_or_socket, '/')) {\r\n \t\t\t\t$port = (int) $port_or_socket;\r\n \t\t\t\t$maybe_socket = strstr($port_or_socket, ':');\r\n \t\t\t\tif (!empty($maybe_socket)) {\r\n@@ -2163,7 +2146,7 @@\n \t * @return string The name of the calling function\r\n \t */\r\n \tpublic function get_caller(): string {\r\n-\t\treturn wp_debug_backtrace_summary( __CLASS__ );\r\n+\t\treturn wp_debug_backtrace_summary( self::class );\r\n \t}\r\n \r\n \t/**\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/003_wp-db.php"
+    ]
+  }
+}

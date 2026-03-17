@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\018_streams.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+      "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 57
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:16:17.698889",
+    "file_size_kb": 5.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/018_streams.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n declare(strict_types=1);\r\n \r\n@@ -102,7 +102,7 @@\n \r\n if (!class_exists('POMO_FileReader')):\r\n class POMO_FileReader extends POMO_Reader {\r\n-    private mixed $_f;\r\n+    private readonly mixed $_f;\r\n \r\n     public function __construct(string $filename) {\r\n         parent::__construct();\r\n@@ -109,6 +109,7 @@\n         $this->_f = fopen($filename, 'rb');\r\n     }\r\n \r\n+    #[\\Override]\n     public function read(int $bytes): string {\r\n         return fread($this->_f, $bytes);\r\n     }\r\n@@ -121,6 +122,7 @@\n         return true;\r\n     }\r\n \r\n+    #[\\Override]\n     public function is_resource(): bool {\r\n         return is_resource($this->_f);\r\n     }\r\n@@ -129,6 +131,7 @@\n         return feof($this->_f);\r\n     }\r\n \r\n+    #[\\Override]\n     public function close(): bool {\r\n         return fclose($this->_f);\r\n     }\r\n@@ -149,14 +152,12 @@\n  */\r\n class POMO_StringReader extends POMO_Reader {\r\n \r\n-    protected string $_str = '';\r\n-\r\n-    public function __construct(string $str = '') {\r\n+    public function __construct(protected string $_str = '') {\r\n         parent::__construct();\r\n-        $this->_str = $str;\r\n         $this->_pos = 0;\r\n     }\r\n \r\n+    #[\\Override]\n     public function read(int $bytes): string {\r\n         $data = $this->substr($this->_str, $this->_pos, $bytes);\r\n         $this->_pos += $bytes;\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/018_streams.php"
+    ]
+  }
+}

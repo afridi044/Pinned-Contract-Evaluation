@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\084_class-wp-ajax-response.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:31:41.227031",
+    "file_size_kb": 5.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/084_class-wp-ajax-response.php",
+        "diff": "--- Original\n+++ New\n@@ -132,7 +132,7 @@\n \r\n \t\t\t\t$class_attr = '';\r\n \t\t\t\tif (is_object($error_data)) {\r\n-\t\t\t\t\t$class_attr = ' class=\"' . get_class($error_data) . '\"';\r\n+\t\t\t\t\t$class_attr = ' class=\"' . $error_data::class . '\"';\r\n \t\t\t\t\t$error_data = get_object_vars($error_data);\r\n \t\t\t\t}\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/084_class-wp-ajax-response.php"
+    ]
+  }
+}

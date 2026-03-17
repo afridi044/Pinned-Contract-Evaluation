@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\025_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 34
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:22:41.661614",
+    "file_size_kb": 15.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/025_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -214,10 +214,10 @@\n \t\t$control = $wp_registered_widget_controls[$widget_id];\r\n \t\t$control_callback = $control['callback'];\r\n \t} elseif ( ! isset( $wp_registered_widget_controls[$widget_id] ) && isset( $wp_registered_widgets[$widget_id] ) ) {\r\n-\t\t$name = esc_html( strip_tags($wp_registered_widgets[$widget_id]['name']) );\r\n+\t\t$name = esc_html( strip_tags((string) $wp_registered_widgets[$widget_id]['name']) );\r\n \t}\r\n \r\n-\t$name ??= esc_html( strip_tags($control['name']) );\r\n+\t$name ??= esc_html( strip_tags((string) $control['name']) );\r\n \r\n \t$sidebar ??= $_GET['sidebar'] ?? 'wp_inactive_widgets';\r\n \r\n@@ -251,7 +251,7 @@\n <?php\r\n \tforeach ( $wp_registered_sidebars as $sbname => $sbvalue ) {\r\n \t\techo \"\\t\\t<tr><td><label><input type='radio' name='sidebar' value='\" . esc_attr($sbname) . \"'\" . checked( $sbname, $sidebar, false ) . \" /> $sbvalue[name]</label></td><td>\";\r\n-\t\tif ( 'wp_inactive_widgets' === $sbname || 'orphaned_widgets' === substr( $sbname, 0, 16 ) ) {\r\n+\t\tif ( 'wp_inactive_widgets' === $sbname || str_starts_with((string) $sbname, 'orphaned_widgets') ) {\r\n \t\t\techo '&nbsp;';\r\n \t\t} else {\r\n \t\t\t$sidebars_widgets[$sbname] ??= [];\r\n@@ -355,7 +355,7 @@\n \r\n $theme_sidebars = [];\r\n foreach ( $wp_registered_sidebars as $sidebar => $registered_sidebar ) {\r\n-\tif ( false !== strpos( $registered_sidebar['class'], 'inactive-sidebar' ) || 'orphaned_widgets' === substr( $sidebar, 0, 16 ) ) {\r\n+\tif ( str_contains( (string) $registered_sidebar['class'], 'inactive-sidebar' ) || str_starts_with((string) $sidebar, 'orphaned_widgets') ) {\r\n \t\t$wrap_class = 'widgets-holder-wrap';\r\n \t\tif ( ! empty( $registered_sidebar['class'] ) ) {\r\n \t\t\t$wrap_class .= ' ' . $registered_sidebar['class'];\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/025_widgets.php"
+    ]
+  }
+}

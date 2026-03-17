@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\066_class.wp-dependencies.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 94
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:36:12.407377",
+    "file_size_kb": 13.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/066_class.wp-dependencies.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n declare(strict_types=1);\r\n \r\n@@ -445,44 +445,6 @@\n class _WP_Dependency\r\n {\r\n \t/**\r\n-\t * The handle name.\r\n-\t *\r\n-\t * @access public\r\n-\t * @since 2.6.0\r\n-\t * @var null\r\n-\t */\r\n-\tpublic ?string $handle;\r\n-\r\n-\t/**\r\n-\t * The handle source.\r\n-\t *\r\n-\t * @access public\r\n-\t * @since 2.6.0\r\n-\t * @var null\r\n-\t */\r\n-\tpublic string|false|null $src;\r\n-\r\n-\t/**\r\n-\t * An array of handle dependencies.\r\n-\t *\r\n-\t * @access public\r\n-\t * @since 2.6.0\r\n-\t * @var array\r\n-\t */\r\n-\tpublic array $deps;\r\n-\r\n-\t/**\r\n-\t * The handle version.\r\n-\t *\r\n-\t * Used for cache-busting.\r\n-\t *\r\n-\t * @access public\r\n-\t * @since 2.6.0\r\n-\t * @var bool|string\r\n-\t */\r\n-\tpublic string|false|null $ver;\r\n-\r\n-\t/**\r\n \t * Additional arguments for the handle.\r\n \t *\r\n \t * @access public\r\n@@ -505,12 +467,36 @@\n \t *\r\n \t * @since 2.6.0\r\n \t */\r\n-\tpublic function __construct(?string $handle = null, string|false|null $src = null, array $deps = [], string|false|null $ver = false, mixed $args = null)\r\n+\tpublic function __construct(/**\n+     * The handle name.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     * @var null\n+     */\n+    public ?string $handle = null, /**\n+     * The handle source.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     * @var null\n+     */\n+    public string|false|null $src = null, /**\n+     * An array of handle dependencies.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public array $deps = [], /**\n+     * The handle version.\n+     *\n+     * Used for cache-busting.\n+     *\n+     * @access public\n+     * @since 2.6.0\n+     */\n+    public string|false|null $ver = false, mixed $args = null)\r\n \t{\r\n-\t\t$this->handle = $handle;\r\n-\t\t$this->src = $src;\r\n-\t\t$this->deps = $deps;\r\n-\t\t$this->ver = $ver;\r\n \t\t$this->args = $args;\r\n \t}\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/066_class.wp-dependencies.php"
+    ]
+  }
+}

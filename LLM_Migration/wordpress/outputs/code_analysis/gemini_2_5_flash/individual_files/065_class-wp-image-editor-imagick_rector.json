@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\065_class-wp-image-editor-imagick.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 48
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:24:48.947533",
+    "file_size_kb": 14.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/065_class-wp-image-editor-imagick.php",
+        "diff": "--- Original\n+++ New\n@@ -100,7 +100,7 @@\n \t\ttry {\r\n \t\t\treturn (bool) @Imagick::queryFormats( $imagick_extension );\r\n \t\t}\r\n-\t\tcatch ( Exception $e ) {\r\n+\t\tcatch ( Exception ) {\r\n \t\t\treturn false;\r\n \t\t}\r\n \t}\r\n@@ -196,7 +196,7 @@\n \t\t\ttry {\r\n \t\t\t\t$size = $this->image->getImageGeometry();\r\n \t\t\t}\r\n-\t\t\tcatch ( Exception $e ) {\r\n+\t\t\tcatch ( Exception ) {\r\n \t\t\t\treturn new WP_Error( 'invalid_image', __('Could not read image size'), $this->file );\r\n \t\t\t}\r\n \t\t}\r\n@@ -455,7 +455,7 @@\n \t\t\t$orig_format = $this->image->getImageFormat();\r\n \r\n \t\t\t$this->image->setImageFormat( strtoupper( $this->get_extension( $mime_type ) ) );\r\n-\t\t\t$this->make_image( $filename, [ $image, 'writeImage' ], [ $filename ] );\r\n+\t\t\t$this->make_image( $filename, $image->writeImage(...), [ $filename ] );\r\n \r\n \t\t\t// Reset original Format\r\n \t\t\t$this->image->setImageFormat( $orig_format );\r\n@@ -465,7 +465,7 @@\n \t\t}\r\n \r\n \t\t// Set correct file permissions\r\n-\t\t$stat = stat( dirname( $filename ) );\r\n+\t\t$stat = stat( dirname( (string) $filename ) );\r\n \t\t$perms = $stat['mode'] & 0000666; //same permissions as parent folder, strip off the executable bits\r\n \t\t@ chmod( $filename, $perms );\r\n \r\n@@ -493,7 +493,7 @@\n \r\n \t\ttry {\r\n \t\t\t// Temporarily change format for stream\r\n-\t\t\t$this->image->setImageFormat( strtoupper( $extension ) );\r\n+\t\t\t$this->image->setImageFormat( strtoupper( (string) $extension ) );\r\n \r\n \t\t\t// Output stream of image content\r\n \t\t\theader( \"Content-Type: $mime_type\" );\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/065_class-wp-image-editor-imagick.php"
+    ]
+  }
+}

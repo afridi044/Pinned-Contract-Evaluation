@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\Rector_Baseline\\023_module.tag.id3v1.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 46
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:10:52.704043",
+    "file_size_kb": 11.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/023_module.tag.id3v1.php",
+        "diff": "--- Original\n+++ New\n@@ -33,10 +33,10 @@\n \n \t\t\t$info['avdataend'] = $info['filesize'] - 128;\n \n-\t\t\t$ParsedID3v1['title']   = $this->cutfield(substr((string) $id3v1tag,   3, 30));\n-\t\t\t$ParsedID3v1['artist']  = $this->cutfield(substr((string) $id3v1tag,  33, 30));\n-\t\t\t$ParsedID3v1['album']   = $this->cutfield(substr((string) $id3v1tag,  63, 30));\n-\t\t\t$ParsedID3v1['year']    = $this->cutfield(substr((string) $id3v1tag,  93,  4));\n+\t\t\t$ParsedID3v1['title']   = static::cutfield(substr((string) $id3v1tag,   3, 30));\n+\t\t\t$ParsedID3v1['artist']  = static::cutfield(substr((string) $id3v1tag,  33, 30));\n+\t\t\t$ParsedID3v1['album']   = static::cutfield(substr((string) $id3v1tag,  63, 30));\n+\t\t\t$ParsedID3v1['year']    = static::cutfield(substr((string) $id3v1tag,  93,  4));\n \t\t\t$ParsedID3v1['comment'] =                 substr((string) $id3v1tag,  97, 30);  // can't remove nulls yet, track detection depends on them\n \t\t\t$ParsedID3v1['genreid'] =             ord(substr((string) $id3v1tag, 127,  1));\n \n@@ -46,9 +46,9 @@\n \t\t\t\t$ParsedID3v1['track']   = ord(substr((string) $ParsedID3v1['comment'], 29,  1));\n \t\t\t\t$ParsedID3v1['comment'] =     substr((string) $ParsedID3v1['comment'],  0, 28);\n \t\t\t}\n-\t\t\t$ParsedID3v1['comment'] = $this->cutfield($ParsedID3v1['comment']);\n+\t\t\t$ParsedID3v1['comment'] = static::cutfield($ParsedID3v1['comment']);\n \n-\t\t\t$ParsedID3v1['genre'] = $this->LookupGenreName($ParsedID3v1['genreid']);\n+\t\t\t$ParsedID3v1['genre'] = static::LookupGenreName($ParsedID3v1['genreid']);\n \t\t\tif (!empty($ParsedID3v1['genre'])) {\n \t\t\t\tunset($ParsedID3v1['genreid']);\n \t\t\t}\n@@ -61,14 +61,7 @@\n \t\t\t}\n \n \t\t\t// ID3v1 data is supposed to be padded with NULL characters, but some taggers pad with spaces\n-\t\t\t$GoodFormatID3v1tag = $this->GenerateID3v1Tag(\n-\t\t\t\t\t\t\t\t\t\t\t$ParsedID3v1['title'],\n-\t\t\t\t\t\t\t\t\t\t\t$ParsedID3v1['artist'],\n-\t\t\t\t\t\t\t\t\t\t\t$ParsedID3v1['album'],\n-\t\t\t\t\t\t\t\t\t\t\t$ParsedID3v1['year'],\n-\t\t\t\t\t\t\t\t\t\t\t(isset($ParsedID3v1['genre']) ? $this->LookupGenreID($ParsedID3v1['genre']) : false),\n-\t\t\t\t\t\t\t\t\t\t\t$ParsedID3v1['comment'],\n-\t\t\t\t\t\t\t\t\t\t\t(!empty($ParsedID3v1['track']) ? $ParsedID3v1['track'] : ''));\n+\t\t\t$GoodFormatID3v1tag = static::GenerateID3v1Tag($ParsedID3v1['title'], $ParsedID3v1['artist'], $ParsedID3v1['album'], $ParsedID3v1['year'], (isset($ParsedID3v1['genre']) ? static::LookupGenreID($ParsedID3v1['genre']) : false), $ParsedID3v1['comment'], (!empty($ParsedID3v1['track']) ? $ParsedID3v1['track'] : ''));\n \t\t\t$ParsedID3v1['padding_valid'] = true;\n \t\t\tif ($id3v1tag !== $GoodFormatID3v1tag) {\n \t\t\t\t$ParsedID3v1['padding_valid'] = false;\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/023_module.tag.id3v1.php"
+    ]
+  }
+}

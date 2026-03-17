@@ -1,514 +1,978 @@
-#!/usr/bin/env python3
 """
 PHP Migration Model Evaluation Tool
-Analyzes the effectiveness of LLM-based PHP version migration
+
+Evaluates LLM-based PHP migration outputs using a Pinned Contract Evaluation
+(PCE)-aligned scoring procedure for the responsibilities owned by this file.
+
+Implemented here:
+- File-level rule-type incidence scoring
+- Primary scoring restricted to Rector\Php* rules
+- Per-file metrics: O_i, R_i, S_i, I_i, Δ_i, ρ_i
+- Model-level summaries: mean, median, weighted discharge, contract-clean count,
+  low-compliance count, introduced-obligation counts
+- Size-stratified reporting
+- PHP-family aggregation using Rector\Php* rules
+
+Not implemented here:
+- Execution or verification of the pinned Rector contract itself
+- Patch-volume closure (D_i, D_i^orig, WDC, MFDC)
+- Syntax, structural, PHPCompatibility, or loadability diagnostics
 """
 
 import sys
 from pathlib import Path
-
-# Add parent directory to path to import shared config
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import LLM_EVALUATION_REPORTS_DIR, LLM_EVAL_DIR, SELECTED_100_FILES_DIR
-
 import json
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from typing import Dict, List, Tuple, Any
+import random
+import re
+from typing import Dict, List, Any, Optional, Iterator
 from dataclasses import dataclass
-from datetime import datetime
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
+
+SEED = 42
+np.random.seed(SEED)
+random.seed(SEED)
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from config import (  # noqa: E402
+    LLM_CODE_ANALYSIS_DIR,
+    LLM_EVAL_SUBDIR,
+    SELECTED_100_FILES_DIR,
+)
+
+UPGRADE_RULE_PREFIXES = ("Rector\\Php",)
+
+
+def is_upgrade_rule(rule_name: Any) -> bool:
+    """Return True if a rule belongs to the scored Rector PHP upgrade families."""
+    return isinstance(rule_name, str) and rule_name.startswith(UPGRADE_RULE_PREFIXES)
+
+
+def normalize_rule_set(rules: Any) -> set[str]:
+    """Convert a rule collection into a normalized set of strings."""
+    if rules is None or not isinstance(rules, (list, tuple, set)):
+        return set()
+    return {r for r in rules if isinstance(r, str)}
+
+
+def normalize_upgrade_rule_set(rules: Any) -> set[str]:
+    """Convert a rule collection into a normalized set of scored upgrade rules."""
+    return {r for r in normalize_rule_set(rules) if is_upgrade_rule(r)}
+
 
 @dataclass
 class MigrationResult:
-    """Data class for migration analysis results"""
+    """Per-file PCE-aligned result."""
+
     file_id: int
+    original_file_id: int
     filename: str
-    original_issues: int
-    resolved_issues: int
-    remaining_issues: int
-    resolution_rate: float
+    original_obligations: int      # O_i = |𝒪_i|
+    discharged_obligations: int    # S_i = |𝒪_i \ 𝓡_i|
+    introduced_obligations: int    # I_i = |𝓡_i \ 𝒪_i|
+    remaining_obligations: int     # R_i = |𝓡_i|
+    net_change: int                # Δ_i = S_i - I_i
+    discharge_rate: float          # ρ_i = S_i / O_i * 100
     size_category: str
 
+
 class PHPMigrationEvaluator:
-    """Comprehensive evaluation of PHP migration model performance"""
-    
-    def __init__(self, model_folder: str = None):
-        # Use paths from shared config
-        self.base_dir = LLM_EVAL_DIR  # LLM_eval folder for selection data
-        self.migration_reports_dir = LLM_EVALUATION_REPORTS_DIR  # LLM_Migration/evaluation_reports
-        
-        # Auto-detect model folder if not specified
+    """Evaluates PHP migration model outputs using PCE-aligned metrics."""
+
+    def __init__(self, model_folder: Optional[str] = None):
+        self.migration_reports_dir = LLM_CODE_ANALYSIS_DIR
+
         if model_folder is None:
-            model_folders = [d for d in self.migration_reports_dir.iterdir() 
-                           if d.is_dir() and not d.name.startswith('.') and d.name != '__pycache__']
-            if model_folders:
-                # Take the first valid model folder found
-                self.model_dir = model_folders[0]
-            else:
-                raise ValueError("No model folder found in LLM_Migration/evaluation_reports")
+            model_folders = sorted(
+                [
+                    d for d in self.migration_reports_dir.iterdir()
+                    if d.is_dir() and not d.name.startswith(".") and d.name != "__pycache__"
+                ],
+                key=lambda p: p.name.lower(),
+            )
+            if not model_folders:
+                raise ValueError(f"No model folder found in: {self.migration_reports_dir}")
+            self.model_dir = model_folders[0]
         else:
             self.model_dir = self.migration_reports_dir / model_folder
-            
-        # Extract and sanitize model name from folder
+
+        if not self.model_dir.exists():
+            raise ValueError(f"Model folder not found: {self.model_dir}")
+
         self.model_name = self._sanitize_model_name(self.model_dir.name)
-        self.model_folder_name = self.model_dir.name  # Keep original folder name
-        
-        # Create output directory for this model in LLM_eval
-        self.output_dir = self.base_dir / self.model_folder_name
-        self.output_dir.mkdir(exist_ok=True)
-        
-        self.selection_data = None
-        self.model_data = None
-        self.individual_files = {}
-        self.evaluation_results = []
-    
+        self.model_folder_name = self.model_dir.name
+
+        self.output_dir = LLM_EVAL_SUBDIR / self.model_folder_name
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+
+        self.selection_data: Optional[pd.DataFrame] = None
+        self.selection_data_detailed: List[Dict[str, Any]] = []
+        self.selection_data_by_id: Dict[int, Dict[str, Any]] = {}
+        self.model_data: Optional[pd.DataFrame] = None
+        self.model_metadata: Dict[int, Dict[str, Any]] = {}
+        self.individual_files: Dict[int, Dict[str, Any]] = {}
+        self.evaluation_results: List[MigrationResult] = []
+        self.skipped_error_files: List[Dict[str, Any]] = []
+
     def _sanitize_model_name(self, folder_name: str) -> str:
-        """Convert folder name to readable model name"""
-        # Replace underscores with spaces and capitalize words
-        sanitized = folder_name.replace('_', ' ')
-        
-        # Handle special cases for common model naming patterns
-        # Handle Meta-Llama specifically
-        if 'meta llama' in sanitized.lower():
-            # Replace pattern like "meta llama llama 3 3 70b instruct"
-            sanitized = sanitized.replace('meta llama llama', 'Meta-Llama')
-            sanitized = sanitized.replace('meta llama', 'Meta-Llama')
-        
-        # Handle other common patterns
-        sanitized = sanitized.replace('llama', 'Llama')
-        sanitized = sanitized.replace('instruct', 'Instruct')
-        sanitized = sanitized.replace('gpt', 'GPT')
-        sanitized = sanitized.replace('claude', 'Claude')
-        sanitized = sanitized.replace('gemini', 'Gemini')
-        
-        # Fix version numbers (e.g., "3 3" -> "3.3")
-        import re
-        # Pattern to match version numbers like "3 3 70b" -> "3.3 70B"
-        sanitized = re.sub(r'(\d+)\s+(\d+)\s+(\d+)([a-z])', r'\1.\2 \3\4', sanitized)
-        sanitized = re.sub(r'(\d+)([a-z])', r'\1\2', sanitized.upper())
-        
-        # Capitalize each word properly
+        """Convert a model folder name into a readable display name."""
+        sanitized = folder_name.replace("_", " ")
+
+        if "meta llama" in sanitized.lower():
+            sanitized = sanitized.replace("meta llama llama", "Meta-Llama")
+            sanitized = sanitized.replace("meta llama", "Meta-Llama")
+
+        sanitized = sanitized.replace("llama", "Llama")
+        sanitized = sanitized.replace("instruct", "Instruct")
+        sanitized = sanitized.replace("gpt", "GPT")
+        sanitized = sanitized.replace("claude", "Claude")
+        sanitized = sanitized.replace("gemini", "Gemini")
+
+        sanitized = re.sub(r"(\d+)\s+(\d+)\s+(\d+)([a-z])", r"\1.\2 \3\4", sanitized)
+        sanitized = re.sub(r"(\d+)([a-z])", r"\1\2", sanitized.upper())
+
         words = sanitized.split()
         capitalized_words = []
         for word in words:
-            # Handle version numbers and special formatting
-            if 'B' in word.upper() and any(c.isdigit() for c in word):
+            if "B" in word.upper() and any(c.isdigit() for c in word):
                 capitalized_words.append(word.upper())
-            elif word.replace('.', '').isdigit():
+            elif word.replace(".", "").isdigit():
                 capitalized_words.append(word)
             else:
                 capitalized_words.append(word.capitalize())
-        
-        return ' '.join(capitalized_words)
-        
-    def load_data(self):
-        """Load all necessary data files"""
-        print("Loading evaluation data...")
-        
-        # Load selection summary from dataset/selected_100_files
+
+        return " ".join(capitalized_words)
+
+    def load_data(self) -> None:
+        """Load all required input artifacts."""
         selection_file = SELECTED_100_FILES_DIR / "selection_summary.csv"
         self.selection_data = pd.read_csv(selection_file)
-        print(f"Loaded {len(self.selection_data)} original files")
-        
-        # Load detailed selection data for version analysis from dataset/selected_100_files
+
         selection_json_file = SELECTED_100_FILES_DIR / "selection_data.json"
-        with open(selection_json_file, 'r', encoding='utf-8') as f:
+        with open(selection_json_file, "r", encoding="utf-8") as f:
             self.selection_data_detailed = json.load(f)
-        
-        # Load model results
+
+        self.selection_data_by_id = {
+            int(item["file_id"]): item
+            for item in self.selection_data_detailed
+            if "file_id" in item
+        }
+
         model_file = self.model_dir / "summary.csv"
         self.model_data = pd.read_csv(model_file)
+        if "analysis_status" not in self.model_data.columns:
+            self.model_data["analysis_status"] = "success"
+        if "error_message" not in self.model_data.columns:
+            self.model_data["error_message"] = ""
         print(f"Loaded {len(self.model_data)} model output files")
-        
-        # Load individual evaluation files
+
+        metadata_file = self.model_dir / "metadata.json"
+        if metadata_file.exists():
+            with open(metadata_file, "r", encoding="utf-8") as f:
+                metadata = json.load(f)
+                for file_entry in metadata.get("files", []):
+                    try:
+                        file_id = int(file_entry.get("file_id"))
+                    except Exception:
+                        continue
+                    self.model_metadata[file_id] = file_entry
+
         individual_dir = self.model_dir / "individual_files"
-        for json_file in individual_dir.glob("*.json"):
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-                file_id = int(json_file.stem.split('_')[0])
-                self.individual_files[file_id] = data
-        
+        if individual_dir.exists():
+            for json_file in individual_dir.glob("*.json"):
+                with open(json_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    file_id = int(json_file.stem.split("_")[0])
+                    self.individual_files[file_id] = data
+
         print(f"Loaded {len(self.individual_files)} individual evaluation files")
-        
-    def analyze_migration_effectiveness(self) -> List[MigrationResult]:
-        """Analyze the effectiveness of migration for each file"""
-        print("Analyzing migration effectiveness...")
-        
-        results = []
-        
-        for _, row in self.selection_data.iterrows():
-            file_id = row['file_id']
-            
-            # Get corresponding model data
-            model_row = self.model_data[self.model_data['file_id'] == file_id]
+
+    def _iter_analyzable_file_payloads(
+        self,
+        collect_skips: bool = False,
+    ) -> Iterator[Dict[str, Any]]:
+        """
+        Yield only files that are analyzable under the same exclusion logic used
+        for primary scoring.
+
+        This is the single source of truth for model-level inclusion. Panel A/B,
+        Panel C, and downstream grouped summaries should all be derived from this
+        same analyzable subset.
+        """
+        if self.model_data is None:
+            raise RuntimeError("Model data not loaded")
+        if not self.selection_data_detailed:
+            raise RuntimeError("Selection data not loaded")
+
+        for orig_file_data in self.selection_data_detailed:
+            original_file_id = int(orig_file_data["file_id"])
+            new_file_id = int(orig_file_data.get("new_file_id", original_file_id))
+
+            model_row = self.model_data[self.model_data["file_id"] == new_file_id]
             if model_row.empty:
+                if collect_skips:
+                    self.skipped_error_files.append(
+                        {
+                            "file_id": new_file_id,
+                            "filename": orig_file_data.get(
+                                "new_filename",
+                                orig_file_data.get("filename", str(new_file_id)),
+                            ),
+                            "error_message": "Missing model data row",
+                        }
+                    )
                 continue
-                
-            model_row = model_row.iloc[0]
-            
-            # Calculate metrics
-            original_issues = row['php_version_changes']
-            remaining_issues = model_row['php_version_changes']
-            resolved_issues = max(0, original_issues - remaining_issues)
-            
-            # Calculate resolution rate
-            resolution_rate = (resolved_issues / original_issues * 100) if original_issues > 0 else 100
-            
-            result = MigrationResult(
-                file_id=file_id,
-                filename=row['filename'],
-                original_issues=original_issues,
-                resolved_issues=resolved_issues,
-                remaining_issues=remaining_issues,
-                resolution_rate=resolution_rate,
-                size_category=row['size_category']
+
+            row = model_row.iloc[0]
+            analysis_status = str(row.get("analysis_status", "success")).strip().lower()
+            error_message = str(row.get("error_message", "")).strip()
+
+            if analysis_status == "error":
+                if collect_skips:
+                    self.skipped_error_files.append(
+                        {
+                            "file_id": new_file_id,
+                            "filename": orig_file_data.get(
+                                "new_filename",
+                                orig_file_data.get("filename", str(new_file_id)),
+                            ),
+                            "error_message": error_message,
+                        }
+                    )
+                continue
+
+            metadata_entry = self.model_metadata.get(new_file_id)
+            if metadata_entry:
+                metadata_status = str(
+                    metadata_entry.get("analysis_metadata", {}).get("status", "success")
+                ).strip().lower()
+                if metadata_status == "error":
+                    if collect_skips:
+                        self.skipped_error_files.append(
+                            {
+                                "file_id": new_file_id,
+                                "filename": metadata_entry.get("filename", str(new_file_id)),
+                                "error_message": metadata_entry.get(
+                                    "analysis_metadata", {}
+                                ).get("error_message", ""),
+                            }
+                        )
+                    continue
+
+            migrated_file_data = self.individual_files.get(new_file_id)
+            if not migrated_file_data:
+                if collect_skips:
+                    self.skipped_error_files.append(
+                        {
+                            "file_id": new_file_id,
+                            "filename": orig_file_data.get(
+                                "new_filename",
+                                orig_file_data.get("filename", str(new_file_id)),
+                            ),
+                            "error_message": "Missing individual migrated data",
+                        }
+                    )
+                continue
+
+            if "error" in migrated_file_data:
+                if collect_skips:
+                    self.skipped_error_files.append(
+                        {
+                            "file_id": new_file_id,
+                            "filename": orig_file_data.get(
+                                "new_filename",
+                                orig_file_data.get("filename", str(new_file_id)),
+                            ),
+                            "error_message": str(
+                                migrated_file_data.get("error", "Rector analysis error")
+                            ),
+                        }
+                    )
+                continue
+
+            orig_rules_all = normalize_rule_set(orig_file_data.get("rules_triggered", []))
+            rem_rules_all = normalize_rule_set(
+                migrated_file_data.get("rector_analysis", {}).get("rules_triggered", [])
             )
-            
-            results.append(result)
-        
+
+            orig_upgrade_rules = {r for r in orig_rules_all if is_upgrade_rule(r)}
+            rem_upgrade_rules = {r for r in rem_rules_all if is_upgrade_rule(r)}
+
+            yield {
+                "original_file_id": original_file_id,
+                "new_file_id": new_file_id,
+                "filename": orig_file_data.get(
+                    "new_filename",
+                    orig_file_data.get("filename", str(new_file_id)),
+                ),
+                "size_category": orig_file_data.get("size_category", "unknown"),
+                "orig_file_data": orig_file_data,
+                "migrated_file_data": migrated_file_data,
+                "orig_rules_all": orig_rules_all,
+                "rem_rules_all": rem_rules_all,
+                "orig_upgrade_rules": orig_upgrade_rules,
+                "rem_upgrade_rules": rem_upgrade_rules,
+            }
+
+    def analyze_migration_effectiveness(self) -> List[MigrationResult]:
+        """
+        Analyze migration effectiveness using PCE-aligned primary scoring.
+
+        Scoring scope is restricted to Rector\\Php* rules.
+        """
+        results: List[MigrationResult] = []
+        self.skipped_error_files = []
+
+        for item in self._iter_analyzable_file_payloads(collect_skips=True):
+            original_file_id = item["original_file_id"]
+            new_file_id = item["new_file_id"]
+            filename = item["filename"]
+            size_category = item["size_category"]
+            orig_obligation_set = item["orig_upgrade_rules"]
+            rem_obligation_set = item["rem_upgrade_rules"]
+
+            discharged_rules = orig_obligation_set - rem_obligation_set
+            introduced_rules = rem_obligation_set - orig_obligation_set
+
+            original_obligations = len(orig_obligation_set)
+            discharged_obligations = len(discharged_rules)
+            introduced_obligations = len(introduced_rules)
+            remaining_obligations = len(rem_obligation_set)
+            net_change = discharged_obligations - introduced_obligations
+
+            if original_obligations == 0:
+                raise ValueError(
+                    "Unexpected clean benchmark file after Rector\\Php* filtering: "
+                    f"file_id={new_file_id}, filename={filename}"
+                )
+
+            discharge_rate = (discharged_obligations / original_obligations) * 100.0
+
+            results.append(
+                MigrationResult(
+                    file_id=new_file_id,
+                    original_file_id=original_file_id,
+                    filename=filename,
+                    original_obligations=original_obligations,
+                    discharged_obligations=discharged_obligations,
+                    introduced_obligations=introduced_obligations,
+                    remaining_obligations=remaining_obligations,
+                    net_change=net_change,
+                    discharge_rate=discharge_rate,
+                    size_category=size_category,
+                )
+            )
+
         self.evaluation_results = results
         return results
-    
+
     def analyze_php_version_patterns(self) -> Dict[str, Any]:
-        """Analyze patterns in PHP version changes"""
+        """Aggregate scored rule behavior by PHP family and rule type."""
         print("Analyzing PHP version migration patterns...")
-        
-        # Initialize version analysis with all PHP versions
-        version_analysis = {
-            'php_53': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_54': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_56': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_70': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_71': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_74': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_80': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_81': {'original': 0, 'remaining': 0, 'resolved': 0},
-            'php_82': {'original': 0, 'remaining': 0, 'resolved': 0}
+
+        version_analysis: Dict[str, Dict[str, int]] = {}
+        rule_effectiveness: Dict[str, Dict[str, float]] = {}
+
+        php_version_pattern = re.compile(r"\\Php(\d+)\\")
+        filtered_out = {
+            "original_non_upgrade_rules": 0,
+            "remaining_non_upgrade_rules": 0,
         }
-        
-        rule_effectiveness = {}
-        
-        # Function to extract PHP version from rule name
-        def get_php_version_from_rule(rule_name):
-            if 'Php53' in rule_name:
-                return 'php_53'
-            elif 'Php54' in rule_name:
-                return 'php_54'
-            elif 'Php56' in rule_name:
-                return 'php_56'
-            elif 'Php70' in rule_name:
-                return 'php_70'
-            elif 'Php71' in rule_name:
-                return 'php_71'
-            elif 'Php74' in rule_name:
-                return 'php_74'
-            elif 'Php80' in rule_name:
-                return 'php_80'
-            elif 'Php81' in rule_name:
-                return 'php_81'
-            elif 'Php82' in rule_name:
-                return 'php_82'
-            return None
-        
-        # Process original files to get original version-specific issues
-        for file_data in self.selection_data_detailed:
-            if 'rules_triggered' in file_data and file_data['rules_triggered']:
-                for rule in file_data['rules_triggered']:
-                    version = get_php_version_from_rule(rule)
-                    if version and version in version_analysis:
-                        version_analysis[version]['original'] += 1
-        
-        # Process post-migration files to get remaining version-specific issues
-        for file_id, file_data in self.individual_files.items():
-            if 'rector_analysis' in file_data:
-                analysis = file_data['rector_analysis']
-                
-                # Process remaining version-specific changes
-                if 'changes_by_php_version' in analysis:
-                    for version, count in analysis['changes_by_php_version'].items():
-                        if version in version_analysis:
-                            version_analysis[version]['remaining'] += count
-                
-                # Process rule effectiveness
-                if 'rules_triggered' in analysis:
-                    for rule in analysis['rules_triggered']:
-                        if rule not in rule_effectiveness:
-                            rule_effectiveness[rule] = {'files_applied': 0, 'total_changes': 0}
-                        rule_effectiveness[rule]['files_applied'] += 1
-                        rule_effectiveness[rule]['total_changes'] += 1
-        
-        # Calculate resolved issues for each version
-        for version in version_analysis:
-            original = version_analysis[version]['original']
-            remaining = version_analysis[version]['remaining']
-            version_analysis[version]['resolved'] = max(0, original - remaining)
-        
-        return {
-            'version_analysis': version_analysis,
-            'rule_effectiveness': rule_effectiveness
-        }
-    
-    def calculate_aggregate_metrics(self) -> Dict[str, float]:
-        """Calculate overall model performance metrics"""
-        print("Calculating aggregate performance metrics...")
-        
-        if not self.evaluation_results:
-            return {}
-        
-        total_files = len(self.evaluation_results)
-        total_original_issues = sum(r.original_issues for r in self.evaluation_results)
-        total_resolved_issues = sum(r.resolved_issues for r in self.evaluation_results)
-        total_remaining_issues = sum(r.remaining_issues for r in self.evaluation_results)
-        
-        # Calculate metrics by size category
-        size_metrics = {}
-        for category in ['small', 'medium', 'large', 'extra_large']:
-            category_results = [r for r in self.evaluation_results if r.size_category == category]
-            if category_results:
-                size_metrics[category] = {
-                    'files': len(category_results),
-                    'avg_resolution_rate': np.mean([r.resolution_rate for r in category_results]),
-                    'total_issues_resolved': sum(r.resolved_issues for r in category_results),
-                    'total_original_issues': sum(r.original_issues for r in category_results)
+
+        def get_php_version_from_rule(rule_name: str) -> Optional[str]:
+            match = php_version_pattern.search(rule_name)
+            if not match:
+                return None
+            return f"php_{match.group(1)}"
+
+        def ensure_version(version_key: str) -> None:
+            if version_key not in version_analysis:
+                version_analysis[version_key] = {
+                    "original": 0,
+                    "remaining": 0,
+                    "discharged": 0,
+                    "introduced": 0,
+                    "net_change": 0,
+                    "discharge_rate": 0.0,
                 }
-        
-        # Perfect migration files (100% resolution)
-        perfect_migrations = len([r for r in self.evaluation_results 
-                                if r.resolution_rate == 100])
-        
-        # Files with poor performance (less than 50% resolution)
-        poor_performance_files = len([r for r in self.evaluation_results if r.resolution_rate < 50])
-        
+
+        def ensure_rule(rule_name: str) -> None:
+            if rule_name not in rule_effectiveness:
+                rule_effectiveness[rule_name] = {
+                    "original_count": 0,
+                    "remaining_count": 0,
+                    "discharged_count": 0,
+                    "introduced_count": 0,
+                    "net_change": 0,
+                    "discharge_rate": 0.0,
+                }
+
+        # IMPORTANT: use the same analyzable subset as primary scoring.
+        for item in self._iter_analyzable_file_payloads(collect_skips=False):
+            orig_rules_all = item["orig_rules_all"]
+            rem_rules_all = item["rem_rules_all"]
+            orig_rules = item["orig_upgrade_rules"]
+            rem_rules = item["rem_upgrade_rules"]
+
+            filtered_out["original_non_upgrade_rules"] += len(orig_rules_all - orig_rules)
+            filtered_out["remaining_non_upgrade_rules"] += len(rem_rules_all - rem_rules)
+
+            discharged_rules = orig_rules - rem_rules
+            introduced_rules = rem_rules - orig_rules
+
+            for rule in orig_rules:
+                ensure_rule(rule)
+                rule_effectiveness[rule]["original_count"] += 1
+
+                version = get_php_version_from_rule(rule)
+                if version:
+                    ensure_version(version)
+                    version_analysis[version]["original"] += 1
+
+            for rule in rem_rules:
+                ensure_rule(rule)
+                rule_effectiveness[rule]["remaining_count"] += 1
+
+                version = get_php_version_from_rule(rule)
+                if version:
+                    ensure_version(version)
+                    version_analysis[version]["remaining"] += 1
+
+            for rule in discharged_rules:
+                ensure_rule(rule)
+                rule_effectiveness[rule]["discharged_count"] += 1
+
+                version = get_php_version_from_rule(rule)
+                if version:
+                    ensure_version(version)
+                    version_analysis[version]["discharged"] += 1
+
+            for rule in introduced_rules:
+                ensure_rule(rule)
+                rule_effectiveness[rule]["introduced_count"] += 1
+
+                version = get_php_version_from_rule(rule)
+                if version:
+                    ensure_version(version)
+                    version_analysis[version]["introduced"] += 1
+
+        for version, data in version_analysis.items():
+            discharged = int(data["discharged"])
+            introduced = int(data["introduced"])
+            original = int(data["original"])
+            data["net_change"] = discharged - introduced
+            data["discharge_rate"] = (discharged / original * 100.0) if original > 0 else 0.0
+
+        for rule, data in rule_effectiveness.items():
+            discharged = int(data["discharged_count"])
+            introduced = int(data["introduced_count"])
+            original = int(data["original_count"])
+            data["net_change"] = discharged - introduced
+            data["discharge_rate"] = (discharged / original * 100.0) if original > 0 else 0.0
+
+        family_analysis = self._group_versions_by_family(version_analysis)
+
         return {
-            'total_files_analyzed': total_files,
-            'total_original_issues': total_original_issues,
-            'total_resolved_issues': total_resolved_issues,
-            'total_remaining_issues': total_remaining_issues,
-            'average_resolution_rate': np.mean([r.resolution_rate for r in self.evaluation_results]),
-            'perfect_migrations': perfect_migrations,
-            'perfect_migration_rate': (perfect_migrations / total_files * 100),
-            'poor_performance_files': poor_performance_files,
-            'poor_performance_rate': (poor_performance_files / total_files * 100),
-            'size_category_metrics': size_metrics
+            "version_analysis": version_analysis,
+            "family_analysis": family_analysis,
+            "rule_effectiveness": rule_effectiveness,
+            "filtered_out": filtered_out,
+            "unit_note": (
+                "Counts are computed from per-file rule-set differences using "
+                "Rector\\Php* rule types only on the analyzable migrated subset."
+            ),
         }
-    
+
+    @staticmethod
+    def _group_versions_by_family(
+        version_analysis: Dict[str, Dict[str, Any]]
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Aggregate fine-grained php_NN keys into PHP major families:
+          PHP 5.x  -> php_50..59
+          PHP 7.x  -> php_70..79
+          PHP 8.x  -> php_80..89
+
+        Returns a dict keyed by 'PHP 5.x', 'PHP 7.x', 'PHP 8.x' with the
+        same sub-fields as version_analysis (original, discharged, remaining,
+        introduced, net_change, discharge_rate).
+        """
+        families: Dict[str, Dict[str, Any]] = {
+            "PHP 5.x": {"original": 0, "discharged": 0, "remaining": 0, "introduced": 0},
+            "PHP 7.x": {"original": 0, "discharged": 0, "remaining": 0, "introduced": 0},
+            "PHP 8.x": {"original": 0, "discharged": 0, "remaining": 0, "introduced": 0},
+        }
+        family_map = {"5": "PHP 5.x", "7": "PHP 7.x", "8": "PHP 8.x"}
+
+        for key, data in version_analysis.items():
+            digits = key.replace("php_", "")
+            if not digits:
+                continue
+            major = digits[0]
+            family = family_map.get(major)
+            if family is None:
+                continue
+            for field in ("original", "discharged", "remaining", "introduced"):
+                families[family][field] += int(data.get(field, 0))
+
+        for fam, data in families.items():
+            original = data["original"]
+            discharged = data["discharged"]
+            introduced = data["introduced"]
+            data["net_change"] = discharged - introduced
+            data["discharge_rate"] = (
+                discharged / original * 100.0 if original > 0 else 0.0
+            )
+
+        return families
+
+    def _assert_family_totals_match_metrics(
+        self,
+        metrics: Dict[str, Any],
+        family_analysis: Dict[str, Dict[str, Any]],
+    ) -> None:
+        """
+        Reconciliation guardrail: grouped family totals must exactly match the
+        primary metrics totals computed from self.evaluation_results.
+        """
+        fam_original = sum(int(v.get("original", 0)) for v in family_analysis.values())
+        fam_discharged = sum(int(v.get("discharged", 0)) for v in family_analysis.values())
+        fam_remaining = sum(int(v.get("remaining", 0)) for v in family_analysis.values())
+        fam_introduced = sum(int(v.get("introduced", 0)) for v in family_analysis.values())
+
+        if fam_original != int(metrics["total_original_obligations"]):
+            raise ValueError(
+                f"Family original mismatch: {fam_original} != "
+                f"{metrics['total_original_obligations']}"
+            )
+        if fam_discharged != int(metrics["total_discharged_obligations"]):
+            raise ValueError(
+                f"Family discharged mismatch: {fam_discharged} != "
+                f"{metrics['total_discharged_obligations']}"
+            )
+        if fam_remaining != int(metrics["total_remaining_obligations"]):
+            raise ValueError(
+                f"Family remaining mismatch: {fam_remaining} != "
+                f"{metrics['total_remaining_obligations']}"
+            )
+        if fam_introduced != int(metrics["total_introduced_obligations"]):
+            raise ValueError(
+                f"Family introduced mismatch: {fam_introduced} != "
+                f"{metrics['total_introduced_obligations']}"
+            )
+
+    def calculate_aggregate_metrics(self) -> Dict[str, Any]:
+        """Calculate model-level PCE-aligned summary metrics."""
+        print("Calculating aggregate performance metrics...")
+
+        if not self.evaluation_results:
+            return {
+                "total_files_attempted": 0,
+                "total_files_analyzed": 0,
+                "total_files_with_errors": 0,
+                "total_original_obligations": 0,
+                "total_discharged_obligations": 0,
+                "total_remaining_obligations": 0,
+                "total_introduced_obligations": 0,
+                "total_net_change": 0,
+                "weighted_discharge_rate": 0.0,
+                "average_discharge_rate": 0.0,
+                "median_discharge_rate": 0.0,
+                "contract_clean_files": 0,
+                "contract_clean_rate": 0.0,
+                "files_with_introduced_obligations": 0,
+                "files_with_introduced_obligations_rate": 0.0,
+                "net_negative_files": 0,
+                "net_negative_files_rate": 0.0,
+                "low_compliance_files": 0,
+                "low_compliance_rate": 0.0,
+                "size_category_metrics": {},
+            }
+
+        total_files = len(self.evaluation_results)
+        total_error_files = len(self.skipped_error_files)
+        total_attempted_files = total_files + total_error_files
+        total_original_obligations = sum(r.original_obligations for r in self.evaluation_results)
+        total_discharged_obligations = sum(r.discharged_obligations for r in self.evaluation_results)
+        total_remaining_obligations = sum(r.remaining_obligations for r in self.evaluation_results)
+        total_introduced_obligations = sum(r.introduced_obligations for r in self.evaluation_results)
+        total_net_change = sum(r.net_change for r in self.evaluation_results)
+
+        nonzero_original = [r for r in self.evaluation_results if r.original_obligations > 0]
+        discharge_rates = [r.discharge_rate for r in nonzero_original]
+
+        size_metrics: Dict[str, Dict[str, Any]] = {}
+        for category in ["small", "medium", "large", "extra_large"]:
+            category_results = [r for r in self.evaluation_results if r.size_category == category]
+            if not category_results:
+                continue
+
+            total_cat_original = sum(r.original_obligations for r in category_results)
+            total_cat_discharged = sum(r.discharged_obligations for r in category_results)
+
+            size_metrics[category] = {
+                "files": len(category_results),
+                "avg_discharge_rate": float(np.mean([r.discharge_rate for r in category_results])),
+                "median_discharge_rate": float(np.median([r.discharge_rate for r in category_results])),
+                "total_obligations_discharged": total_cat_discharged,
+                "total_original_obligations": total_cat_original,
+                "weighted_discharge_rate": (
+                    total_cat_discharged / total_cat_original * 100.0
+                    if total_cat_original > 0 else float("nan")
+                ),
+            }
+
+        contract_clean_files = len([r for r in self.evaluation_results if r.remaining_obligations == 0])
+        files_with_introduced_obligations = len(
+            [r for r in self.evaluation_results if r.introduced_obligations > 0]
+        )
+        net_negative_files = len([r for r in self.evaluation_results if r.net_change < 0])
+        low_compliance_files = len([r for r in nonzero_original if r.discharge_rate < 50.0])
+
+        return {
+            "total_files_attempted": total_attempted_files,
+            "total_files_analyzed": total_files,
+            "total_files_with_errors": total_error_files,
+            "total_original_obligations": total_original_obligations,
+            "total_discharged_obligations": total_discharged_obligations,
+            "total_remaining_obligations": total_remaining_obligations,
+            "total_introduced_obligations": total_introduced_obligations,
+            "total_net_change": total_net_change,
+            "weighted_discharge_rate": (
+                total_discharged_obligations / total_original_obligations * 100.0
+                if total_original_obligations > 0 else float("nan")
+            ),
+            "average_discharge_rate": float(np.mean(discharge_rates)) if discharge_rates else float("nan"),
+            "median_discharge_rate": float(np.median(discharge_rates)) if discharge_rates else float("nan"),
+            "contract_clean_files": contract_clean_files,
+            "contract_clean_rate": contract_clean_files / total_files * 100.0,
+            "files_with_introduced_obligations": files_with_introduced_obligations,
+            "files_with_introduced_obligations_rate": files_with_introduced_obligations / total_files * 100.0,
+            "net_negative_files": net_negative_files,
+            "net_negative_files_rate": net_negative_files / total_files * 100.0,
+            "low_compliance_files": low_compliance_files,
+            "low_compliance_rate": (
+                low_compliance_files / len(nonzero_original) * 100.0
+                if nonzero_original else float("nan")
+            ),
+            "size_category_metrics": size_metrics,
+        }
+
     def generate_detailed_report(self) -> str:
-        """Generate comprehensive markdown report"""
+        """Generate a markdown report with PCE-aligned summaries."""
         print("Generating detailed evaluation report...")
-        
+
         metrics = self.calculate_aggregate_metrics()
         version_patterns = self.analyze_php_version_patterns()
-        
+        self._assert_family_totals_match_metrics(
+            metrics, version_patterns["family_analysis"]
+        )
+
         report = f"""# PHP Code Migration Model Evaluation Report
 ## {self.model_name} Model Performance Analysis
 
-**Generated on:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-
 ## Executive Summary
 
-This report presents a comprehensive evaluation of the {self.model_name} model's performance in migrating PHP code to newer versions. The analysis covers {metrics['total_files_analyzed']} PHP files with a total of {metrics['total_original_issues']} version-specific issues.
+This report presents an evaluation of the {self.model_name} model's PHP migration outputs using file-level rule-type incidence scoring over `Rector\\Php*` rules. The run attempted {metrics['total_files_attempted']} files, analyzed {metrics['total_files_analyzed']} successfully, and skipped {metrics['total_files_with_errors']} Rector-error files.
 
-### Key Performance Indicators
+### Primary Metrics
 
-- **Average Resolution Rate:** {metrics['average_resolution_rate']:.2f}%
-- **Perfect Migrations:** {metrics['perfect_migrations']} files ({metrics['perfect_migration_rate']:.2f}%)
-- **Total Issues Resolved:** {metrics['total_resolved_issues']}/{metrics['total_original_issues']} issues
-- **Files with Poor Performance:** {metrics['poor_performance_files']} ({metrics['poor_performance_rate']:.2f}%)
+- **Mean discharge rate:** {metrics['average_discharge_rate']:.2f}%
+- **Median discharge rate:** {metrics['median_discharge_rate']:.2f}%
+- **Weighted discharge rate:** {metrics['weighted_discharge_rate']:.2f}%
+- **Files attempted:** {metrics['total_files_attempted']}
+- **Files analyzed successfully:** {metrics['total_files_analyzed']}
+- **Files skipped due to Rector errors:** {metrics['total_files_with_errors']}
+- **Total discharged obligations:** {metrics['total_discharged_obligations']}/{metrics['total_original_obligations']}
+- **Total remaining obligations:** {metrics['total_remaining_obligations']}
+- **Total introduced obligations:** {metrics['total_introduced_obligations']}
+- **Total net change:** {metrics['total_net_change']}
+- **Contract-clean files (R_i = 0):** {metrics['contract_clean_files']} ({metrics['contract_clean_rate']:.2f}%)
+- **Files with introduced obligations (I_i > 0):** {metrics['files_with_introduced_obligations']} ({metrics['files_with_introduced_obligations_rate']:.2f}%)
+- **Net-negative files (Δ_i < 0):** {metrics['net_negative_files']} ({metrics['net_negative_files_rate']:.2f}%)
+- **Low-compliance files (ρ_i < 50%):** {metrics['low_compliance_files']} ({metrics['low_compliance_rate']:.2f}%)
 
 ## Detailed Analysis
 
-### 1. Migration Success Distribution
-
+### 1. Discharge Distribution
 """
-        
-        # Add success distribution analysis
+
+        nonzero_original = [
+            r for r in self.evaluation_results
+            if r.original_obligations > 0 and not np.isnan(r.discharge_rate)
+        ]
+
         success_ranges = {
-            'Excellent (90-100%)': len([r for r in self.evaluation_results if r.resolution_rate >= 90]),
-            'Good (70-89%)': len([r for r in self.evaluation_results if 70 <= r.resolution_rate < 90]),
-            'Fair (50-69%)': len([r for r in self.evaluation_results if 50 <= r.resolution_rate < 70]),
-            'Poor (0-49%)': len([r for r in self.evaluation_results if r.resolution_rate < 50])
+            "90-100%": len([r for r in nonzero_original if r.discharge_rate >= 90]),
+            "70-89%": len([r for r in nonzero_original if 70 <= r.discharge_rate < 90]),
+            "50-69%": len([r for r in nonzero_original if 50 <= r.discharge_rate < 70]),
+            "<50%": len([r for r in nonzero_original if r.discharge_rate < 50]),
         }
-        
-        for range_name, count in success_ranges.items():
-            percentage = (count / len(self.evaluation_results) * 100)
-            report += f"- **{range_name}:** {count} files ({percentage:.1f}%)\n"
-        
-        report += f"""
-### 2. Performance by File Size Category
 
-"""
-        
-        for category, data in metrics['size_category_metrics'].items():
-            report += f"""#### {category.replace('_', ' ').title()} Files
-- **Files Analyzed:** {data['files']}
-- **Average Resolution Rate:** {data['avg_resolution_rate']:.2f}%
-- **Issues Resolved:** {data['total_issues_resolved']}/{data['total_original_issues']}
-- **Category Success Rate:** {(data['total_issues_resolved']/data['total_original_issues']*100):.2f}%
+        for label, count in success_ranges.items():
+            pct = (count / len(nonzero_original) * 100.0) if nonzero_original else 0.0
+            report += f"- **{label}:** {count} files ({pct:.1f}%)\n"
 
-"""
-        
-        # Add top performing and challenging files
-        top_performers = sorted(self.evaluation_results, key=lambda x: x.resolution_rate, reverse=True)[:10]
-        challenging_files = sorted(self.evaluation_results, key=lambda x: x.resolution_rate)[:10]
-        
-        report += f"""
-### 3. Top Performing Files
+        report += "\n### 2. Performance by File Size Category\n\n"
 
-| File | Resolution Rate | Issues Resolved |
-|------|-----------------|-----------------|
+        for category, data in metrics["size_category_metrics"].items():
+            report += (
+                f"#### {category.replace('_', ' ').title()} Files\n"
+                f"- **Files analyzed:** {data['files']}\n"
+                f"- **Mean discharge rate:** {data['avg_discharge_rate']:.2f}%\n"
+                f"- **Median discharge rate:** {data['median_discharge_rate']:.2f}%\n"
+                f"- **Weighted discharge rate:** {data['weighted_discharge_rate']:.2f}%\n"
+                f"- **Discharged obligations:** {data['total_obligations_discharged']}/{data['total_original_obligations']}\n\n"
+            )
+
+        top_performers = sorted(self.evaluation_results, key=lambda x: x.discharge_rate, reverse=True)[:10]
+        challenging_files = sorted(self.evaluation_results, key=lambda x: x.discharge_rate)[:10]
+
+        report += """### 3. Top Performing Files
+
+| File | Discharge Rate | Discharged | Original |
+|------|----------------|------------|----------|
 """
-        
         for result in top_performers:
-            report += f"| {result.filename} | {result.resolution_rate:.1f}% | {result.resolved_issues}/{result.original_issues} |\n"
-        
-        report += f"""
+            report += (
+                f"| {result.filename} | {result.discharge_rate:.1f}% | "
+                f"{result.discharged_obligations} | {result.original_obligations} |\n"
+            )
+
+        report += """
+
 ### 4. Most Challenging Files
 
-| File | Resolution Rate | Issues Remaining | Original Issues |
-|------|-----------------|------------------|-----------------|
+| File | Discharge Rate | Remaining | Introduced | Original |
+|------|----------------|-----------|------------|----------|
 """
-        
         for result in challenging_files:
-            report += f"| {result.filename} | {result.resolution_rate:.1f}% | {result.remaining_issues} | {result.original_issues} |\n"
-        
-        # Add version-specific analysis
-        report += f"""
-### 5. PHP Version Migration Analysis
+            report += (
+                f"| {result.filename} | {result.discharge_rate:.1f}% | "
+                f"{result.remaining_obligations} | {result.introduced_obligations} | "
+                f"{result.original_obligations} |\n"
+            )
 
-"""
-        
-        version_data = version_patterns['version_analysis']
-        for version, data in version_data.items():
-            if data['original'] > 0:
-                version_name = version.replace('_', '.').upper()
-                resolution_rate = (data['resolved'] / data['original'] * 100) if data['original'] > 0 else 0
-                report += f"- **{version_name}:** {data['resolved']}/{data['original']} issues resolved ({resolution_rate:.1f}%)\n"
-        
-        # Add footer
-        report += f"""
+        if self.skipped_error_files:
+            report += "\n### 5.1 Files Skipped Due to Rector Errors\n\n"
+            report += "| File ID | File | Error |\n"
+            report += "|---------|------|-------|\n"
+            for skipped in sorted(self.skipped_error_files, key=lambda x: x["file_id"]):
+                err = str(skipped.get("error_message", "")).replace("\n", " ")
+                report += f"| {skipped['file_id']} | {skipped['filename']} | {err} |\n"
+
+        report += "\n### 6. PHP Family Analysis\n\n"
+
+        family_data = version_patterns["family_analysis"]
+        for family in ["PHP 5.x", "PHP 7.x", "PHP 8.x"]:
+            data = family_data.get(family, {})
+            original = int(data.get("original", 0))
+            remaining = int(data.get("remaining", 0))
+            if original == 0 and remaining == 0:
+                continue
+
+            discharged = int(data.get("discharged", 0))
+            introduced = int(data.get("introduced", 0))
+            net = int(data.get("net_change", 0))
+            rate = float(data.get("discharge_rate", 0.0))
+
+            report += (
+                f"- **{family}:** original={original}, discharged={discharged}, "
+                f"remaining={remaining}, introduced={introduced}, net={net}, "
+                f"discharge_rate={rate:.2f}%\n"
+            )
+
+        report += "\n### 7. PHP Version Analysis\n\n"
+
+        version_data = version_patterns["version_analysis"]
+
+        def version_sort_key(version_key: str) -> int:
+            try:
+                return int(version_key.split("_", 1)[1])
+            except Exception:
+                return 10**9
+
+        for version in sorted(version_data.keys(), key=version_sort_key):
+            data = version_data[version]
+            original = int(data.get("original", 0))
+            remaining = int(data.get("remaining", 0))
+            if original == 0 and remaining == 0:
+                continue
+
+            version_name = version.replace("_", ".").upper()
+            discharged = int(data.get("discharged", 0))
+            introduced = int(data.get("introduced", 0))
+            net = int(data.get("net_change", 0))
+            rate = float(data.get("discharge_rate", 0.0))
+
+            report += (
+                f"- **{version_name}:** original={original}, discharged={discharged}, "
+                f"remaining={remaining}, introduced={introduced}, net={net}, "
+                f"discharge_rate={rate:.2f}%\n"
+            )
+
+        report += """
+
 ---
-
-*This report was generated using automated analysis tools. For production deployments, additional manual verification is recommended.*
+This report summarizes PCE-aligned obligation discharge metrics over `Rector\\Php*` rules based on the available analysis artifacts.
 """
-        
         return report
-    
-    def save_detailed_csv(self, filename: str = "evaluation_results.csv"):
-        """Save detailed results to CSV for further analysis"""
+
+    def save_detailed_csv(self, filename: str = "evaluation_results.csv") -> pd.DataFrame:
+        """Save per-file evaluation results to CSV."""
         print(f"Saving detailed results to {filename}...")
-        
-        # Create detailed DataFrame
+
+        if self.model_data is None:
+            raise RuntimeError("Model data not loaded")
+
         detailed_data = []
-        
+
         for result in self.evaluation_results:
-            # Get additional data from original sources
-            orig_row = self.selection_data[self.selection_data['file_id'] == result.file_id].iloc[0]
-            model_row = self.model_data[self.model_data['file_id'] == result.file_id].iloc[0]
-            
-            # Get individual file analysis if available
+            model_row = self.model_data[self.model_data["file_id"] == result.file_id].iloc[0]
+            orig_row = next(
+                (
+                    item for item in self.selection_data_detailed
+                    if int(item.get("new_file_id", item["file_id"])) == result.file_id
+                ),
+                None,
+            )
+
+            if not orig_row:
+                continue
+
             individual_data = self.individual_files.get(result.file_id, {})
-            rector_analysis = individual_data.get('rector_analysis', {})
-            
-            row_data = {
-                'file_id': result.file_id,
-                'filename': result.filename,
-                'original_path': orig_row['original_path'],
-                'lines_of_code_original': orig_row['lines_of_code'],
-                'lines_of_code_generated': model_row['lines_of_code'],
-                'size_category': result.size_category,
-                'original_issues': result.original_issues,
-                'resolved_issues': result.resolved_issues,
-                'remaining_issues': result.remaining_issues,
-                'resolution_rate': result.resolution_rate,
-                'has_diff': rector_analysis.get('has_diff', False)
-            }
-            
-            detailed_data.append(row_data)
-        
-        # Create DataFrame and save
+            rector_analysis = individual_data.get("rector_analysis", {})
+
+            detailed_data.append(
+                {
+                    "file_id": result.file_id,
+                    "original_file_id": result.original_file_id,
+                    "filename": result.filename,
+                    "original_path": orig_row.get("original_path"),
+                    "lines_of_code_original": orig_row.get("lines_of_code"),
+                    "lines_of_code_generated": model_row.get("lines_of_code"),
+                    "size_category": result.size_category,
+                    "original_obligations": result.original_obligations,
+                    "discharged_obligations": result.discharged_obligations,
+                    "introduced_obligations": result.introduced_obligations,
+                    "remaining_obligations": result.remaining_obligations,
+                    "net_change": result.net_change,
+                    "discharge_rate": result.discharge_rate,
+                    "has_diff": rector_analysis.get("has_diff", False),
+                }
+            )
+
         df = pd.DataFrame(detailed_data)
         output_path = self.output_dir / filename
         df.to_csv(output_path, index=False)
         print(f"Detailed CSV saved to: {output_path}")
-        
         return df
-    
+
     def generate_summary_statistics(self) -> Dict[str, Any]:
-        """Generate summary statistics for research paper"""
+        """Generate summary statistics suitable for downstream reporting."""
         metrics = self.calculate_aggregate_metrics()
         version_patterns = self.analyze_php_version_patterns()
-        
-        # Calculate additional research metrics
-        resolution_rates = [r.resolution_rate for r in self.evaluation_results]
-        
-        # Statistical measures
-        stats = {
-            'descriptive_statistics': {
-                'resolution_rate_mean': np.mean(resolution_rates),
-                'resolution_rate_median': np.median(resolution_rates),
-                'resolution_rate_std': np.std(resolution_rates),
-                'resolution_rate_min': np.min(resolution_rates),
-                'resolution_rate_max': np.max(resolution_rates)
+        self._assert_family_totals_match_metrics(
+            metrics, version_patterns["family_analysis"]
+        )
+
+        discharge_rates = [
+            r.discharge_rate
+            for r in self.evaluation_results
+            if r.original_obligations > 0 and not np.isnan(r.discharge_rate)
+        ]
+
+        stats: Dict[str, Any] = {
+            "run_coverage": {
+                "total_files_attempted": metrics["total_files_attempted"],
+                "total_files_analyzed": metrics["total_files_analyzed"],
+                "total_files_with_errors": metrics["total_files_with_errors"],
+                "skipped_error_files": self.skipped_error_files,
             },
-            'performance_metrics': metrics,
-            'version_analysis': version_patterns,
-            'correlation_analysis': {
-                'file_size_vs_resolution': np.corrcoef(
-                    [r.original_issues for r in self.evaluation_results],
-                    [r.resolution_rate for r in self.evaluation_results]
-                )[0, 1]
-            }
-        }
-        
-        return stats
-    
-    def run_complete_evaluation(self):
-        """Run the complete evaluation pipeline"""
-        print("=== PHP Migration Model Evaluation ===")
-        print("Starting comprehensive analysis...")
-        
-        # Load data
-        self.load_data()
-        
-        # Run analysis
-        self.analyze_migration_effectiveness()
-        
-        # Generate outputs
-        report = self.generate_detailed_report()
-        detailed_df = self.save_detailed_csv()
-        summary_stats = self.generate_summary_statistics()
-        
-        # Save report
-        report_path = self.output_dir / "migration_evaluation_report.md"
-        with open(report_path, 'w', encoding='utf-8') as f:
-            f.write(report)
-        print(f"Evaluation report saved to: {report_path}")
-        
-        # Save summary statistics
-        stats_path = self.output_dir / "summary_statistics.json"
-        with open(stats_path, 'w', encoding='utf-8') as f:
-            json.dump(summary_stats, f, indent=2, default=str)
-        print(f"Summary statistics saved to: {stats_path}")
-        
-        print("\n=== Evaluation Complete ===")
-        print(f"Files analyzed: {len(self.evaluation_results)}")
-        print(f"Average resolution rate: {summary_stats['performance_metrics']['average_resolution_rate']:.2f}%")
-        
-        return {
-            'report': report,
-            'detailed_data': detailed_df,
-            'summary_statistics': summary_stats
+            "descriptive_statistics": {
+                "discharge_rate_mean": float(np.mean(discharge_rates)) if discharge_rates else float("nan"),
+                "discharge_rate_median": float(np.median(discharge_rates)) if discharge_rates else float("nan"),
+                "discharge_rate_std": float(np.std(discharge_rates)) if discharge_rates else float("nan"),
+                "discharge_rate_min": float(np.min(discharge_rates)) if discharge_rates else float("nan"),
+                "discharge_rate_max": float(np.max(discharge_rates)) if discharge_rates else float("nan"),
+            },
+            "performance_metrics": metrics,
+            "version_analysis": version_patterns,
+            "correlation_analysis": {
+                "loc_vs_discharge": float("nan"),
+                "original_obligations_vs_discharge": float("nan"),
+            },
         }
 
-def main():
-    """Main execution function"""
+        try:
+            if self.selection_data is not None:
+                loc_map = {
+                    int(row["file_id"]): int(row["lines_of_code"])
+                    for _, row in self.selection_data.iterrows()
+                }
+                valid = [
+                    r for r in self.evaluation_results
+                    if r.original_obligations > 0
+                    and not np.isnan(r.discharge_rate)
+                    and r.original_file_id in loc_map
+                ]
+                if len(valid) >= 2:
+                    locs = [loc_map[r.original_file_id] for r in valid]
+                    rates = [r.discharge_rate for r in valid]
+                    obligations = [r.original_obligations for r in valid]
+
+                    stats["correlation_analysis"]["loc_vs_discharge"] = float(
+                        np.corrcoef(locs, rates)[0, 1]
+                    )
+                    stats["correlation_analysis"]["original_obligations_vs_discharge"] = float(
+                        np.corrcoef(obligations, rates)[0, 1]
+                    )
+        except Exception:
+            pass
+
+        return stats
+
+    def run_complete_evaluation(self) -> Dict[str, Any]:
+        """Run the complete evaluation workflow."""
+        print("=== PHP Migration Model Evaluation ===")
+        print("Starting analysis...")
+
+        self.load_data()
+        self.analyze_migration_effectiveness()
+
+        report = self.generate_detailed_report()
+        summary_stats = self.generate_summary_statistics()
+
+        report_path = self.output_dir / "migration_evaluation_report.md"
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(report)
+        print(f"Evaluation report saved to: {report_path}")
+
+        stats_path = self.output_dir / "summary_statistics.json"
+        with open(stats_path, "w", encoding="utf-8") as f:
+            json.dump(summary_stats, f, indent=2, default=str)
+        print(f"Summary statistics saved to: {stats_path}")
+
+        self.save_detailed_csv()
+
+        print("\n=== Evaluation Complete ===")
+        print(f"Files attempted: {summary_stats['performance_metrics']['total_files_attempted']}")
+        print(f"Files analyzed: {len(self.evaluation_results)}")
+        print(f"Files skipped due to Rector errors: {summary_stats['performance_metrics']['total_files_with_errors']}")
+        print(f"Mean discharge rate: {summary_stats['performance_metrics']['average_discharge_rate']:.2f}%")
+        print(f"Weighted discharge rate: {summary_stats['performance_metrics']['weighted_discharge_rate']:.2f}%")
+
+        return summary_stats
+
+
+def main() -> None:
+    """Main entry point."""
     evaluator = PHPMigrationEvaluator()
-    results = evaluator.run_complete_evaluation()
-    return results
+    evaluator.run_complete_evaluation()
+
 
 if __name__ == "__main__":
     main()

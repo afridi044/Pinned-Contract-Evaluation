@@ -1,0 +1,17 @@
+{
+  "error": "Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM (line 132)",
+  "error_file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/049_Parser.php",
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 0,
+      "errors": 1
+    },
+    "errors": [
+      {
+        "message": "Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM",
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/049_Parser.php",
+        "line": 132
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\046_module.audio-video.flv.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 54
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:35:18.701755",
+    "file_size_kb": 24.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/046_module.audio-video.flv.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n declare(strict_types=1);\r\n \r\n@@ -328,12 +328,10 @@\n \r\n class AMFStream\r\n {\r\n-    public string $bytes;\r\n     public int $pos = 0;\r\n \r\n-    public function __construct(string $bytes)\r\n-    {\r\n-        $this->bytes = $bytes;\r\n+    public function __construct(public string $bytes)\n+    {\n     }\r\n \r\n     public function readByte(): int\r\n@@ -427,11 +425,8 @@\n \r\n class AMFReader\r\n {\r\n-    public AMFStream $stream;\r\n-\r\n-    public function __construct(AMFStream $stream)\r\n-    {\r\n-        $this->stream = $stream;\r\n+    public function __construct(public AMFStream $stream)\n+    {\n     }\r\n \r\n     public function readData(): mixed\r\n@@ -548,15 +543,13 @@\n \r\n class AVCSequenceParameterSetReader\r\n {\r\n-    private string $sps;\r\n     private int $currentBytes = 0;\r\n     private int $currentBits = 0;\r\n     private int $width = 0;\r\n     private int $height = 0;\r\n \r\n-    public function __construct(string $sps)\r\n-    {\r\n-        $this->sps = $sps;\r\n+    public function __construct(private readonly string $sps)\n+    {\n     }\r\n \r\n     public function readData(): void\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/046_module.audio-video.flv.php"
+    ]
+  }
+}

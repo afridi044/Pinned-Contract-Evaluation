@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\071_plugins.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 27
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:36:26.345364",
+    "file_size_kb": 19.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/071_plugins.php",
+        "diff": "--- Original\n+++ New\n@@ -253,7 +253,7 @@\n \t\t\t\t\t$plugin_info                = [];\r\n \t\t\t\t\t$have_non_network_plugins   = false;\r\n \t\t\t\t\tforeach ((array) $plugins as $plugin) {\r\n-\t\t\t\t\t\tif ('.' === dirname($plugin)) {\r\n+\t\t\t\t\t\tif ('.' === dirname((string) $plugin)) {\r\n \t\t\t\t\t\t\t$files_to_delete[] = WP_PLUGIN_DIR . '/' . $plugin;\r\n \t\t\t\t\t\t\t$data              = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin);\r\n \t\t\t\t\t\t\tif ($data) {\r\n@@ -265,12 +265,12 @@\n \t\t\t\t\t\t\t}\r\n \t\t\t\t\t\t} else {\r\n \t\t\t\t\t\t\t// Locate all the files in that folder.\r\n-\t\t\t\t\t\t\t$files = list_files(WP_PLUGIN_DIR . '/' . dirname($plugin));\r\n+\t\t\t\t\t\t\t$files = list_files(WP_PLUGIN_DIR . '/' . dirname((string) $plugin));\r\n \t\t\t\t\t\t\tif ($files) {\r\n \t\t\t\t\t\t\t\t$files_to_delete = array_merge($files_to_delete, $files);\r\n \t\t\t\t\t\t\t}\r\n \t\t\t\t\t\t\t// Get plugins list from that folder.\r\n-\t\t\t\t\t\t\t$folder_plugins = get_plugins('/' . dirname($plugin));\r\n+\t\t\t\t\t\t\t$folder_plugins = get_plugins('/' . dirname((string) $plugin));\r\n \t\t\t\t\t\t\tif ($folder_plugins) {\r\n \t\t\t\t\t\t\t\tforeach ($folder_plugins as $plugin_file => $data) {\r\n \t\t\t\t\t\t\t\t\t$plugin_info[$plugin_file]                       = _get_plugin_data_markup_translate($plugin_file, $data);\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/071_plugins.php"
+    ]
+  }
+}

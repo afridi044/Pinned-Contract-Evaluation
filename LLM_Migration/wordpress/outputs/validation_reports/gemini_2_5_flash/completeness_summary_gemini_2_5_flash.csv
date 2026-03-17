@@ -1,0 +1,101 @@
+filename,category,token_preservation,token_sequence_similarity,function_preservation,class_preservation,structural_similarity,body_preservation_avg,signature_stability,trivial_stub_rate,missing_functions,missing_classes,errors
+001_getid3.lib.php,extra_large_1000_plus,103.39,0.9442,100.00,100.00,100.00,99.62,1.0000,0.0303,,,Migrated file matched by basename fallback (possible collision).
+002_module.audio-video.asf.php,extra_large_1000_plus,98.99,0.9807,100.00,100.00,100.00,96.94,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+003_wp-db.php,extra_large_1000_plus,79.87,0.7686,71.43,100.00,58.57,97.34,1.0000,0.0571,"__destruct, __get, __isset, __set, __unset, _weak_escape, get_blog_prefix, init_charset, select, set_blog_id, set_charset, set_prefix, set_sql_mode, tables",,Migrated file matched by basename fallback (possible collision).
+004_class-IXR.php,extra_large_1000_plus,107.10,0.9047,100.00,100.00,70.00,97.81,0.9774,0.1613,,,Migrated file matched by basename fallback (possible collision).
+005_class-snoopy.php,extra_large_1000_plus,101.68,0.9555,100.00,100.00,100.00,98.04,0.9850,0.0500,,,Migrated file matched by basename fallback (possible collision).
+006_widgets.php,extra_large_1000_plus,103.08,0.9167,97.83,100.00,79.13,97.21,0.9391,0.1087,WP_Widget,,Migrated file matched by basename fallback (possible collision).
+009_getid3.php,extra_large_1000_plus,100.44,0.9520,100.00,100.00,100.00,94.00,1.0000,0.0968,,,Migrated file matched by basename fallback (possible collision).
+010_class-wp-theme.php,extra_large_1000_plus,105.98,0.9446,100.00,100.00,100.00,98.18,1.0000,0.1026,,,Migrated file matched by basename fallback (possible collision).
+012_module.audio-video.riff.php,extra_large_1000_plus,99.52,0.9922,100.00,100.00,100.00,99.25,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+013_file.php,extra_large_1000_plus,101.11,0.9288,100.00,100.00,100.00,95.76,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+014_module.tag.id3v2.php,extra_large_1000_plus,100.12,0.9636,100.00,100.00,100.00,94.74,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+057_class-wp-customize-manager.php,extra_large_1000_plus,39.30,0.5194,43.14,100.00,77.25,99.26,1.0000,0.3043,"_cmp_priority, _sanitize_header_textcolor, add_control, add_panel, add_section, add_setting, current_theme, customize_preview_signature, enqueue_control_scripts, get_control, get_panel, get_section, get_setting, get_stylesheet, get_stylesheet_root, get_template, get_template_root, is_preview, maybe_hash_hex_color, prepare_controls, register_controls, remove_control, remove_panel, remove_preview_signature, remove_section, remove_setting, sanitize_hex_color, sanitize_hex_color_no_hash, save",,Migrated file matched by basename fallback (possible collision).
+007_class-wp.php,large_500_1000,105.12,0.9614,100.00,100.00,95.56,99.58,1.0000,0.1667,WP_MatchesMapRegex,,Migrated file matched by basename fallback (possible collision).
+008_wp-login.php,large_500_1000,99.10,0.9585,100.00,100.00,100.00,99.96,1.0000,0.2000,,,Migrated file matched by basename fallback (possible collision).
+017_press-this.php,large_500_1000,98.27,0.9633,100.00,100.00,100.00,97.87,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+020_class-ftp.php,large_500_1000,120.35,0.9288,97.87,100.00,69.15,99.78,1.0000,0.0217,__construct,,Migrated file matched by basename fallback (possible collision).
+021_class-pop3.php,large_500_1000,112.19,0.8642,95.00,100.00,68.00,75.95,1.0000,0.0000,stripos,,Migrated file matched by basename fallback (possible collision).
+022_class-wp-customize-setting.php,large_500_1000,106.42,0.9401,100.00,100.00,100.00,100.14,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+024_edit-form-advanced.php,large_500_1000,99.50,0.9940,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+026_Source.php,large_500_1000,93.56,0.7733,100.00,100.00,100.00,88.04,1.0000,0.0870,,,Migrated file matched by basename fallback (possible collision).
+029_module.audio.ogg.php,large_500_1000,64.71,0.7554,16.67,100.00,66.67,109.23,1.0000,0.0000,"OggPageSegmentLength, ParseOggPageHeader, ParseVorbisComments, SpeexBandModeLookup, get_quality_from_nominal_bitrate",,Migrated file matched by basename fallback (possible collision).
+030_class-json.php,large_500_1000,101.62,0.9275,100.00,100.00,70.00,98.45,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+031_class-wp-plugins-list-table.php,large_500_1000,104.29,0.9469,100.00,100.00,100.00,97.25,1.0000,0.1250,,,Migrated file matched by basename fallback (possible collision).
+032_class-wp-comments-list-table.php,large_500_1000,100.27,0.8987,100.00,100.00,100.00,86.16,1.0000,0.0952,,,Migrated file matched by basename fallback (possible collision).
+039_class-wp-upgrader-skins.php,large_500_1000,106.28,0.9388,100.00,100.00,100.00,98.04,1.0000,0.0385,,,Migrated file matched by basename fallback (possible collision).
+040_class-wp-media-list-table.php,large_500_1000,102.54,0.9406,100.00,100.00,100.00,92.98,1.0000,0.1250,,,Migrated file matched by basename fallback (possible collision).
+042_image-edit.php,large_500_1000,102.28,0.9212,100.00,100.00,100.00,97.10,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+043_image.php,large_500_1000,100.10,0.9514,100.00,100.00,100.00,94.98,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+046_module.audio-video.flv.php,large_500_1000,101.73,0.9610,100.00,100.00,74.29,97.56,1.0000,0.0571,,,Migrated file matched by basename fallback (possible collision).
+047_update-core.php,large_500_1000,60.27,0.6417,44.44,100.00,77.78,85.78,1.0000,0.0000,"dismissed_updates, do_core_upgrade, do_dismiss_core_update, do_undismiss_core_update, list_translation_updates",,Migrated file matched by basename fallback (possible collision).
+050_class-oembed.php,large_500_1000,105.12,0.8845,100.00,100.00,100.00,93.98,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+054_nav-menu.php,large_500_1000,98.29,0.9356,100.00,100.00,100.00,94.44,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+055_rss.php,large_500_1000,106.87,0.9217,100.00,100.00,70.00,95.34,1.0000,0.1290,,,Migrated file matched by basename fallback (possible collision).
+056_class.akismet.php,large_500_1000,105.01,0.9171,100.00,100.00,100.00,97.00,1.0000,0.1136,,,Migrated file matched by basename fallback (possible collision).
+064_wp-diff.php,large_500_1000,113.36,0.9340,100.00,100.00,100.00,99.48,1.0000,0.4500,,,Migrated file matched by basename fallback (possible collision).
+065_class-wp-image-editor-imagick.php,large_500_1000,101.64,0.9450,100.00,100.00,100.00,98.21,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+066_class.wp-dependencies.php,large_500_1000,106.55,0.8552,100.00,100.00,100.00,90.58,0.8923,0.0000,,,Migrated file matched by basename fallback (possible collision).
+068_revision.php,large_500_1000,113.36,0.9042,100.00,100.00,100.00,98.17,1.0000,0.0588,,,Migrated file matched by basename fallback (possible collision).
+011_translations.php,medium_201_500,121.25,0.8287,100.00,100.00,100.00,102.60,0.9500,0.2778,,,Migrated file matched by basename fallback (possible collision).
+015_Diff.php,medium_201_500,106.64,0.8614,100.00,100.00,72.14,91.09,0.9769,0.0769,,,Migrated file matched by basename fallback (possible collision).
+016_module.audio.ac3.php,medium_201_500,96.19,0.9055,100.00,100.00,100.00,88.24,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+018_streams.php,medium_201_500,117.14,0.7072,100.00,100.00,70.00,102.97,1.0000,0.2857,,,Migrated file matched by basename fallback (possible collision).
+019_atomlib.php,medium_201_500,134.91,0.7825,100.00,100.00,70.00,101.43,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+023_module.tag.id3v1.php,medium_201_500,104.55,0.9572,100.00,100.00,100.00,97.84,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+025_widgets.php,medium_201_500,98.56,0.9294,100.00,100.00,100.00,100.00,1.0000,1.0000,,,Migrated file matched by basename fallback (possible collision).
+027_upload.php,medium_201_500,101.97,0.9381,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+028_themes.php,medium_201_500,100.00,0.9598,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+033_ms-settings.php,medium_201_500,100.28,0.9527,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+034_inline.php,medium_201_500,115.98,0.8324,100.00,100.00,0.00,0.00,N/A,0.0000,"_added, _changed, _deleted, _encode, _lines, _splitOnWords, _startBlock",Text_Diff_Renderer_inline,Migrated file matched by basename fallback (possible collision).
+036_module.tag.apetag.php,medium_201_500,100.09,0.9660,100.00,100.00,100.00,94.42,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+037_class-wp-ms-sites-list-table.php,medium_201_500,102.53,0.9237,100.00,100.00,100.00,84.32,1.0000,0.1111,,,Migrated file matched by basename fallback (possible collision).
+038_class.wp-styles.php,medium_201_500,107.56,0.8885,100.00,100.00,100.00,88.97,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+041_module.tag.lyrics3.php,medium_201_500,99.27,0.9293,100.00,100.00,100.00,97.35,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+044_class-wp-image-editor.php,medium_201_500,108.18,0.8612,100.00,100.00,100.00,98.82,1.0000,0.2308,,,Migrated file matched by basename fallback (possible collision).
+045_Locator.php,medium_201_500,106.49,0.9021,100.00,100.00,100.00,103.15,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+049_Parser.php,medium_201_500,101.97,0.8996,100.00,100.00,34.00,97.80,1.0000,0.0000,"get_current_byte, get_current_column, get_current_line, get_data, get_error_code, get_error_string, split_ns, tag_close, tag_open",,Migrated file matched by basename fallback (possible collision).
+051_ms-deprecated.php,medium_201_500,113.55,0.8642,100.00,100.00,100.00,97.68,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+052_class-wp-ms-themes-list-table.php,medium_201_500,92.03,0.8904,100.00,100.00,100.00,93.51,1.0000,0.1538,,,Migrated file matched by basename fallback (possible collision).
+053_class-wp-themes-list-table.php,medium_201_500,104.02,0.9592,100.00,100.00,100.00,94.12,1.0000,0.1818,,,Migrated file matched by basename fallback (possible collision).
+058_session.php,medium_201_500,104.24,0.8778,100.00,100.00,80.00,101.41,1.0000,0.0500,,,Migrated file matched by basename fallback (possible collision).
+060_themes.php,medium_201_500,100.21,0.9576,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+061_class.wp-scripts.php,medium_201_500,111.06,0.8981,100.00,100.00,100.00,98.63,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+062_string.php,medium_201_500,0.00,0.0000,0.00,0.00,0.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).; Failed to tokenize original with PHP token_get_all().
+063_module.audio.dts.php,medium_201_500,98.20,0.8958,100.00,100.00,0.00,0.00,N/A,0.0000,"bitPerSampleLookup, bitrateLookup, channelArrangementLookup, dialogNormalization, numChannelsLookup, readBinData, sampleRateLookup",getid3_dts,Migrated file matched by basename fallback (possible collision).
+067_user.php,medium_201_500,90.58,0.8757,100.00,100.00,100.00,96.89,1.0000,0.1000,,,Migrated file matched by basename fallback (possible collision).
+069_class-wp-image-editor-gd.php,medium_201_500,118.79,0.8259,100.00,100.00,100.00,111.00,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+070_File.php,medium_201_500,113.13,0.8540,100.00,100.00,100.00,97.43,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+071_plugins.php,medium_201_500,100.59,0.9585,100.00,100.00,100.00,88.89,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+072_class-wp-users-list-table.php,medium_201_500,111.99,0.8989,100.00,100.00,100.00,96.06,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+035_wp-trackback.php,small_1_200,103.79,0.8403,100.00,100.00,100.00,116.67,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+048_about.php,small_1_200,97.75,0.9711,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+059_credits.php,small_1_200,106.63,0.9362,100.00,100.00,100.00,99.22,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+073_site-settings.php,small_1_200,100.06,0.9498,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+074_site-themes.php,small_1_200,99.94,0.9494,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+075_my-sites.php,small_1_200,103.57,0.9531,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+076_upgrade.php,small_1_200,98.37,0.9509,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+077_post-thumbnail-template.php,small_1_200,106.81,0.8881,100.00,100.00,100.00,93.01,1.0000,0.2000,,,Migrated file matched by basename fallback (possible collision).
+078_media.php,small_1_200,103.73,0.9094,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+079_load-styles.php,small_1_200,112.21,0.9149,100.00,100.00,100.00,98.70,1.0000,0.0667,,,Migrated file matched by basename fallback (possible collision).
+080_site-info.php,small_1_200,100.18,0.9234,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+081_site-new.php,small_1_200,103.48,0.9625,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+082_import.php,small_1_200,99.19,0.9665,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+083_shell.php,small_1_200,123.46,0.7394,100.00,100.00,100.00,77.20,0.8500,0.0000,,,Migrated file matched by basename fallback (possible collision).
+084_class-wp-ajax-response.php,small_1_200,98.45,0.9534,100.00,100.00,100.00,100.00,1.0000,0.4286,,,Migrated file matched by basename fallback (possible collision).
+085_async-upload.php,small_1_200,103.12,0.9697,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+086_user-new.php,small_1_200,101.26,0.9604,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+087_Restriction.php,small_1_200,64.91,0.6290,100.00,100.00,100.00,37.65,1.0000,0.6000,,,Migrated file matched by basename fallback (possible collision).
+088_Credit.php,small_1_200,62.64,0.6367,100.00,100.00,100.00,37.65,1.0000,0.6000,,,Migrated file matched by basename fallback (possible collision).
+089_Category.php,small_1_200,66.17,0.6328,100.00,100.00,100.00,40.34,1.0000,0.4000,,,Migrated file matched by basename fallback (possible collision).
+090_Author.php,small_1_200,64.91,0.6367,100.00,100.00,100.00,37.65,1.0000,0.6000,,,Migrated file matched by basename fallback (possible collision).
+091_Rating.php,small_1_200,68.56,0.6703,100.00,100.00,100.00,39.71,1.0000,0.5000,,,Migrated file matched by basename fallback (possible collision).
+092_Copyright.php,small_1_200,68.56,0.6630,100.00,100.00,100.00,39.71,1.0000,0.5000,,,Migrated file matched by basename fallback (possible collision).
+093_vars.php,small_1_200,97.37,0.8271,100.00,100.00,100.00,76.80,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+094_class.akismet-widget.php,small_1_200,109.05,0.9015,100.00,100.00,100.00,107.35,0.9500,0.1667,,,Migrated file matched by basename fallback (possible collision).
+095_class-wp-http-ixr-client.php,small_1_200,119.08,0.8098,100.00,100.00,100.00,79.92,0.6500,0.0000,,,Migrated file matched by basename fallback (possible collision).
+096_class-ftp-pure.php,small_1_200,121.40,0.9323,90.91,100.00,36.36,97.53,1.0000,0.0000,__construct,ftp,Migrated file matched by basename fallback (possible collision).
+097_class-wp-customize-section.php,small_1_200,109.85,0.8405,100.00,100.00,100.00,93.66,1.0000,0.0000,,,Migrated file matched by basename fallback (possible collision).
+098_wp-load.php,small_1_200,95.41,0.9670,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+099_ms-files.php,small_1_200,106.08,0.8809,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).
+100_wp-links-opml.php,small_1_200,91.87,0.7986,100.00,100.00,100.00,N/A,N/A,N/A,,,Migrated file matched by basename fallback (possible collision).

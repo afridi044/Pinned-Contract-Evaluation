@@ -1,0 +1,49 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\055_rss.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_71": 1,
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 44
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:24:18.263744",
+    "file_size_kb": 25.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/055_rss.php",
+        "diff": "--- Original\n+++ New\n@@ -72,9 +72,9 @@\n \t\t#\r\n \t\txml_set_object( $this->parser, $this );\r\n \t\txml_set_element_handler($this->parser,\r\n-\t\t\t\t[$this, 'feed_start_element'], [$this, 'feed_end_element'] );\r\n+\t\t\t\t$this->feed_start_element(...), $this->feed_end_element(...) );\r\n \r\n-\t\txml_set_character_data_handler( $this->parser, [$this, 'feed_cdata'] );\r\n+\t\txml_set_character_data_handler( $this->parser, $this->feed_cdata(...) );\r\n \r\n \t\t$status = xml_parse( $this->parser, $source );\r\n \r\n@@ -101,8 +101,8 @@\n \r\n \t\t// check for a namespace, and split if found\r\n \t\t$ns\t= false;\r\n-\t\tif ( strpos( $element, ':' ) !== false ) {\r\n-\t\t\tlist($ns, $el) = explode( ':', $element, 2);\r\n+\t\tif ( str_contains( $element, ':' ) ) {\r\n+\t\t\t[$ns, $el] = explode( ':', $element, 2);\r\n \t\t}\r\n \t\tif ( $ns && $ns != 'rdf' ) {\r\n \t\t\t$this->current_namespace = $ns;\r\n@@ -536,7 +536,7 @@\n  * @return object Snoopy style response\r\n  */\r\n function _fetch_remote_file(string $url, array|string $headers = \"\" ) : object {\r\n-\t$resp = wp_safe_remote_request( $url, array( 'headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT ) );\r\n+\t$resp = wp_safe_remote_request( $url, [ 'headers' => $headers, 'timeout' => MAGPIE_FETCH_TIME_OUT ] );\r\n \tif ( is_wp_error($resp) ) {\r\n \t\t$error = array_shift($resp->errors);\r\n \r\n@@ -882,7 +882,7 @@\n \t\t\tprintf(\r\n \t\t\t\t'<li><a href=\"%1$s\" title=\"%2$s\">%3$s</a></li>',\r\n \t\t\t\tesc_url( $item['link'] ),\r\n-\t\t\t\tesc_attr( strip_tags( $item['description'] ) ),\r\n+\t\t\t\tesc_attr( strip_tags( (string) $item['description'] ) ),\r\n \t\t\t\tesc_html( $item['title'] )\r\n \t\t\t);\r\n \t\t}\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/055_rss.php"
+    ]
+  }
+}

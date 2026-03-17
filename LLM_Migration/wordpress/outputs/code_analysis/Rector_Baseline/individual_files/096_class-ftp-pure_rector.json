@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\Rector_Baseline\\096_class-ftp-pure.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:14:11.790248",
+    "file_size_kb": 5.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/096_class-ftp-pure.php",
+        "diff": "--- Original\n+++ New\n@@ -106,7 +106,7 @@\n \t\t\t\t$this->_data_close();\n \t\t\t\treturn FALSE;\n \t\t\t}\n-\t\t\t$ip_port = explode(\",\", preg_replace(\"^.+ \\\\(?([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]+,[0-9]+)\\\\)?.*\".CRLF.\"$\", \"\\\\1\", (string) $this->_message));\n+\t\t\t$ip_port = explode(\",\", (string) preg_replace(\"^.+ \\\\(?([0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]+,[0-9]+)\\\\)?.*\".CRLF.\"$\", \"\\\\1\", (string) $this->_message));\n \t\t\t$this->_datahost=$ip_port[0].\".\".$ip_port[1].\".\".$ip_port[2].\".\".$ip_port[3];\n             $this->_dataport=(((int)$ip_port[4])<<8) + ((int)$ip_port[5]);\n \t\t\t$this->SendMSG(\"Connecting to \".$this->_datahost.\":\".$this->_dataport);\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/096_class-ftp-pure.php"
+    ]
+  }
+}

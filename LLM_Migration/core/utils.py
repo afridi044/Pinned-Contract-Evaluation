@@ -21,7 +21,6 @@ def load_test_files(directory_path: str) -> Dict[str, str]:
     path = Path(directory_path)
     
     if not path.exists():
-        print(f"❌ Directory {directory_path} not found")
         return test_files
     
     # Recursively find all PHP files
@@ -32,15 +31,7 @@ def load_test_files(directory_path: str) -> Dict[str, str]:
                 if content.strip():
                     test_files[php_file.name] = content
         except Exception as e:
-            print(f"⚠️  Could not load {php_file.name}: {e}")
-    
-    if test_files:
-        print(f"📁 Loaded {len(test_files)} PHP files:")
-        for filename in sorted(test_files.keys()):
-            size = len(test_files[filename])
-            print(f"   📄 {filename} ({size:,} chars)")
-    else:
-        print(f"❌ No PHP files found in {directory_path}")
+            pass
     
     return test_files
 
@@ -48,7 +39,6 @@ def load_test_files(directory_path: str) -> Dict[str, str]:
 def analyze_file_sizes(test_files: Dict[str, str], chunk_threshold: int = 500):
     """Analyze file sizes to see chunking requirements."""
     if not test_files:
-        print("❌ No test files loaded")
         return
     
     # Categorize files
@@ -62,28 +52,6 @@ def analyze_file_sizes(test_files: Dict[str, str], chunk_threshold: int = 500):
             small_files.append(file_info)
         else:
             large_files.append(file_info)
-    
-    print("📊 File Size Analysis")
-    print("=" * 40)
-    
-    # Small files summary
-    print(f"📄 Small files (≤{chunk_threshold} lines): {len(small_files)}")
-    for filename, lines, chars in sorted(small_files, key=lambda x: x[1], reverse=True)[:10]:
-        print(f"   {filename}: {lines:,} lines, {chars:,} chars")
-    if len(small_files) > 10:
-        print(f"   ... and {len(small_files) - 10} more")
-    
-    # Large files summary
-    if large_files:
-        print(f"\n📦 Large files (>{chunk_threshold} lines): {len(large_files)}")
-        total_lines = sum(lines for _, lines, _ in large_files)
-        total_chunks = sum((lines + chunk_threshold - 1) // chunk_threshold for _, lines, _ in large_files)
-        
-        for filename, lines, chars in sorted(large_files, key=lambda x: x[1], reverse=True):
-            chunks = (lines + chunk_threshold - 1) // chunk_threshold
-            print(f"   {filename}: {lines:,} lines, {chars:,} chars → {chunks} chunks")
-        
-        print(f"\n📊 Large files summary: {total_lines:,} total lines → {total_chunks} chunks")
 
 
 def find_function_boundaries(code: str, lines: List[str]) -> List[Dict[str, Any]]:

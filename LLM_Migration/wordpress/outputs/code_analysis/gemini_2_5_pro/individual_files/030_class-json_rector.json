@@ -1,0 +1,48 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\030_class-json.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+      "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 2,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 119
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:28:56.684130",
+    "file_size_kb": 22.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/030_class-json.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n \r\n declare(strict_types=1);\r\n@@ -83,19 +83,19 @@\n     public const USE_TO_JSON = 64;\r\n \r\n     /** Marker constant for Services_JSON::decode(), used to flag stack state */\r\n-    private const SLICE = 1;\r\n+    private const int SLICE = 1;\r\n \r\n     /** Marker constant for Services_JSON::decode(), used to flag stack state */\r\n-    private const IN_STR = 2;\r\n+    private const int IN_STR = 2;\r\n \r\n     /** Marker constant for Services_JSON::decode(), used to flag stack state */\r\n-    private const IN_ARR = 3;\r\n+    private const int IN_ARR = 3;\r\n \r\n     /** Marker constant for Services_JSON::decode(), used to flag stack state */\r\n-    private const IN_OBJ = 4;\r\n+    private const int IN_OBJ = 4;\r\n \r\n     /** Marker constant for Services_JSON::decode(), used to flag stack state */\r\n-    private const IN_CMT = 5;\r\n+    private const int IN_CMT = 5;\r\n \r\n     private readonly bool $mb_strlen;\r\n     private readonly bool $mb_convert_encoding;\r\n@@ -106,7 +106,7 @@\n      *\r\n      * @param int $use Object behavior flags; combine with bitwise-OR.\r\n      */\r\n-    public function __construct(private int $use = 0)\r\n+    public function __construct(private readonly int $use = 0)\r\n     {\r\n         $this->mb_strlen = function_exists('mb_strlen');\r\n         $this->mb_convert_encoding = function_exists('mb_convert_encoding');\r\n@@ -305,7 +305,7 @@\n                 if ($this->use & self::SUPPRESS_ERRORS) {\r\n                     return 'null';\r\n                 }\r\n-                throw new ServicesJsonException(get_class($obj) . \" toJSON returned an object with a toJSON method.\");\r\n+                throw new ServicesJsonException($obj::class . \" toJSON returned an object with a toJSON method.\");\r\n             }\r\n             return $this->internalEncode($recode);\r\n         }\r\n@@ -518,7 +518,7 @@\n             '#/\\*(.+)\\*/\\s*$#Us'\r\n         ], '', $str);\r\n \r\n-        return trim($str);\r\n+        return trim((string) $str);\r\n     }\r\n \r\n     /**\r\n@@ -533,20 +533,16 @@\n             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');\r\n         }\r\n \r\n-        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);\r\n-\r\n-        switch (true) {\r\n-            case ((0x7F & $bytes) === $bytes):\r\n-                return chr(0x7F & $bytes);\r\n-            case ((0x07FF & $bytes) === $bytes):\r\n-                return chr(0xC0 | (($bytes >> 6) & 0x1F))\r\n-                    . chr(0x80 | ($bytes & 0x3F));\r\n-            case ((0xFFFF & $bytes) === $bytes):\r\n-                return chr(0xE0 | (($bytes >> 12) & 0x0F))\r\n-                    . chr(0x80 | (($bytes >> 6) & 0x3F))\r\n-                    . chr(0x80 | ($bytes & 0x3F));\r\n-        }\r\n-        return '';\r\n+        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);\n+        return match (true) {\n+            (0x7F & $bytes) === $bytes => chr(0x7F & $bytes),\n+            (0x07FF & $bytes) === $bytes => chr(0xC0 | (($bytes >> 6) & 0x1F))\r\n+                . chr(0x80 | ($bytes & 0x3F)),\n+            (0xFFFF & $bytes) === $bytes => chr(0xE0 | (($bytes >> 12) & 0x0F))\r\n+                . chr(0x80 | (($bytes >> 6) & 0x3F))\r\n+                . chr(0x80 | ($bytes & 0x3F)),\n+            default => '',\n+        };\r\n     }\r\n \r\n     /**\r\n@@ -559,19 +555,15 @@\n     {\r\n         if ($this->mb_convert_encoding) {\r\n             return mb_convert_encoding($utf8, 'UTF-16', 'UTF-8');\r\n-        }\r\n-\r\n-        switch ($this->strlen8($utf8)) {\r\n-            case 1:\r\n-                return $utf8;\r\n-            case 2:\r\n-                return chr(0x07 & (ord($utf8[0]) >> 2))\r\n-                    . chr((0xC0 & (ord($utf8[0]) << 6)) | (0x3F & ord($utf8[1])));\r\n-            case 3:\r\n-                return chr((0xF0 & (ord($utf8[0]) << 4)) | (0x0F & (ord($utf8[1]) >> 2)))\r\n-                    . chr((0xC0 & (ord($utf8[1]) << 6)) | (0x7F & ord($utf8[2])));\r\n-        }\r\n-        return '';\r\n+        }\n+        return match ($this->strlen8($utf8)) {\n+            1 => $utf8,\n+            2 => chr(0x07 & (ord($utf8[0]) >> 2))\r\n+                . chr((0xC0 & (ord($utf8[0]) << 6)) | (0x3F & ord($utf8[1]))),\n+            3 => chr((0xF0 & (ord($utf8[0]) << 4)) | (0x0F & (ord($utf8[1]) >> 2)))\r\n+                . chr((0xC0 & (ord($utf8[1]) << 6)) | (0x7F & ord($utf8[2]))),\n+            default => '',\n+        };\r\n     }\r\n \r\n     /**\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+          "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/030_class-json.php"
+    ]
+  }
+}

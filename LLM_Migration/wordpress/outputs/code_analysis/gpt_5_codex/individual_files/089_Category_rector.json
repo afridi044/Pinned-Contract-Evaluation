@@ -1,0 +1,40 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\089_Category.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 24
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:37:10.196489",
+    "file_size_kb": 0.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/089_Category.php",
+        "diff": "--- Original\n+++ New\n@@ -1,17 +1,10 @@\n <?php\r\n declare(strict_types=1);\r\n \r\n-class SimplePie_Category\r\n+class SimplePie_Category implements \\Stringable\r\n {\r\n-    public ?string $term;\r\n-    public ?string $scheme;\r\n-    public ?string $label;\r\n-\r\n-    public function __construct(?string $term = null, ?string $scheme = null, ?string $label = null)\r\n-    {\r\n-        $this->term = $term;\r\n-        $this->scheme = $scheme;\r\n-        $this->label = $label;\r\n+    public function __construct(public ?string $term = null, public ?string $scheme = null, public ?string $label = null)\n+    {\n     }\r\n \r\n     public function __toString(): string\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/089_Category.php"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\059_credits.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:04.915215",
+    "file_size_kb": 7.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/059_credits.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\r\n \r\n /** WordPress Administration Bootstrap */\r\n-require_once dirname(__FILE__) . '/admin.php';\r\n+require_once __DIR__ . '/admin.php';\r\n \r\n $title = __('Credits');\r\n \r\n@@ -26,7 +26,7 @@\n \r\n     $results = get_site_transient(\"wordpress_credits_{$locale}\");\r\n \r\n-    if (!is_array($results) || false !== strpos($wp_version, '-') || (isset($results['data']['version']) && strpos($wp_version, $results['data']['version']) !== 0)) {\r\n+    if (!is_array($results) || str_contains((string) $wp_version, '-') || (isset($results['data']['version']) && !str_starts_with((string) $wp_version, (string) $results['data']['version']))) {\r\n         $response = wp_remote_get(\"https://api.wordpress.org/core/credits/1.1/?version={$wp_version}&locale={$locale}\");\r\n \r\n         if (is_wp_error($response) || 200 != wp_remote_retrieve_response_code($response)) {\r\n@@ -75,7 +75,7 @@\n     return $data;\r\n }\r\n \r\n-[$display_version] = explode('-', $wp_version);\r\n+[$display_version] = explode('-', (string) $wp_version);\r\n \r\n include ABSPATH . 'wp-admin/admin-header.php';\r\n ?>\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/059_credits.php"
+    ]
+  }
+}

@@ -112,6 +112,20 @@ class RectorAnalyzer:
     
     def _process_rector_output(self, rector_output: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
         """Process Rector output and extract structured data."""
+        # Rector can return structured JSON errors with return code 1.
+        # These must be surfaced as failures, not interpreted as 0-change success.
+        if rector_output.get("totals", {}).get("errors", 0) > 0 or rector_output.get("errors"):
+            first_error = rector_output.get("errors", [{}])[0]
+            message = first_error.get("message", "Rector reported errors")
+            line = first_error.get("line")
+            file_with_error = first_error.get("file", str(file_path))
+            line_suffix = f" (line {line})" if line is not None else ""
+            return {
+                "error": f"{message}{line_suffix}",
+                "error_file": file_with_error,
+                "raw_rector_output": rector_output,
+            }
+
         if "file_diffs" not in rector_output:
             return self._create_empty_result(file_path)
         

@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\043_image.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php82\\Rector\\FuncCall\\Utf8DecodeEncodeToMbConvertEncodingRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1,
+      "php_82": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 126
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:40:13.730836",
+    "file_size_kb": 21.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/043_image.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * File contains all the administration image manipulation functions.\r\n@@ -47,7 +47,7 @@\n     }\r\n \r\n     if ( ! $dst_file ) {\r\n-        $dst_file = str_replace( basename( $src_file ), 'cropped-' . basename( $src_file ), $src_file );\r\n+        $dst_file = str_replace( basename( (string) $src_file ), 'cropped-' . basename( (string) $src_file ), $src_file );\r\n     }\r\n \r\n     /*\r\n@@ -149,7 +149,7 @@\n \r\n     if ( $support && ! empty( $metadata['image']['data'] ) ) {\r\n         // Check for existing cover.\r\n-        $hash = md5( $metadata['image']['data'] );\r\n+        $hash = md5( (string) $metadata['image']['data'] );\r\n         $posts = get_posts( [\r\n             'fields' => 'ids',\r\n             'post_type' => 'attachment',\r\n@@ -334,42 +334,42 @@\n         $exif = @exif_read_data( $file );\r\n \r\n         if ( empty( $meta['title'] ) && ! empty( $exif['Title'] ) ) {\r\n-            $meta['title'] = trim( $exif['Title'] );\r\n+            $meta['title'] = trim( (string) $exif['Title'] );\r\n         }\r\n \r\n         if ( ! empty( $exif['ImageDescription'] ) ) {\r\n             mbstring_binary_safe_encoding();\r\n-            $description_length = strlen( $exif['ImageDescription'] );\r\n+            $description_length = strlen( (string) $exif['ImageDescription'] );\r\n             reset_mbstring_encoding();\r\n \r\n             if ( empty( $meta['title'] ) && $description_length < 80 ) {\r\n-                $meta['title'] = trim( $exif['ImageDescription'] );\r\n-                if ( empty( $meta['caption'] ) && ! empty( $exif['COMPUTED']['UserComment'] ) && trim( $exif['COMPUTED']['UserComment'] ) != $meta['title'] ) {\r\n-                    $meta['caption'] = trim( $exif['COMPUTED']['UserComment'] );\r\n+                $meta['title'] = trim( (string) $exif['ImageDescription'] );\r\n+                if ( empty( $meta['caption'] ) && ! empty( $exif['COMPUTED']['UserComment'] ) && trim( (string) $exif['COMPUTED']['UserComment'] ) != $meta['title'] ) {\r\n+                    $meta['caption'] = trim( (string) $exif['COMPUTED']['UserComment'] );\r\n                 }\r\n-            } elseif ( empty( $meta['caption'] ) && trim( $exif['ImageDescription'] ) != $meta['title'] ) {\r\n-                $meta['caption'] = trim( $exif['ImageDescription'] );\r\n+            } elseif ( empty( $meta['caption'] ) && trim( (string) $exif['ImageDescription'] ) != $meta['title'] ) {\r\n+                $meta['caption'] = trim( (string) $exif['ImageDescription'] );\r\n             }\r\n-        } elseif ( empty( $meta['caption'] ) && ! empty( $exif['Comments'] ) && trim( $exif['Comments'] ) != $meta['title'] ) {\r\n-            $meta['caption'] = trim( $exif['Comments'] );\r\n+        } elseif ( empty( $meta['caption'] ) && ! empty( $exif['Comments'] ) && trim( (string) $exif['Comments'] ) != $meta['title'] ) {\r\n+            $meta['caption'] = trim( (string) $exif['Comments'] );\r\n         }\r\n \r\n         if ( empty( $meta['credit'] ) ) {\r\n             if ( ! empty( $exif['Artist'] ) ) {\r\n-                $meta['credit'] = trim( $exif['Artist'] );\r\n+                $meta['credit'] = trim( (string) $exif['Artist'] );\r\n             } elseif ( ! empty( $exif['Author'] ) ) {\r\n-                $meta['credit'] = trim( $exif['Author'] );\r\n+                $meta['credit'] = trim( (string) $exif['Author'] );\r\n             }\r\n         }\r\n \r\n         if ( empty( $meta['copyright'] ) && ! empty( $exif['Copyright'] ) ) {\r\n-            $meta['copyright'] = trim( $exif['Copyright'] );\r\n+            $meta['copyright'] = trim( (string) $exif['Copyright'] );\r\n         }\r\n         if ( ! empty( $exif['FNumber'] ) ) {\r\n             $meta['aperture'] = round( wp_exif_frac2dec( $exif['FNumber'] ), 2 );\r\n         }\r\n         if ( ! empty( $exif['Model'] ) ) {\r\n-            $meta['camera'] = trim( $exif['Model'] );\r\n+            $meta['camera'] = trim( (string) $exif['Model'] );\r\n         }\r\n         if ( empty( $meta['created_timestamp'] ) && ! empty( $exif['DateTimeDigitized'] ) ) {\r\n             $meta['created_timestamp'] = wp_exif_date2ts( $exif['DateTimeDigitized'] );\r\n@@ -379,7 +379,7 @@\n         }\r\n         if ( ! empty( $exif['ISOSpeedRatings'] ) ) {\r\n             $meta['iso'] = is_array( $exif['ISOSpeedRatings'] ) ? reset( $exif['ISOSpeedRatings'] ) : $exif['ISOSpeedRatings'];\r\n-            $meta['iso'] = trim( $meta['iso'] );\r\n+            $meta['iso'] = trim( (string) $meta['iso'] );\r\n         }\r\n         if ( ! empty( $exif['ExposureTime'] ) ) {\r\n             $meta['shutter_speed'] = (string) wp_exif_frac2dec( $exif['ExposureTime'] );\r\n@@ -391,7 +391,7 @@\n \r\n     foreach ( ['title', 'caption', 'credit', 'copyright', 'camera', 'iso'] as $key ) {\r\n         if ( $meta[$key] && ! seems_utf8( $meta[$key] ) ) {\r\n-            $meta[$key] = utf8_encode( $meta[$key] );\r\n+            $meta[$key] = mb_convert_encoding( $meta[$key], 'UTF-8', 'ISO-8859-1' );\r\n         }\r\n     }\r\n \r\n@@ -467,20 +467,12 @@\n         return false;\r\n     }\r\n \r\n-    switch ( $mime_type ) {\r\n-        case 'image/jpeg':\r\n-            $image = imagecreatefromjpeg($filepath);\r\n-            break;\r\n-        case 'image/png':\r\n-            $image = imagecreatefrompng($filepath);\r\n-            break;\r\n-        case 'image/gif':\r\n-            $image = imagecreatefromgif($filepath);\r\n-            break;\r\n-        default:\r\n-            $image = false;\r\n-            break;\r\n-    }\r\n+    $image = match ($mime_type) {\n+        'image/jpeg' => imagecreatefromjpeg($filepath),\n+        'image/png' => imagecreatefrompng($filepath),\n+        'image/gif' => imagecreatefromgif($filepath),\n+        default => false,\n+    };\r\n     if ( is_resource($image) ) {\r\n         /**\r\n          * Filter the current image being loaded for editing.\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php82\\Rector\\FuncCall\\Utf8DecodeEncodeToMbConvertEncodingRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/043_image.php"
+    ]
+  }
+}

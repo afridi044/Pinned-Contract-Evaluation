@@ -19,11 +19,18 @@ import concurrent.futures
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from rector_analyzer import RectorAnalyzer
+from config import DATASET_NAME
 
 class BatchRectorProcessor:
     """Process all files in the organized dataset with Rector."""
     
-    def __init__(self, dataset_dir: str = "organized_dataset_All", reports_dir: str = "rector_reports_organized_dataset_All"):
+    def __init__(self, dataset_dir: str = None, reports_dir: str = None):
+        # Use config-based defaults if not specified
+        if dataset_dir is None:
+            dataset_dir = f"{DATASET_NAME}/organized_dataset_All"
+        if reports_dir is None:
+            reports_dir = f"{DATASET_NAME}/rector_reports_organized_dataset_All"
+        
         self.dataset_dir = Path(dataset_dir)
         self.reports_dir = Path(reports_dir)
         self.analyzer = RectorAnalyzer(reports_dir=reports_dir)
@@ -257,7 +264,7 @@ def main():
         print("\n🎉 Analysis Complete!")
         print("✅ Enhanced metadata and CSV generated")
         print("✅ Individual file reports saved")
-        print("\n📁 Check rector_reports_organized_dataset_All/ directory for all outputs")
+        print(f"\n📁 Check {DATASET_NAME}/rector_reports_organized_dataset_All/ directory for all outputs")
     else:
         print("❌ No files were successfully processed")
 

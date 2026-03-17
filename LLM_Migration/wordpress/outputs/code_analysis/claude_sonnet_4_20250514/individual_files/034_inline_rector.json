@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\034_inline.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 20
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:17:21.056989",
+    "file_size_kb": 5.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/034_inline.php",
+        "diff": "--- Original\n+++ New\n@@ -123,11 +123,11 @@\n         if ($this->_split_level === 'words') {\r\n             $prefix = '';\r\n             while ($orig[0] !== false && $final[0] !== false &&\r\n-                   str_starts_with($orig[0], ' ') &&\r\n-                   str_starts_with($final[0], ' ')) {\r\n-                $prefix .= substr($orig[0], 0, 1);\r\n-                $orig[0] = substr($orig[0], 1);\r\n-                $final[0] = substr($final[0], 1);\r\n+                   str_starts_with((string) $orig[0], ' ') &&\r\n+                   str_starts_with((string) $final[0], ' ')) {\r\n+                $prefix .= substr((string) $orig[0], 0, 1);\r\n+                $orig[0] = substr((string) $orig[0], 1);\r\n+                $final[0] = substr((string) $final[0], 1);\r\n             }\r\n             return $prefix . $this->_deleted($orig) . $this->_added($final);\r\n         }\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/034_inline.php"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\Rector_Baseline\\005_class-snoopy.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:09:41.050080",
+    "file_size_kb": 37.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/005_class-snoopy.php",
+        "diff": "--- Original\n+++ New\n@@ -760,7 +760,7 @@\n \t\t\t\t\t\t\t\"/\"\n \t\t\t\t\t\t];\n \n-\t\t$expandedLinks = preg_replace($search,$replace,$links);\n+\t\t$expandedLinks = preg_replace($search,$replace,(string) $links);\n \n \t\treturn $expandedLinks;\n \t}\n@@ -1233,7 +1233,7 @@\n                         $fp = fopen($file_name, \"r\");\n                         $file_content = fread($fp, filesize($file_name));\n                         fclose($fp);\n-                        $base_name = basename($file_name);\n+                        $base_name = basename((string) $file_name);\n                         $postdata .= \"--\".$this->_mime_boundary.\"\\r\\n\";\n                         $postdata .= \"Content-Disposition: form-data; name=\\\"$field_name\\\"; filename=\\\"$base_name\\\"\\r\\n\\r\\n\";\n                         $postdata .= \"$file_content\\r\\n\";\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/005_class-snoopy.php"
+    ]
+  }
+}

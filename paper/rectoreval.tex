@@ -1,0 +1,383 @@
+
+\section{Pinned Contract Evaluation}
+\label{sec:rector_eval}
+
+
+
+\subsection{Objective and pinned instrument}
+\label{sec:pce_objective_instrument}
+
+PCE measures modernization as \emph{progress against a fixed upgrade policy}, rather than as full functional correctness.
+We encode the policy as a \emph{pinned} Rector configuration with a fixed Rector version, ruleset, and parameters.\cite{rector}
+We treat this configuration as a migration contract.
+
+We apply the contract twice.
+First, we run it on the original benchmark.
+For each file, the contract emits a set of upgrade \emph{rule types} that trigger, and this set defines that file's \emph{obligations} under the policy.
+Second, we run the same contract on migrated outputs and measure (i) which baseline obligations no longer trigger (discharged obligations) and (ii) which new rule types now trigger (introduced obligations, meaning contract-visible regressions).
+If Rector cannot analyze a migrated file (e.g., parser/runtime failure during dry-run), we exclude that file from PCE aggregates for that model and report analyzed coverage.
+
+To focus on language migration, we score only \texttt{Rector\textbackslash Php*} rules.
+We report additional diagnostics to contextualize contract outcomes (Section~\ref{sec:pce_validity_diagnostics}) and triangulate with PHPCompatibility (Section~\ref{sec:pce_phpcompat}).\cite{phpcompat}
+
+\subsection{Signals: compliance breadth and residual-work proxy}
+\label{sec:pce_primary_scores}
+
+PCE reports two complementary signals.
+
+\textbf{(1) Obligation discharge (primary).}
+This measures breadth of compliance, meaning how much of the contract-defined obligation set is cleared.
+Our unit of analysis is a \emph{file-level rule-type incidence}: a rule type counts at most once per file, regardless of how many times it occurs within that file.
+
+\textbf{(2) Patch volume closure (secondary).}
+This summarizes how much Rector dry-run patch volume remains after migration.
+We use it only as a diff-magnitude proxy, not as developer effort.
+
+% =========================
+% Per-file metrics table
+% (ICSE-style: compact, declarative, minimal prose)
+% =========================
+\begin{table}[t]
+\centering
+\caption{Per-file metrics recorded under the pinned contract.}
+\label{tab:per_file_eval_metrics}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabularx}{\columnwidth}{@{}>{\raggedright\arraybackslash}p{0.34\columnwidth} >{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Metric} & \textbf{Definition / description} \\
+\midrule
+Original triggers ($\mathcal{O}_i$, $O_i$) &
+Rule \emph{types} triggered in file $i$ pre-migration; $O_i=|\mathcal{O}_i|$. \\
+Remaining triggers ($\mathcal{R}_i$, $R_i$) &
+Rule \emph{types} triggered post-migration; $R_i=|\mathcal{R}_i|$. \\
+Removed / introduced ($S_i$, $I_i$) &
+$S_i=|\mathcal{O}_i\setminus\mathcal{R}_i|$;\;
+$I_i=|\mathcal{R}_i\setminus\mathcal{O}_i|$. \\
+Net change ($\Delta_i$) &
+$\Delta_i=S_i-I_i$ (negative: more types introduced). \\
+Discharge rate ($\rho_i$) &
+$\rho_i=\frac{S_i}{O_i}\times 100$. \\
+Patch volume ($D_i$) &
+Changed-line count in Rector dry-run patch (\texttt{diff\_line\_count}); residual edit-mass proxy. \\
+Patch closure (\%) &
+Closure relative to $D_i^{\mathrm{orig}}$ (WDC, MFDC). \\
+Metadata &
+LOC, size bin, identifiers; residual set $\mathcal{R}_i$ and milestone/rule breakdowns. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+% =========================
+% Outcome matrices table (syntax + loadability)
+% =========================
+\begin{table}[t]
+\centering
+\caption[Outcome matrices for syntax and loadability]{Outcome matrices for syntax lint and the isolated \emph{loadability tripwire} (regression-oriented: Orig.\ Pass $\rightarrow$ Migr.\ Fail).}
+\label{tab:outcome_matrices}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{subtable}[t]{0.46\columnwidth}
+\centering
+\caption{Syntax}
+\label{tab:syntax_validation_outcomes}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Outcome & Orig. & Migr. \\
+\midrule
+Both valid  & Pass & Pass \\
+Fixed error & Fail & Pass \\
+New error   & Pass & Fail \\
+Both error  & Fail & Fail \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\hspace{6pt}
+\begin{subtable}[t]{0.46\columnwidth}
+\centering
+\caption{Loadability}
+\label{tab:runtime_validation_outcomes}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Outcome & Orig. & Migr. \\
+\midrule
+Both pass     & Pass & Pass \\
+Fixed failure & Fail & Pass \\
+New failure   & Pass & Fail \\
+Both fail     & Fail & Fail \\
+\bottomrule
+\end{tabular}
+\end{subtable}
+\end{table}
+
+% =========================
+% Structural diagnostics table
+% =========================
+\begin{table}[t]
+\centering
+\caption{Structural preservation signals.}
+\label{tab:structural_completeness_signals}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.10}
+\begin{tabularx}{\columnwidth}{@{}l X@{}}
+\toprule
+\textbf{Signal} & \textbf{Purpose} \\
+\midrule
+Token dist.\ sim. & Token-type frequency similarity (non-trivia). \\
+Token seq.\ sim.  & Order-sensitive similarity on normalized token stream. \\
+Decl.\ overlap    & Set overlap of namespaces/classes/functions/methods. \\
+Line preservation & Code-line retention (excluding blank/comment lines). \\
+Body preservation & Body token retention for matched declarations. \\
+Signature stability & Parameter/modifier consistency for matched declarations. \\
+Empty-body rate   & Fraction of matched bodies that are near-empty. \\
+Trivial-stub rate & Fraction of matched bodies with shallow stub patterns. \\
+\midrule
+\multicolumn{2}{@{}p{\columnwidth}@{}}{\footnotesize\emph{Note:} Body/stub signals apply only when bodies exist; otherwise N/A.} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Breadth: obligation discharge}
+\label{sec:pce_breadth}
+
+For file $i$, let $\mathcal{O}_i$ be the set of rule types that trigger on the original file under the pinned contract, and let $\mathcal{R}_i$ be the set that trigger on the migrated output.
+Let $O_i = |\mathcal{O}_i|$ and $R_i = |\mathcal{R}_i|$.
+
+We decompose change into three quantities:
+\[
+\begin{aligned}
+S_i &= |\mathcal{O}_i \setminus \mathcal{R}_i|
+\quad \text{(discharged types)}, \\
+I_i &= |\mathcal{R}_i \setminus \mathcal{O}_i|
+\quad \text{(introduced types)}, \\
+\Delta_i &= S_i - I_i
+\quad \text{(net change)}.
+\end{aligned}
+\]
+Intuitively, $S_i$ answers: ``How many baseline rule types stopped triggering in this file?''
+$I_i$ answers: ``How many new rule types did the migration introduce under the same policy?''
+
+We define the per-file discharge rate as:
+\[
+\rho_i = \frac{S_i}{O_i}\times 100.
+\]
+All benchmark files satisfy $O_i>0$ by construction.
+We report $I_i$ explicitly to surface contract-visible regressions.
+These are not behavioral claims, only new triggers under the pinned policy.
+
+\subsubsection{Secondary proxy: patch volume closure}
+\label{sec:pce_depth}
+
+Let $D_i$ be Rector's dry-run changed-line count for file $i$ on the migrated output, and let $D_i^{\mathrm{orig}}$ be the same quantity on the original file under the same pinned contract.
+We summarize reduction in patch volume in two ways: (i) workload-weighted closure (WDC), which emphasizes high-volume files, and (ii) mean file-level closure (MFDC), which treats files uniformly.
+If either quantity is missing or unreadable for a file (e.g., failed Rector analysis output), that file is excluded from numeric patch-volume aggregates.
+
+\providecommand{\WDC}{\textnormal{WDC}}
+\providecommand{\MFDC}{\mathrm{MFDC}}
+{\footnotesize
+\begin{align}
+\WDC(m)
+&= \left(1-\frac{\sum_i D_i^{m}}{\sum_i D_i^{\mathrm{orig}}}\right)\cdot 100,\\
+\MFDC(m)
+&= \frac{1}{N}\sum_i c_i,\\[-2pt]
+c_i
+&=
+\begin{aligned}[t]
+\left(1-\frac{D_i^{m}}{D_i^{\mathrm{orig}}}\right)\cdot 100 \;& (D_i^{\mathrm{orig}}>0)\\
+100 \;& (D_i^{\mathrm{orig}}=0,\, D_i^{m}=0)\\
+0 \;& (D_i^{\mathrm{orig}}=0,\, D_i^{m}>0)\;.
+\end{aligned}
+\end{align}
+}
+Patch volume closure can be inflated by stylistic rewrites or diff-shaping changes, so we use it only as supporting context for residual work, not as a correctness or effort estimate.
+
+
+
+\subsection{Reporting and interpretation}
+\label{sec:pce_interpretation}
+
+For each file we record the obligation counts and changes ($O_i, R_i, S_i, I_i, \Delta_i, \rho_i$) and patch volume ($D_i$), together with metadata and diagnostics (Table~\ref{tab:per_file_eval_metrics}).
+
+At the model level we report mean and median discharge, and a workload-weighted discharge:
+\[
+\rho_w =
+\frac{\sum_{i=1}^{N} S_i}{\sum_{i=1}^{N} O_i}\times 100,
+\]
+which answers: ``Across all baseline obligations, what fraction were discharged?''
+We summarize patch closure using WDC and MFDC, and report concentration statistics (median, P95, top-five share) to expose heavy-tailed residual work.
+
+We interpret $I_i$ and $\Delta_i$ only as contract regressions, meaning new triggers under the pinned policy.
+They are not behavioral regressions.
+Contract metrics are therefore read together with validity, preservation, and loadability diagnostics.
+
+\subsection{Validity and regression diagnostics}
+\label{sec:pce_validity_diagnostics}
+
+Contract metrics can be misleading in the presence of omissions, degenerate rewrites, syntax errors, or include-time failures.
+Accordingly, we report a fixed diagnostic suite for every output to contextualize contract outcomes.
+These checks provide signals of validity and regressions, but they do not establish functional equivalence.
+
+\paragraph{Diagnostic tiers}
+We report:
+(i) syntax validation via \texttt{php -l} (PHP~8.3),
+(ii) structural preservation signals (Table~\ref{tab:structural_completeness_signals}),
+(iii) contract metrics under Rector,
+(iv) PHPCompatibility results, and
+(v) a loadability sentinel (Section~\ref{sec:pce_loadability}).
+Outcome definitions appear in Table~\ref{tab:outcome_matrices}.
+Metrics that require parsing are N/A when \texttt{php -l} fails.
+
+\subsection{Isolated loadability sentinel}
+\label{sec:pce_loadability}
+
+We run a loadability sentinel on a fixed slice ($N_{\mathrm{rt}}=55$).
+Each file is loaded once via \texttt{require\_once} in a minimal WordPress stub harness.
+Parse errors, fatal errors, and uncaught exceptions count as failures.
+We interpret this tier only as a regression signal.
+A regression is orig pass and migrated fail.
+
+% =========================
+% Results table 
+% =========================
+\begin{table*}[t]
+\centering
+\caption[Evaluation summary under pinned contract]{Pinned-contract evaluation on the coverage-optimized diagnostic stress test. All quantities are contract-relative. Panel A reports the primary outcome (incidence-level discharge). Panel B stratifies discharge by file size. Panel C reports discharge by PHP family. Patch-volume closure is reported for localization only (not effort).}
+\label{tab:results_panels_revised}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.12}
+
+% ---------------- Panel A ----------------
+\textbf{A. Obligation discharge (incidence-level breadth; pinned contract)}\par
+\vspace{2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\textbf{System} &
+\textbf{Mean $\rho$ (\%)} &
+\textbf{Weighted $\rho_w$ (\%)} &
+\textbf{Discharged} &
+\textbf{Remaining} &
+\textbf{Introduced} &
+\textbf{Net $\Delta$} &
+\textbf{complete} &
+\textbf{$\rho_i<50\%$} \\
+\midrule
+Rector-applied (reference)   & 98.55 & 98.43 & 503 & 17  & 9 & 494 & 89 & 0  \\
+\midrule
+Gemini 2.5 Pro               & 77.11 & 75.76 & 372 & 140 & 21 & 351 & 19 & 3  \\
+Gemini 2.5 Flash             & 62.32 & 59.48 & 273 & 203 & 17 & 256 & 13 & 24 \\
+GPT-5 Codex                  & 71.35 & 69.39 & 297 & 151 & 20 & 277 & 15 & 12 \\
+Claude Sonnet 4 (2025-05-14) & 56.97 & 54.51 & 272 & 244 & 17 & 255 & 6  & 33 \\
+Llama 3.3 70B Instruct       & 34.21 & 32.16 & 156 & 347 & 18 & 138 & 2  & 66 \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+\noindent\footnotesize Aggregates are computed over analyzable files per model after excluding migrated files where Rector dry-run failed: Rector 100, Claude 97, Gemini Flash 91, Gemini Pro 97, GPT-5 Codex 88, Llama 95.\normalsize
+
+% ---------------- Panel B ----------------
+\textbf{B. Obligation discharge by file size (Mean $\rho$; discharged/total incidences)}\par
+\vspace{2pt}
+{\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} &
+\textbf{Small} &
+\textbf{Medium} &
+\textbf{Large} &
+\textbf{Extra-large} \\
+\midrule
+Gemini 2.5 Pro &
+77.63 (77/99) & 83.81 (136/162) & 74.76 (105/141) & 60.58 (54/89) \\
+Gemini 2.5 Flash &
+71.51 (70/99) & 66.97 (104/153) & 51.22 (67/131)  & 41.84 (32/76) \\
+GPT-5 Codex &
+75.86 (76/99) & 75.88 (111/146) & 66.58 (86/130) & 45.13 (24/53) \\
+Claude Sonnet 4 (2025-05-14) &
+65.75 (60/91) & 69.33 (111/158) & 41.53 (63/146)  & 38.30 (38/104) \\
+Llama 3.3 70B Instruct &
+37.76 (35/93) & 42.70 (71/162) & 28.50 (40/140) & 11.85 (10/90) \\
+\bottomrule
+\end{tabular}%
+}}
+\vspace{2pt}
+
+% ---------------- Panel C ----------------
+\noindent\textbf{C. Discharged obligations by PHP family (analyzable subset per model; discharged/total; \% discharged)}\par
+\vspace{2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.30\textwidth}ccc@{}}
+\toprule
+\textbf{Model} & \textbf{PHP 5.x} & \textbf{PHP 7.x} & \textbf{PHP 8.x} \\
+\midrule
+Gemini 2.5 Flash & 116/137 (84.67\%) & 97/120 (80.83\%) & 60/202 (29.70\%) \\
+Gemini 2.5 Pro   & 143/149 (95.97\%) & 114/126 (90.48\%) & 115/216 (53.24\%) \\
+GPT-5 Codex      & 126/133 (94.74\%) & 88/106 (83.02\%) & 83/189 (43.92\%) \\
+Claude Sonnet 4 (2025-05-14) & 109/150 (72.67\%) & 92/129 (71.32\%) & 71/220 (32.27\%) \\
+Llama 3.3 70B Instruct & 87/145 (60.00\%) & 53/125 (42.40\%) & 16/215 (7.44\%) \\
+\bottomrule
+\end{tabular*}
+\vspace{4pt}
+
+% --------- Supplementary ----------
+\noindent\hrule height 0.4pt
+\vspace{4pt}
+\noindent\textbf{Secondary: Patch-volume closure (pinned contract; localization only)}\par
+\vspace{2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{0.30\textwidth}rrrr@{}}
+\toprule
+\textbf{System} &
+\textbf{WDC (\%)} &
+\textbf{MFDC (\%)} &
+\textbf{Top-5 share (\%)} &
+\textbf{Remaining patch lines} \\
+\midrule
+Rector-applied (reference)   & 95.08 & 98.19 & 91.43 & 1{,}109  \\
+GPT-5 Codex                  & 67.46 & 69.93 & 36.46 & 5{,}074  \\
+Gemini 2.5 Pro               & 71.92 & 76.90 & 50.70 & 5{,}826  \\
+Gemini 2.5 Flash             & 60.65 & 64.75 & 43.53 & 7{,}620  \\
+Claude Sonnet 4 (2025-05-14) & 57.77 & 62.75 & 40.31 & 9{,}411  \\
+Llama 3.3 70B Instruct       & 36.71 & 42.33 & 39.35 & 12{,}342 \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+\subsection{Cross-instrument triangulation with PHPCompatibility}
+\label{sec:pce_phpcompat}
+
+We triangulate using PHPCompatibility.\cite{phpcompat}
+For each output set we run PHPCS with \texttt{--standard=PHPCompatibility} and \texttt{--runtime-set testVersion 8.3}.
+We parse JSON reports and compute issue reduction:
+\[
+\text{IssueReduction}(\%)=
+\frac{\text{Issues}_{\mathrm{orig}}-\text{Issues}_{\mathrm{model}}}
+{\text{Issues}_{\mathrm{orig}}}\times 100.
+\]
+PHPCompatibility uses a different rule set and granularity than Rector.
+Agreement suggests consistent movement under both policies.
+Divergence reflects policy differences rather than a contradiction.
+
+\subsection{Pipeline completeness and residual concentration}
+\label{sec:pce_completeness_concentration}
+
+We report:
+\begin{align}
+N_{\mathrm{contract\text{-}clean}} &= |\{ i \mid R_i=0 \}|,\\
+N_{\mathrm{low\text{-}compliance}} &= |\{ i \mid \rho_i<50 \}|.
+\end{align}
+$N_{\mathrm{contract\text{-}clean}}$ counts files with no remaining triggers and captures breadth only.
+$N_{\mathrm{low\text{-}compliance}}$ counts files with discharge below $50\%$.
+We also report concentration over remaining triggers and patch volume (median, P95, top-five share).
+
+\subsection{Contract-aligned reference baseline}
+\label{sec:pce_baseline}
+
+We include a contract-aligned reference baseline, \emph{Rector applied}.
+We apply the pinned ruleset to each file, then re-run the same contract on the rewritten output.
+
+This baseline is not guaranteed to be trigger-free.
+Rector rules are conservative and pattern-limited.
+It provides a practical ceiling under the same policy and scoring protocol.

@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\045_Locator.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 63
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:18:01.699120",
+    "file_size_kb": 14.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/045_Locator.php",
+        "diff": "--- Original\n+++ New\n@@ -55,8 +55,6 @@\n  */\r\n class SimplePie_Locator\r\n {\r\n-    public readonly ?string $useragent;\r\n-    public readonly int $timeout;\r\n     public readonly SimplePie_File $file;\r\n     public array $local = [];\r\n     public array $elsewhere = [];\r\n@@ -65,20 +63,16 @@\n     public ?string $base = null;\r\n     public int $base_location = 0;\r\n     public int $checked_feeds = 0;\r\n-    public readonly int $max_checked_feeds;\r\n     protected ?SimplePie_Registry $registry = null;\r\n     protected ?DOMDocument $dom = null;\r\n \r\n     public function __construct(\r\n         SimplePie_File $file,\r\n-        int $timeout = 10,\r\n-        ?string $useragent = null,\r\n-        int $max_checked_feeds = 10\r\n+        public readonly int $timeout = 10,\r\n+        public readonly ?string $useragent = null,\r\n+        public readonly int $max_checked_feeds = 10\r\n     ) {\r\n         $this->file = $file;\r\n-        $this->useragent = $useragent;\r\n-        $this->timeout = $timeout;\r\n-        $this->max_checked_feeds = $max_checked_feeds;\r\n \r\n         if (class_exists('DOMDocument')) {\r\n             $this->dom = new DOMDocument();\r\n@@ -271,7 +265,7 @@\n                 $href = trim($link->getAttribute('href'));\r\n                 $parsed = $this->registry->call('Misc', 'parse_url', [$href]);\r\n                 \r\n-                if ($parsed['scheme'] === '' || preg_match('/^(https?|feed)$/i', $parsed['scheme'])) {\r\n+                if ($parsed['scheme'] === '' || preg_match('/^(https?|feed)$/i', (string) $parsed['scheme'])) {\r\n                     $href = method_exists($link, 'getLineNo') && $this->base_location < $link->getLineNo()\r\n                         ? $this->registry->call('Misc', 'absolutize_url', [\r\n                             trim($link->getAttribute('href')),\r\n@@ -310,7 +304,7 @@\n                 break;\r\n             }\r\n             \r\n-            if (in_array(strtolower(strrchr($value, '.')), ['.rss', '.rdf', '.atom', '.xml'], true)) {\r\n+            if (in_array(strtolower(strrchr((string) $value, '.')), ['.rss', '.rdf', '.atom', '.xml'], true)) {\r\n                 $this->checked_feeds++;\r\n \r\n                 $headers = [\r\n@@ -340,7 +334,7 @@\n                 break;\r\n             }\r\n             \r\n-            if (preg_match('/(rss|rdf|atom|xml)/i', $value)) {\r\n+            if (preg_match('/(rss|rdf|atom|xml)/i', (string) $value)) {\r\n                 $this->checked_feeds++;\r\n                 $headers = [\r\n                     'Accept' => 'application/atom+xml, application/rss+xml, application/rdf+xml;q=0.9, application/xml;q=0.8, text/xml;q=0.8, text/html;q=0.7, unknown/unknown;q=0.1, application/unknown;q=0.1, */*;q=0.1',\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/045_Locator.php"
+    ]
+  }
+}

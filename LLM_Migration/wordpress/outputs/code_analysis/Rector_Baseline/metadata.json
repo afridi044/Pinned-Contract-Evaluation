@@ -1,0 +1,2472 @@
+{
+  "dataset_info": {
+    "version": "4.0_llm_evaluation",
+    "total_files": 100,
+    "successful_files": 100,
+    "error_files": 0,
+    "analysis_method": "rector_php_version_upgrades_llm_evaluation",
+    "llm_model": "Rector_Baseline",
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:14:21.182488",
+    "evaluation_type": "llm_generated_code_analysis",
+    "focus": "php_version_specific_changes_on_llm_migrated_code"
+  },
+  "files": [
+    {
+      "file_id": 1,
+      "filename": "001_getid3.lib.php",
+      "original_path": "llm_generated/Rector_Baseline/001_getid3.lib.php",
+      "file_metrics": {
+        "lines_of_code": 1342,
+        "file_size_kb": 43.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:12.081198",
+        "file_size_kb": 43.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\001_getid3.lib_rector.json"
+    },
+    {
+      "file_id": 2,
+      "filename": "002_module.audio-video.asf.php",
+      "original_path": "llm_generated/Rector_Baseline/002_module.audio-video.asf.php",
+      "file_metrics": {
+        "lines_of_code": 2019,
+        "file_size_kb": 127.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php72\\Rector\\FuncCall\\StringifyDefineRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_72": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 442
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:28.271799",
+        "file_size_kb": 127.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\002_module.audio-video.asf_rector.json"
+    },
+    {
+      "file_id": 3,
+      "filename": "003_wp-db.php",
+      "original_path": "llm_generated/Rector_Baseline/003_wp-db.php",
+      "file_metrics": {
+        "lines_of_code": 2148,
+        "file_size_kb": 57.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:32.536545",
+        "file_size_kb": 57.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\003_wp-db_rector.json"
+    },
+    {
+      "file_id": 4,
+      "filename": "004_class-IXR.php",
+      "original_path": "llm_generated/Rector_Baseline/004_class-IXR.php",
+      "file_metrics": {
+        "lines_of_code": 1088,
+        "file_size_kb": 31.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:36.706573",
+        "file_size_kb": 31.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\004_class-IXR_rector.json"
+    },
+    {
+      "file_id": 5,
+      "filename": "005_class-snoopy.php",
+      "original_path": "llm_generated/Rector_Baseline/005_class-snoopy.php",
+      "file_metrics": {
+        "lines_of_code": 1250,
+        "file_size_kb": 37.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:41.050080",
+        "file_size_kb": 37.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\005_class-snoopy_rector.json"
+    },
+    {
+      "file_id": 6,
+      "filename": "006_widgets.php",
+      "original_path": "llm_generated/Rector_Baseline/006_widgets.php",
+      "file_metrics": {
+        "lines_of_code": 1512,
+        "file_size_kb": 45.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:44.825240",
+        "file_size_kb": 45.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\006_widgets_rector.json"
+    },
+    {
+      "file_id": 7,
+      "filename": "007_class-wp.php",
+      "original_path": "llm_generated/Rector_Baseline/007_class-wp.php",
+      "file_metrics": {
+        "lines_of_code": 774,
+        "file_size_kb": 22.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:48.692627",
+        "file_size_kb": 22.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\007_class-wp_rector.json"
+    },
+    {
+      "file_id": 8,
+      "filename": "008_wp-login.php",
+      "original_path": "llm_generated/Rector_Baseline/008_wp-login.php",
+      "file_metrics": {
+        "lines_of_code": 952,
+        "file_size_kb": 29.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:51.727118",
+        "file_size_kb": 29.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\008_wp-login_rector.json"
+    },
+    {
+      "file_id": 9,
+      "filename": "009_getid3.php",
+      "original_path": "llm_generated/Rector_Baseline/009_getid3.php",
+      "file_metrics": {
+        "lines_of_code": 1776,
+        "file_size_kb": 60.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:56.379441",
+        "file_size_kb": 60.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\009_getid3_rector.json"
+    },
+    {
+      "file_id": 10,
+      "filename": "010_class-wp-theme.php",
+      "original_path": "llm_generated/Rector_Baseline/010_class-wp-theme.php",
+      "file_metrics": {
+        "lines_of_code": 1189,
+        "file_size_kb": 37.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:09:59.758403",
+        "file_size_kb": 37.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\010_class-wp-theme_rector.json"
+    },
+    {
+      "file_id": 11,
+      "filename": "011_translations.php",
+      "original_path": "llm_generated/Rector_Baseline/011_translations.php",
+      "file_metrics": {
+        "lines_of_code": 278,
+        "file_size_kb": 7.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:02.441139",
+        "file_size_kb": 7.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\011_translations_rector.json"
+    },
+    {
+      "file_id": 12,
+      "filename": "012_module.audio-video.riff.php",
+      "original_path": "llm_generated/Rector_Baseline/012_module.audio-video.riff.php",
+      "file_metrics": {
+        "lines_of_code": 2421,
+        "file_size_kb": 109.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:09.174732",
+        "file_size_kb": 109.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\012_module.audio-video.riff_rector.json"
+    },
+    {
+      "file_id": 13,
+      "filename": "013_file.php",
+      "original_path": "llm_generated/Rector_Baseline/013_file.php",
+      "file_metrics": {
+        "lines_of_code": 1146,
+        "file_size_kb": 40.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 14
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:13.418952",
+        "file_size_kb": 40.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\013_file_rector.json"
+    },
+    {
+      "file_id": 14,
+      "filename": "014_module.tag.id3v2.php",
+      "original_path": "llm_generated/Rector_Baseline/014_module.tag.id3v2.php",
+      "file_metrics": {
+        "lines_of_code": 3390,
+        "file_size_kb": 133.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 411
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:24.990021",
+        "file_size_kb": 133.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\014_module.tag.id3v2_rector.json"
+    },
+    {
+      "file_id": 15,
+      "filename": "015_Diff.php",
+      "original_path": "llm_generated/Rector_Baseline/015_Diff.php",
+      "file_metrics": {
+        "lines_of_code": 452,
+        "file_size_kb": 11.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:27.969167",
+        "file_size_kb": 11.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\015_Diff_rector.json"
+    },
+    {
+      "file_id": 16,
+      "filename": "016_module.audio.ac3.php",
+      "original_path": "llm_generated/Rector_Baseline/016_module.audio.ac3.php",
+      "file_metrics": {
+        "lines_of_code": 465,
+        "file_size_kb": 17.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:30.469611",
+        "file_size_kb": 17.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\016_module.audio.ac3_rector.json"
+    },
+    {
+      "file_id": 17,
+      "filename": "017_press-this.php",
+      "original_path": "llm_generated/Rector_Baseline/017_press-this.php",
+      "file_metrics": {
+        "lines_of_code": 691,
+        "file_size_kb": 25.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:33.446529",
+        "file_size_kb": 25.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\017_press-this_rector.json"
+    },
+    {
+      "file_id": 18,
+      "filename": "018_streams.php",
+      "original_path": "llm_generated/Rector_Baseline/018_streams.php",
+      "file_metrics": {
+        "lines_of_code": 205,
+        "file_size_kb": 4.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:35.947325",
+        "file_size_kb": 4.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\018_streams_rector.json"
+    },
+    {
+      "file_id": 19,
+      "filename": "019_atomlib.php",
+      "original_path": "llm_generated/Rector_Baseline/019_atomlib.php",
+      "file_metrics": {
+        "lines_of_code": 358,
+        "file_size_kb": 10.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:38.707550",
+        "file_size_kb": 10.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\019_atomlib_rector.json"
+    },
+    {
+      "file_id": 20,
+      "filename": "020_class-ftp.php",
+      "original_path": "llm_generated/Rector_Baseline/020_class-ftp.php",
+      "file_metrics": {
+        "lines_of_code": 907,
+        "file_size_kb": 26.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+          "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_71": 1,
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 47
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:44.397138",
+        "file_size_kb": 26.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\020_class-ftp_rector.json"
+    },
+    {
+      "file_id": 21,
+      "filename": "021_class-pop3.php",
+      "original_path": "llm_generated/Rector_Baseline/021_class-pop3.php",
+      "file_metrics": {
+        "lines_of_code": 652,
+        "file_size_kb": 20.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:47.335128",
+        "file_size_kb": 20.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\021_class-pop3_rector.json"
+    },
+    {
+      "file_id": 22,
+      "filename": "022_class-wp-customize-setting.php",
+      "original_path": "llm_generated/Rector_Baseline/022_class-wp-customize-setting.php",
+      "file_metrics": {
+        "lines_of_code": 542,
+        "file_size_kb": 13.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:49.966555",
+        "file_size_kb": 13.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\022_class-wp-customize-setting_rector.json"
+    },
+    {
+      "file_id": 23,
+      "filename": "023_module.tag.id3v1.php",
+      "original_path": "llm_generated/Rector_Baseline/023_module.tag.id3v1.php",
+      "file_metrics": {
+        "lines_of_code": 354,
+        "file_size_kb": 11.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 46
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:52.704043",
+        "file_size_kb": 11.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\023_module.tag.id3v1_rector.json"
+    },
+    {
+      "file_id": 24,
+      "filename": "024_edit-form-advanced.php",
+      "original_path": "llm_generated/Rector_Baseline/024_edit-form-advanced.php",
+      "file_metrics": {
+        "lines_of_code": 636,
+        "file_size_kb": 20.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:55.625961",
+        "file_size_kb": 20.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\024_edit-form-advanced_rector.json"
+    },
+    {
+      "file_id": 25,
+      "filename": "025_widgets.php",
+      "original_path": "llm_generated/Rector_Baseline/025_widgets.php",
+      "file_metrics": {
+        "lines_of_code": 442,
+        "file_size_kb": 12.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:10:58.365514",
+        "file_size_kb": 12.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\025_widgets_rector.json"
+    },
+    {
+      "file_id": 26,
+      "filename": "026_Source.php",
+      "original_path": "llm_generated/Rector_Baseline/026_Source.php",
+      "file_metrics": {
+        "lines_of_code": 607,
+        "file_size_kb": 19.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:01.524326",
+        "file_size_kb": 19.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\026_Source_rector.json"
+    },
+    {
+      "file_id": 27,
+      "filename": "027_upload.php",
+      "original_path": "llm_generated/Rector_Baseline/027_upload.php",
+      "file_metrics": {
+        "lines_of_code": 292,
+        "file_size_kb": 8.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:04.171475",
+        "file_size_kb": 8.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\027_upload_rector.json"
+    },
+    {
+      "file_id": 28,
+      "filename": "028_themes.php",
+      "original_path": "llm_generated/Rector_Baseline/028_themes.php",
+      "file_metrics": {
+        "lines_of_code": 266,
+        "file_size_kb": 9.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:06.768371",
+        "file_size_kb": 9.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\028_themes_rector.json"
+    },
+    {
+      "file_id": 29,
+      "filename": "029_module.audio.ogg.php",
+      "original_path": "llm_generated/Rector_Baseline/029_module.audio.ogg.php",
+      "file_metrics": {
+        "lines_of_code": 671,
+        "file_size_kb": 30.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:10.143110",
+        "file_size_kb": 30.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\029_module.audio.ogg_rector.json"
+    },
+    {
+      "file_id": 30,
+      "filename": "030_class-json.php",
+      "original_path": "llm_generated/Rector_Baseline/030_class-json.php",
+      "file_metrics": {
+        "lines_of_code": 922,
+        "file_size_kb": 38.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+          "Rector\\Php71\\Rector\\BinaryOp\\BinaryOpBetweenNumberAndStringRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_71": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 68
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:14.918435",
+        "file_size_kb": 38.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\030_class-json_rector.json"
+    },
+    {
+      "file_id": 31,
+      "filename": "031_class-wp-plugins-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/031_class-wp-plugins-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 605,
+        "file_size_kb": 22.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:18.031464",
+        "file_size_kb": 22.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\031_class-wp-plugins-list-table_rector.json"
+    },
+    {
+      "file_id": 32,
+      "filename": "032_class-wp-comments-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/032_class-wp-comments-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 635,
+        "file_size_kb": 20.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:21.241341",
+        "file_size_kb": 20.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\032_class-wp-comments-list-table_rector.json"
+    },
+    {
+      "file_id": 33,
+      "filename": "033_ms-settings.php",
+      "original_path": "llm_generated/Rector_Baseline/033_ms-settings.php",
+      "file_metrics": {
+        "lines_of_code": 213,
+        "file_size_kb": 8.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:23.693387",
+        "file_size_kb": 8.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\033_ms-settings_rector.json"
+    },
+    {
+      "file_id": 34,
+      "filename": "034_inline.php",
+      "original_path": "llm_generated/Rector_Baseline/034_inline.php",
+      "file_metrics": {
+        "lines_of_code": 206,
+        "file_size_kb": 5.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:26.118087",
+        "file_size_kb": 5.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\034_inline_rector.json"
+    },
+    {
+      "file_id": 35,
+      "filename": "035_wp-trackback.php",
+      "original_path": "llm_generated/Rector_Baseline/035_wp-trackback.php",
+      "file_metrics": {
+        "lines_of_code": 127,
+        "file_size_kb": 3.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:28.636358",
+        "file_size_kb": 3.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\035_wp-trackback_rector.json"
+    },
+    {
+      "file_id": 36,
+      "filename": "036_module.tag.apetag.php",
+      "original_path": "llm_generated/Rector_Baseline/036_module.tag.apetag.php",
+      "file_metrics": {
+        "lines_of_code": 370,
+        "file_size_kb": 15.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:31.790880",
+        "file_size_kb": 15.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\036_module.tag.apetag_rector.json"
+    },
+    {
+      "file_id": 37,
+      "filename": "037_class-wp-ms-sites-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/037_class-wp-ms-sites-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 402,
+        "file_size_kb": 14.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:34.963695",
+        "file_size_kb": 14.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\037_class-wp-ms-sites-list-table_rector.json"
+    },
+    {
+      "file_id": 38,
+      "filename": "038_class.wp-styles.php",
+      "original_path": "llm_generated/Rector_Baseline/038_class.wp-styles.php",
+      "file_metrics": {
+        "lines_of_code": 212,
+        "file_size_kb": 5.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:37.221354",
+        "file_size_kb": 5.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\038_class.wp-styles_rector.json"
+    },
+    {
+      "file_id": 39,
+      "filename": "039_class-wp-upgrader-skins.php",
+      "original_path": "llm_generated/Rector_Baseline/039_class-wp-upgrader-skins.php",
+      "file_metrics": {
+        "lines_of_code": 784,
+        "file_size_kb": 26.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:40.577107",
+        "file_size_kb": 26.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\039_class-wp-upgrader-skins_rector.json"
+    },
+    {
+      "file_id": 40,
+      "filename": "040_class-wp-media-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/040_class-wp-media-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 564,
+        "file_size_kb": 17.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:43.486019",
+        "file_size_kb": 17.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\040_class-wp-media-list-table_rector.json"
+    },
+    {
+      "file_id": 41,
+      "filename": "041_module.tag.lyrics3.php",
+      "original_path": "llm_generated/Rector_Baseline/041_module.tag.lyrics3.php",
+      "file_metrics": {
+        "lines_of_code": 294,
+        "file_size_kb": 10.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:46.297415",
+        "file_size_kb": 10.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\041_module.tag.lyrics3_rector.json"
+    },
+    {
+      "file_id": 42,
+      "filename": "042_image-edit.php",
+      "original_path": "llm_generated/Rector_Baseline/042_image-edit.php",
+      "file_metrics": {
+        "lines_of_code": 823,
+        "file_size_kb": 27.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:49.831292",
+        "file_size_kb": 27.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\042_image-edit_rector.json"
+    },
+    {
+      "file_id": 43,
+      "filename": "043_image.php",
+      "original_path": "llm_generated/Rector_Baseline/043_image.php",
+      "file_metrics": {
+        "lines_of_code": 590,
+        "file_size_kb": 18.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:53.184383",
+        "file_size_kb": 18.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\043_image_rector.json"
+    },
+    {
+      "file_id": 44,
+      "filename": "044_class-wp-image-editor.php",
+      "original_path": "llm_generated/Rector_Baseline/044_class-wp-image-editor.php",
+      "file_metrics": {
+        "lines_of_code": 470,
+        "file_size_kb": 11.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:55.831354",
+        "file_size_kb": 11.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\044_class-wp-image-editor_rector.json"
+    },
+    {
+      "file_id": 45,
+      "filename": "045_Locator.php",
+      "original_path": "llm_generated/Rector_Baseline/045_Locator.php",
+      "file_metrics": {
+        "lines_of_code": 366,
+        "file_size_kb": 10.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:11:58.818647",
+        "file_size_kb": 10.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\045_Locator_rector.json"
+    },
+    {
+      "file_id": 46,
+      "filename": "046_module.audio-video.flv.php",
+      "original_path": "llm_generated/Rector_Baseline/046_module.audio-video.flv.php",
+      "file_metrics": {
+        "lines_of_code": 728,
+        "file_size_kb": 22.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:01.827161",
+        "file_size_kb": 22.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\046_module.audio-video.flv_rector.json"
+    },
+    {
+      "file_id": 47,
+      "filename": "047_update-core.php",
+      "original_path": "llm_generated/Rector_Baseline/047_update-core.php",
+      "file_metrics": {
+        "lines_of_code": 649,
+        "file_size_kb": 21.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:04.634568",
+        "file_size_kb": 21.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\047_update-core_rector.json"
+    },
+    {
+      "file_id": 48,
+      "filename": "048_about.php",
+      "original_path": "llm_generated/Rector_Baseline/048_about.php",
+      "file_metrics": {
+        "lines_of_code": 193,
+        "file_size_kb": 7.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:06.833503",
+        "file_size_kb": 7.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\048_about_rector.json"
+    },
+    {
+      "file_id": 49,
+      "filename": "049_Parser.php",
+      "original_path": "llm_generated/Rector_Baseline/049_Parser.php",
+      "file_metrics": {
+        "lines_of_code": 407,
+        "file_size_kb": 11.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:09.842266",
+        "file_size_kb": 11.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\049_Parser_rector.json"
+    },
+    {
+      "file_id": 50,
+      "filename": "050_class-oembed.php",
+      "original_path": "llm_generated/Rector_Baseline/050_class-oembed.php",
+      "file_metrics": {
+        "lines_of_code": 575,
+        "file_size_kb": 21.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:12.887370",
+        "file_size_kb": 21.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\050_class-oembed_rector.json"
+    },
+    {
+      "file_id": 51,
+      "filename": "051_ms-deprecated.php",
+      "original_path": "llm_generated/Rector_Baseline/051_ms-deprecated.php",
+      "file_metrics": {
+        "lines_of_code": 324,
+        "file_size_kb": 8.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:15.392945",
+        "file_size_kb": 8.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\051_ms-deprecated_rector.json"
+    },
+    {
+      "file_id": 52,
+      "filename": "052_class-wp-ms-themes-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/052_class-wp-ms-themes-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 459,
+        "file_size_kb": 14.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:18.164512",
+        "file_size_kb": 14.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\052_class-wp-ms-themes-list-table_rector.json"
+    },
+    {
+      "file_id": 53,
+      "filename": "053_class-wp-themes-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/053_class-wp-themes-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 279,
+        "file_size_kb": 8.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:20.853961",
+        "file_size_kb": 8.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\053_class-wp-themes-list-table_rector.json"
+    },
+    {
+      "file_id": 54,
+      "filename": "054_nav-menu.php",
+      "original_path": "llm_generated/Rector_Baseline/054_nav-menu.php",
+      "file_metrics": {
+        "lines_of_code": 893,
+        "file_size_kb": 27.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:23.869423",
+        "file_size_kb": 27.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\054_nav-menu_rector.json"
+    },
+    {
+      "file_id": 55,
+      "filename": "055_rss.php",
+      "original_path": "llm_generated/Rector_Baseline/055_rss.php",
+      "file_metrics": {
+        "lines_of_code": 936,
+        "file_size_kb": 22.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:27.238727",
+        "file_size_kb": 22.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\055_rss_rector.json"
+    },
+    {
+      "file_id": 56,
+      "filename": "056_class.akismet.php",
+      "original_path": "llm_generated/Rector_Baseline/056_class.akismet.php",
+      "file_metrics": {
+        "lines_of_code": 933,
+        "file_size_kb": 32.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:30.623089",
+        "file_size_kb": 32.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\056_class.akismet_rector.json"
+    },
+    {
+      "file_id": 57,
+      "filename": "057_class-wp-customize-manager.php",
+      "original_path": "llm_generated/Rector_Baseline/057_class-wp-customize-manager.php",
+      "file_metrics": {
+        "lines_of_code": 1269,
+        "file_size_kb": 29.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:33.602150",
+        "file_size_kb": 29.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\057_class-wp-customize-manager_rector.json"
+    },
+    {
+      "file_id": 58,
+      "filename": "058_session.php",
+      "original_path": "llm_generated/Rector_Baseline/058_session.php",
+      "file_metrics": {
+        "lines_of_code": 420,
+        "file_size_kb": 9.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:35.919699",
+        "file_size_kb": 9.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\058_session_rector.json"
+    },
+    {
+      "file_id": 59,
+      "filename": "059_credits.php",
+      "original_path": "llm_generated/Rector_Baseline/059_credits.php",
+      "file_metrics": {
+        "lines_of_code": 192,
+        "file_size_kb": 5.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:38.407521",
+        "file_size_kb": 5.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\059_credits_rector.json"
+    },
+    {
+      "file_id": 60,
+      "filename": "060_themes.php",
+      "original_path": "llm_generated/Rector_Baseline/060_themes.php",
+      "file_metrics": {
+        "lines_of_code": 374,
+        "file_size_kb": 13.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:41.144301",
+        "file_size_kb": 13.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\060_themes_rector.json"
+    },
+    {
+      "file_id": 61,
+      "filename": "061_class.wp-scripts.php",
+      "original_path": "llm_generated/Rector_Baseline/061_class.wp-scripts.php",
+      "file_metrics": {
+        "lines_of_code": 250,
+        "file_size_kb": 6.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:43.510725",
+        "file_size_kb": 6.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\061_class.wp-scripts_rector.json"
+    },
+    {
+      "file_id": 62,
+      "filename": "062_string.php",
+      "original_path": "llm_generated/Rector_Baseline/062_string.php",
+      "file_metrics": {
+        "lines_of_code": 248,
+        "file_size_kb": 8.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:46.236002",
+        "file_size_kb": 8.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\062_string_rector.json"
+    },
+    {
+      "file_id": 63,
+      "filename": "063_module.audio.dts.php",
+      "original_path": "llm_generated/Rector_Baseline/063_module.audio.dts.php",
+      "file_metrics": {
+        "lines_of_code": 264,
+        "file_size_kb": 9.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:48.594452",
+        "file_size_kb": 9.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\063_module.audio.dts_rector.json"
+    },
+    {
+      "file_id": 64,
+      "filename": "064_wp-diff.php",
+      "original_path": "llm_generated/Rector_Baseline/064_wp-diff.php",
+      "file_metrics": {
+        "lines_of_code": 524,
+        "file_size_kb": 13.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:51.553158",
+        "file_size_kb": 13.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\064_wp-diff_rector.json"
+    },
+    {
+      "file_id": 65,
+      "filename": "065_class-wp-image-editor-imagick.php",
+      "original_path": "llm_generated/Rector_Baseline/065_class-wp-image-editor-imagick.php",
+      "file_metrics": {
+        "lines_of_code": 515,
+        "file_size_kb": 13.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:54.278806",
+        "file_size_kb": 13.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\065_class-wp-image-editor-imagick_rector.json"
+    },
+    {
+      "file_id": 66,
+      "filename": "066_class.wp-dependencies.php",
+      "original_path": "llm_generated/Rector_Baseline/066_class.wp-dependencies.php",
+      "file_metrics": {
+        "lines_of_code": 506,
+        "file_size_kb": 12.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:56.941668",
+        "file_size_kb": 12.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\066_class.wp-dependencies_rector.json"
+    },
+    {
+      "file_id": 67,
+      "filename": "067_user.php",
+      "original_path": "llm_generated/Rector_Baseline/067_user.php",
+      "file_metrics": {
+        "lines_of_code": 442,
+        "file_size_kb": 13.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:12:59.582941",
+        "file_size_kb": 13.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\067_user_rector.json"
+    },
+    {
+      "file_id": 68,
+      "filename": "068_revision.php",
+      "original_path": "llm_generated/Rector_Baseline/068_revision.php",
+      "file_metrics": {
+        "lines_of_code": 657,
+        "file_size_kb": 17.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:02.341928",
+        "file_size_kb": 17.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\068_revision_rector.json"
+    },
+    {
+      "file_id": 69,
+      "filename": "069_class-wp-image-editor-gd.php",
+      "original_path": "llm_generated/Rector_Baseline/069_class-wp-image-editor-gd.php",
+      "file_metrics": {
+        "lines_of_code": 459,
+        "file_size_kb": 12.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:04.990465",
+        "file_size_kb": 12.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\069_class-wp-image-editor-gd_rector.json"
+    },
+    {
+      "file_id": 70,
+      "filename": "070_File.php",
+      "original_path": "llm_generated/Rector_Baseline/070_File.php",
+      "file_metrics": {
+        "lines_of_code": 290,
+        "file_size_kb": 9.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:08.101202",
+        "file_size_kb": 9.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\070_File_rector.json"
+    },
+    {
+      "file_id": 71,
+      "filename": "071_plugins.php",
+      "original_path": "llm_generated/Rector_Baseline/071_plugins.php",
+      "file_metrics": {
+        "lines_of_code": 455,
+        "file_size_kb": 16.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:10.944238",
+        "file_size_kb": 16.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\071_plugins_rector.json"
+    },
+    {
+      "file_id": 72,
+      "filename": "072_class-wp-users-list-table.php",
+      "original_path": "llm_generated/Rector_Baseline/072_class-wp-users-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 459,
+        "file_size_kb": 12.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:13.716465",
+        "file_size_kb": 12.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\072_class-wp-users-list-table_rector.json"
+    },
+    {
+      "file_id": 73,
+      "filename": "073_site-settings.php",
+      "original_path": "llm_generated/Rector_Baseline/073_site-settings.php",
+      "file_metrics": {
+        "lines_of_code": 173,
+        "file_size_kb": 5.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:16.206366",
+        "file_size_kb": 5.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\073_site-settings_rector.json"
+    },
+    {
+      "file_id": 74,
+      "filename": "074_site-themes.php",
+      "original_path": "llm_generated/Rector_Baseline/074_site-themes.php",
+      "file_metrics": {
+        "lines_of_code": 185,
+        "file_size_kb": 5.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:18.736725",
+        "file_size_kb": 5.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\074_site-themes_rector.json"
+    },
+    {
+      "file_id": 75,
+      "filename": "075_my-sites.php",
+      "original_path": "llm_generated/Rector_Baseline/075_my-sites.php",
+      "file_metrics": {
+        "lines_of_code": 145,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:21.064093",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\075_my-sites_rector.json"
+    },
+    {
+      "file_id": 76,
+      "filename": "076_upgrade.php",
+      "original_path": "llm_generated/Rector_Baseline/076_upgrade.php",
+      "file_metrics": {
+        "lines_of_code": 120,
+        "file_size_kb": 3.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:23.375444",
+        "file_size_kb": 3.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\076_upgrade_rector.json"
+    },
+    {
+      "file_id": 77,
+      "filename": "077_post-thumbnail-template.php",
+      "original_path": "llm_generated/Rector_Baseline/077_post-thumbnail-template.php",
+      "file_metrics": {
+        "lines_of_code": 142,
+        "file_size_kb": 3.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:25.401812",
+        "file_size_kb": 3.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\077_post-thumbnail-template_rector.json"
+    },
+    {
+      "file_id": 78,
+      "filename": "078_media.php",
+      "original_path": "llm_generated/Rector_Baseline/078_media.php",
+      "file_metrics": {
+        "lines_of_code": 146,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:27.737387",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\078_media_rector.json"
+    },
+    {
+      "file_id": 79,
+      "filename": "079_load-styles.php",
+      "original_path": "llm_generated/Rector_Baseline/079_load-styles.php",
+      "file_metrics": {
+        "lines_of_code": 153,
+        "file_size_kb": 3.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:30.526803",
+        "file_size_kb": 3.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\079_load-styles_rector.json"
+    },
+    {
+      "file_id": 80,
+      "filename": "080_site-info.php",
+      "original_path": "llm_generated/Rector_Baseline/080_site-info.php",
+      "file_metrics": {
+        "lines_of_code": 178,
+        "file_size_kb": 5.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:33.043768",
+        "file_size_kb": 5.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\080_site-info_rector.json"
+    },
+    {
+      "file_id": 81,
+      "filename": "081_site-new.php",
+      "original_path": "llm_generated/Rector_Baseline/081_site-new.php",
+      "file_metrics": {
+        "lines_of_code": 150,
+        "file_size_kb": 5.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:35.615637",
+        "file_size_kb": 5.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\081_site-new_rector.json"
+    },
+    {
+      "file_id": 82,
+      "filename": "082_import.php",
+      "original_path": "llm_generated/Rector_Baseline/082_import.php",
+      "file_metrics": {
+        "lines_of_code": 132,
+        "file_size_kb": 3.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:38.122786",
+        "file_size_kb": 3.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\082_import_rector.json"
+    },
+    {
+      "file_id": 83,
+      "filename": "083_shell.php",
+      "original_path": "llm_generated/Rector_Baseline/083_shell.php",
+      "file_metrics": {
+        "lines_of_code": 162,
+        "file_size_kb": 5.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:40.772167",
+        "file_size_kb": 5.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\083_shell_rector.json"
+    },
+    {
+      "file_id": 84,
+      "filename": "084_class-wp-ajax-response.php",
+      "original_path": "llm_generated/Rector_Baseline/084_class-wp-ajax-response.php",
+      "file_metrics": {
+        "lines_of_code": 199,
+        "file_size_kb": 5.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:43.240479",
+        "file_size_kb": 5.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\084_class-wp-ajax-response_rector.json"
+    },
+    {
+      "file_id": 85,
+      "filename": "085_async-upload.php",
+      "original_path": "llm_generated/Rector_Baseline/085_async-upload.php",
+      "file_metrics": {
+        "lines_of_code": 114,
+        "file_size_kb": 3.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:45.722747",
+        "file_size_kb": 3.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\085_async-upload_rector.json"
+    },
+    {
+      "file_id": 86,
+      "filename": "086_user-new.php",
+      "original_path": "llm_generated/Rector_Baseline/086_user-new.php",
+      "file_metrics": {
+        "lines_of_code": 106,
+        "file_size_kb": 2.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:48.434551",
+        "file_size_kb": 2.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\086_user-new_rector.json"
+    },
+    {
+      "file_id": 87,
+      "filename": "087_Restriction.php",
+      "original_path": "llm_generated/Rector_Baseline/087_Restriction.php",
+      "file_metrics": {
+        "lines_of_code": 150,
+        "file_size_kb": 3.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:50.731881",
+        "file_size_kb": 3.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\087_Restriction_rector.json"
+    },
+    {
+      "file_id": 88,
+      "filename": "088_Credit.php",
+      "original_path": "llm_generated/Rector_Baseline/088_Credit.php",
+      "file_metrics": {
+        "lines_of_code": 151,
+        "file_size_kb": 3.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:53.140723",
+        "file_size_kb": 3.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\088_Credit_rector.json"
+    },
+    {
+      "file_id": 89,
+      "filename": "089_Category.php",
+      "original_path": "llm_generated/Rector_Baseline/089_Category.php",
+      "file_metrics": {
+        "lines_of_code": 149,
+        "file_size_kb": 3.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:55.384957",
+        "file_size_kb": 3.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\089_Category_rector.json"
+    },
+    {
+      "file_id": 90,
+      "filename": "090_Author.php",
+      "original_path": "llm_generated/Rector_Baseline/090_Author.php",
+      "file_metrics": {
+        "lines_of_code": 149,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:57.631586",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\090_Author_rector.json"
+    },
+    {
+      "file_id": 91,
+      "filename": "091_Rating.php",
+      "original_path": "llm_generated/Rector_Baseline/091_Rating.php",
+      "file_metrics": {
+        "lines_of_code": 126,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:13:59.843302",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\091_Rating_rector.json"
+    },
+    {
+      "file_id": 92,
+      "filename": "092_Copyright.php",
+      "original_path": "llm_generated/Rector_Baseline/092_Copyright.php",
+      "file_metrics": {
+        "lines_of_code": 127,
+        "file_size_kb": 3.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:02.136399",
+        "file_size_kb": 3.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\092_Copyright_rector.json"
+    },
+    {
+      "file_id": 93,
+      "filename": "093_vars.php",
+      "original_path": "llm_generated/Rector_Baseline/093_vars.php",
+      "file_metrics": {
+        "lines_of_code": 144,
+        "file_size_kb": 5.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:04.757663",
+        "file_size_kb": 5.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\093_vars_rector.json"
+    },
+    {
+      "file_id": 94,
+      "filename": "094_class.akismet-widget.php",
+      "original_path": "llm_generated/Rector_Baseline/094_class.akismet-widget.php",
+      "file_metrics": {
+        "lines_of_code": 113,
+        "file_size_kb": 2.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:06.881051",
+        "file_size_kb": 2.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\094_class.akismet-widget_rector.json"
+    },
+    {
+      "file_id": 95,
+      "filename": "095_class-wp-http-ixr-client.php",
+      "original_path": "llm_generated/Rector_Baseline/095_class-wp-http-ixr-client.php",
+      "file_metrics": {
+        "lines_of_code": 98,
+        "file_size_kb": 2.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:09.323091",
+        "file_size_kb": 2.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\095_class-wp-http-ixr-client_rector.json"
+    },
+    {
+      "file_id": 96,
+      "filename": "096_class-ftp-pure.php",
+      "original_path": "llm_generated/Rector_Baseline/096_class-ftp-pure.php",
+      "file_metrics": {
+        "lines_of_code": 186,
+        "file_size_kb": 5.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:11.790248",
+        "file_size_kb": 5.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\096_class-ftp-pure_rector.json"
+    },
+    {
+      "file_id": 97,
+      "filename": "097_class-wp-customize-section.php",
+      "original_path": "llm_generated/Rector_Baseline/097_class-wp-customize-section.php",
+      "file_metrics": {
+        "lines_of_code": 187,
+        "file_size_kb": 4.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:14.122236",
+        "file_size_kb": 4.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\097_class-wp-customize-section_rector.json"
+    },
+    {
+      "file_id": 98,
+      "filename": "098_wp-load.php",
+      "original_path": "llm_generated/Rector_Baseline/098_wp-load.php",
+      "file_metrics": {
+        "lines_of_code": 73,
+        "file_size_kb": 2.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:16.227330",
+        "file_size_kb": 2.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\098_wp-load_rector.json"
+    },
+    {
+      "file_id": 99,
+      "filename": "099_ms-files.php",
+      "original_path": "llm_generated/Rector_Baseline/099_ms-files.php",
+      "file_metrics": {
+        "lines_of_code": 82,
+        "file_size_kb": 2.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:18.831382",
+        "file_size_kb": 2.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\099_ms-files_rector.json"
+    },
+    {
+      "file_id": 100,
+      "filename": "100_wp-links-opml.php",
+      "original_path": "llm_generated/Rector_Baseline/100_wp-links-opml.php",
+      "file_metrics": {
+        "lines_of_code": 80,
+        "file_size_kb": 2.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:14:21.182488",
+        "file_size_kb": 2.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\Rector_Baseline\\individual_files\\100_wp-links-opml_rector.json"
+    }
+  ]
+}

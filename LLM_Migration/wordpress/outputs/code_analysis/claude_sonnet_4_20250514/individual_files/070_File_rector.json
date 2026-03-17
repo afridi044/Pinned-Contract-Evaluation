@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\070_File.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 72
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:19:19.831512",
+    "file_size_kb": 13.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/070_File.php",
+        "diff": "--- Original\n+++ New\n@@ -59,7 +59,6 @@\n class SimplePie_File\r\n {\r\n     public string $url;\r\n-    public ?string $useragent = null;\r\n     public bool $success = true;\r\n     public array $headers = [];\r\n     public ?string $body = null;\r\n@@ -73,7 +72,7 @@\n         int $timeout = 10, \r\n         int $redirects = 5, \r\n         ?array $headers = null, \r\n-        ?string $useragent = null, \r\n+        public ?string $useragent = null, \r\n         bool $force_fsockopen = false\r\n     ) {\r\n         if (class_exists('idna_convert')) {\r\n@@ -89,12 +88,11 @@\n         }\r\n         \r\n         $this->url = $url;\r\n-        $this->useragent = $useragent;\r\n         \r\n         if (preg_match('/^http(s)?:\\/\\//i', $url)) {\r\n-            if ($useragent === null) {\r\n-                $useragent = ini_get('user_agent') ?: '';\r\n-                $this->useragent = $useragent;\r\n+            if ($this->useragent === null) {\r\n+                $this->useragent = ini_get('user_agent') ?: '';\r\n+                $this->useragent = $this->useragent;\r\n             }\r\n             \r\n             $headers ??= [];\r\n@@ -118,7 +116,7 @@\n                 curl_setopt($fp, CURLOPT_TIMEOUT, $timeout);\r\n                 curl_setopt($fp, CURLOPT_CONNECTTIMEOUT, $timeout);\r\n                 curl_setopt($fp, CURLOPT_REFERER, $url);\r\n-                curl_setopt($fp, CURLOPT_USERAGENT, $useragent);\r\n+                curl_setopt($fp, CURLOPT_USERAGENT, $this->useragent);\r\n                 curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);\r\n                 \r\n                 if (!ini_get('open_basedir') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>=')) {\r\n@@ -154,7 +152,7 @@\n                             $this->redirects < $redirects) {\r\n                             $this->redirects++;\r\n                             $location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);\r\n-                            return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);\r\n+                            return $this->__construct($location, $timeout, $redirects, $headers, $this->useragent, $force_fsockopen);\r\n                         }\r\n                     }\r\n                 }\r\n@@ -188,7 +186,7 @@\n                     \r\n                     $out = \"GET $get HTTP/1.1\\r\\n\";\r\n                     $out .= \"Host: {$url_parts['host']}\\r\\n\";\r\n-                    $out .= \"User-Agent: $useragent\\r\\n\";\r\n+                    $out .= \"User-Agent: {$this->useragent}\\r\\n\";\r\n                     \r\n                     if (extension_loaded('zlib')) {\r\n                         $out .= \"Accept-Encoding: x-gzip,gzip,deflate\\r\\n\";\r\n@@ -227,7 +225,7 @@\n                                 $this->redirects < $redirects) {\r\n                                 $this->redirects++;\r\n                                 $location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);\r\n-                                return $this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);\r\n+                                return $this->__construct($location, $timeout, $redirects, $headers, $this->useragent, $force_fsockopen);\r\n                             }\r\n                             \r\n                             if (isset($this->headers['content-encoding'])) {\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/070_File.php"
+    ]
+  }
+}

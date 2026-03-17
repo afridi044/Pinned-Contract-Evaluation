@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\052_class-wp-ms-themes-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 80
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:35:33.269160",
+    "file_size_kb": 15.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/052_class-wp-ms-themes-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * MS Themes List Table class.\r\n@@ -116,7 +116,7 @@\n \t\t\t$status         = 'search';\r\n \t\t\t$themes['search'] = array_filter(\r\n \t\t\t\tarray_merge( $themes['all'], $themes['broken'] ),\r\n-\t\t\t\t[ $this, '_search_callback' ]\r\n+\t\t\t\t$this->_search_callback(...)\r\n \t\t\t);\r\n \t\t}\r\n \r\n@@ -144,7 +144,7 @@\n \t\t\t\t\t$this->items = array_reverse( $this->items, true );\r\n \t\t\t\t}\r\n \t\t\t} else {\r\n-\t\t\t\tuasort( $this->items, [ $this, '_order_callback' ] );\r\n+\t\t\t\tuasort( $this->items, $this->_order_callback(...) );\r\n \t\t\t}\r\n \t\t}\r\n \r\n@@ -171,16 +171,16 @@\n \r\n \t\tforeach ( [ 'Name', 'Description', 'Author', 'Author', 'AuthorURI' ] as $field ) {\r\n \t\t\t// Don't mark up; Do translate.\r\n-\t\t\tif ( false !== stripos( $theme->display( $field, false, true ), $term ) ) {\r\n+\t\t\tif ( false !== stripos( $theme->display( $field, false, true ), (string) $term ) ) {\r\n \t\t\t\treturn true;\r\n \t\t\t}\r\n \t\t}\r\n \r\n-\t\tif ( false !== stripos( $theme->get_stylesheet(), $term ) ) {\r\n+\t\tif ( false !== stripos( $theme->get_stylesheet(), (string) $term ) ) {\r\n \t\t\treturn true;\r\n \t\t}\r\n \r\n-\t\tif ( false !== stripos( $theme->get_template(), $term ) ) {\r\n+\t\tif ( false !== stripos( $theme->get_template(), (string) $term ) ) {\r\n \t\t\treturn true;\r\n \t\t}\r\n \r\n@@ -238,26 +238,14 @@\n \t\t\t\tcontinue;\r\n \t\t\t}\r\n \r\n-\t\t\tswitch ( $type ) {\r\n-\t\t\t\tcase 'all':\r\n-\t\t\t\t\t$text = _nx( 'All <span class=\"count\">(%s)</span>', 'All <span class=\"count\">(%s)</span>', $count, 'themes' );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'enabled':\r\n-\t\t\t\t\t$text = _n( 'Enabled <span class=\"count\">(%s)</span>', 'Enabled <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'disabled':\r\n-\t\t\t\t\t$text = _n( 'Disabled <span class=\"count\">(%s)</span>', 'Disabled <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'upgrade':\r\n-\t\t\t\t\t$text = _n( 'Update Available <span class=\"count\">(%s)</span>', 'Update Available <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'broken':\r\n-\t\t\t\t\t$text = _n( 'Broken <span class=\"count\">(%s)</span>', 'Broken <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tdefault:\r\n-\t\t\t\t\t$text = '';\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t}\r\n+\t\t\t$text = match ($type) {\n+                'all' => _nx( 'All <span class=\"count\">(%s)</span>', 'All <span class=\"count\">(%s)</span>', $count, 'themes' ),\n+                'enabled' => _n( 'Enabled <span class=\"count\">(%s)</span>', 'Enabled <span class=\"count\">(%s)</span>', $count ),\n+                'disabled' => _n( 'Disabled <span class=\"count\">(%s)</span>', 'Disabled <span class=\"count\">(%s)</span>', $count ),\n+                'upgrade' => _n( 'Update Available <span class=\"count\">(%s)</span>', 'Update Available <span class=\"count\">(%s)</span>', $count ),\n+                'broken' => _n( 'Broken <span class=\"count\">(%s)</span>', 'Broken <span class=\"count\">(%s)</span>', $count ),\n+                default => '',\n+            };\r\n \r\n \t\t\t$url = $this->is_site_themes ? 'site-themes.php?id=' . $this->site_id : 'themes.php';\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/052_class-wp-ms-themes-list-table.php"
+    ]
+  }
+}

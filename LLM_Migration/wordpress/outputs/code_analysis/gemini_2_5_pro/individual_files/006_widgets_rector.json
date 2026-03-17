@@ -1,0 +1,45 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\006_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 70
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:27:12.527702",
+    "file_size_kb": 48.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/006_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -23,8 +23,7 @@\n  */\r\n class WP_Widget {\r\n \r\n-\tpublic string $id_base;            // Root id for all widgets of this type.\r\n-\tpublic string $name;                // Name for this widget type.\r\n+\tpublic string $id_base;                // Name for this widget type.\r\n \tpublic array $widget_options;    // Option array passed to wp_register_sidebar_widget()\r\n \tpublic array $control_options;    // Option array passed to wp_register_widget_control()\r\n \tpublic string $option_name;\r\n@@ -89,9 +88,8 @@\n \t *  - width: required if more than 250px\r\n \t *  - height: currently not used but may be needed in the future\r\n \t */\r\n-\tpublic function __construct(string $id_base, string $name, array $widget_options = [], array $control_options = []) {\r\n+\tpublic function __construct(string $id_base, public string $name, array $widget_options = [], array $control_options = []) {\r\n \t\t$this->id_base = empty($id_base) ? preg_replace('/(wp_)?widget_/', '', strtolower(static::class)) : strtolower($id_base);\r\n-\t\t$this->name = $name;\r\n \t\t$this->option_name = 'widget_' . $this->id_base;\r\n \t\t$this->widget_options = wp_parse_args($widget_options, ['classname' => $this->option_name]);\r\n \t\t$this->control_options = wp_parse_args($control_options, ['id_base' => $this->id_base]);\r\n@@ -151,15 +149,15 @@\n \t}\r\n \r\n \tpublic function _get_display_callback(): array {\r\n-\t\treturn [$this, 'display_callback'];\r\n+\t\treturn $this->display_callback(...);\r\n \t}\r\n \r\n \tpublic function _get_update_callback(): array {\r\n-\t\treturn [$this, 'update_callback'];\r\n+\t\treturn $this->update_callback(...);\r\n \t}\r\n \r\n \tpublic function _get_form_callback(): array {\r\n-\t\treturn [$this, 'form_callback'];\r\n+\t\treturn $this->form_callback(...);\r\n \t}\r\n \r\n \t/**\r\n@@ -412,7 +410,7 @@\n \tpublic array $widgets = [];\r\n \r\n \tpublic function __construct() {\r\n-\t\tadd_action('widgets_init', [$this, '_register_widgets'], 100);\r\n+\t\tadd_action('widgets_init', $this->_register_widgets(...), 100);\r\n \t}\r\n \r\n \tpublic function register(string $widget_class): void {\r\n@@ -1035,7 +1033,7 @@\n \t\t\tif (is_string($cn)) {\r\n \t\t\t\t$classnames[] = $cn;\r\n \t\t\t} elseif (is_object($cn)) {\r\n-\t\t\t\t$classnames[] = get_class($cn);\r\n+\t\t\t\t$classnames[] = $cn::class;\r\n \t\t\t}\r\n \t\t}\r\n \t\t$classname_ = implode('_', $classnames);\r\n@@ -1551,7 +1549,7 @@\n \t\t\tcontinue;\r\n \t\t}\r\n \r\n-\t\t$number = preg_replace('/.+?-([0-9]+)$/', '$1', $key);\r\n+\t\t$number = preg_replace('/.+?-([0-9]+)$/', '$1', (string) $key);\r\n \r\n \t\tif ( 2 > (int) $number ) {\r\n \t\t\tcontinue;\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/006_widgets.php"
+    ]
+  }
+}

@@ -1,0 +1,134 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+% Packages
+\input{_preemble}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Pinned-Contract Evaluation: A Policy-Grounded Framework for Evaluating LLM Code Migration%
+\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+\author{\IEEEauthorblockN{Afridi Mahmud}
+\IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+\textit{name of organization (of Aff.)}\\
+City, Country \\
+email address or ORCID}
+}
+
+\maketitle
+
+\begin{abstract}
+
+Evaluating LLM assisted code migration remains difficult because common outcome signals such as parsing, linting, tests, or successful builds do not indicate which upgrade requirements were actually satisfied.
+
+We introduce Pinned Contract Evaluation (PCE), a policy grounded framework that treats a pinned static analysis upgrade pipeline as an explicit migration contract. Executing the contract on the original program induces a set of upgrade obligations defined by triggered diagnostic rule types. Migrated outputs are then assessed by measuring how many of these obligations are resolved under the same contract. We also estimate remaining migration work using reductions in dry run patch suggestions.
+
+We instantiate PCE for PHP version migration using a pinned Rector toolchain and evaluate five LLM systems on a 100 file WordPress 4.0 benchmark that preserves all 48 upgrade rules, representing 521 file rule incidences spanning PHP 5.2 to 8.3. Obligation discharge ranges from 38\% to 78\%, with remaining work concentrated in PHP 8 rule families and a small set of complex files.
+
+These results show that policy grounded evaluation exposes migration progress and failure modes that traditional pass or fail metrics cannot attribute. The approach enables controlled, reproducible, and fine grained comparison of automated modernization systems.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+LLM, code migration, PHP, static analysis, evaluation framework.
+\end{IEEEkeywords}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{images/PCE-Pipeline.png}
+\caption{Pinned-Contract Evaluation workflow. The process begins by identifying legacy PHP code, defining static-analysis contracts, migrating code using LLMs, assessing migration success, and detecting remaining issues.}
+\label{fig:pce-workflow}
+\end{figure*}
+
+\input{intro}
+\input{relatedwork}
+\input{phpBenchmark}
+\input{LLMmigration}
+\input{rectoreval}
+\input{result}
+
+
+\section{Threats to Validity}
+\label{sec:threats}
+
+\paragraph{Construct validity}
+PCE measures modernization against a fixed static-analysis policy.
+The policy is a pinned Rector configuration.
+Our primary metric uses file-level rule-type incidence.
+This signal is tool-native and stable across runs.
+It supports reproducible comparison.
+However, incidence ignores within-file frequency and severity.
+Discharge is conservative.
+A rule type counts as resolved only when it no longer triggers in the file.
+
+Patch volume closure is a secondary proxy.
+It uses dry-run changed-line counts.
+Diff size can change due to formatting or restructuring.
+It is not a measure of developer effort.
+We reduce this risk by using the same pinned contract for all systems and by avoiding extra formatting passes.
+
+Contract metrics can be inflated by omission or degenerate rewrites.
+We therefore interpret discharge with diagnostics.
+We report syntax validity, structural preservation and anti-degeneracy signals, introduced-rule regressions, a loadability sentinel, and PHPCompatibility.
+
+\paragraph{Internal validity}
+Results can be affected by orchestration.
+Context limits, chunk boundaries, extraction failures, and provider APIs can change outputs.
+We reduce these effects by fixing prompts, chunking policy, and decoding settings where supported.
+We use deterministic parsing and reconstruction.
+We surface failures instead of repairing outputs.
+
+\paragraph{External validity}
+We study PHP version migration on a WordPress-derived benchmark.
+The benchmark is coverage-optimized for the obligation space induced by the pinned policy.
+It is not representative of WordPress file frequencies.
+Results therefore reflect performance under this contract and this sampling strategy.
+Other projects and other pinned pipelines may induce different obligation spaces.
+The PCE methodology should still apply, but outcomes may differ.
+
+\paragraph{Reliability and reproducibility}
+Tool versions and configurations are pinned.
+All artifacts are logged.
+Still, LLM outputs can vary due to nondeterminism, missing seeds, and provider-side updates.
+The loadability sentinel is environment dependent.
+We interpret it only as a directional regression signal (orig.\ pass $\rightarrow$ migrated fail) under the same harness.
+
+\section{Conclusion and Future Work}
+\label{sec:conclusion}
+
+We introduced \emph{Pinned Contract Evaluation (PCE)}.
+PCE evaluates automated code modernization against an explicit upgrade policy.
+The policy is a pinned static-analysis contract.
+PCE measures progress in the induced obligation space.
+We score incidence-level obligation discharge and track contract-visible regressions ($I_i, \Delta_i$).
+We also report patch volume closure as a diff-magnitude proxy.
+We interpret these metrics with syntax checks, structural preservation diagnostics, PHPCompatibility, and a regression-oriented loadability sentinel.
+
+\paragraph{Findings}
+On a coverage-optimized WordPress-derived benchmark, PHP~5.x and 7.x obligations discharge more often than PHP~8.x obligations.
+Residual work concentrates in later-version rules and a small set of difficult files.
+Contract discharge does not always track robustness.
+Cross-instrument signals can also diverge.
+Different policies capture different upgrade properties.
+Overall, PCE localizes what was fixed and what remains under a fixed contract.
+
+\paragraph{Future work}
+We plan to build additional pinned pipelines that represent alternative upgrade policies.
+We will extend to other ecosystems and codebases.
+We will add stronger execution-based validation when realistic harnesses exist.
+We also plan feedback-driven post-editing guided by residual obligation profiles.
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\input{appendix}
+
+\end{document}

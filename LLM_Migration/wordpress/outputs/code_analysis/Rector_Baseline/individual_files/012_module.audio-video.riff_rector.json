@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\Rector_Baseline\\012_module.audio-video.riff.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:10:09.174732",
+    "file_size_kb": 109.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/012_module.audio-video.riff.php",
+        "diff": "--- Original\n+++ New\n@@ -1495,7 +1495,7 @@\n \t\t\t\t\t\t\t\t\tif ($chunksize > 0) {\n \t\t\t\t\t\t\t\t\t\t$RIFFchunk[$chunkname][$thisindex]['data'] = $this->fread($chunksize);\n \t\t\t\t\t\t\t\t\t\tif ($chunkname == 'JUNK') {\n-\t\t\t\t\t\t\t\t\t\t\tif (preg_match('#^([\\\\x20-\\\\x7F]+)#', $RIFFchunk[$chunkname][$thisindex]['data'], $matches)) {\n+\t\t\t\t\t\t\t\t\t\t\tif (preg_match('#^([\\\\x20-\\\\x7F]+)#', (string) $RIFFchunk[$chunkname][$thisindex]['data'], $matches)) {\n \t\t\t\t\t\t\t\t\t\t\t\t// only keep text characters [chr(32)-chr(127)]\n \t\t\t\t\t\t\t\t\t\t\t\t$info['riff']['comments']['junk'][] = trim($matches[1]);\n \t\t\t\t\t\t\t\t\t\t\t}\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/Rector_Baseline/012_module.audio-video.riff.php"
+    ]
+  }
+}

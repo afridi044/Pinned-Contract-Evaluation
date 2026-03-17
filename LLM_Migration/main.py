@@ -1,70 +1,96 @@
-# Simple main.py - Direct execution of notebook commands
-# Just hardcode and run - exactly like the notebook
+"""
+LLM-Based PHP Code Migration Tool
+Entry point for migration orchestration and evaluation.
+"""
 
-# Import everything we need (same as notebook)
 import os
+import sys
 import json
-import pandas as pd
-import numpy as np
 from pathlib import Path
 from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
+import numpy as np
+import random
 
-# Import configuration
+# ============================================================================
+# FIXED SEED FOR REPRODUCIBILITY
+# ============================================================================
+SEED = 42
+np.random.seed(SEED)
+random.seed(SEED)
+
+# Add parent directory to sys.path for config import
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
+from config import SELECTED_100_FILES_DIR
 from core.config import config
-
-# Get properly initialized providers
-PROVIDERS = config.get_providers()
-
-# Import all the notebook functions
 from core.llm_client import MultiProviderClient
 from core.processor import MigrationManager
 from core.parser import OutputParser, FileReconstructor
 from core.utils import load_test_files
 
-# Initialize multi-provider client
-multi_client = MultiProviderClient(PROVIDERS)
 
-# Load test files (same as notebook)
-test_files = {}
-old_version_path = Path('selected_100_files/extra_large_1000_plus')
-
-if old_version_path.exists():
-    for php_file in old_version_path.rglob('*.php'):
-        try:
-            with open(php_file, 'r', encoding='utf-8', errors='ignore') as f:
-                content = f.read()
-                if content.strip():
-                    test_files[php_file.name] = content
-        except Exception as e:
-            print(f"⚠️  Could not load {php_file.name}: {e}")
+def setup_migration_environment():
+    """Initialize the migration environment and load test files."""
+    # Get properly initialized providers
+    providers = config.get_providers()
     
-    print(f"📁 Loaded {len(test_files)} PHP files")
-else:
-    print("❌ selected_100_files directory not found")
+    # Initialize multi-provider client
+    multi_client = MultiProviderClient(providers)
+    
+    # Load test files from selected dataset
+    test_files = load_test_files(str(SELECTED_100_FILES_DIR))
+    
+    return multi_client, test_files
 
-# Create migration manager 
-migration_manager = MigrationManager(multi_client, test_files)
 
-# Create parsers (same as notebook)
-parser = OutputParser()
-reconstructor = FileReconstructor(parser)
+def migrate_contract_obligation_space(multi_client: MultiProviderClient, test_files: dict, 
+                                      model_name: str, strategy: str = 'basic'):
+    """
+    Execute migration contract on file benchmark.
+    Assesses obligation discharge through orchestrated LLM migration.
+    """
+    migration_manager = MigrationManager(multi_client, test_files)
+    
+    # Migrate files under pinned contract policy
+    results = migration_manager.batch_migrate(
+        list(test_files.keys()),
+        model=model_name,
+        strategy=strategy
+    )
+    
+    return results
 
-# EXACTLY THE SAME COMMANDS AS THE NOTEBOOK:
-print("\n🚀 Starting batch migration...")
 
-# UNCOMMENT THESE LINES FOR BATCH MIGRATION WITH DIFFERENT PROVIDERS:
+def reconstruct_migrated_artifacts(test_files: dict):
+    """Reconstruct chunked files and prepare for evaluation."""
+    parser = OutputParser()
+    reconstructor = FileReconstructor(parser)
+    
+    # Process all model responses
+    parser.process_all_responses()
+    
+    # Reconstruct chunked files
+    reconstructor.reconstruct_all_files()
 
-# Google AI batch migration:
-# migration_manager.batch_migrate(list(test_files.keys())[:3], model='gemini-1.5-pro', strategy='basic')
 
-# OpenRouter batch migration:
-# migration_manager.batch_migrate(list(test_files.keys())[:3], model='mistralai/mistral-small-3.2-24b-instruct:free', strategy='basic')
+if __name__ == "__main__":
+    # Setup migration environment
+    multi_client, test_files = setup_migration_environment()
+    
+    if not test_files:
+        sys.exit(1)
+    
+    # Run migration under contract
+    migrate_contract_obligation_space(multi_client, test_files, 'claude-sonnet-4-20250514')
+    
+    # Reconstruct artifacts
+    reconstruct_migrated_artifacts(test_files)
 
 # Mixed provider batch (you can mix and match in sequence):
-# migration_manager.batch_migrate(list(test_files.keys())[:12], model='meta-llama/llama-3.3-70b-instruct:free', strategy='basic')
-migration_manager.migrate_file('012_module.audio-video.riff.php', 'meta-llama/llama-3.3-70b-instruct:free', 'basic')
+# migration_manager.batch_migrate(list(test_files.keys())[:5], model='gemini-2.5-pro', strategy='basic')
+migration_manager.migrate_file('012_module.audio-video.riff.php', 'claude-sonnet-4-20250514', 'basic')
 
 print("\n🔄 Processing responses and reconstructing files...")
 parser.process_all_responses()

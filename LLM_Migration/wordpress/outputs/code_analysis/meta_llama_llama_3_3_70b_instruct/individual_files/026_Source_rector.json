@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\026_Source.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 45
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:39:19.745447",
+    "file_size_kb": 22.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/026_Source.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * SimplePie\r\n@@ -52,16 +52,12 @@\n  * @package SimplePie\r\n  * @subpackage API\r\n  */\r\n-class SimplePie_Source\r\n+class SimplePie_Source implements \\Stringable\r\n {\r\n-    private $item;\r\n-    private array $data = [];\r\n     protected $registry;\r\n \r\n-    public function __construct($item, array $data)\r\n-    {\r\n-        $this->item = $item;\r\n-        $this->data = $data;\r\n+    public function __construct(private $item, private array $data)\n+    {\n     }\r\n \r\n     public function setRegistry(SimplePie_Registry $registry): void\r\n@@ -400,7 +396,7 @@\n     {\r\n         if ($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lat')) {\r\n             return (float) $return[0]['data'];\r\n-        } elseif (($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\\.[0-9]+)) ((?:-)?[0-9]+(?:\\.[0-9]+))$/', trim($return[0]['data']), $match)) {\r\n+        } elseif (($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\\.[0-9]+)) ((?:-)?[0-9]+(?:\\.[0-9]+))$/', trim((string) $return[0]['data']), $match)) {\r\n             return (float) $match[1];\r\n         } else {\r\n             return null;\r\n@@ -413,7 +409,7 @@\n             return (float) $return[0]['data'];\r\n         } elseif ($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_W3C_BASIC_GEO, 'lon')) {\r\n             return (float) $return[0]['data'];\r\n-        } elseif (($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\\.[0-9]+)) ((?:-)?[0-9]+(?:\\.[0-9]+))$/', trim($return[0]['data']), $match)) {\r\n+        } elseif (($return = $this->getSourceTags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\\.[0-9]+)) ((?:-)?[0-9]+(?:\\.[0-9]+))$/', trim((string) $return[0]['data']), $match)) {\r\n             return (float) $match[2];\r\n         } else {\r\n             return null;\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/026_Source.php"
+    ]
+  }
+}

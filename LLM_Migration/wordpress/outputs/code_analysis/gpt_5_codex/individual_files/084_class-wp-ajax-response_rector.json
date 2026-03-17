@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\084_class-wp-ajax-response.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 12
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:36:58.757185",
+    "file_size_kb": 6.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/084_class-wp-ajax-response.php",
+        "diff": "--- Original\n+++ New\n@@ -147,7 +147,7 @@\n                 }\r\n                 $class = '';\r\n                 if (is_object($error_data)) {\r\n-                    $class      = ' class=\"' . get_class($error_data) . '\"';\r\n+                    $class      = ' class=\"' . $error_data::class . '\"';\r\n                     $error_data = get_object_vars($error_data);\r\n                 }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/084_class-wp-ajax-response.php"
+    ]
+  }
+}

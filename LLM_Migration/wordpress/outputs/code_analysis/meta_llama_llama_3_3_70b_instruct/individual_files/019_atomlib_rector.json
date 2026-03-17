@@ -1,0 +1,45 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\019_atomlib.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+      "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 3,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 71
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:38:55.987367",
+    "file_size_kb": 11.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/019_atomlib.php",
+        "diff": "--- Original\n+++ New\n@@ -64,9 +64,9 @@\n  */\r\n class AtomParser {\r\n \r\n-    private const NS = 'http://www.w3.org/2005/Atom';\r\n-    private const ATOM_CONTENT_ELEMENTS = ['content', 'summary', 'title', 'subtitle', 'rights'];\r\n-    private const ATOM_SIMPLE_ELEMENTS = ['id', 'updated', 'published', 'draft'];\r\n+    private const string NS = 'http://www.w3.org/2005/Atom';\r\n+    private const array ATOM_CONTENT_ELEMENTS = ['content', 'summary', 'title', 'subtitle', 'rights'];\r\n+    private const array ATOM_SIMPLE_ELEMENTS = ['id', 'updated', 'published', 'draft'];\r\n \r\n     private bool $debug = false;\r\n \r\n@@ -84,7 +84,7 @@\n \r\n     private string $FILE = \"php://input\";\r\n \r\n-    private AtomFeed $feed;\r\n+    private readonly AtomFeed $feed;\r\n     private ?AtomEntry $current;\r\n \r\n     public function __construct() {\r\n@@ -111,13 +111,13 @@\n \r\n         $parser = xml_parser_create_ns();\r\n         xml_set_object($parser, $this);\r\n-        xml_set_element_handler($parser, [$this, 'start_element'], [$this, 'end_element']);\r\n+        xml_set_element_handler($parser, $this->start_element(...), $this->end_element(...));\r\n         xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);\r\n         xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 0);\r\n-        xml_set_character_data_handler($parser, [$this, 'cdata']);\r\n-        xml_set_default_handler($parser, [$this, '_default']);\r\n-        xml_set_start_namespace_decl_handler($parser, [$this, 'start_ns']);\r\n-        xml_set_end_namespace_decl_handler($parser, [$this, 'end_ns']);\r\n+        xml_set_character_data_handler($parser, $this->cdata(...));\r\n+        xml_set_default_handler($parser, $this->_default(...));\r\n+        xml_set_start_namespace_decl_handler($parser, $this->start_ns(...));\r\n+        xml_set_end_namespace_decl_handler($parser, $this->end_ns(...));\r\n \r\n         $this->content = '';\r\n \r\n@@ -258,7 +258,7 @@\n                 $this->in_content = [];\r\n             } else if ($this->in_content[$ccount - 1][0] == $tag &&\r\n                 $this->in_content[$ccount - 1][1] == $this->depth) {\r\n-                $this->in_content[$ccount - 1][2] = substr($this->in_content[$ccount - 1][2], 0, -1) . \"/>\";\r\n+                $this->in_content[$ccount - 1][2] = substr((string) $this->in_content[$ccount - 1][2], 0, -1) . \"/>\";\r\n             } else {\r\n                 # else, just finalize the current element's content\r\n                 $endtag = $this->ns_to_prefix($name);\r\n@@ -310,7 +310,7 @@\n             $ns = implode(\":\", array_slice($components, 0, -1));\r\n             foreach ($this->ns_contexts as $context) {\r\n                 foreach ($context as $mapping) {\r\n-                    if ($mapping[1] == $ns && strlen($mapping[0]) > 0) {\r\n+                    if ($mapping[1] == $ns && strlen((string) $mapping[0]) > 0) {\r\n                         return [$mapping, \"$mapping[0]:$name\"];\r\n                     }\r\n                 }\r\n@@ -322,7 +322,7 @@\n         } else {\r\n             foreach ($this->ns_contexts as $context) {\r\n                 foreach ($context as $mapping) {\r\n-                    if (strlen($mapping[0]) == 0) {\r\n+                    if (strlen((string) $mapping[0]) == 0) {\r\n                         return [$mapping, $name];\r\n                     }\r\n                 }\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+          "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/019_atomlib.php"
+    ]
+  }
+}

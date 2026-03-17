@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\034_inline.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 14
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:34:41.018541",
+    "file_size_kb": 4.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/034_inline.php",
+        "diff": "--- Original\n+++ New\n@@ -93,8 +93,8 @@\n                 isset($orig[0], $final[0]) &&\r\n                 $orig[0] !== false &&\r\n                 $final[0] !== false &&\r\n-                substr((string) $orig[0], 0, 1) === ' ' &&\r\n-                substr((string) $final[0], 0, 1) === ' '\r\n+                str_starts_with((string) $orig[0], ' ') &&\r\n+                str_starts_with((string) $final[0], ' ')\r\n             ) {\r\n                 $prefix .= substr((string) $orig[0], 0, 1);\r\n                 $orig[0] = substr((string) $orig[0], 1);\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/034_inline.php"
+    ]
+  }
+}

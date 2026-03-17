@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\035_wp-trackback.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:34:43.590511",
+    "file_size_kb": 3.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/035_wp-trackback.php",
+        "diff": "--- Original\n+++ New\n@@ -50,7 +50,7 @@\n if ($tb_id === null) {\r\n \t$request_uri = $_SERVER['REQUEST_URI'] ?? '';\r\n \tif ($request_uri !== '') {\r\n-\t\t$tb_id_segments = explode('/', $request_uri);\r\n+\t\t$tb_id_segments = explode('/', (string) $request_uri);\r\n \t\t$last_segment   = $tb_id_segments[array_key_last($tb_id_segments)] ?? '';\r\n \t\t$tb_id          = (int) $last_segment;\r\n \t}\r\n@@ -63,7 +63,7 @@\n $blog_name = wp_unslash($_POST['blog_name'] ?? '');\r\n \r\n if ($charset !== '') {\r\n-\t$charset = str_replace([',', ' '], '', strtoupper(trim($charset)));\r\n+\t$charset = str_replace([',', ' '], '', strtoupper(trim((string) $charset)));\r\n } else {\r\n \t$charset = 'ASCII, UTF-8, ISO-8859-1, JIS, EUC-JP, SJIS';\r\n }\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/035_wp-trackback.php"
+    ]
+  }
+}

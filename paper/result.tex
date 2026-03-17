@@ -1,0 +1,243 @@
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{images/fig_models.png}
+\caption{Obligation discharge and residual compliance profiles across models under the pinned contract. Bars show discharged and remaining obligations, while additional indicators summarize patch-volume closure and the concentration of remaining work.}
+\label{fig:model_overview}
+\end{figure*}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{images/fig_patch.png}
+\caption{Remaining patch volume and concentration across models. Bars show total remaining patch lines, while markers indicate the share concentrated in the top files.}
+\label{fig:patch_concentration}
+\end{figure}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{images/fig_validity.png}
+\caption{Relationship between contract discharge and robustness diagnostics across models. Higher contract compliance does not necessarily imply fewer syntax errors, better structural preservation, or improved loadability.}
+\label{fig:robustness}
+\end{figure*}
+
+% =========================
+% TABLE 9 — Syntax validity
+% =========================
+\begin{table*}[t]
+\centering
+\caption{Syntax validity outcomes (\texttt{php -l}, PHP~8.3) over 100 files. \textbf{New} denotes hard regressions (Orig.\ Pass $\rightarrow$ Migr.\ Fail). \textbf{NR-valid} = Both valid + Fixed.}
+\label{tab:syntax_model_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}p{0.42\columnwidth}rrrrrr@{}}
+\toprule
+\textbf{System} & \textbf{New} & \textbf{Migr Err} & \textbf{Fixed} & \textbf{Both valid} & \textbf{NR-valid} & \textbf{Orig Err} \\
+\midrule
+Rector-applied (reference)   & 1  & 1  & 9 & 90 & 99 & 9 \\
+\midrule
+Gemini 2.5 Pro               & 11 & 13 & 7 & 80 & 87 & 9 \\
+Claude Sonnet 4 (2025-05-14) & 11 & 12 & 8 & 80 & 88 & 9 \\
+GPT-5 Codex                  & 14 & 18 & 5 & 77 & 82 & 9 \\
+Llama 3.3 70B Instruct       & 16 & 23 & 2 & 75 & 77 & 9 \\
+Gemini 2.5 Flash             & 18 & 20 & 7 & 73 & 80 & 9 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% ==========================================
+% TABLE 10 — Structural preservation signals
+% ==========================================
+\begin{table*}[t]
+\centering
+\caption{Structural preservation and anti-gaming diagnostics over 100 files. Line/Func/Class/Struct are retention ratios ($>100\%$ indicates expansion). Body/SigStab/TrivialStub/EmptyBody are computed on matched declarations (80/100).}
+\label{tab:completeness_model_results}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+\textbf{System} &
+\textbf{Line (\%)} &
+\textbf{Func (\%)} &
+\textbf{Class (\%)} &
+\textbf{Struct (\%)} &
+\textbf{Body (\%)} &
+\textbf{SigStab} &
+\textbf{TrivialStub} &
+\textbf{EmptyBody} \\
+\midrule
+Rector-applied (reference)   &  98.87 &  99.91 & 100.00 & 97.69 & 95.73 & 1.000 & 0.082 & 0.038 \\
+Claude Sonnet 4 (2025-05-14) &  97.37 & 102.16 & 100.00 & 95.23 & 91.95 & 0.996 & 0.123 & 0.035 \\
+GPT-5 Codex                  & 105.40 &  96.03 &  99.00 & 94.02 & 93.16 & 0.988 & 0.116 & 0.027 \\
+Gemini 2.5 Flash             &  95.85 &  96.57 &  99.00 & 91.39 & 89.39 & 0.989 & 0.114 & 0.037 \\
+Gemini 2.5 Pro               & 100.04 &  97.42 &  99.50 & 90.20 & 80.20 & 0.979 & 0.115 & 0.024 \\
+Llama 3.3 70B Instruct       &  97.12 &  98.33 &  99.00 & 89.96 & 93.67 & 0.990 & 0.106 & 0.018 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+% ====================================
+% TABLE 11 — Correlation
+% ====================================
+\begin{table}[!t]
+\centering
+\caption{Pearson correlation between demand proxies and type-level discharge on each model's analyzable migrated files.}
+\label{tab:correlation_results}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}p{0.58\columnwidth}cc@{}}
+\toprule
+\textbf{Model} & $r(\mathrm{LOC},\rho_i)$ & $r(O_i,\rho_i)$ \\
+\midrule
+Gemini 2.5 Flash             & -0.453 & -0.300 \\
+Gemini 2.5 Pro               & -0.405 & -0.212 \\
+GPT-5 Codex                  & -0.337 & -0.236 \\
+Claude Sonnet 4 (2025-05-14) & -0.459 & -0.267 \\
+Llama 3.3 70B Instruct       & -0.356 & -0.204 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==========================================
+% TABLE 12 — PHPCS/PHPCompatibility
+% ==========================================
+\begin{table*}[t]
+\centering
+\caption{PHPCS+PHPCompatibility results (\texttt{testVersion=8.3}) with concentration diagnostics. ``Issues'' = errors + warnings; ``Clean'' = zero-issue files. $\Delta$Issues is relative to the original benchmark (signed). All results are based on 100 files.}
+\label{tab:phpcompat_validation}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrlr}
+\toprule
+\textbf{System} & \textbf{Issues} & \textbf{$\Delta$Issues} & \textbf{Err} & \textbf{Warn} & \textbf{Clean} & \textbf{P95} & \textbf{Top-5} & \textbf{Dominant code} & \textbf{Share} \\
+\midrule
+Original Benchmark           & 255 & 0    & 45  & 210 & 76 (76\%) & 14 & 63.9\%  & \texttt{CurlyBraceAccess} & 56.1\% \\
+Rector-applied (reference)   & 48  & -207 & 27  & 21  & 88 (88\%) & 3  & 77.1\%  & \texttt{mysql\_removed}   & 43.8\% \\
+\midrule
+Claude Sonnet 4              & 39  & -216 & 27  & 12  & 90 (90\%) & 2  & 84.6\%  & \texttt{mysql\_removed}   & 53.8\% \\
+Gemini 2.5 Flash             & 139 & -116 & 125 & 14  & 88 (88\%) & 2  & 93.5\%  & \texttt{this\_outside}    & 76.3\% \\
+Gemini 2.5 Pro               & 10  & -245 & 9   & 1   & 97 (97\%) & 0  & 100.0\% & \texttt{mysql\_removed}   & 70.0\% \\
+GPT-5 Codex                  & 181 & -74  & 172 & 9   & 91 (91\%) & 1  & 97.8\%  & \texttt{this\_outside}    & 87.3\% \\
+LLaMA 3.3 70B                & 484 & +229 & 377 & 107 & 85 (85\%) & 6  & 95.2\%  & \texttt{this\_outside}    & 71.5\% \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+\end{table*}
+
+% ==========================================
+% TABLE — Most resistant Rector upgrade rules
+% ==========================================
+\begin{table*}[t]
+\centering
+\caption{Most resistant Rector upgrade rules across models (file-level triggers; breadth). Orig.\ is the number of \emph{files} in which the rule triggers in the original benchmark. For Orig.\ $>0$, cells report the \emph{percentage of file-level triggers discharged} (rounded to the nearest integer); for Orig.\ $=0$, cells report the number of \emph{introduced} file-level triggers ($+k$).}
+\label{tab:resistant_rules}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lcp{0.34\textwidth}cccccc@{}}
+\toprule
+\textbf{Rule} & \textbf{PHP} & \textbf{Migration Challenge} & \textbf{Orig.} & \textbf{Pro} & \textbf{Flash} & \textbf{GPT-5} & \textbf{Claude} & \textbf{LLaMA} \\
+\midrule
+\multicolumn{9}{@{}l}{\textit{Type strictness \& null-safety (high-impact residuals)}} \\
+NullToStrictStringFuncCallArg & 8.1 & Null-safety enforcement across non-local flow & 81 & 27 & 32 & 48 & 11 & 14 \\
+StringableForToString         & 8.0 & Interface declaration for \texttt{\_\_toString()} & 8  & 13 & 13 & 0  & 0  & 0  \\
+\addlinespace
+\multicolumn{9}{@{}l}{\textit{Modern callable \& attribute syntax (near-zero discharge)}} \\
+FirstClassCallable            & 8.1 & Callable syntax versus string-literal ambiguity & 13 & 31 & 23 & 15 & 8  & 8  \\
+AddOverrideAttribute          & 8.3 & Cross-file hierarchy reasoning for overrides & 7  & 29 & 14 & 29 & 14 & 14 \\
+AddTypeToConst                & 8.3 & Type declarations requiring global inference & 0  & +5 & +1 & +1 & +2 & +1 \\
+\addlinespace
+\multicolumn{9}{@{}l}{\textit{Introduced ``modern'' constructs (over-eager upgrades / contract regression risk)}} \\
+ReadOnlyProperty              & 8.1 & Single-assignment detection (false-positive risk) & 0 & +8 & +4 & +4 & +5 & +9 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% ==========================================
+% TABLE 13 — Loadability tripwire
+% ==========================================
+\begin{table}[!t]
+\centering
+\caption{Isolated \emph{loadability tripwire} results on the 55-file execution slice (\%). \textbf{Regress} counts new failures (Orig.\ Pass $\rightarrow$ Migr.\ Fail). ``$\rho$'' is mean rule-type discharge on the same slice.}
+\label{tab:runtime_slice_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{System} & \textbf{Regress} & \textbf{Pass} & \textbf{$\rho$} & \textbf{Other} \\
+\midrule
+Rector-applied (reference)   & 12.7 & 83.6 & 98.3 & 3.6 \\
+\midrule
+Claude Sonnet 4 (2025-05-14) & 14.5 & 80.0 & 57.0 & 5.5 \\
+GPT-5 Codex                  & 16.4 & 78.2 & 58.7 & 5.5 \\
+Gemini 2.5 Pro               & 21.8 & 72.7 & 74.6 & 5.5 \\
+LLaMA 3.3 70B                & 21.8 & 69.1 & 36.2 & 9.1 \\
+Gemini 2.5 Flash             & 32.7 & 60.0 & 53.5 & 7.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Results}
+\label{sec:results}
+
+We evaluate five LLM systems with PCE under the pinned Rector contract (Section~\ref{sec:rector_eval}) and score only \texttt{Rector\textbackslash Php*} rules. Our primary outcome is incidence-level rule-type discharge ($\rho_i$, aggregated as mean $\rho$ and weighted $\rho_w$), defined as the fraction of baseline file--rule type incidences that no longer trigger after migration. We also measure introduced rule types as contract-visible regressions. For migrated files where Rector dry run fails, PCE aggregates are computed on the analyzable subset for that model. We interpret contract outcomes together with syntax validation, structural preservation, loadability regressions, and PHPCompatibility.
+
+\paragraph{Overview}
+Figure~\ref{fig:model_overview} summarizes obligation discharge and residual compliance profiles across models. Three themes recur across instruments. First, compliance is highly uneven. Weighted discharge spans a wide range across systems, from 32.16\% to 75.76\% (Table~\ref{tab:results_panels_revised}A). Second, residual work is concentrated in PHP~8.x families. On each model's analyzable subset, systems discharge a large share of PHP~5.x and often PHP~7.x obligations, but leave many PHP~8.x obligations unresolved (Table~\ref{tab:results_panels_revised}C). Third, compliance is not robustness. Systems that reduce contract triggers still introduce syntax errors, loadability failures, or both (Tables~\ref{tab:syntax_model_results} and~\ref{tab:runtime_slice_results}). Cross-instrument agreement is also incomplete (Table~\ref{tab:phpcompat_validation}).
+
+\subsection{RQ1: Model comparison under the pinned contract}
+\label{sec:overall_results}
+
+Across 511 baseline file--rule type incidences, the contract-aligned reference (\emph{Rector applied}) discharges 503 ($\rho_w = 98.43\%$) and produces 89 contract-clean files (Table~\ref{tab:results_panels_revised}A), while still leaving a small residual set under the same policy.
+
+Among LLMs, Gemini~2.5~Pro and GPT-5~Codex achieve the highest weighted discharge on their analyzable subsets, with $\rho_w = 75.76\%$ and 69.39\%, respectively. Gemini~2.5~Pro produces 19 contract-clean files and GPT-5~Codex produces 15. Gemini~2.5~Flash is mid-range at 59.48\%. Claude Sonnet~4 and Llama~3.3 leave larger residual sets, with $\rho_w = 54.51\%$ and 32.16\%, respectively, and show longer low-compliance tails. The overall distribution of discharged and remaining obligations appears in Figure~\ref{fig:model_overview}.
+
+Progress is not monotonic under a fixed policy. Every model introduces new rule-type incidences, ranging from 17 to 21 (Table~\ref{tab:results_panels_revised}A). Baseline obligations can therefore be discharged while new obligations are also triggered, often in later PHP families. \textbf{Implication:} the pinned contract separates systems clearly, but no LLM matches the contract-aligned reference and all incur contract-visible regressions.
+
+\subsection{RQ2: Resistant rules and migration demand}
+\label{sec:size_results}
+
+\subsubsection{Demand effects}
+
+Discharge declines as migration demand increases. As file size and baseline obligation count grow, most systems show lower discharge in larger bins (Table~\ref{tab:results_panels_revised}B). Gemini~2.5~Pro, for example, drops from 83.81\% on medium files to 60.58\% on extra-large files. Claude drops from 69.33\% to 38.30\%. GPT-5~Codex degrades less sharply than several other systems across small to large files, but it still drops to 45.13\% on extra-large files.
+
+The correlation analysis reinforces this pattern (Table~\ref{tab:correlation_results}). Discharge is moderately negatively correlated with LOC across models. For example, $r=-0.459$ for Claude and $r=-0.337$ for GPT-5. Larger and more obligation-dense files therefore remain harder to modernize under a single-pass constraint.
+
+Patch-volume closure provides supporting context, but the patch metrics capture different properties. Gemini~2.5~Pro has the strongest closure on both weighted and mean file-level patch metrics among LLMs, with WDC = 71.92\% and MFDC = 76.90\% (Table~\ref{tab:results_panels_revised}). GPT-5~Codex, however, leaves fewer remaining patch lines in absolute terms, with 5{,}074 remaining lines versus 5{,}826 for Gemini~2.5~Pro. The residual patch burden is also more concentrated for Gemini~2.5~Pro than for GPT-5~Codex, as shown by the higher Top-5 share, 50.70\% versus 36.46\%. Figure~\ref{fig:patch_concentration} visualizes these differences. These results suggest different residual-work profiles under the same policy. Gemini~2.5~Pro closes more patch volume overall, while GPT-5~Codex leaves a smaller absolute residual patch burden that is spread more broadly across files.
+
+\subsubsection{Rule and milestone resistance}
+\label{sec:rule_resistance}
+
+Residual obligations are dominated by PHP~8.x rule families (Table~\ref{tab:results_panels_revised}C). On the analyzable subset for each model, PHP~5.x discharge ranges from 60.00\% to 95.97\%, PHP~7.x from 42.40\% to 90.48\%, and PHP~8.x from only 7.44\% to 53.24\%. Most systems therefore clear a large share of earlier-version obligations while leaving later-version obligations unresolved. Even the strongest system discharges only just over half of PHP~8.x obligations.
+
+Rule-level results reveal recurring bottlenecks (Table~\ref{tab:resistant_rules}). \texttt{NullToStrictStringFuncCallArg} remains difficult across systems, plausibly because it requires non-local null-safety reasoning. Cross-declaration rules such as \texttt{AddOverrideAttribute} also show low discharge, consistent with hierarchy inference. We also observe over-eager changes that introduce new triggers, such as \texttt{ReadOnlyProperty}. \textbf{Implication:} difficulty scales with structural demand and concentrates in later-version rules that require non-local or cross-declaration reasoning.
+
+\subsection{RQ3: Validity, preservation, and loadability}
+\label{sec:syntax_and_structure}
+
+Contract progress does not guarantee robustness (Figure~\ref{fig:robustness}). All LLM systems introduce syntax regressions (Table~\ref{tab:syntax_model_results}), ranging from 11 files for Gemini~2.5~Pro and Claude to 18 files for Gemini~2.5~Flash. High discharge therefore does not imply parse-valid PHP.
+
+Structural signals further contextualize contract gains (Table~\ref{tab:completeness_model_results}). Signature stability is high across systems, but deeper preservation varies. Gemini~2.5~Pro combines high discharge with lower body retention, suggesting a tradeoff between contract compliance and fidelity.
+
+The loadability sentinel surfaces failures not captured by contract metrics. New include-time failures range from 14.5\% to 32.7\% (Table~\ref{tab:runtime_slice_results}), and the ranking differs from discharge. Gemini~2.5~Pro, for example, leads on contract discharge but shows more loadability regressions than Claude and GPT-5 on the execution slice. \textbf{Implication:} contract compliance and runtime robustness capture different failure modes, so multi-signal reporting is necessary.
+
+\subsection{RQ4: Agreement with PHPCompatibility}
+\label{sec:phpcompat_results}
+
+PCE and PHPCompatibility only partially agree (Table~\ref{tab:phpcompat_validation}). Gemini~2.5~Pro ranks strongest under both instruments. Claude also improves very strongly under PHPCompatibility, despite substantially lower PCE discharge. By contrast, GPT-5~Codex ranks near the top under PCE but improves much less under PHPCompatibility. Llama performs worst under both views and increases the number of PHPCompatibility issues.
+
+This divergence reflects policy differences rather than contradiction. Rector and PHPCompatibility target different properties and operate at different granularity. Improvements under one instrument do not reliably transfer to the other. \textbf{Implication:} conclusions about the strongest system depend on the evaluation policy and instrument.
+
+\subsection{Summary}
+\label{sec:tradeoffs}
+
+Gemini~2.5~Pro and GPT-5~Codex achieve the highest contract discharge on their analyzable subsets. Gemini~2.5~Flash is mid-range. Claude and Llama leave larger residual sets. Across systems, remaining contract obligations concentrate in PHP~8.x families, and every model exhibits regressions in at least one diagnostic tier.
+
+Overall, PCE localizes progress and remaining obligations under a fixed policy, while the accompanying diagnostics expose robustness failures that discharge alone does not capture.

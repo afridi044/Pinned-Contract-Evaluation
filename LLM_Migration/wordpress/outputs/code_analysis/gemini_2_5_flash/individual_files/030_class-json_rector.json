@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\030_class-json.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 125
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:22:58.191460",
+    "file_size_kb": 39.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/030_class-json.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n if ( ! class_exists( 'Services_JSON' ) ) :\r\n /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */\r\n@@ -170,30 +170,23 @@\n             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');\r\n         }\r\n \r\n-        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);\r\n-\r\n-        switch(true) {\r\n-            case ((0x7F & $bytes) == $bytes):\r\n-                // this case should never be reached, because we are in ASCII range\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return chr(0x7F & $bytes);\r\n-\r\n-            case (0x07FF & $bytes) == $bytes:\r\n-                // return a 2-byte UTF-8 character\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return chr(0xC0 | (($bytes >> 6) & 0x1F))\r\n-                     . chr(0x80 | ($bytes & 0x3F));\r\n-\r\n-            case (0xFFFF & $bytes) == $bytes:\r\n-                // return a 3-byte UTF-8 character\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return chr(0xE0 | (($bytes >> 12) & 0x0F))\r\n-                     . chr(0x80 | (($bytes >> 6) & 0x3F))\r\n-                     . chr(0x80 | ($bytes & 0x3F));\r\n-        }\r\n-\r\n-        // ignoring UTF-32 for now, sorry\r\n-        return '';\r\n+        $bytes = (ord($utf16[0]) << 8) | ord($utf16[1]);\n+        return match (true) {\n+            // this case should never be reached, because we are in ASCII range\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            (0x7F & $bytes) == $bytes => chr(0x7F & $bytes),\n+            // return a 2-byte UTF-8 character\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            (0x07FF & $bytes) == $bytes => chr(0xC0 | (($bytes >> 6) & 0x1F))\r\n+                 . chr(0x80 | ($bytes & 0x3F)),\n+            // return a 3-byte UTF-8 character\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            (0xFFFF & $bytes) == $bytes => chr(0xE0 | (($bytes >> 12) & 0x0F))\r\n+                 . chr(0x80 | (($bytes >> 6) & 0x3F))\r\n+                 . chr(0x80 | ($bytes & 0x3F)),\n+            // ignoring UTF-32 for now, sorry\n+            default => '',\n+        };\r\n     }\r\n \r\n    /**\r\n@@ -212,32 +205,25 @@\n         // oh please oh please oh please oh please oh please\r\n         if($this->_mb_convert_encoding) {\r\n             return mb_convert_encoding($utf8, 'UTF-16', 'UTF-8');\r\n-        }\r\n-\r\n-        switch($this->strlen8($utf8)) {\r\n-            case 1:\r\n-                // this case should never be reached, because we are in ASCII range\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return $utf8;\r\n-\r\n-            case 2:\r\n-                // return a UTF-16 character from a 2-byte UTF-8 char\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return chr(0x07 & (ord($utf8[0]) >> 2))\r\n-                     . chr((0xC0 & (ord($utf8[0]) << 6))\r\n-                         | (0x3F & ord($utf8[1])));\r\n-\r\n-            case 3:\r\n-                // return a UTF-16 character from a 3-byte UTF-8 char\r\n-                // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\r\n-                return chr((0xF0 & (ord($utf8[0]) << 4))\r\n-                         | (0x0F & (ord($utf8[1]) >> 2)))\r\n-                     . chr((0xC0 & (ord($utf8[1]) << 6))\r\n-                         | (0x7F & ord($utf8[2])));\r\n-        }\r\n-\r\n-        // ignoring UTF-32 for now, sorry\r\n-        return '';\r\n+        }\n+        return match ($this->strlen8($utf8)) {\n+            // this case should never be reached, because we are in ASCII range\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            1 => $utf8,\n+            // return a UTF-16 character from a 2-byte UTF-8 char\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            2 => chr(0x07 & (ord($utf8[0]) >> 2))\r\n+                 . chr((0xC0 & (ord($utf8[0]) << 6))\r\n+                     | (0x3F & ord($utf8[1]))),\n+            // return a UTF-16 character from a 3-byte UTF-8 char\n+            // see: http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8\n+            3 => chr((0xF0 & (ord($utf8[0]) << 4))\r\n+                     | (0x0F & (ord($utf8[1]) >> 2)))\r\n+                 . chr((0xC0 & (ord($utf8[1]) << 6))\r\n+                     | (0x7F & ord($utf8[2]))),\n+            // ignoring UTF-32 for now, sorry\n+            default => '',\n+        };\r\n     }\r\n \r\n    /**\r\n@@ -492,7 +478,7 @@\n \r\n                         return ($this->use & SERVICES_JSON_SUPPRESS_ERRORS)\r\n                         ? 'null'\r\n-                        : new Services_JSON_Error(get_class($var).\r\n+                        : new Services_JSON_Error($var::class.\r\n                             \" toJSON returned an object with a toJSON method.\");\r\n \r\n                     }\r\n@@ -563,7 +549,7 @@\n             ], '', $str);\r\n \r\n         // eliminate extraneous space\r\n-        return trim($str);\r\n+        return trim((string) $str);\r\n     }\r\n \r\n    /**\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/030_class-json.php"
+    ]
+  }
+}

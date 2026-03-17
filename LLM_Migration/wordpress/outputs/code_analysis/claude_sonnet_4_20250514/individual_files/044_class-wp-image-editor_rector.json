@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\044_class-wp-image-editor.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 74
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:17:57.261010",
+    "file_size_kb": 12.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/044_class-wp-image-editor.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * Base WordPress Image Editor\r\n@@ -12,7 +12,6 @@\n  * @since 3.5.0\r\n  */\r\n abstract class WP_Image_Editor {\r\n-\tprotected ?string $file = null;\r\n \tprotected ?array $size = null;\r\n \tprotected ?string $mime_type = null;\r\n \tprotected string $default_mime_type = 'image/jpeg';\r\n@@ -22,9 +21,9 @@\n \t/**\r\n \t * Each instance handles a single file.\r\n \t */\r\n-\tpublic function __construct(string $file) {\r\n-\t\t$this->file = $file;\r\n-\t}\r\n+\tpublic function __construct(protected ?string $file)\n+    {\n+    }\r\n \r\n \t/**\r\n \t * Checks to see if current environment supports the editor chosen.\r\n@@ -288,15 +287,15 @@\n \r\n \t\t// By default, assume specified type takes priority\r\n \t\tif ($mime_type) {\r\n-\t\t\t$new_ext = $this->get_extension($mime_type);\r\n+\t\t\t$new_ext = static::get_extension($mime_type);\r\n \t\t}\r\n \r\n \t\tif ($filename) {\r\n \t\t\t$file_ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));\r\n-\t\t\t$file_mime = $this->get_mime_type($file_ext);\r\n+\t\t\t$file_mime = static::get_mime_type($file_ext);\r\n \t\t} else {\r\n \t\t\t// If no file specified, grab editor's current extension and mime-type.\r\n-\t\t\t$file_ext = strtolower(pathinfo($this->file, PATHINFO_EXTENSION));\r\n+\t\t\t$file_ext = strtolower(pathinfo((string) $this->file, PATHINFO_EXTENSION));\r\n \t\t\t$file_mime = $this->mime_type;\r\n \t\t}\r\n \r\n@@ -309,7 +308,7 @@\n \r\n \t\t// Double-check that the mime-type selected is supported by the editor.\r\n \t\t// If not, choose a default instead.\r\n-\t\tif (!$this->supports_mime_type($mime_type)) {\r\n+\t\tif (!static::supports_mime_type($mime_type)) {\r\n \t\t\t/**\r\n \t\t\t * Filter default mime type prior to getting the file extension.\r\n \t\t\t *\r\n@@ -320,7 +319,7 @@\n \t\t\t * @param string $mime_type Mime type string.\r\n \t\t\t */\r\n \t\t\t$mime_type = apply_filters('image_editor_default_mime_type', $this->default_mime_type);\r\n-\t\t\t$new_ext = $this->get_extension($mime_type);\r\n+\t\t\t$new_ext = static::get_extension($mime_type);\r\n \t\t}\r\n \r\n \t\tif ($filename) {\r\n@@ -355,7 +354,7 @@\n \t\t\t$suffix = $this->get_suffix();\r\n \t\t}\r\n \r\n-\t\t$info = pathinfo($this->file);\r\n+\t\t$info = pathinfo((string) $this->file);\r\n \t\t$dir = $info['dirname'];\r\n \t\t$ext = $info['extension'];\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/044_class-wp-image-editor.php"
+    ]
+  }
+}

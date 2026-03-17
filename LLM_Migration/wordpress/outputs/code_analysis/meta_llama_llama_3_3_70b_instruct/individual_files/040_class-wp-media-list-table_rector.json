@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\040_class-wp-media-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 46
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:40:03.191453",
+    "file_size_kb": 26.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/040_class-wp-media-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -70,11 +70,11 @@\n             }\r\n \r\n             $selected = '';\r\n-            if (!empty($_GET['attachment-filter']) && strpos($_GET['attachment-filter'], 'post_mime_type:') === 0 && wp_match_mime_types($mime_type, str_replace('post_mime_type:', '', $_GET['attachment-filter']))) {\r\n+            if (!empty($_GET['attachment-filter']) && str_starts_with((string) $_GET['attachment-filter'], 'post_mime_type:') && wp_match_mime_types($mime_type, str_replace('post_mime_type:', '', $_GET['attachment-filter']))) {\r\n                 $selected = ' selected=\"selected\"';\r\n             }\r\n             if (!empty($num_posts[$mime_type] ?? 0)) {\r\n-                $type_links[$mime_type] = '<option value=\"post_mime_type:' . urlencode($mime_type) . '\"' . $selected . '>' . sprintf(translate_nooped_plural($label[2], $num_posts[$mime_type] ?? 0), number_format_i18n($num_posts[$mime_type] ?? 0)) . '</option>';\r\n+                $type_links[$mime_type] = '<option value=\"post_mime_type:' . urlencode((string) $mime_type) . '\"' . $selected . '>' . sprintf(translate_nooped_plural($label[2], $num_posts[$mime_type] ?? 0), number_format_i18n($num_posts[$mime_type] ?? 0)) . '</option>';\r\n             }\r\n         }\r\n         $type_links['detached'] = '<option value=\"detached\"' . ($this->detached ? ' selected=\"selected\"' : '') . '>' . sprintf(_nx('Unattached (%s)', 'Unattached (%s)', $total_orphans, 'detached files'), number_format_i18n($total_orphans)) . '</option>';\r\n@@ -311,7 +311,7 @@\n             <tr id=\"post-<?php echo $post->ID; ?>\" class=\"<?php echo trim($alt . ' author-' . $post_owner . ' status-' . $post->post_status); ?>\">\r\n                 <?php\r\n \r\n-                list($columns, $hidden) = $this->get_column_info();\r\n+                [$columns, $hidden] = $this->get_column_info();\r\n                 foreach ($columns as $column_name => $column_display_name) {\r\n                     $class = \"class='$column_name column-$column_name'\";\r\n \r\n@@ -335,7 +335,7 @@\n                             break;\r\n \r\n                         case 'icon':\r\n-                            list($mime) = explode('/', $post->post_mime_type);\r\n+                            [$mime] = explode('/', (string) $post->post_mime_type);\r\n                             $attributes = 'class=\"column-icon media-icon ' . $mime . '-icon\"' . $style;\r\n                             ?>\r\n                             <td <?php echo $attributes ?>><?php\r\n@@ -475,8 +475,8 @@\n                                 $taxonomy = 'category';\r\n                             } elseif ('tags' == $column_name) {\r\n                                 $taxonomy = 'post_tag';\r\n-                            } elseif (0 === strpos($column_name, 'taxonomy-')) {\r\n-                                $taxonomy = substr($column_name, 9);\r\n+                            } elseif (str_starts_with((string) $column_name, 'taxonomy-')) {\r\n+                                $taxonomy = substr((string) $column_name, 9);\r\n                             } else {\r\n                                 $taxonomy = false;\r\n                             }\r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/040_class-wp-media-list-table.php"
+    ]
+  }
+}

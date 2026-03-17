@@ -1,0 +1,45 @@
+{
+  "dataset": "wordpress",
+  "php": {
+    "version": "8.3.22",
+    "sapi": "cli",
+    "required_extensions": [
+      "bcmath",
+      "curl",
+      "dom",
+      "json",
+      "mbstring",
+      "pdo",
+      "phar",
+      "simplexml",
+      "tokenizer",
+      "xml"
+    ]
+  },
+  "system": {
+    "os": "Windows_NT",
+    "timezone": "Bangladesh Standard Time",
+    "locale": "en-US"
+  },
+  "tools": {
+    "rector/rector": "2.1.0",
+    "phpstan/phpstan": "2.1.17",
+    "squizlabs/php_codesniffer": "3.13.5",
+    "phpcompatibility/php-compatibility": "9.3.5"
+  },
+  "composer": {
+    "lock_file": "composer.lock"
+  },
+  "snapshots": {
+    "selection_data": {
+      "path": "dataset/wordpress/selected_100_files/selection_data.json",
+      "sha256": "54184B0957CB6AACC72F3BFC7896FC1E70B71E22767FCA53F7CE36755425FD8D",
+      "baseline_php_obligations": 511
+    },
+    "baseline_metadata": {
+      "path": "dataset/wordpress/rector_reports_selected_100_files/metadata.json",
+      "sha256": "A83F8FEE28897E39591DBE5D514557C19DA0A7505C28C1805D04D5F6DCAEA76C",
+      "rector_version": "2.1.0"
+    }
+  }
+}

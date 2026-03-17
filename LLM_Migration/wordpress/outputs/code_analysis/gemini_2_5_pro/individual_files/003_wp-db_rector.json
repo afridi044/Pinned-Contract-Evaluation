@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\003_wp-db.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_55": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 39
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:26:55.723315",
+    "file_size_kb": 56.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/003_wp-db.php",
+        "diff": "--- Original\n+++ New\n@@ -465,7 +465,7 @@\n \t\t\t\t$this->use_mysqli = ! WP_USE_EXT_MYSQL;\r\n \t\t\t} elseif ( version_compare( phpversion(), '5.5', '>=' ) || ! function_exists( 'mysql_connect' ) ) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n-\t\t\t} elseif ( false !== strpos( $GLOBALS['wp_version'], '-' ) ) {\r\n+\t\t\t} elseif ( str_contains( (string) $GLOBALS['wp_version'], '-' ) ) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n \t\t\t}\r\n \t\t}\r\n@@ -1047,7 +1047,7 @@\n \r\n \t\t$query = str_replace([\"'%s'\", '\"%s\"'], '%s', $query); // Unquote %s\r\n \t\t$query = preg_replace('|(?<!%)%f|', '%F', $query); // Force floats to be locale unaware\r\n-\t\t$query = preg_replace(\"|(?<!%)%s|\", \"'%s'\", $query); // Quote the strings, avoiding escaped strings like %%s\r\n+\t\t$query = preg_replace(\"|(?<!%)%s|\", \"'%s'\", (string) $query); // Quote the strings, avoiding escaped strings like %%s\r\n \r\n \t\tarray_walk($args, $this->escape_by_ref(...));\r\n \r\n@@ -1128,7 +1128,7 @@\n \t\t\t}\r\n \t\t} else {\r\n \t\t\t$str = htmlspecialchars($str, ENT_QUOTES);\r\n-\t\t\t$query = htmlspecialchars($this->last_query, ENT_QUOTES);\r\n+\t\t\t$query = htmlspecialchars((string) $this->last_query, ENT_QUOTES);\r\n \r\n \t\t\techo \"<div id='error'>\r\n \t\t\t<p class='wpdberror'><strong>WordPress database error:</strong> [$str]<br />\r\n@@ -2021,7 +2021,7 @@\n \t * @return string The name of the calling function.\r\n \t */\r\n \tpublic function get_caller(): string {\r\n-\t\treturn wp_debug_backtrace_summary( __CLASS__ );\r\n+\t\treturn wp_debug_backtrace_summary( self::class );\r\n \t}\r\n \r\n \t/**\r\n",
+        "applied_rectors": [
+          "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/003_wp-db.php"
+    ]
+  }
+}

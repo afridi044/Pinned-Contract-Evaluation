@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\045_Locator.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 57
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:35:15.425261",
+    "file_size_kb": 12.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/045_Locator.php",
+        "diff": "--- Original\n+++ New\n@@ -54,8 +54,6 @@\n  */\r\n class SimplePie_Locator\r\n {\r\n-\tpublic ?string $useragent;\r\n-\tpublic int $timeout;\r\n \tpublic SimplePie_File $file;\r\n \tpublic array $local = [];\r\n \tpublic array $elsewhere = [];\r\n@@ -64,16 +62,12 @@\n \tpublic ?string $base = null;\r\n \tpublic int $base_location = 0;\r\n \tpublic int $checked_feeds = 0;\r\n-\tpublic int $max_checked_feeds = 10;\r\n \tprotected ?SimplePie_Registry $registry = null;\r\n \tprotected ?\\DOMDocument $dom = null;\r\n \r\n-\tpublic function __construct(SimplePie_File $file, int $timeout = 10, ?string $useragent = null, int $max_checked_feeds = 10)\r\n+\tpublic function __construct(SimplePie_File $file, public int $timeout = 10, public ?string $useragent = null, public int $max_checked_feeds = 10)\r\n \t{\r\n \t\t$this->file = $file;\r\n-\t\t$this->useragent = $useragent;\r\n-\t\t$this->timeout = $timeout;\r\n-\t\t$this->max_checked_feeds = $max_checked_feeds;\r\n \r\n \t\tif (class_exists(\\DOMDocument::class)) {\r\n \t\t\t$this->dom = new \\DOMDocument();\r\n@@ -281,7 +275,7 @@\n \r\n \t\t\t$scheme = $parsed['scheme'] ?? '';\r\n \r\n-\t\t\tif ($scheme === '' || preg_match('/^(?:https?|feed)?$/i', $scheme) === 1) {\r\n+\t\t\tif ($scheme === '' || preg_match('/^(?:https?|feed)?$/i', (string) $scheme) === 1) {\r\n \t\t\t\tif (method_exists($link, 'getLineNo') && $this->base_location < $link->getLineNo()) {\r\n \t\t\t\t\t$href = $this->registry->call('Misc', 'absolutize_url', [trim($link->getAttribute('href')), $this->base]);\r\n \t\t\t\t} else {\r\n@@ -319,7 +313,7 @@\n \t\t\t\tbreak;\r\n \t\t\t}\r\n \r\n-\t\t\t$extension = strrchr($value, '.');\r\n+\t\t\t$extension = strrchr((string) $value, '.');\r\n \r\n \t\t\tif ($extension !== false && in_array(strtolower($extension), ['.rss', '.rdf', '.atom', '.xml'], true)) {\r\n \t\t\t\t$this->checked_feeds++;\r\n@@ -348,7 +342,7 @@\n \t\t\t\tbreak;\r\n \t\t\t}\r\n \r\n-\t\t\tif (preg_match('/(rss|rdf|atom|xml)/i', $value) === 1) {\r\n+\t\t\tif (preg_match('/(rss|rdf|atom|xml)/i', (string) $value) === 1) {\r\n \t\t\t\t$this->checked_feeds++;\r\n \r\n \t\t\t\t$headers = [\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/045_Locator.php"
+    ]
+  }
+}

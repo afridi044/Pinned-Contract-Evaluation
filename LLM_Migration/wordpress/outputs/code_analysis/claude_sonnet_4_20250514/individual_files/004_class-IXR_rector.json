@@ -1,0 +1,52 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\004_class-IXR.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+    ],
+    "changes_by_php_version": {
+      "php_52": 1,
+      "php_54": 1,
+      "php_80": 2,
+      "php_81": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 172
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:14:57.536829",
+    "file_size_kb": 34.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/004_class-IXR.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * IXR - The Incutio XML-RPC Library\r\n@@ -46,12 +46,10 @@\n  * @since 1.5.0\r\n  */\r\n class IXR_Value {\r\n-    public mixed $data;\r\n     public string $type;\r\n \r\n-    public function __construct(mixed $data, string|false $type = false)\r\n+    public function __construct(public mixed $data, string|false $type = false)\r\n     {\r\n-        $this->data = $data;\r\n         if (!$type) {\r\n             $type = $this->calculateType();\r\n         }\r\n@@ -117,7 +115,7 @@\n             case 'double':\r\n                 return '<double>'.$this->data.'</double>';\r\n             case 'string':\r\n-                return '<string>'.htmlspecialchars($this->data).'</string>';\r\n+                return '<string>'.htmlspecialchars((string) $this->data).'</string>';\r\n             case 'array':\r\n                 $return = '<array><data>'.\"\\n\";\r\n                 foreach ($this->data as $item) {\r\n@@ -128,7 +126,7 @@\n             case 'struct':\r\n                 $return = '<struct>'.\"\\n\";\r\n                 foreach ($this->data as $name => $value) {\r\n-\t\t\t\t\t$name = htmlspecialchars($name);\r\n+\t\t\t\t\t$name = htmlspecialchars((string) $name);\r\n                     $return .= \"  <member><name>$name</name><value>\";\r\n                     $return .= $value->getXml().\"</value></member>\\n\";\r\n                 }\r\n@@ -214,7 +212,7 @@\n         if ( '<!DOCTYPE' === strtoupper( $root_tag ) ) {\r\n             return false;\r\n         }\r\n-        if ( ! in_array( $root_tag, array( '<methodCall', '<methodResponse', '<fault' ) ) ) {\r\n+        if ( ! in_array( $root_tag, [ '<methodCall', '<methodResponse', '<fault' ] ) ) {\r\n             return false;\r\n         }\r\n \r\n@@ -272,11 +270,11 @@\n                 /* Deal with stacks of arrays and structs */\r\n             case 'data':    // data is to all intents and puposes more interesting than array\r\n                 $this->_arraystructstypes[] = 'array';\r\n-                $this->_arraystructs[] = array();\r\n+                $this->_arraystructs[] = [];\r\n                 break;\r\n             case 'struct':\r\n                 $this->_arraystructstypes[] = 'struct';\r\n-                $this->_arraystructs[] = array();\r\n+                $this->_arraystructs[] = [];\r\n                 break;\r\n         }\r\n     }\r\n@@ -461,7 +459,7 @@\n         } else {\r\n             // It's a function - does it exist?\r\n             if (is_array($method)) {\r\n-                if (!is_callable(array($method[0], $method[1]))) {\r\n+                if (!is_callable([$method[0], $method[1]])) {\r\n                     return new IXR_Error(-32601, 'server error. requested object method \"'.$method[1].'\" does not exist.');\r\n                 }\r\n             } else if (!function_exists($method)) {\r\n@@ -576,14 +574,10 @@\n  */\r\n class IXR_Request\r\n {\r\n-    public string $method;\r\n-    public array $args;\r\n     public string $xml;\r\n \r\n-    public function __construct(string $method, array $args)\r\n+    public function __construct(public string $method, public array $args)\r\n     {\r\n-        $this->method = $method;\r\n-        $this->args = $args;\r\n         $this->xml = <<<EOD\r\n <?xml version=\"1.0\"?>\r\n <methodCall>\r\n@@ -627,13 +621,12 @@\n     public ?IXR_Message $response = null;\r\n     public mixed $message = false;\r\n     public bool $debug = false;\r\n-    public int $timeout;\r\n     public array $headers = [];\r\n \r\n     // Storage place for an error message\r\n     public mixed $error = false;\r\n \r\n-    public function __construct(string $server, string|false $path = false, int $port = 80, int $timeout = 15)\r\n+    public function __construct(string $server, string|false $path = false, int $port = 80, public int $timeout = 15)\r\n     {\r\n         if (!$path) {\r\n             // Assume we have been given a URL instead\r\n@@ -656,7 +649,6 @@\n             $this->port = $port;\r\n         }\r\n         $this->useragent = 'The Incutio XML-RPC PHP Library';\r\n-        $this->timeout = $timeout;\r\n     }\r\n \r\n     public function query(): bool\r\n@@ -705,7 +697,7 @@\n             $line = fgets($fp, 4096);\r\n             if (!$gotFirstLine) {\r\n                 // Check line for '200'\r\n-                if (strstr($line, '200') === false) {\r\n+                if (!str_contains($line, '200')) {\r\n                     $this->error = new IXR_Error(-32300, 'transport error - HTTP status code was not 200');\r\n                     return false;\r\n                 }\r\n@@ -775,12 +767,10 @@\n  */\r\n class IXR_Error\r\n {\r\n-    public int $code;\r\n     public string $message;\r\n \r\n-    public function __construct(int $code, string $message)\r\n+    public function __construct(public int $code, string $message)\r\n     {\r\n-        $this->code = $code;\r\n         $this->message = htmlspecialchars($message);\r\n     }\r\n \r\n@@ -880,11 +870,8 @@\n  */\r\n class IXR_Base64\r\n {\r\n-    public string $data;\r\n-\r\n-    public function __construct(string $data)\r\n-    {\r\n-        $this->data = $data;\r\n+    public function __construct(public string $data)\n+    {\n     }\r\n \r\n     public function getXml(): string\r\n@@ -945,6 +932,7 @@\n         $this->help[$method] = $help;\r\n     }\r\n \r\n+    #[\\Override]\n     public function call(string $methodname, array $args): mixed\r\n     {\r\n         // Make sure it's in an array\r\n@@ -1062,7 +1050,7 @@\n  */\r\n class IXR_ClientMulticall extends IXR_Client\r\n {\r\n-    var $calls = [];\r\n+    public $calls = [];\r\n \r\n     function __construct($server, $path = false, $port = 80)\r\n     {\r\n@@ -1081,6 +1069,7 @@\n         $this->calls[] = $struct;\r\n     }\r\n \r\n+    #[\\Override]\n     function query()\r\n     {\r\n         // Prepare multicall, then call the parent::query() method\r\n",
+        "applied_rectors": [
+          "Rector\\Php52\\Rector\\Property\\VarToPublicPropertyRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/004_class-IXR.php"
+    ]
+  }
+}

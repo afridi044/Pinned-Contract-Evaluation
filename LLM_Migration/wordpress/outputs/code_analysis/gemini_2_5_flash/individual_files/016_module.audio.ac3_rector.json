@@ -1,0 +1,49 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\016_module.audio.ac3.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+    ],
+    "changes_by_php_version": {
+      "php_56": 1,
+      "php_80": 2,
+      "php_81": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 103
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:22:10.818356",
+    "file_size_kb": 15.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/016_module.audio.ac3.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /////////////////////////////////////////////////////////////////\r\n /// getID3() by James Heinrich <info@getid3.org>               //\r\n@@ -21,7 +21,7 @@\n     private array $AC3header = [];\r\n     private int $BSIoffset = 0;\r\n \r\n-    const syncword = \"\\x0B\\x77\";\r\n+    const string syncword = \"\\x0B\\x77\";\r\n \r\n \tpublic function Analyze(): bool\r\n     {\r\n@@ -39,7 +39,7 @@\n \t\t$this->fseek($info['avdataoffset']);\r\n \t\t$this->AC3header['syncinfo'] = $this->fread(5);\r\n \r\n-\t\tif (strpos($this->AC3header['syncinfo'], self::syncword) === 0) {\r\n+\t\tif (str_starts_with((string) $this->AC3header['syncinfo'], self::syncword)) {\r\n \t\t\t$thisfile_ac3_raw['synchinfo']['synchword'] = self::syncword;\r\n \t\t\t$offset = 2;\r\n \t\t} else {\r\n@@ -46,7 +46,7 @@\n \t\t\t// Assuming getid3_handler and getid3_lib are also modernized.\r\n \t\t\tif (!$this->isDependencyFor('matroska')) {\r\n \t\t\t\tunset($info['fileformat'], $info['ac3']);\r\n-\t\t\t\treturn $this->error('Expecting \"'.getid3_lib::PrintHexBytes(self::syncword).'\" at offset '.$info['avdataoffset'].', found \"'.getid3_lib::PrintHexBytes(substr($this->AC3header['syncinfo'], 0, 2)).'\"');\r\n+\t\t\t\treturn $this->error('Expecting \"'.getid3_lib::PrintHexBytes(self::syncword).'\" at offset '.$info['avdataoffset'].', found \"'.getid3_lib::PrintHexBytes(substr((string) $this->AC3header['syncinfo'], 0, 2)).'\"');\r\n \t\t\t}\r\n \t\t\t$offset = 0;\r\n \t\t\t$this->fseek(-2, SEEK_CUR);\r\n@@ -56,8 +56,8 @@\n \t\t$info['audio']['bitrate_mode'] = 'cbr';\r\n \t\t$info['audio']['lossless']     = false;\r\n \r\n-\t\t$thisfile_ac3_raw['synchinfo']['crc1']       = getid3_lib::LittleEndian2Int(substr($this->AC3header['syncinfo'], $offset, 2));\r\n-\t\t$ac3_synchinfo_fscod_frmsizecod              = getid3_lib::LittleEndian2Int(substr($this->AC3header['syncinfo'], ($offset + 2), 1));\r\n+\t\t$thisfile_ac3_raw['synchinfo']['crc1']       = getid3_lib::LittleEndian2Int(substr((string) $this->AC3header['syncinfo'], $offset, 2));\r\n+\t\t$ac3_synchinfo_fscod_frmsizecod              = getid3_lib::LittleEndian2Int(substr((string) $this->AC3header['syncinfo'], ($offset + 2), 1));\r\n \t\t$thisfile_ac3_raw['synchinfo']['fscod']      = ($ac3_synchinfo_fscod_frmsizecod & 0xC0) >> 6;\r\n \t\t$thisfile_ac3_raw['synchinfo']['frmsizecod'] = ($ac3_synchinfo_fscod_frmsizecod & 0x3F);\r\n \r\n@@ -87,19 +87,11 @@\n \t\tforeach($ac3_coding_mode as $key => $value) {\r\n \t\t\t$thisfile_ac3[$key] = $value;\r\n \t\t}\r\n-\t\tswitch ($thisfile_ac3_raw_bsi['acmod']) {\r\n-\t\t\tcase 0:\r\n-\t\t\tcase 1:\r\n-\t\t\t\t$info['audio']['channelmode'] = 'mono';\r\n-\t\t\t\tbreak;\r\n-\t\t\tcase 3:\r\n-\t\t\tcase 4:\r\n-\t\t\t\t$info['audio']['channelmode'] = 'stereo';\r\n-\t\t\t\tbreak;\r\n-\t\t\tdefault:\r\n-\t\t\t\t$info['audio']['channelmode'] = 'surround';\r\n-\t\t\t\tbreak;\r\n-\t\t}\r\n+\t\t$info['audio']['channelmode'] = match ($thisfile_ac3_raw_bsi['acmod']) {\n+            0, 1 => 'mono',\n+            3, 4 => 'stereo',\n+            default => 'surround',\n+        };\r\n \t\t$info['audio']['channels'] = $thisfile_ac3['num_channels'];\r\n \r\n \t\tif (($thisfile_ac3_raw_bsi['acmod'] & 0x01) !== 0) {\r\n@@ -201,7 +193,7 @@\n \r\n \tprivate function readHeaderBSI(int $length): int\r\n     {\r\n-\t\t$data = substr($this->AC3header['bsi'], $this->BSIoffset, $length);\r\n+\t\t$data = substr((string) $this->AC3header['bsi'], $this->BSIoffset, $length);\r\n \t\t$this->BSIoffset += $length;\r\n \r\n \t\treturn bindec($data);\r\n@@ -260,9 +252,9 @@\n \t\tstatic $centerMixLevelLookup;\r\n \t\tif (empty($centerMixLevelLookup)) {\r\n \t\t\t$centerMixLevelLookup = [\r\n-\t\t\t\t0 => pow(2, -3.0 / 6), // 0.707 (-3.0 dB)\r\n-\t\t\t\t1 => pow(2, -4.5 / 6), // 0.595 (-4.5 dB)\r\n-\t\t\t\t2 => pow(2, -6.0 / 6), // 0.500 (-6.0 dB)\r\n+\t\t\t\t0 => 2 ** (-3.0 / 6), // 0.707 (-3.0 dB)\r\n+\t\t\t\t1 => 2 ** (-4.5 / 6), // 0.595 (-4.5 dB)\r\n+\t\t\t\t2 => 2 ** (-6.0 / 6), // 0.500 (-6.0 dB)\r\n \t\t\t\t3 => 'reserved'\r\n \t\t\t];\r\n \t\t}\r\n@@ -275,8 +267,8 @@\n \t\t// Corrected: Original code had empty($surmixlev) which is a bug.\r\n \t\tif (empty($surroundMixLevelLookup)) {\r\n \t\t\t$surroundMixLevelLookup = [\r\n-\t\t\t\t0 => pow(2, -3.0 / 6),\r\n-\t\t\t\t1 => pow(2, -6.0 / 6),\r\n+\t\t\t\t0 => 2 ** (-3.0 / 6),\r\n+\t\t\t\t1 => 2 ** (-6.0 / 6),\r\n \t\t\t\t2 => 0,\r\n \t\t\t\t3 => 'reserved'\r\n \t\t\t];\r\n",
+        "applied_rectors": [
+          "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/016_module.audio.ac3.php"
+    ]
+  }
+}

@@ -14,18 +14,18 @@ from datetime import datetime
 import sys
 
 # Add parent directory to path to import shared config
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from core.config import LLM_EVALUATION_REPORTS_DIR, LLM_NEW_VERSION_DIR
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from config import LLM_CODE_ANALYSIS_DIR, LLM_NEW_VERSION_DIR, DATASET_SUBDIR
 
 class SimpleRulesAnalyzer:
     """Simple analyzer to view remaining Rector rules after LLM migration."""
     
     def __init__(self, model_name: str = None):
         if model_name:
-            self.reports_dir = LLM_EVALUATION_REPORTS_DIR / model_name
+            self.reports_dir = LLM_CODE_ANALYSIS_DIR / model_name
             self.model_name = model_name
         else:
-            self.reports_dir = Path("rector_reports")
+            self.reports_dir = DATASET_SUBDIR / "rector_reports"
             self.model_name = None
             
         self.metadata = self.load_metadata()
@@ -51,6 +51,8 @@ class SimpleRulesAnalyzer:
             filename = file_data["filename"]
             changes = file_data["rector_analysis"]["php_version_changes"]
             rules = file_data["rector_analysis"]["rules_triggered"]
+            status = file_data.get("analysis_metadata", {}).get("status", "success")
+            error_message = file_data.get("analysis_metadata", {}).get("error_message", "")
             
             # Extract PHP versions and rule names
             php_versions = set()
@@ -67,7 +69,9 @@ class SimpleRulesAnalyzer:
                 'filename': filename,
                 'total_changes': changes,
                 'php_versions': sorted(php_versions),
-                'rule_names': rule_names
+                'rule_names': rule_names,
+                'status': status,
+                'error_message': error_message
             })
         
         # Sort by number of changes (most problematic first)
@@ -121,25 +125,35 @@ class SimpleRulesAnalyzer:
         
         # Overall stats
         total_files = len(file_summaries)
-        perfect_files = len([f for f in file_summaries if f['total_changes'] == 0])
-        total_changes = sum(f['total_changes'] for f in file_summaries)
+        error_files = len([f for f in file_summaries if f['status'] == 'error'])
+        analyzable_files = [f for f in file_summaries if f['status'] != 'error']
+        analyzed_count = len(analyzable_files)
+        perfect_files = len([f for f in analyzable_files if f['total_changes'] == 0])
+        total_changes = sum(f['total_changes'] for f in analyzable_files)
+        files_needing_work = len([f for f in analyzable_files if f['total_changes'] > 0])
         
         report += f"- **Files analyzed**: {total_files}\n"
+        report += f"- **Rector errors**: {error_files}\n"
+        report += f"- **Files analyzed successfully**: {analyzed_count}\n"
         report += f"- **Perfect migrations** (0 changes needed): {perfect_files}\n"
-        report += f"- **Files needing work**: {total_files - perfect_files}\n"
+        report += f"- **Files needing work**: {files_needing_work}\n"
         report += f"- **Total remaining changes**: {total_changes}\n"
         
-        if total_files > 0:
-            avg_changes = total_changes / total_files
+        if analyzed_count > 0:
+            avg_changes = total_changes / analyzed_count
             report += f"- **Average changes per file**: {avg_changes:.1f}\n"
         
         # Migration quality
         if self.model_name:
             report += f"\n### Migration Statistics\n\n"
-            report += f"- **Files with no changes**: {perfect_files} ({perfect_files/total_files*100:.1f}%)\n"
-            report += f"- **Files with 1-3 changes**: {len([f for f in file_summaries if 1 <= f['total_changes'] <= 3])}\n"
-            report += f"- **Files with 4-8 changes**: {len([f for f in file_summaries if 4 <= f['total_changes'] <= 8])}\n"
-            report += f"- **Files with 9+ changes**: {len([f for f in file_summaries if f['total_changes'] >= 9])}\n"
+            if analyzed_count > 0:
+                report += f"- **Files with no changes**: {perfect_files} ({perfect_files/analyzed_count*100:.1f}%)\n"
+            else:
+                report += f"- **Files with no changes**: 0 (0.0%)\n"
+            report += f"- **Files with 1-3 changes**: {len([f for f in analyzable_files if 1 <= f['total_changes'] <= 3])}\n"
+            report += f"- **Files with 4-8 changes**: {len([f for f in analyzable_files if 4 <= f['total_changes'] <= 8])}\n"
+            report += f"- **Files with 9+ changes**: {len([f for f in analyzable_files if f['total_changes'] >= 9])}\n"
+            report += f"- **Files with Rector errors**: {error_files}\n"
         
         # File-by-file results
         report += "\n## File-by-File Results\n\n"
@@ -149,9 +163,12 @@ class SimpleRulesAnalyzer:
             rules_str = ", ".join(file_info['rule_names']) if file_info['rule_names'] else "None"
             
             report += f"### 📄 `{file_info['filename']}`\n\n"
+            report += f"- **Status**: {file_info['status']}\n"
             report += f"- **Changes needed**: {file_info['total_changes']}\n"
             report += f"- **PHP versions affected**: {versions_str}\n"
             report += f"- **Triggered rules**: {rules_str}\n\n"
+            if file_info['status'] == 'error' and file_info['error_message']:
+                report += f"- **Rector error**: {file_info['error_message']}\n\n"
         
         # Most common rules
         report += "\n## Most Common Rules Triggered\n\n"
@@ -165,11 +182,8 @@ class SimpleRulesAnalyzer:
     
     def save_report(self) -> None:
         """Generate and save the simple report."""
-        print("📊 Generating simple migration report...")
-        
         report = self.generate_simple_report()
         
-        # Save report
         if self.model_name:
             report_file = self.reports_dir / "migration_report.md"
         else:
@@ -178,21 +192,18 @@ class SimpleRulesAnalyzer:
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(report)
         
-        print(f"✅ Report saved: {report_file}")
+        print(f"Report saved: {report_file}")
         
-        # Also print a quick summary to console
         file_summaries = self.get_file_summaries()
         total_files = len(file_summaries)
-        perfect_files = len([f for f in file_summaries if f['total_changes'] == 0])
+        analyzed = [f for f in file_summaries if f['status'] != 'error']
+        error_files = len([f for f in file_summaries if f['status'] == 'error'])
+        perfect_files = len([f for f in analyzed if f['total_changes'] == 0])
+        files_needing_work = len([f for f in analyzed if f['total_changes'] > 0])
         
-        print(f"\n📋 Quick Summary:")
-        print(f"   Perfect migrations: {perfect_files}/{total_files}")
-        print(f"   Files needing work: {total_files - perfect_files}")
-        
-        if file_summaries:
-            worst_file = file_summaries[0]  # Already sorted by changes desc
-            if worst_file['total_changes'] > 0:
-                print(f"   Most issues: {worst_file['filename']} ({worst_file['total_changes']} changes)")
+        print(f"Perfect migrations: {perfect_files}/{total_files}")
+        print(f"Files needing work: {files_needing_work}")
+        print(f"Files with Rector errors: {error_files}")
 
 def get_available_models():
     """Dynamically discover available models from new-version/ directory."""
@@ -202,7 +213,7 @@ def get_available_models():
         for item in LLM_NEW_VERSION_DIR.iterdir():
             if item.is_dir():
                 # Check if evaluation report exists for this model
-                eval_report = LLM_EVALUATION_REPORTS_DIR / item.name / "metadata.json"
+                eval_report = LLM_CODE_ANALYSIS_DIR / item.name / "metadata.json"
                 if eval_report.exists():
                     models.append(item.name)
     
@@ -218,38 +229,19 @@ def main():
     # Check if we're running in evaluation mode
     if len(sys.argv) > 1 and sys.argv[1] in available_models:
         model_name = sys.argv[1]
-        print(f"🔍 Simple Migration Report for {model_name}")
-        print("=" * 50)
-        
         analyzer = SimpleRulesAnalyzer(model_name=model_name)
     else:
-        print("🔍 Simple Migration Report Generator")
-        print("=" * 40)
-        print()
-        print("Usage:")
-        print("  python analyze_triggered_rules.py <model_name>")
-        print()
+        print("Usage: python analyze_triggered_rules.py <model_name>")
         if available_models:
-            print("Available models:")
-            for model in available_models:
-                print(f"  - {model}")
-        else:
-            print("No models found. Run process_all_files.py <model_name> first.")
-        print()
-        print("Or run without arguments for original dataset analysis.")
-        print()
-        
-        # Try to analyze whatever reports exist
+            print(f"Available models: {', '.join(available_models)}")
         analyzer = SimpleRulesAnalyzer()
     
     try:
         analyzer.save_report()
     except FileNotFoundError as e:
-        print(f"❌ {e}")
-        return
+        print(f"Error: {e}")
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
-        return
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()

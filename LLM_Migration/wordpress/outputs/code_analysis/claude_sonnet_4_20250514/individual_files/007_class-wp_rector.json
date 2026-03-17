@@ -1,0 +1,48 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\007_class-wp.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_80": 1,
+      "php_81": 3
+    },
+    "has_diff": true,
+    "diff_line_count": 199
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:15:13.572522",
+    "file_size_kb": 24.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/007_class-wp.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * WordPress environment setup class.\r\n@@ -154,10 +154,10 @@\n \t\t\t$this->did_permalink = true;\r\n \r\n \t\t\t$pathinfo = $_SERVER['PATH_INFO'] ?? '';\r\n-\t\t\t[$pathinfo] = explode('?', $pathinfo);\r\n+\t\t\t[$pathinfo] = explode('?', (string) $pathinfo);\r\n \t\t\t$pathinfo = str_replace('%', '%25', $pathinfo);\r\n \r\n-\t\t\t[$req_uri] = explode('?', $_SERVER['REQUEST_URI']);\r\n+\t\t\t[$req_uri] = explode('?', (string) $_SERVER['REQUEST_URI']);\r\n \t\t\t$self = $_SERVER['PHP_SELF'];\r\n \t\t\t$home_path = trim(parse_url(home_url(), PHP_URL_PATH), '/');\r\n \r\n@@ -168,13 +168,13 @@\n \t\t\t$req_uri = str_replace($pathinfo, '', $req_uri);\r\n \t\t\t$req_uri = trim($req_uri, '/');\r\n \t\t\t$req_uri = preg_replace(\"|^$home_path|i\", '', $req_uri);\r\n-\t\t\t$req_uri = trim($req_uri, '/');\r\n+\t\t\t$req_uri = trim((string) $req_uri, '/');\r\n \t\t\t$pathinfo = trim($pathinfo, '/');\r\n \t\t\t$pathinfo = preg_replace(\"|^$home_path|i\", '', $pathinfo);\r\n-\t\t\t$pathinfo = trim($pathinfo, '/');\r\n-\t\t\t$self = trim($self, '/');\r\n+\t\t\t$pathinfo = trim((string) $pathinfo, '/');\r\n+\t\t\t$self = trim((string) $self, '/');\r\n \t\t\t$self = preg_replace(\"|^$home_path|i\", '', $self);\r\n-\t\t\t$self = trim($self, '/');\r\n+\t\t\t$self = trim((string) $self, '/');\r\n \r\n \t\t\t// The requested permalink is in $pathinfo for path info requests and\r\n \t\t\t//  $req_uri for other requests.\r\n@@ -209,7 +209,7 @@\n \t\t\t\t\tif (preg_match(\"#^$match#\", $request_match, $matches) ||\r\n \t\t\t\t\t\tpreg_match(\"#^$match#\", urldecode($request_match), $matches)) {\r\n \r\n-\t\t\t\t\t\tif ($wp_rewrite->use_verbose_page_rules && preg_match('/pagename=\\$matches\\[([0-9]+)\\]/', $query, $varmatch)) {\r\n+\t\t\t\t\t\tif ($wp_rewrite->use_verbose_page_rules && preg_match('/pagename=\\$matches\\[([0-9]+)\\]/', (string) $query, $varmatch)) {\r\n \t\t\t\t\t\t\t// this is a verbose page match, lets check to be sure about it\r\n \t\t\t\t\t\t\tif (!get_page_by_path($matches[$varmatch[1]])) {\r\n \t\t\t\t\t\t\t\tcontinue;\r\n@@ -225,7 +225,7 @@\n \r\n \t\t\tif (isset($this->matched_rule)) {\r\n \t\t\t\t// Trim the query of everything up to the '?'.\r\n-\t\t\t\t$query = preg_replace('!^.+\\?!', '', $query);\r\n+\t\t\t\t$query = preg_replace('!^.+\\?!', '', (string) $query);\r\n \r\n \t\t\t\t// Substitute the substring matches into the query.\r\n \t\t\t\t$query = addslashes(WP_MatchesMapRegex::apply($query, $matches));\r\n@@ -242,10 +242,10 @@\n \t\t\t}\r\n \r\n \t\t\t// If req_uri is empty or if it is a request for ourself, unset error.\r\n-\t\t\tif (empty($request) || $req_uri === $self || str_contains($_SERVER['PHP_SELF'], 'wp-admin/')) {\r\n+\t\t\tif (empty($request) || $req_uri === $self || str_contains((string) $_SERVER['PHP_SELF'], 'wp-admin/')) {\r\n \t\t\t\tunset($error, $_GET['error']);\r\n \r\n-\t\t\t\tif (isset($perma_query_vars) && str_contains($_SERVER['PHP_SELF'], 'wp-admin/')) {\r\n+\t\t\t\tif (isset($perma_query_vars) && str_contains((string) $_SERVER['PHP_SELF'], 'wp-admin/')) {\r\n \t\t\t\t\tunset($perma_query_vars);\r\n \t\t\t\t}\r\n \r\n@@ -380,7 +380,7 @@\n \t\t} else {\r\n \t\t\t// We're showing a feed, so WP is indeed the only thing that last changed\r\n \t\t\tif (!empty($this->query_vars['withcomments'])\r\n-\t\t\t\t|| str_contains($this->query_vars['feed'], 'comments-')\r\n+\t\t\t\t|| str_contains((string) $this->query_vars['feed'], 'comments-')\r\n \t\t\t\t|| (empty($this->query_vars['withoutcomments'])\r\n \t\t\t\t\t&& (!empty($this->query_vars['p'])\r\n \t\t\t\t\t\t|| !empty($this->query_vars['name'])\r\n@@ -406,7 +406,7 @@\n \t\t\t\t$client_etag = false;\r\n \t\t\t}\r\n \r\n-\t\t\t$client_last_modified = empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? '' : trim($_SERVER['HTTP_IF_MODIFIED_SINCE']);\r\n+\t\t\t$client_last_modified = empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? '' : trim((string) $_SERVER['HTTP_IF_MODIFIED_SINCE']);\r\n \t\t\t// If string is empty, return 0. If not, attempt to parse into a timestamp\r\n \t\t\t$client_modified_timestamp = $client_last_modified ? strtotime($client_last_modified) : 0;\r\n \r\n@@ -646,7 +646,7 @@\n \t\t *\r\n \t\t * @param WP &$this Current WordPress environment instance (passed by reference).\r\n \t\t */\r\n-\t\tdo_action_ref_array( 'wp', array( &$this ) );\r\n+\t\tdo_action_ref_array( 'wp', [ &$this ] );\r\n \t}\r\n \r\n }\r\n@@ -658,14 +658,6 @@\n  */\r\n class WP_MatchesMapRegex {\r\n \t/**\r\n-\t * store for matches\r\n-\t *\r\n-\t * @access private\r\n-\t * @var array\r\n-\t */\r\n-\tprivate array $_matches;\r\n-\r\n-\t/**\r\n \t * store for mapping result\r\n \t *\r\n \t * @access public\r\n@@ -674,14 +666,6 @@\n \tpublic string $output;\r\n \r\n \t/**\r\n-\t * subject to perform mapping on (query string containing $matches[] references\r\n-\t *\r\n-\t * @access private\r\n-\t * @var string\r\n-\t */\r\n-\tprivate string $_subject;\r\n-\r\n-\t/**\r\n \t * regexp pattern to match $matches[] references\r\n \t *\r\n \t * @var string\r\n@@ -751,34 +735,30 @@\n \t * @return mixed Return value of the callback, false otherwise.\r\n \t */\r\n \tpublic function __call( string $name, array $arguments ): mixed {\r\n-\t\treturn call_user_func_array( array( $this, $name ), $arguments );\r\n+\t\treturn call_user_func_array( [ $this, $name ], $arguments );\r\n \t}\r\n \r\n-\t/**\r\n-\t * constructor\r\n-\t *\r\n-\t * @param string $subject subject if regex\r\n-\t * @param array  $matches data to use in map\r\n-\t */\r\n-\tpublic function __construct(string $subject, array $matches) {\r\n-\t\t$this->_subject = $subject;\r\n-\t\t$this->_matches = $matches;\r\n+\t/**\n+     * constructor\n+     *\n+     * @param string $_subject subject if regex\n+     * @param array $_matches data to use in map\n+     */\n+    public function __construct(/**\n+     * subject to perform mapping on (query string containing $matches[] references\n+     *\n+     * @access private\n+     */\n+    private readonly string $_subject, /**\n+     * store for matches\n+     *\n+     * @access private\n+     */\n+    private array $_matches) {\r\n \t\t$this->output = $this->_map();\r\n \t}\r\n \r\n \t/**\r\n-\t * Legacy constructor for backwards compatibility\r\n-\t *\r\n-\t * @param string $subject subject if regex\r\n-\t * @param array  $matches data to use in map\r\n-\t * @return self\r\n-\t */\r\n-\tpublic function WP_MatchesMapRegex(string $subject, array $matches): self {\r\n-\t\t$this->__construct($subject, $matches);\r\n-\t\treturn $this;\r\n-\t}\r\n-\r\n-\t/**\r\n \t * Substitute substring matches in subject.\r\n \t *\r\n \t * static helper function to ease use\r\n@@ -800,7 +780,7 @@\n \t * @return string\r\n \t */\r\n \tprivate function _map(): string {\r\n-\t\t$callback = array($this, 'callback');\r\n+\t\t$callback = $this->callback(...);\r\n \t\treturn preg_replace_callback($this->_pattern, $callback, $this->_subject);\r\n \t}\r\n \r\n@@ -812,8 +792,8 @@\n \t * @return string\r\n \t */\r\n \tpublic function callback(array $matches): string {\r\n-\t\t$index = intval(substr($matches[0], 9, -1));\r\n+\t\t$index = intval(substr((string) $matches[0], 9, -1));\r\n \t\treturn ( isset( $this->_matches[$index] ) ? urlencode($this->_matches[$index]) : '' );\r\n \t}\r\n \r\n }\n\\ No newline at end of file\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/007_class-wp.php"
+    ]
+  }
+}

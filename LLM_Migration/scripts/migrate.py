@@ -15,12 +15,18 @@ from core.processor import MigrationManager
 from core.parser import OutputParser, FileReconstructor
 from core.utils import load_test_files, analyze_file_sizes
 
+# Import config for dynamic paths
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from config import DATASET_NAME, SELECTED_100_FILES_DIR
+
 
 def create_migration_system(test_files_path: str = None):
     """Initialize the complete migration system."""
     # Load test files
     if not test_files_path:
-        test_files_path = r'selected_100_files\extra_large_1000_plus'
+        test_files_path = str(SELECTED_100_FILES_DIR / 'extra_large_1000_plus')
     
     test_files = load_test_files(test_files_path)
     
@@ -45,7 +51,7 @@ def main():
     
     # File selection
     parser.add_argument('--files', type=str, nargs='*', help='Specific files to migrate')
-    parser.add_argument('--files-dir', type=str, default=r'selected_100_files\extra_large_1000_plus',
+    parser.add_argument('--files-dir', type=str, default=str(SELECTED_100_FILES_DIR / 'extra_large_1000_plus'),
                         help='Directory containing PHP files to migrate')
     parser.add_argument('--all-files', action='store_true', help='Migrate all loaded files')
     parser.add_argument('--limit', type=int, help='Limit number of files to migrate')
@@ -79,9 +85,6 @@ def main():
     
     args = parser.parse_args()
     
-    print("🔬 LLM PHP Migration Tool")
-    print("=" * 50)
-    
     # Initialize system
     migration_manager, output_parser, file_reconstructor, test_files = create_migration_system(args.files_dir)
     
@@ -90,44 +93,34 @@ def main():
     
     # Test mode
     if args.test:
-        print("\n🧪 Testing provider detection...")
         migration_manager.multi_client.test_provider_detection()
         return
     
     # Analyze files
     if args.analyze:
-        print("\n📊 Analyzing file sizes...")
         analyze_file_sizes(test_files, args.chunk_size)
         return
     
     # Parse existing responses
     if args.parse:
-        print("\n🔄 Parsing existing responses...")
         output_parser.process_all_responses()
         return
     
     # Reconstruct files from chunks
     if args.reconstruct:
-        print("\n🔧 Reconstructing files from chunks...")
         file_reconstructor.reconstruct_all_files()
         return
     
     # Migration workflow
     if args.migrate:
-        # Determine files to migrate
         files_to_migrate = determine_files_to_migrate(args, test_files)
         
         if not files_to_migrate:
-            print("❌ No files selected for migration")
+            print("No files selected for migration")
             return
         
-        print(f"\n🚀 Starting migration of {len(files_to_migrate)} files...")
-        print(f"📋 Model: {args.model}")
-        print(f"📋 Strategy: {args.strategy}")
-        print(f"📋 Chunk size: {args.chunk_size}")
-        print(f"📋 Auto-chunk: {not args.no_auto_chunk}")
+        print(f"Starting migration of {len(files_to_migrate)} files...")
         
-        # Perform batch migration
         results = migration_manager.batch_migrate(
             files_to_migrate,
             model=args.model,
@@ -136,10 +129,7 @@ def main():
             auto_chunk=not args.no_auto_chunk
         )
         
-        print(f"\n✅ Migration completed!")
-        
-        # Automatic post-processing
-        print("\n🔄 Post-processing: Parsing responses...")
+        print("Migration completed")
         output_parser.process_all_responses()
         
         print("\n🔧 Post-processing: Reconstructing chunked files...")
@@ -188,7 +178,7 @@ if __name__ == "__main__":
         print("\n\n⚠️  Migration interrupted by user")
         sys.exit(1)
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"Error: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\035_wp-trackback.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 28
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:23:15.221893",
+    "file_size_kb": 4.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/035_wp-trackback.php",
+        "diff": "--- Original\n+++ New\n@@ -48,7 +48,7 @@\n $tb_id = null;\r\n \r\n if ( empty($_GET['tb_id']) ) {\r\n-\t$tb_id_segments = explode('/', $_SERVER['REQUEST_URI']);\r\n+\t$tb_id_segments = explode('/', (string) $_SERVER['REQUEST_URI']);\r\n \t// Filter out empty segments to handle cases like // or trailing slashes more robustly.\r\n \t$tb_id_segments = array_filter($tb_id_segments, fn($segment) => $segment !== '');\r\n \t$tb_id = !empty($tb_id_segments) ? (int) $tb_id_segments[ array_key_last($tb_id_segments) ] : 0;\r\n@@ -65,13 +65,13 @@\n $blog_name = wp_unslash($_POST['blog_name'] ?? '');\r\n \r\n if ($charset) {\r\n-\t$charset = str_replace( [',', ' '], '', strtoupper( trim($charset) ) );\r\n+\t$charset = str_replace( [',', ' '], '', strtoupper( trim((string) $charset) ) );\r\n } else {\r\n \t$charset = 'ASCII, UTF-8, ISO-8859-1, JIS, EUC-JP, SJIS';\r\n }\r\n \r\n // No valid uses for UTF-7.\r\n-if ( false !== strpos($charset, 'UTF-7') ) {\r\n+if ( str_contains($charset, 'UTF-7') ) {\r\n \texit();\r\n }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/035_wp-trackback.php"
+    ]
+  }
+}

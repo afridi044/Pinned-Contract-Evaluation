@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\060_themes.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 29
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:30:32.878000",
+    "file_size_kb": 16.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/060_themes.php",
+        "diff": "--- Original\n+++ New\n@@ -168,12 +168,12 @@\n \t$current_theme_actions = [];\r\n \tif (isset($submenu['themes.php'])) {\r\n \t\tforeach ($submenu['themes.php'] as $item) {\r\n-\t\t\tif ('themes.php' === $item[2] || 'theme-editor.php' === $item[2] || str_starts_with($item[2], 'customize.php')) {\r\n+\t\t\tif ('themes.php' === $item[2] || 'theme-editor.php' === $item[2] || str_starts_with((string) $item[2], 'customize.php')) {\r\n \t\t\t\tcontinue;\r\n \t\t\t}\r\n \t\t\t// 0 = name, 1 = capability, 2 = file\r\n \t\t\t$class = '';\r\n-\t\t\tif ((strcmp($self, $item[2]) === 0 && empty($parent_file)) || ($parent_file && ($item[2] === $parent_file))) {\r\n+\t\t\tif ((strcmp((string) $self, (string) $item[2]) === 0 && empty($parent_file)) || ($parent_file && ($item[2] === $parent_file))) {\r\n \t\t\t\t$class = ' class=\"current\"';\r\n \t\t\t}\r\n \r\n@@ -186,8 +186,8 @@\n \t\t\t\t$current_theme_actions[] = sprintf('<a class=\"button button-secondary\" href=\"%s\"%s>%s</a>', esc_url($url), $class, esc_html($item[0]));\r\n \t\t\t} elseif (current_user_can($item[1])) {\r\n \t\t\t\t$menu_file = $item[2];\r\n-\t\t\t\tif (($pos = strpos($menu_file, '?')) !== false) {\r\n-\t\t\t\t\t$menu_file = substr($menu_file, 0, $pos);\r\n+\t\t\t\tif (($pos = strpos((string) $menu_file, '?')) !== false) {\r\n+\t\t\t\t\t$menu_file = substr((string) $menu_file, 0, $pos);\r\n \t\t\t\t}\r\n \t\t\t\t$url = file_exists(ABSPATH . \"wp-admin/$menu_file\")\r\n \t\t\t\t\t? $item[2]\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/060_themes.php"
+    ]
+  }
+}

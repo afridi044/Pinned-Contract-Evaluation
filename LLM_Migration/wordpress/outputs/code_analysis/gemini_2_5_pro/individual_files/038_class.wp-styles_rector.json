@@ -1,0 +1,16 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\038_class.wp-styles.php",
+  "rector_analysis": {
+    "php_version_changes": 0,
+    "rules_triggered": [],
+    "changes_by_php_version": {},
+    "has_diff": false,
+    "diff_line_count": 0
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:29:22.584387",
+    "file_size_kb": 6.7,
+    "analysis_type": "version_specific_only"
+  }
+}

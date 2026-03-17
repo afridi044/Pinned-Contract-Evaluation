@@ -1,0 +1,2962 @@
+{
+  "dataset_info": {
+    "version": "4.0_llm_evaluation",
+    "total_files": 100,
+    "successful_files": 91,
+    "error_files": 9,
+    "analysis_method": "rector_php_version_upgrades_llm_evaluation",
+    "llm_model": "gemini_2_5_flash",
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:26:19.728934",
+    "evaluation_type": "llm_generated_code_analysis",
+    "focus": "php_version_specific_changes_on_llm_migrated_code"
+  },
+  "files": [
+    {
+      "file_id": 1,
+      "filename": "001_getid3.lib.php",
+      "original_path": "llm_generated/gemini_2_5_flash/001_getid3.lib.php",
+      "file_metrics": {
+        "lines_of_code": 1366,
+        "file_size_kb": 46.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_56": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 216
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:20:32.559659",
+        "file_size_kb": 46.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\001_getid3.lib_rector.json"
+    },
+    {
+      "file_id": 2,
+      "filename": "002_module.audio-video.asf.php",
+      "original_path": "llm_generated/gemini_2_5_flash/002_module.audio-video.asf.php",
+      "file_metrics": {
+        "lines_of_code": 2014,
+        "file_size_kb": 127.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 9,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php72\\Rector\\FuncCall\\StringifyDefineRector",
+          "Rector\\Php73\\Rector\\ConstFetch\\SensitiveConstantNameRector",
+          "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector",
+          "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_70": 2,
+          "php_72": 1,
+          "php_73": 1,
+          "php_74": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 881
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:01.818643",
+        "file_size_kb": 127.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\002_module.audio-video.asf_rector.json"
+    },
+    {
+      "file_id": 3,
+      "filename": "003_wp-db.php",
+      "original_path": "llm_generated/gemini_2_5_flash/003_wp-db.php",
+      "file_metrics": {
+        "lines_of_code": 1707,
+        "file_size_kb": 49.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:03.728379",
+        "file_size_kb": 49.7,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected '*', Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected T_PUBLIC, Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',' (line 501)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/003_wp-db.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\003_wp-db_rector.json"
+    },
+    {
+      "file_id": 4,
+      "filename": "004_class-IXR.php",
+      "original_path": "llm_generated/gemini_2_5_flash/004_class-IXR.php",
+      "file_metrics": {
+        "lines_of_code": 1105,
+        "file_size_kb": 35.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\ClassMethod\\AddParamBasedOnParentClassMethodRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 2,
+          "php_81": 1,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 138
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:09.535207",
+        "file_size_kb": 35.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\004_class-IXR_rector.json"
+    },
+    {
+      "file_id": 5,
+      "filename": "005_class-snoopy.php",
+      "original_path": "llm_generated/gemini_2_5_flash/005_class-snoopy.php",
+      "file_metrics": {
+        "lines_of_code": 1249,
+        "file_size_kb": 38.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:11.419121",
+        "file_size_kb": 38.7,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_ENDIF, expecting '}' (line 1248)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/005_class-snoopy.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\005_class-snoopy_rector.json"
+    },
+    {
+      "file_id": 6,
+      "filename": "006_widgets.php",
+      "original_path": "llm_generated/gemini_2_5_flash/006_widgets.php",
+      "file_metrics": {
+        "lines_of_code": 1526,
+        "file_size_kb": 48.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 3,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 80
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:16.214599",
+        "file_size_kb": 48.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\006_widgets_rector.json"
+    },
+    {
+      "file_id": 7,
+      "filename": "007_class-wp.php",
+      "original_path": "llm_generated/gemini_2_5_flash/007_class-wp.php",
+      "file_metrics": {
+        "lines_of_code": 804,
+        "file_size_kb": 24.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_80": 1,
+          "php_81": 3
+        },
+        "has_diff": true,
+        "diff_line_count": 290
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:20.169695",
+        "file_size_kb": 24.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\007_class-wp_rector.json"
+    },
+    {
+      "file_id": 8,
+      "filename": "008_wp-login.php",
+      "original_path": "llm_generated/gemini_2_5_flash/008_wp-login.php",
+      "file_metrics": {
+        "lines_of_code": 952,
+        "file_size_kb": 33.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php73\\Rector\\FuncCall\\SetCookieRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_73": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 157
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:24.074824",
+        "file_size_kb": 33.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\008_wp-login_rector.json"
+    },
+    {
+      "file_id": 9,
+      "filename": "009_getid3.php",
+      "original_path": "llm_generated/gemini_2_5_flash/009_getid3.php",
+      "file_metrics": {
+        "lines_of_code": 1764,
+        "file_size_kb": 63.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_71": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 74
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:30.901807",
+        "file_size_kb": 63.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\009_getid3_rector.json"
+    },
+    {
+      "file_id": 10,
+      "filename": "010_class-wp-theme.php",
+      "original_path": "llm_generated/gemini_2_5_flash/010_class-wp-theme.php",
+      "file_metrics": {
+        "lines_of_code": 1290,
+        "file_size_kb": 41.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:32.702165",
+        "file_size_kb": 41.2,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM (line 318)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/010_class-wp-theme.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\010_class-wp-theme_rector.json"
+    },
+    {
+      "file_id": 11,
+      "filename": "011_translations.php",
+      "original_path": "llm_generated/gemini_2_5_flash/011_translations.php",
+      "file_metrics": {
+        "lines_of_code": 449,
+        "file_size_kb": 14.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 15
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:35.412008",
+        "file_size_kb": 14.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\011_translations_rector.json"
+    },
+    {
+      "file_id": 12,
+      "filename": "012_module.audio-video.riff.php",
+      "original_path": "llm_generated/gemini_2_5_flash/012_module.audio-video.riff.php",
+      "file_metrics": {
+        "lines_of_code": 2427,
+        "file_size_kb": 110.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 7,
+        "rules_triggered": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php73\\Rector\\ConstFetch\\SensitiveConstantNameRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_53": 1,
+          "php_70": 1,
+          "php_71": 1,
+          "php_73": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 496
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:44.086841",
+        "file_size_kb": 110.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\012_module.audio-video.riff_rector.json"
+    },
+    {
+      "file_id": 13,
+      "filename": "013_file.php",
+      "original_path": "llm_generated/gemini_2_5_flash/013_file.php",
+      "file_metrics": {
+        "lines_of_code": 1192,
+        "file_size_kb": 45.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_71": 1,
+          "php_73": 1,
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 173
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:21:49.440703",
+        "file_size_kb": 45.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\013_file_rector.json"
+    },
+    {
+      "file_id": 14,
+      "filename": "014_module.tag.id3v2.php",
+      "original_path": "llm_generated/gemini_2_5_flash/014_module.tag.id3v2.php",
+      "file_metrics": {
+        "lines_of_code": 3412,
+        "file_size_kb": 137.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 9,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php82\\Rector\\FuncCall\\Utf8DecodeEncodeToMbConvertEncodingRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_70": 2,
+          "php_71": 1,
+          "php_80": 3,
+          "php_81": 1,
+          "php_82": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 1406
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:05.038713",
+        "file_size_kb": 137.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\014_module.tag.id3v2_rector.json"
+    },
+    {
+      "file_id": 15,
+      "filename": "015_Diff.php",
+      "original_path": "llm_generated/gemini_2_5_flash/015_Diff.php",
+      "file_metrics": {
+        "lines_of_code": 466,
+        "file_size_kb": 13.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 16
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:07.757275",
+        "file_size_kb": 13.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\015_Diff_rector.json"
+    },
+    {
+      "file_id": 16,
+      "filename": "016_module.audio.ac3.php",
+      "original_path": "llm_generated/gemini_2_5_flash/016_module.audio.ac3.php",
+      "file_metrics": {
+        "lines_of_code": 415,
+        "file_size_kb": 15.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+        ],
+        "changes_by_php_version": {
+          "php_56": 1,
+          "php_80": 2,
+          "php_81": 1,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 103
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:10.818356",
+        "file_size_kb": 15.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\016_module.audio.ac3_rector.json"
+    },
+    {
+      "file_id": 17,
+      "filename": "017_press-this.php",
+      "original_path": "llm_generated/gemini_2_5_flash/017_press-this.php",
+      "file_metrics": {
+        "lines_of_code": 693,
+        "file_size_kb": 26.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_71": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 118
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:14.193415",
+        "file_size_kb": 26.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\017_press-this_rector.json"
+    },
+    {
+      "file_id": 18,
+      "filename": "018_streams.php",
+      "original_path": "llm_generated/gemini_2_5_flash/018_streams.php",
+      "file_metrics": {
+        "lines_of_code": 293,
+        "file_size_kb": 8.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 46
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:16.792219",
+        "file_size_kb": 8.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\018_streams_rector.json"
+    },
+    {
+      "file_id": 19,
+      "filename": "019_atomlib.php",
+      "original_path": "llm_generated/gemini_2_5_flash/019_atomlib.php",
+      "file_metrics": {
+        "lines_of_code": 498,
+        "file_size_kb": 18.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 3
+        },
+        "has_diff": true,
+        "diff_line_count": 32
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:19.889153",
+        "file_size_kb": 18.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\019_atomlib_rector.json"
+    },
+    {
+      "file_id": 20,
+      "filename": "020_class-ftp.php",
+      "original_path": "llm_generated/gemini_2_5_flash/020_class-ftp.php",
+      "file_metrics": {
+        "lines_of_code": 1040,
+        "file_size_kb": 32.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ],
+        "changes_by_php_version": {
+          "php_71": 1,
+          "php_80": 2,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 102
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:26.326786",
+        "file_size_kb": 32.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\020_class-ftp_rector.json"
+    },
+    {
+      "file_id": 21,
+      "filename": "021_class-pop3.php",
+      "original_path": "llm_generated/gemini_2_5_flash/021_class-pop3.php",
+      "file_metrics": {
+        "lines_of_code": 681,
+        "file_size_kb": 24.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:29.173328",
+        "file_size_kb": 24.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\021_class-pop3_rector.json"
+    },
+    {
+      "file_id": 22,
+      "filename": "022_class-wp-customize-setting.php",
+      "original_path": "llm_generated/gemini_2_5_flash/022_class-wp-customize-setting.php",
+      "file_metrics": {
+        "lines_of_code": 565,
+        "file_size_kb": 15.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_80": 2,
+          "php_81": 1,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 144
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:32.314159",
+        "file_size_kb": 15.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\022_class-wp-customize-setting_rector.json"
+    },
+    {
+      "file_id": 23,
+      "filename": "023_module.tag.id3v1.php",
+      "original_path": "llm_generated/gemini_2_5_flash/023_module.tag.id3v1.php",
+      "file_metrics": {
+        "lines_of_code": 434,
+        "file_size_kb": 14.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 60
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:34.870955",
+        "file_size_kb": 14.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\023_module.tag.id3v1_rector.json"
+    },
+    {
+      "file_id": 24,
+      "filename": "024_edit-form-advanced.php",
+      "original_path": "llm_generated/gemini_2_5_flash/024_edit-form-advanced.php",
+      "file_metrics": {
+        "lines_of_code": 635,
+        "file_size_kb": 29.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php73\\Rector\\FuncCall\\ArrayKeyFirstLastRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_73": 1,
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 223
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:38.379660",
+        "file_size_kb": 29.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\024_edit-form-advanced_rector.json"
+    },
+    {
+      "file_id": 25,
+      "filename": "025_widgets.php",
+      "original_path": "llm_generated/gemini_2_5_flash/025_widgets.php",
+      "file_metrics": {
+        "lines_of_code": 450,
+        "file_size_kb": 15.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 34
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:41.661614",
+        "file_size_kb": 15.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\025_widgets_rector.json"
+    },
+    {
+      "file_id": 26,
+      "filename": "026_Source.php",
+      "original_path": "llm_generated/gemini_2_5_flash/026_Source.php",
+      "file_metrics": {
+        "lines_of_code": 493,
+        "file_size_kb": 19.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 40
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:46.912034",
+        "file_size_kb": 19.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\026_Source_rector.json"
+    },
+    {
+      "file_id": 27,
+      "filename": "027_upload.php",
+      "original_path": "llm_generated/gemini_2_5_flash/027_upload.php",
+      "file_metrics": {
+        "lines_of_code": 309,
+        "file_size_kb": 12.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:49.627588",
+        "file_size_kb": 12.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\027_upload_rector.json"
+    },
+    {
+      "file_id": 28,
+      "filename": "028_themes.php",
+      "original_path": "llm_generated/gemini_2_5_flash/028_themes.php",
+      "file_metrics": {
+        "lines_of_code": 280,
+        "file_size_kb": 10.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:52.409204",
+        "file_size_kb": 10.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\028_themes_rector.json"
+    },
+    {
+      "file_id": 29,
+      "filename": "029_module.audio.ogg.php",
+      "original_path": "llm_generated/gemini_2_5_flash/029_module.audio.ogg.php",
+      "file_metrics": {
+        "lines_of_code": 402,
+        "file_size_kb": 19.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:54.320165",
+        "file_size_kb": 19.3,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_STATIC, Syntax error, unexpected T_VARIABLE, expecting ')', Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM (line 353)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/029_module.audio.ogg.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\029_module.audio.ogg_rector.json"
+    },
+    {
+      "file_id": 30,
+      "filename": "030_class-json.php",
+      "original_path": "llm_generated/gemini_2_5_flash/030_class-json.php",
+      "file_metrics": {
+        "lines_of_code": 932,
+        "file_size_kb": 39.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 125
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:22:58.191460",
+        "file_size_kb": 39.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\030_class-json_rector.json"
+    },
+    {
+      "file_id": 31,
+      "filename": "031_class-wp-plugins-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/031_class-wp-plugins-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 647,
+        "file_size_kb": 24.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_53": 1,
+          "php_80": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 100
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:01.700277",
+        "file_size_kb": 24.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\031_class-wp-plugins-list-table_rector.json"
+    },
+    {
+      "file_id": 32,
+      "filename": "032_class-wp-comments-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/032_class-wp-comments-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 642,
+        "file_size_kb": 22.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\DeadCode\\Rector\\StaticCall\\RemoveParentCallWithoutParentRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_80": 2,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 244
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:05.876902",
+        "file_size_kb": 22.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\032_class-wp-comments-list-table_rector.json"
+    },
+    {
+      "file_id": 33,
+      "filename": "033_ms-settings.php",
+      "original_path": "llm_generated/gemini_2_5_flash/033_ms-settings.php",
+      "file_metrics": {
+        "lines_of_code": 217,
+        "file_size_kb": 8.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 69
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:09.322639",
+        "file_size_kb": 8.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\033_ms-settings_rector.json"
+    },
+    {
+      "file_id": 34,
+      "filename": "034_inline.php",
+      "original_path": "llm_generated/gemini_2_5_flash/034_inline.php",
+      "file_metrics": {
+        "lines_of_code": 194,
+        "file_size_kb": 6.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:12.425117",
+        "file_size_kb": 6.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\034_inline_rector.json"
+    },
+    {
+      "file_id": 35,
+      "filename": "035_wp-trackback.php",
+      "original_path": "llm_generated/gemini_2_5_flash/035_wp-trackback.php",
+      "file_metrics": {
+        "lines_of_code": 143,
+        "file_size_kb": 4.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 28
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:15.221893",
+        "file_size_kb": 4.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\035_wp-trackback_rector.json"
+    },
+    {
+      "file_id": 36,
+      "filename": "036_module.tag.apetag.php",
+      "original_path": "llm_generated/gemini_2_5_flash/036_module.tag.apetag.php",
+      "file_metrics": {
+        "lines_of_code": 380,
+        "file_size_kb": 16.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:18.869958",
+        "file_size_kb": 16.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\036_module.tag.apetag_rector.json"
+    },
+    {
+      "file_id": 37,
+      "filename": "037_class-wp-ms-sites-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/037_class-wp-ms-sites-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 433,
+        "file_size_kb": 16.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:22.349914",
+        "file_size_kb": 16.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\037_class-wp-ms-sites-list-table_rector.json"
+    },
+    {
+      "file_id": 38,
+      "filename": "038_class.wp-styles.php",
+      "original_path": "llm_generated/gemini_2_5_flash/038_class.wp-styles.php",
+      "file_metrics": {
+        "lines_of_code": 220,
+        "file_size_kb": 6.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:24.872932",
+        "file_size_kb": 6.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\038_class.wp-styles_rector.json"
+    },
+    {
+      "file_id": 39,
+      "filename": "039_class-wp-upgrader-skins.php",
+      "original_path": "llm_generated/gemini_2_5_flash/039_class-wp-upgrader-skins.php",
+      "file_metrics": {
+        "lines_of_code": 808,
+        "file_size_kb": 31.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1,
+          "php_83": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 241
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:29.098239",
+        "file_size_kb": 31.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\039_class-wp-upgrader-skins_rector.json"
+    },
+    {
+      "file_id": 40,
+      "filename": "040_class-wp-media-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/040_class-wp-media-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 583,
+        "file_size_kb": 19.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 35
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:32.799858",
+        "file_size_kb": 19.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\040_class-wp-media-list-table_rector.json"
+    },
+    {
+      "file_id": 41,
+      "filename": "041_module.tag.lyrics3.php",
+      "original_path": "llm_generated/gemini_2_5_flash/041_module.tag.lyrics3.php",
+      "file_metrics": {
+        "lines_of_code": 283,
+        "file_size_kb": 12.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:35.915320",
+        "file_size_kb": 12.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\041_module.tag.lyrics3_rector.json"
+    },
+    {
+      "file_id": 42,
+      "filename": "042_image-edit.php",
+      "original_path": "llm_generated/gemini_2_5_flash/042_image-edit.php",
+      "file_metrics": {
+        "lines_of_code": 851,
+        "file_size_kb": 29.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\RandomFunctionRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_70": 1,
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 87
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:40.003246",
+        "file_size_kb": 29.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\042_image-edit_rector.json"
+    },
+    {
+      "file_id": 43,
+      "filename": "043_image.php",
+      "original_path": "llm_generated/gemini_2_5_flash/043_image.php",
+      "file_metrics": {
+        "lines_of_code": 593,
+        "file_size_kb": 19.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php82\\Rector\\FuncCall\\Utf8DecodeEncodeToMbConvertEncodingRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_81": 1,
+          "php_82": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 177
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:43.634329",
+        "file_size_kb": 19.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\043_image_rector.json"
+    },
+    {
+      "file_id": 44,
+      "filename": "044_class-wp-image-editor.php",
+      "original_path": "llm_generated/gemini_2_5_flash/044_class-wp-image-editor.php",
+      "file_metrics": {
+        "lines_of_code": 461,
+        "file_size_kb": 12.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:46.446097",
+        "file_size_kb": 12.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\044_class-wp-image-editor_rector.json"
+    },
+    {
+      "file_id": 45,
+      "filename": "045_Locator.php",
+      "original_path": "llm_generated/gemini_2_5_flash/045_Locator.php",
+      "file_metrics": {
+        "lines_of_code": 346,
+        "file_size_kb": 14.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 40
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:50.342682",
+        "file_size_kb": 14.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\045_Locator_rector.json"
+    },
+    {
+      "file_id": 46,
+      "filename": "046_module.audio-video.flv.php",
+      "original_path": "llm_generated/gemini_2_5_flash/046_module.audio-video.flv.php",
+      "file_metrics": {
+        "lines_of_code": 727,
+        "file_size_kb": 23.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 57
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:53.909915",
+        "file_size_kb": 23.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\046_module.audio-video.flv_rector.json"
+    },
+    {
+      "file_id": 47,
+      "filename": "047_update-core.php",
+      "original_path": "llm_generated/gemini_2_5_flash/047_update-core.php",
+      "file_metrics": {
+        "lines_of_code": 478,
+        "file_size_kb": 21.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:55.796040",
+        "file_size_kb": 21.4,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_STRING, expecting ';', Syntax error, unexpected '\"', Syntax error, unexpected '(', expecting T_VARIABLE or '{' or '$', Syntax error, unexpected '.', expecting '[' or T_OBJECT_OPERATOR or T_NULLSAFE_OBJECT_OPERATOR or '{', Syntax error, unexpected T_ENCAPSED_AND_WHITESPACE, Syntax error, unexpected '}', Syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, Syntax error, unexpected T_CONSTANT_ENCAPSED_STRING, Syntax error, unexpected '}', expecting EOF (line 124)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/047_update-core.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\047_update-core_rector.json"
+    },
+    {
+      "file_id": 48,
+      "filename": "048_about.php",
+      "original_path": "llm_generated/gemini_2_5_flash/048_about.php",
+      "file_metrics": {
+        "lines_of_code": 193,
+        "file_size_kb": 7.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:23:58.239968",
+        "file_size_kb": 7.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\048_about_rector.json"
+    },
+    {
+      "file_id": 49,
+      "filename": "049_Parser.php",
+      "original_path": "llm_generated/gemini_2_5_flash/049_Parser.php",
+      "file_metrics": {
+        "lines_of_code": 420,
+        "file_size_kb": 12.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:00.064328",
+        "file_size_kb": 12.5,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM, Syntax error, unexpected '?', expecting T_PAAMAYIM_NEKUDOTAYIM (line 141)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/049_Parser.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\049_Parser_rector.json"
+    },
+    {
+      "file_id": 50,
+      "filename": "050_class-oembed.php",
+      "original_path": "llm_generated/gemini_2_5_flash/050_class-oembed.php",
+      "file_metrics": {
+        "lines_of_code": 592,
+        "file_size_kb": 22.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_73": 1,
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 23
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:03.531358",
+        "file_size_kb": 22.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\050_class-oembed_rector.json"
+    },
+    {
+      "file_id": 51,
+      "filename": "051_ms-deprecated.php",
+      "original_path": "llm_generated/gemini_2_5_flash/051_ms-deprecated.php",
+      "file_metrics": {
+        "lines_of_code": 397,
+        "file_size_kb": 11.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 14
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:06.267191",
+        "file_size_kb": 11.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\051_ms-deprecated_rector.json"
+    },
+    {
+      "file_id": 52,
+      "filename": "052_class-wp-ms-themes-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/052_class-wp-ms-themes-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 484,
+        "file_size_kb": 15.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_71": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 61
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:09.269120",
+        "file_size_kb": 15.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\052_class-wp-ms-themes-list-table_rector.json"
+    },
+    {
+      "file_id": 53,
+      "filename": "053_class-wp-themes-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/053_class-wp-themes-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 306,
+        "file_size_kb": 10.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_80": 2,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 117
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:12.348237",
+        "file_size_kb": 10.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\053_class-wp-themes-list-table_rector.json"
+    },
+    {
+      "file_id": 54,
+      "filename": "054_nav-menu.php",
+      "original_path": "llm_generated/gemini_2_5_flash/054_nav-menu.php",
+      "file_metrics": {
+        "lines_of_code": 918,
+        "file_size_kb": 28.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:14.292866",
+        "file_size_kb": 28.6,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM (line 562)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/054_nav-menu.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\054_nav-menu_rector.json"
+    },
+    {
+      "file_id": 55,
+      "filename": "055_rss.php",
+      "original_path": "llm_generated/gemini_2_5_flash/055_rss.php",
+      "file_metrics": {
+        "lines_of_code": 929,
+        "file_size_kb": 25.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 5,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_71": 1,
+          "php_80": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 44
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:18.263744",
+        "file_size_kb": 25.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\055_rss_rector.json"
+    },
+    {
+      "file_id": 56,
+      "filename": "056_class.akismet.php",
+      "original_path": "llm_generated/gemini_2_5_flash/056_class.akismet.php",
+      "file_metrics": {
+        "lines_of_code": 983,
+        "file_size_kb": 37.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php70\\Rector\\Variable\\WrapVariableVariableNameInCurlyBracesRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_70": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 87
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:22.422067",
+        "file_size_kb": 37.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\056_class.akismet_rector.json"
+    },
+    {
+      "file_id": 57,
+      "filename": "057_class-wp-customize-manager.php",
+      "original_path": "llm_generated/gemini_2_5_flash/057_class-wp-customize-manager.php",
+      "file_metrics": {
+        "lines_of_code": 1284,
+        "file_size_kb": 33.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:24.315879",
+        "file_size_kb": 33.9,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected T_VARIABLE, expecting '[' or T_OBJECT_OPERATOR or T_NULLSAFE_OBJECT_OPERATOR or '{', Syntax error, unexpected T_VARIABLE, expecting '[' or T_OBJECT_OPERATOR or T_NULLSAFE_OBJECT_OPERATOR or '{', Syntax error, unexpected T_VARIABLE, expecting '[' or T_OBJECT_OPERATOR or T_NULLSAFE_OBJECT_OPERATOR or '{', Syntax error, unexpected EOF (line 442)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/057_class-wp-customize-manager.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\057_class-wp-customize-manager_rector.json"
+    },
+    {
+      "file_id": 58,
+      "filename": "058_session.php",
+      "original_path": "llm_generated/gemini_2_5_flash/058_session.php",
+      "file_metrics": {
+        "lines_of_code": 423,
+        "file_size_kb": 10.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\ClassMethod\\FinalPrivateToPrivateVisibilityRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 51
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:27.246982",
+        "file_size_kb": 10.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\058_session_rector.json"
+    },
+    {
+      "file_id": 59,
+      "filename": "059_credits.php",
+      "original_path": "llm_generated/gemini_2_5_flash/059_credits.php",
+      "file_metrics": {
+        "lines_of_code": 198,
+        "file_size_kb": 7.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 23
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:29.858807",
+        "file_size_kb": 7.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\059_credits_rector.json"
+    },
+    {
+      "file_id": 60,
+      "filename": "060_themes.php",
+      "original_path": "llm_generated/gemini_2_5_flash/060_themes.php",
+      "file_metrics": {
+        "lines_of_code": 381,
+        "file_size_kb": 16.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 28
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:32.908927",
+        "file_size_kb": 16.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\060_themes_rector.json"
+    },
+    {
+      "file_id": 61,
+      "filename": "061_class.wp-scripts.php",
+      "original_path": "llm_generated/gemini_2_5_flash/061_class.wp-scripts.php",
+      "file_metrics": {
+        "lines_of_code": 262,
+        "file_size_kb": 7.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 36
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:35.886339",
+        "file_size_kb": 7.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\061_class.wp-scripts_rector.json"
+    },
+    {
+      "file_id": 62,
+      "filename": "062_string.php",
+      "original_path": "llm_generated/gemini_2_5_flash/062_string.php",
+      "file_metrics": {
+        "lines_of_code": 261,
+        "file_size_kb": 9.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:39.534162",
+        "file_size_kb": 9.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\062_string_rector.json"
+    },
+    {
+      "file_id": 63,
+      "filename": "063_module.audio.dts.php",
+      "original_path": "llm_generated/gemini_2_5_flash/063_module.audio.dts.php",
+      "file_metrics": {
+        "lines_of_code": 263,
+        "file_size_kb": 11.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:42.111896",
+        "file_size_kb": 11.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\063_module.audio.dts_rector.json"
+    },
+    {
+      "file_id": 64,
+      "filename": "064_wp-diff.php",
+      "original_path": "llm_generated/gemini_2_5_flash/064_wp-diff.php",
+      "file_metrics": {
+        "lines_of_code": 526,
+        "file_size_kb": 14.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 39
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:45.448753",
+        "file_size_kb": 14.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\064_wp-diff_rector.json"
+    },
+    {
+      "file_id": 65,
+      "filename": "065_class-wp-image-editor-imagick.php",
+      "original_path": "llm_generated/gemini_2_5_flash/065_class-wp-image-editor-imagick.php",
+      "file_metrics": {
+        "lines_of_code": 510,
+        "file_size_kb": 14.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 3,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Catch_\\RemoveUnusedVariableInCatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 2
+        },
+        "has_diff": true,
+        "diff_line_count": 48
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:48.947533",
+        "file_size_kb": 14.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\065_class-wp-image-editor-imagick_rector.json"
+    },
+    {
+      "file_id": 66,
+      "filename": "066_class.wp-dependencies.php",
+      "original_path": "llm_generated/gemini_2_5_flash/066_class.wp-dependencies.php",
+      "file_metrics": {
+        "lines_of_code": 477,
+        "file_size_kb": 13.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:51.727683",
+        "file_size_kb": 13.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\066_class.wp-dependencies_rector.json"
+    },
+    {
+      "file_id": 67,
+      "filename": "067_user.php",
+      "original_path": "llm_generated/gemini_2_5_flash/067_user.php",
+      "file_metrics": {
+        "lines_of_code": 484,
+        "file_size_kb": 16.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 104
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:54.755232",
+        "file_size_kb": 16.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\067_user_rector.json"
+    },
+    {
+      "file_id": 68,
+      "filename": "068_revision.php",
+      "original_path": "llm_generated/gemini_2_5_flash/068_revision.php",
+      "file_metrics": {
+        "lines_of_code": 718,
+        "file_size_kb": 20.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 48
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:24:57.987215",
+        "file_size_kb": 20.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\068_revision_rector.json"
+    },
+    {
+      "file_id": 69,
+      "filename": "069_class-wp-image-editor-gd.php",
+      "original_path": "llm_generated/gemini_2_5_flash/069_class-wp-image-editor-gd.php",
+      "file_metrics": {
+        "lines_of_code": 525,
+        "file_size_kb": 16.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 4,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1,
+          "php_71": 1,
+          "php_74": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 106
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:01.154337",
+        "file_size_kb": 16.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\069_class-wp-image-editor-gd_rector.json"
+    },
+    {
+      "file_id": 70,
+      "filename": "070_File.php",
+      "original_path": "llm_generated/gemini_2_5_flash/070_File.php",
+      "file_metrics": {
+        "lines_of_code": 286,
+        "file_size_kb": 13.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:03.025933",
+        "file_size_kb": 13.8,
+        "analysis_type": "version_specific_only",
+        "status": "error",
+        "error_message": "Syntax error, unexpected ',', Syntax error, unexpected '(', Syntax error, unexpected '(', Syntax error, unexpected '(', Syntax error, unexpected T_ELSE, expecting '}', Syntax error, unexpected '}', expecting EOF (line 237)",
+        "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/070_File.php"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\070_File_rector.json"
+    },
+    {
+      "file_id": 71,
+      "filename": "071_plugins.php",
+      "original_path": "llm_generated/gemini_2_5_flash/071_plugins.php",
+      "file_metrics": {
+        "lines_of_code": 476,
+        "file_size_kb": 19.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 45
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:06.304534",
+        "file_size_kb": 19.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\071_plugins_rector.json"
+    },
+    {
+      "file_id": 72,
+      "filename": "072_class-wp-users-list-table.php",
+      "original_path": "llm_generated/gemini_2_5_flash/072_class-wp-users-list-table.php",
+      "file_metrics": {
+        "lines_of_code": 490,
+        "file_size_kb": 16.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector"
+        ],
+        "changes_by_php_version": {
+          "php_54": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 107
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:09.189475",
+        "file_size_kb": 16.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\072_class-wp-users-list-table_rector.json"
+    },
+    {
+      "file_id": 73,
+      "filename": "073_site-settings.php",
+      "original_path": "llm_generated/gemini_2_5_flash/073_site-settings.php",
+      "file_metrics": {
+        "lines_of_code": 181,
+        "file_size_kb": 7.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:11.872554",
+        "file_size_kb": 7.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\073_site-settings_rector.json"
+    },
+    {
+      "file_id": 74,
+      "filename": "074_site-themes.php",
+      "original_path": "llm_generated/gemini_2_5_flash/074_site-themes.php",
+      "file_metrics": {
+        "lines_of_code": 193,
+        "file_size_kb": 7.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:14.567709",
+        "file_size_kb": 7.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\074_site-themes_rector.json"
+    },
+    {
+      "file_id": 75,
+      "filename": "075_my-sites.php",
+      "original_path": "llm_generated/gemini_2_5_flash/075_my-sites.php",
+      "file_metrics": {
+        "lines_of_code": 149,
+        "file_size_kb": 4.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:17.170904",
+        "file_size_kb": 4.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\075_my-sites_rector.json"
+    },
+    {
+      "file_id": 76,
+      "filename": "076_upgrade.php",
+      "original_path": "llm_generated/gemini_2_5_flash/076_upgrade.php",
+      "file_metrics": {
+        "lines_of_code": 123,
+        "file_size_kb": 4.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:19.608523",
+        "file_size_kb": 4.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\076_upgrade_rector.json"
+    },
+    {
+      "file_id": 77,
+      "filename": "077_post-thumbnail-template.php",
+      "original_path": "llm_generated/gemini_2_5_flash/077_post-thumbnail-template.php",
+      "file_metrics": {
+        "lines_of_code": 155,
+        "file_size_kb": 4.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php74\\Rector\\Assign\\NullCoalescingOperatorRector"
+        ],
+        "changes_by_php_version": {
+          "php_74": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 21
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:21.824780",
+        "file_size_kb": 4.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\077_post-thumbnail-template_rector.json"
+    },
+    {
+      "file_id": 78,
+      "filename": "078_media.php",
+      "original_path": "llm_generated/gemini_2_5_flash/078_media.php",
+      "file_metrics": {
+        "lines_of_code": 168,
+        "file_size_kb": 5.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:24.756305",
+        "file_size_kb": 5.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\078_media_rector.json"
+    },
+    {
+      "file_id": 79,
+      "filename": "079_load-styles.php",
+      "original_path": "llm_generated/gemini_2_5_flash/079_load-styles.php",
+      "file_metrics": {
+        "lines_of_code": 164,
+        "file_size_kb": 4.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 25
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:27.642219",
+        "file_size_kb": 4.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\079_load-styles_rector.json"
+    },
+    {
+      "file_id": 80,
+      "filename": "080_site-info.php",
+      "original_path": "llm_generated/gemini_2_5_flash/080_site-info.php",
+      "file_metrics": {
+        "lines_of_code": 186,
+        "file_size_kb": 8.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:30.341714",
+        "file_size_kb": 8.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\080_site-info_rector.json"
+    },
+    {
+      "file_id": 81,
+      "filename": "081_site-new.php",
+      "original_path": "llm_generated/gemini_2_5_flash/081_site-new.php",
+      "file_metrics": {
+        "lines_of_code": 165,
+        "file_size_kb": 6.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 32
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:32.935990",
+        "file_size_kb": 6.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\081_site-new_rector.json"
+    },
+    {
+      "file_id": 82,
+      "filename": "082_import.php",
+      "original_path": "llm_generated/gemini_2_5_flash/082_import.php",
+      "file_metrics": {
+        "lines_of_code": 133,
+        "file_size_kb": 5.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:35.657964",
+        "file_size_kb": 5.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\082_import_rector.json"
+    },
+    {
+      "file_id": 83,
+      "filename": "083_shell.php",
+      "original_path": "llm_generated/gemini_2_5_flash/083_shell.php",
+      "file_metrics": {
+        "lines_of_code": 185,
+        "file_size_kb": 6.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:38.417272",
+        "file_size_kb": 6.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\083_shell_rector.json"
+    },
+    {
+      "file_id": 84,
+      "filename": "084_class-wp-ajax-response.php",
+      "original_path": "llm_generated/gemini_2_5_flash/084_class-wp-ajax-response.php",
+      "file_metrics": {
+        "lines_of_code": 223,
+        "file_size_kb": 6.6
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:40.770420",
+        "file_size_kb": 6.6,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\084_class-wp-ajax-response_rector.json"
+    },
+    {
+      "file_id": 85,
+      "filename": "085_async-upload.php",
+      "original_path": "llm_generated/gemini_2_5_flash/085_async-upload.php",
+      "file_metrics": {
+        "lines_of_code": 122,
+        "file_size_kb": 4.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:43.176998",
+        "file_size_kb": 4.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\085_async-upload_rector.json"
+    },
+    {
+      "file_id": 86,
+      "filename": "086_user-new.php",
+      "original_path": "llm_generated/gemini_2_5_flash/086_user-new.php",
+      "file_metrics": {
+        "lines_of_code": 113,
+        "file_size_kb": 3.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:45.666956",
+        "file_size_kb": 3.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\086_user-new_rector.json"
+    },
+    {
+      "file_id": 87,
+      "filename": "087_Restriction.php",
+      "original_path": "llm_generated/gemini_2_5_flash/087_Restriction.php",
+      "file_metrics": {
+        "lines_of_code": 113,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:48.134945",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\087_Restriction_rector.json"
+    },
+    {
+      "file_id": 88,
+      "filename": "088_Credit.php",
+      "original_path": "llm_generated/gemini_2_5_flash/088_Credit.php",
+      "file_metrics": {
+        "lines_of_code": 113,
+        "file_size_kb": 3.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:50.459623",
+        "file_size_kb": 3.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\088_Credit_rector.json"
+    },
+    {
+      "file_id": 89,
+      "filename": "089_Category.php",
+      "original_path": "llm_generated/gemini_2_5_flash/089_Category.php",
+      "file_metrics": {
+        "lines_of_code": 110,
+        "file_size_kb": 3.3
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:52.738993",
+        "file_size_kb": 3.3,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\089_Category_rector.json"
+    },
+    {
+      "file_id": 90,
+      "filename": "090_Author.php",
+      "original_path": "llm_generated/gemini_2_5_flash/090_Author.php",
+      "file_metrics": {
+        "lines_of_code": 130,
+        "file_size_kb": 3.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:55.110598",
+        "file_size_kb": 3.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\090_Author_rector.json"
+    },
+    {
+      "file_id": 91,
+      "filename": "091_Rating.php",
+      "original_path": "llm_generated/gemini_2_5_flash/091_Rating.php",
+      "file_metrics": {
+        "lines_of_code": 112,
+        "file_size_kb": 3.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:57.506203",
+        "file_size_kb": 3.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\091_Rating_rector.json"
+    },
+    {
+      "file_id": 92,
+      "filename": "092_Copyright.php",
+      "original_path": "llm_generated/gemini_2_5_flash/092_Copyright.php",
+      "file_metrics": {
+        "lines_of_code": 101,
+        "file_size_kb": 3.2
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:25:59.844400",
+        "file_size_kb": 3.2,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\092_Copyright_rector.json"
+    },
+    {
+      "file_id": 93,
+      "filename": "093_vars.php",
+      "original_path": "llm_generated/gemini_2_5_flash/093_vars.php",
+      "file_metrics": {
+        "lines_of_code": 180,
+        "file_size_kb": 6.5
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 133
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:02.495646",
+        "file_size_kb": 6.5,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\093_vars_rector.json"
+    },
+    {
+      "file_id": 94,
+      "filename": "094_class.akismet-widget.php",
+      "original_path": "llm_generated/gemini_2_5_flash/094_class.akismet-widget.php",
+      "file_metrics": {
+        "lines_of_code": 106,
+        "file_size_kb": 2.9
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:04.961676",
+        "file_size_kb": 2.9,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\094_class.akismet-widget_rector.json"
+    },
+    {
+      "file_id": 95,
+      "filename": "095_class-wp-http-ixr-client.php",
+      "original_path": "llm_generated/gemini_2_5_flash/095_class-wp-http-ixr-client.php",
+      "file_metrics": {
+        "lines_of_code": 145,
+        "file_size_kb": 5.1
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 28
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:07.441040",
+        "file_size_kb": 5.1,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\095_class-wp-http-ixr-client_rector.json"
+    },
+    {
+      "file_id": 96,
+      "filename": "096_class-ftp-pure.php",
+      "original_path": "llm_generated/gemini_2_5_flash/096_class-ftp-pure.php",
+      "file_metrics": {
+        "lines_of_code": 285,
+        "file_size_kb": 11.0
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 30
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:10.096026",
+        "file_size_kb": 11.0,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\096_class-ftp-pure_rector.json"
+    },
+    {
+      "file_id": 97,
+      "filename": "097_class-wp-customize-section.php",
+      "original_path": "llm_generated/gemini_2_5_flash/097_class-wp-customize-section.php",
+      "file_metrics": {
+        "lines_of_code": 203,
+        "file_size_kb": 4.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 0,
+        "rules_triggered": [],
+        "changes_by_php_version": {},
+        "has_diff": false,
+        "diff_line_count": 0
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:12.242991",
+        "file_size_kb": 4.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\097_class-wp-customize-section_rector.json"
+    },
+    {
+      "file_id": 98,
+      "filename": "098_wp-load.php",
+      "original_path": "llm_generated/gemini_2_5_flash/098_wp-load.php",
+      "file_metrics": {
+        "lines_of_code": 73,
+        "file_size_kb": 2.7
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:14.503673",
+        "file_size_kb": 2.7,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\098_wp-load_rector.json"
+    },
+    {
+      "file_id": 99,
+      "filename": "099_ms-files.php",
+      "original_path": "llm_generated/gemini_2_5_flash/099_ms-files.php",
+      "file_metrics": {
+        "lines_of_code": 87,
+        "file_size_kb": 2.8
+      },
+      "rector_analysis": {
+        "php_version_changes": 2,
+        "rules_triggered": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_80": 1,
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 26
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:17.186476",
+        "file_size_kb": 2.8,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\099_ms-files_rector.json"
+    },
+    {
+      "file_id": 100,
+      "filename": "100_wp-links-opml.php",
+      "original_path": "llm_generated/gemini_2_5_flash/100_wp-links-opml.php",
+      "file_metrics": {
+        "lines_of_code": 85,
+        "file_size_kb": 2.4
+      },
+      "rector_analysis": {
+        "php_version_changes": 1,
+        "rules_triggered": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ],
+        "changes_by_php_version": {
+          "php_81": 1
+        },
+        "has_diff": true,
+        "diff_line_count": 12
+      },
+      "analysis_metadata": {
+        "rector_version": "2.1.0",
+        "analysis_date": "2026-03-17T04:26:19.726937",
+        "file_size_kb": 2.4,
+        "analysis_type": "version_specific_only",
+        "status": "success"
+      },
+      "report_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\code_analysis\\gemini_2_5_flash\\individual_files\\100_wp-links-opml_rector.json"
+    }
+  ]
+}

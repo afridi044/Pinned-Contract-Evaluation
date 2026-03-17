@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\017_press-this.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 39
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:28:07.778255",
+    "file_size_kb": 26.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/017_press-this.php",
+        "diff": "--- Original\n+++ New\n@@ -45,13 +45,13 @@\n \tif (!empty($_POST['photo_src']) && current_user_can('upload_files')) {\r\n \t\tforeach ((array) $_POST['photo_src'] as $key => $image) {\r\n \t\t\t// See if files exist in content - we don't want to upload non-used selected files.\r\n-\t\t\tif (str_contains((string) ($_POST['content'] ?? ''), htmlspecialchars($image))) {\r\n+\t\t\tif (str_contains((string) ($_POST['content'] ?? ''), htmlspecialchars((string) $image))) {\r\n \t\t\t\t$desc = $_POST['photo_description'][$key] ?? '';\r\n \t\t\t\t$upload = media_sideload_image($image, $post_ID, $desc);\r\n \r\n \t\t\t\t// Replace the POSTED content <img> with correct uploaded ones. Regex contains fix for Magic Quotes.\r\n \t\t\t\tif (!is_wp_error($upload)) {\r\n-\t\t\t\t\t$content = preg_replace('/<img ([^>]*)src=\\\\\\?(\\\"|\\')' . preg_quote(htmlspecialchars($image), '/') . '\\\\\\?(\\2)([^>\\/]*)\\/*>/is', $upload, $content);\r\n+\t\t\t\t\t$content = preg_replace('/<img ([^>]*)src=\\\\\\?(\\\"|\\')' . preg_quote(htmlspecialchars((string) $image), '/') . '\\\\\\?(\\2)([^>\\/]*)\\/*>/is', $upload, (string) $content);\r\n \t\t\t\t}\r\n \t\t\t}\r\n \t\t}\r\n@@ -98,8 +98,8 @@\n function get_images_from_uri(string $uri): string\r\n {\r\n \t$uri = preg_replace('/\\/#.+?$/', '', $uri);\r\n-\tif (preg_match('/\\.(jpe?g|jpe|gif|png)\\b/i', $uri) && !str_contains($uri, 'blogger.com')) {\r\n-\t\treturn \"'\" . esc_attr(html_entity_decode($uri)) . \"'\";\r\n+\tif (preg_match('/\\.(jpe?g|jpe|gif|png)\\b/i', (string) $uri) && !str_contains((string) $uri, 'blogger.com')) {\r\n+\t\treturn \"'\" . esc_attr(html_entity_decode((string) $uri)) . \"'\";\r\n \t}\r\n \r\n \t$content = wp_remote_fopen($uri);\r\n@@ -107,7 +107,7 @@\n \t\treturn '';\r\n \t}\r\n \r\n-\t$host = parse_url($uri);\r\n+\t$host = parse_url((string) $uri);\r\n \t$pattern = '/<img ([^>]*)src=(\\\"|\\')([^<>\\'\\\"]+)(\\2)([^>]*)\\/*>/i';\r\n \t$content = str_replace([\"\\n\", \"\\t\", \"\\r\"], '', $content);\r\n \tpreg_match_all($pattern, $content, $matches);\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/017_press-this.php"
+    ]
+  }
+}

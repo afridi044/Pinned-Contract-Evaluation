@@ -1,0 +1,67 @@
+\section{Introduction}
+\label{sec:introduction}
+
+PHP continues to power a large portion of production web software, much of it in long-lived legacy systems.\cite{w3techs_php,w3techs_wordpress,wordpress}
+Migrating these systems to newer PHP versions is difficult.
+Required changes are scattered across the codebase and span evolving language features, library updates, and stricter typing constraints.\cite{php83spec,persson2015php}
+Developers need visibility not only into whether a migration succeeds, but also into which upgrade requirements are satisfied and which remain unresolved.
+
+Large language models are increasingly used to assist software modernization, yet evaluating their effectiveness remains challenging.
+Most existing studies rely on outcome signals such as parsing success, linting results, or test outcomes.\cite{openai2023gpt4,roziere2023codellama,cassano2024canitedit}
+These signals are useful, but they provide limited insight into what changed during migration.
+They show whether code runs, but they do not reveal which upgrade obligations were resolved or newly introduced.
+This limits systematic comparison across models and prompting strategies, especially when performance varies with context limits and input size.\cite{liu2024lost,du2025context,jimenez2024swebench}
+
+We introduce \textbf{Pinned Contract Evaluation (PCE)}, a policy-grounded framework for evaluating automated code modernization.
+PCE treats a static analysis upgrade pipeline as a versioned migration contract.
+Executing the contract on the original program induces an obligation space defined by triggered upgrade rule types.
+Running the same contract on migrated outputs reveals which obligations are discharged, which remain, and which new ones appear.
+Because the policy is fixed, results are directly comparable across systems and experiments.
+PCE evaluates progress relative to a fixed upgrade policy rather than attempting to establish full behavioral or semantic correctness.
+Unlike prior evaluations that treat static-analysis outputs only as coarse outcome signals, PCE formalizes the upgrade policy itself as a contract that induces a measurable obligation space for systematic comparison across systems.
+
+To contextualize contract-level progress, we include additional diagnostics.
+These include syntax validation, structural preservation signals, compatibility analysis using PHPCompatibility, and a regression-oriented loadability sentinel.
+
+We instantiate PCE for PHP version migration using a pinned Rector upgrade pipeline.\cite{rector}
+Across five LLM systems evaluated on a 100-file WordPress 4.0 benchmark, mean obligation discharge ranges from 38\% to 78\%.
+Remaining work concentrates in PHP 8 rule families, and high discharge does not necessarily imply syntactic or runtime robustness.
+These findings show why policy-grounded evaluation is useful for understanding both progress and failure modes in automated modernization.
+
+\paragraph{Contributions}
+This paper makes three contributions.
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{Pinned Contract Evaluation (PCE).}
+A reproducible evaluation framework that models modernization as progress through a contract-induced obligation space defined by a pinned static analysis policy.
+
+\item \textbf{Contract-induced migration benchmark.}
+A 100-file WordPress 4.0 dataset that preserves the obligation space induced by the contract.
+
+\item \textbf{Reproducible evaluation harness.}
+A standardized LLM migration and scoring pipeline with deterministic extraction, reconstruction, and fully logged artifacts.
+
+\end{enumerate}
+
+\subsection{Research Questions}
+\label{sec:rqs}
+
+Under a fixed contract and its induced obligation space, we ask:
+
+\begin{enumerate}[leftmargin=*]
+
+\item RQ1. How do models compare in obligation discharge and residual obligation profiles?
+
+\item RQ2. Which rules and language milestones remain most resistant to automated migration?
+
+\item RQ3. How does contract progress relate to syntax validity, structural preservation, and loadability regressions?
+
+\item RQ4. How do PCE outcomes align with results from an independent compatibility analysis using PHPCompatibility?
+
+\end{enumerate}
+
+\subsection{Artifacts and Code Availability}
+\label{subsec:artifacts}
+
+We release all prompts, configurations, benchmark metadata, and evaluation scripts in a public repository to enable independent reproduction of our results.\cite{wohlin2012experimentation}

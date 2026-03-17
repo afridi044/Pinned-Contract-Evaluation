@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\046_module.audio-video.flv.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+    ],
+    "changes_by_php_version": {
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 30
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:29:50.179959",
+    "file_size_kb": 20.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/046_module.audio-video.flv.php",
+        "diff": "--- Original\n+++ New\n@@ -52,17 +52,17 @@\n class getid3_flv extends getid3_handler\r\n {\r\n \t// FLV Tag Types\r\n-\tprivate const TAG_AUDIO = 8;\r\n-\tprivate const TAG_VIDEO = 9;\r\n-\tprivate const TAG_META = 18;\r\n+\tprivate const int TAG_AUDIO = 8;\r\n+\tprivate const int TAG_VIDEO = 9;\r\n+\tprivate const int TAG_META = 18;\r\n \r\n \t// FLV Video Codec IDs\r\n-\tprivate const VIDEO_H263 = 2;\r\n-\tprivate const VIDEO_SCREEN = 3;\r\n-\tprivate const VIDEO_VP6FLV = 4;\r\n-\tprivate const VIDEO_VP6FLV_ALPHA = 5;\r\n-\tprivate const VIDEO_SCREENV2 = 6;\r\n-\tprivate const VIDEO_H264 = 7;\r\n+\tprivate const int VIDEO_H263 = 2;\r\n+\tprivate const int VIDEO_SCREEN = 3;\r\n+\tprivate const int VIDEO_VP6FLV = 4;\r\n+\tprivate const int VIDEO_VP6FLV_ALPHA = 5;\r\n+\tprivate const int VIDEO_SCREENV2 = 6;\r\n+\tprivate const int VIDEO_H264 = 7;\r\n \r\n \t// H.264 / AVC Constants\r\n \tpublic const H264_AVC_SEQUENCE_HEADER = 0;\r\n",
+        "applied_rectors": [
+          "Rector\\Php83\\Rector\\ClassConst\\AddTypeToConstRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/046_module.audio-video.flv.php"
+    ]
+  }
+}

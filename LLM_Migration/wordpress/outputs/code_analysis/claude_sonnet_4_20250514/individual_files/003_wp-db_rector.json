@@ -1,0 +1,58 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\003_wp-db.php",
+  "rector_analysis": {
+    "php_version_changes": 9,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+      "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_55": 1,
+      "php_80": 4,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 203
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:14:52.265029",
+    "file_size_kb": 62.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/003_wp-db.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * WordPress DB Class\r\n@@ -465,41 +465,6 @@\n \tpublic string $collate = '';\r\n \r\n \t/**\r\n-\t * Database Username\r\n-\t *\r\n-\t * @since 2.9.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbuser = '';\r\n-\r\n-\t/**\r\n-\t * Database Password\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbpassword = '';\r\n-\r\n-\t/**\r\n-\t * Database Name\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */\r\n-\tprotected string $dbname = '';\r\n-\r\n-\t/**\r\n-\t * Database Host\r\n-\t *\r\n-\t * @since 3.1.0\r\n-\t * @access protected\r\n-\t * @var string\r\n-\t */protected $dbhost;\r\n-\r\n-\t/**\r\n \t * Database Handle\r\n \t *\r\n \t * @since 0.71\r\n@@ -574,7 +539,31 @@\n \t * @param string $dbname MySQL database name\r\n \t * @param string $dbhost MySQL database host\r\n \t */\r\n-\tpublic function __construct($dbuser, $dbpassword, $dbname, $dbhost) {\r\n+\tpublic function __construct(/**\n+     * Database Username\n+     *\n+     * @since 2.9.0\n+     * @access protected\n+     */\n+    protected string $dbuser, /**\n+     * Database Password\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected string $dbpassword, /**\n+     * Database Name\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected string $dbname, /**\n+     * Database Host\n+     *\n+     * @since 3.1.0\n+     * @access protected\n+     */\n+    protected $dbhost) {\r\n \t\tregister_shutdown_function([$this, '__destruct']);\r\n \r\n \t\tif (WP_DEBUG && WP_DEBUG_DISPLAY)\r\n@@ -591,7 +580,7 @@\n \t\t\t\t$this->use_mysqli = !WP_USE_EXT_MYSQL;\r\n \t\t\t} elseif (version_compare(phpversion(), '5.5', '>=') || !function_exists('mysql_connect')) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n-\t\t\t} elseif (str_contains($GLOBALS['wp_version'], '-')) {\r\n+\t\t\t} elseif (str_contains((string) $GLOBALS['wp_version'], '-')) {\r\n \t\t\t\t$this->use_mysqli = true;\r\n \t\t\t}\r\n \t\t}\r\n@@ -598,11 +587,6 @@\n \r\n \t\t$this->init_charset();\r\n \r\n-\t\t$this->dbuser = $dbuser;\r\n-\t\t$this->dbpassword = $dbpassword;\r\n-\t\t$this->dbname = $dbname;\r\n-\t\t$this->dbhost = $dbhost;\r\n-\r\n \t\t// wp-config.php creation will manually connect when ready.\r\n \t\tif (defined('WP_SETUP_CONFIG')) {\r\n \t\t\treturn;\r\n@@ -1038,7 +1022,7 @@\n \t\t\t}\r\n \t\t}\r\n \r\n-\t\t$class = get_class( $this );\r\n+\t\t$class = static::class;\r\n \t\t_doing_it_wrong( $class, \"$class must set a database connection for use with escaping.\", E_USER_NOTICE );\r\n \t\treturn addslashes( $string );\r\n \t}\r\n@@ -1165,8 +1149,8 @@\n \t\t$query = str_replace( \"'%s'\", '%s', $query ); // in case someone mistakenly already singlequoted it\r\n \t\t$query = str_replace( '\"%s\"', '%s', $query ); // doublequote unquoting\r\n \t\t$query = preg_replace( '|(?<!%)%f|' , '%F', $query ); // Force floats to be locale unaware\r\n-\t\t$query = preg_replace( '|(?<!%)%s|', \"'%s'\", $query ); // quote the strings, avoiding escaped strings like %%s\r\n-\t\tarray_walk( $args, array( $this, 'escape_by_ref' ) );\r\n+\t\t$query = preg_replace( '|(?<!%)%s|', \"'%s'\", (string) $query ); // quote the strings, avoiding escaped strings like %%s\r\n+\t\tarray_walk( $args, $this->escape_by_ref(...) );\r\n \t\treturn @vsprintf( $query, $args );\r\n \t}\r\n \r\n@@ -1215,7 +1199,7 @@\n \t\t\t\t$str = mysql_error( $this->dbh );\r\n \t\t\t}\r\n \t\t}\r\n-\t\t$EZSQL_ERROR[] = array( 'query' => $this->last_query, 'error_str' => $str );\r\n+\t\t$EZSQL_ERROR[] = [ 'query' => $this->last_query, 'error_str' => $str ];\r\n \r\n \t\tif ( $this->suppress_errors )\r\n \t\t\treturn false;\r\n@@ -1242,7 +1226,7 @@\n \t\t\t\twp_die( $msg );\r\n \t\t} else {\r\n \t\t\t$str   = htmlspecialchars( $str, ENT_QUOTES );\r\n-\t\t\t$query = htmlspecialchars( $this->last_query, ENT_QUOTES );\r\n+\t\t\t$query = htmlspecialchars( (string) $this->last_query, ENT_QUOTES );\r\n \r\n \t\t\tprint \"<div id='error'>\r\n \t\t\t<p class='wpdberror'><strong>WordPress database error:</strong> [$str]<br />\r\n@@ -1313,7 +1297,7 @@\n \t * @return void\r\n \t */\r\n \tpublic function flush(): void {\r\n-\t\t$this->last_result = array();\r\n+\t\t$this->last_result = [];\r\n \t\t$this->col_info    = null;\r\n \t\t$this->last_query  = null;\r\n \t\t$this->rows_affected = $this->num_rows = 0;\r\n@@ -1902,7 +1886,7 @@\n \t\t}\r\n \r\n \t\tif ( $output === OBJECT ) {\r\n-\t\t\treturn $this->last_result[$y] ? $this->last_result[$y] : null;\r\n+\t\t\treturn $this->last_result[$y] ?: null;\r\n \t\t} elseif ( $output === ARRAY_A ) {\r\n \t\t\treturn $this->last_result[$y] ? get_object_vars( $this->last_result[$y] ) : null;\r\n \t\t} elseif ( $output === ARRAY_N ) {\r\n@@ -1909,7 +1893,7 @@\n \t\t\treturn $this->last_result[$y] ? array_values( get_object_vars( $this->last_result[$y] ) ) : null;\r\n \t\t} elseif ( strtoupper( $output ) === OBJECT ) {\r\n \t\t\t// Back compat for OBJECT being previously case insensitive.\r\n-\t\t\treturn $this->last_result[$y] ? $this->last_result[$y] : null;\r\n+\t\t\treturn $this->last_result[$y] ?: null;\r\n \t\t} else {\r\n \t\t\t$this->print_error( \" \\$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N\" );\r\n \t\t}\r\n@@ -2154,18 +2138,13 @@\n \t * @return bool\r\n \t */\r\n \tpublic function has_cap( string $db_cap ): bool {\r\n-\t\t$version = $this->db_version();\r\n-\r\n-\t\tswitch ( strtolower( $db_cap ) ) {\r\n-\t\t\tcase 'collation':    // @since 2.5.0\r\n-\t\t\tcase 'group_concat': // @since 2.7.0\r\n-\t\t\tcase 'subqueries':   // @since 2.7.0\r\n-\t\t\t\treturn version_compare( $version, '4.1', '>=' );\r\n-\t\t\tcase 'set_charset':\r\n-\t\t\t\treturn version_compare( $version, '5.0.7', '>=' );\r\n-\t\t}\r\n-\r\n-\t\treturn false;\r\n+\t\t$version = $this->db_version();\n+        return match (strtolower( $db_cap )) {\n+            // @since 2.7.0\n+            'collation', 'group_concat', 'subqueries' => version_compare( $version, '4.1', '>=' ),\n+            'set_charset' => version_compare( $version, '5.0.7', '>=' ),\n+            default => false,\n+        };\r\n \t}\r\n \r\n \t/**\r\n@@ -2179,7 +2158,7 @@\n \t * @return string The name of the calling function\r\n \t */\r\n \tpublic function get_caller(): string {\r\n-\t\treturn wp_debug_backtrace_summary( __CLASS__ );\r\n+\t\treturn wp_debug_backtrace_summary( self::class );\r\n \t}\r\n \r\n \t/**\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php55\\Rector\\Class_\\ClassConstantToSelfClassRector",
+          "Rector\\Php80\\Rector\\ClassConstFetch\\ClassOnThisVariableObjectRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/003_wp-db.php"
+    ]
+  }
+}

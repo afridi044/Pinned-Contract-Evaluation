@@ -9,7 +9,7 @@ from pathlib import Path
 
 # Add parent directory to path to import shared config
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import LLM_EVALUATION_REPORTS_DIR, LLM_EVAL_DIR
+from config import LLM_CODE_ANALYSIS_DIR, LLM_EVAL_DIR, LLM_EVAL_SUBDIR
 
 import pandas as pd
 import numpy as np
@@ -28,7 +28,7 @@ class PHPVisualizer:
     def __init__(self, model_folder: str = None):
         # Use paths from shared config
         self.base_dir = LLM_EVAL_DIR  # LLM_eval folder
-        self.migration_reports_dir = LLM_EVALUATION_REPORTS_DIR  # LLM_Migration/evaluation_reports
+        self.migration_reports_dir = LLM_CODE_ANALYSIS_DIR  # LLM_Migration/code_analysis
         
         # Auto-detect model folder if not specified
         if model_folder is None:
@@ -45,7 +45,7 @@ class PHPVisualizer:
         self.model_folder_name = self.model_dir.name
         
         # Create output directory for this model in LLM_eval
-        model_output_dir = self.base_dir / self.model_folder_name
+        model_output_dir = LLM_EVAL_SUBDIR / self.model_folder_name
         self.output_dir = model_output_dir / "visualizations"
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
@@ -102,14 +102,30 @@ class PHPVisualizer:
         """Load evaluation results"""
         try:
             # Load from model-specific folder
-            model_output_dir = self.base_dir / self.model_folder_name
+            model_output_dir = LLM_EVAL_SUBDIR / self.model_folder_name
             csv_path = model_output_dir / "evaluation_results.csv"
+            
+            if not csv_path.exists():
+                print(f"Error: CSV file not found at {csv_path}")
+                return False
+            
             self.df = pd.read_csv(csv_path)
             print(f"Loaded data for {len(self.df)} files")
+            
+            # Check if required columns exist
+            required_columns = ['discharge_rate', 'size_category', 'discharged_obligations', 'original_obligations']
+            missing_columns = [col for col in required_columns if col not in self.df.columns]
+            if missing_columns:
+                print(f"Error: Missing columns in CSV: {missing_columns}")
+                print(f"Available columns: {list(self.df.columns)}")
+                return False
+            
             return True
         except FileNotFoundError as e:
             print(f"Error loading data: {e}")
-            print("Please run the evaluation script first")
+            return False
+        except Exception as e:
+            print(f"Error loading CSV: {e}")
             return False
     
     def create_performance_overview(self):
@@ -117,48 +133,48 @@ class PHPVisualizer:
         fig, axes = plt.subplots(1, 3, figsize=(18, 6))
         fig.suptitle(f'{self.model_name} Performance Overview', fontsize=16, fontweight='bold')
         
-        # 1. Resolution Rate Distribution
+        # 1. Obligation Discharge Rate Distribution
         ax1 = axes[0]
-        resolution_rates = self.df['resolution_rate']
-        ax1.hist(resolution_rates, bins=15, alpha=0.7, color='skyblue', edgecolor='black')
-        ax1.axvline(resolution_rates.mean(), color='red', linestyle='--', 
-                   label=f'Mean: {resolution_rates.mean():.1f}%')
-        ax1.set_xlabel('Resolution Rate (%)')
+        discharge_rates = self.df['discharge_rate']
+        ax1.hist(discharge_rates, bins=15, alpha=0.7, color='skyblue', edgecolor='black')
+        ax1.axvline(discharge_rates.mean(), color='red', linestyle='--', 
+                   label=f'Mean: {discharge_rates.mean():.1f}%')
+        ax1.set_xlabel('Obligation Discharge Rate (%)')
         ax1.set_ylabel('Number of Files')
-        ax1.set_title('Distribution of Resolution Rates')
+        ax1.set_title('Distribution of Obligation Discharge Rates (PCE)')
         ax1.legend()
         ax1.grid(True, alpha=0.3)
         
         # 2. Performance by File Size Category
         ax2 = axes[1]
         category_stats = self.df.groupby('size_category').agg({
-            'resolved_issues': 'sum',
-            'original_issues': 'sum'
+            'discharged_obligations': 'sum',
+            'original_obligations': 'sum'
         })
         
         categories = category_stats.index
-        resolution_pct = (category_stats['resolved_issues'] / category_stats['original_issues'] * 100)
+        discharge_pct = (category_stats['discharged_obligations'] / category_stats['original_obligations'] * 100)
         
-        bars = ax2.bar(categories, resolution_pct, color='lightgreen', alpha=0.8)
+        bars = ax2.bar(categories, discharge_pct, color='lightgreen', alpha=0.8)
         ax2.set_xlabel('File Size Category')
-        ax2.set_ylabel('Resolution Rate (%)')
-        ax2.set_title('Performance by File Size')
+        ax2.set_ylabel('Obligation Discharge Rate (%)')
+        ax2.set_title('Obligation Discharge by File Size')
         ax2.tick_params(axis='x', rotation=45)
         ax2.grid(True, alpha=0.3)
         
         # Add value labels
-        for bar, value in zip(bars, resolution_pct):
+        for bar, value in zip(bars, discharge_pct):
             height = bar.get_height()
             ax2.text(bar.get_x() + bar.get_width()/2., height + 1,
                     f'{value:.1f}%', ha='center', va='bottom')
         
-        # 3. Success Categories
+        # 3. Obligation Discharge Success Categories
         ax3 = axes[2]
         success_categories = {
-            'High Performance\n(80-100%)': len(self.df[self.df['resolution_rate'] >= 80]),
-            'Good\n(71-79%)': len(self.df[(self.df['resolution_rate'] >= 71) & (self.df['resolution_rate'] < 80)]),
-            'Fair\n(50-70%)': len(self.df[(self.df['resolution_rate'] >= 50) & (self.df['resolution_rate'] <= 70)]),
-            'Poor\n(0-49%)': len(self.df[self.df['resolution_rate'] < 50])
+            'Excellent\n(90-100%)': len(self.df[self.df['discharge_rate'] >= 90]),
+            'Good\n(70-89%)': len(self.df[(self.df['discharge_rate'] >= 70) & (self.df['discharge_rate'] < 90)]),
+            'Fair\n(50-69%)': len(self.df[(self.df['discharge_rate'] >= 50) & (self.df['discharge_rate'] < 70)]),
+            'Poor\n(0-49%)': len(self.df[self.df['discharge_rate'] < 50])
         }
         
         colors = ['darkgreen', 'green', 'orange', 'red']
@@ -194,34 +210,34 @@ class PHPVisualizer:
         print("Performance overview saved")
     
     def create_complexity_analysis(self):
-        """Analyze performance by file complexity"""
+        """Analyze obligation discharge by file complexity (PCE Framework)"""
         fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-        fig.suptitle('Performance vs Complexity Analysis', fontsize=16, fontweight='bold')
+        fig.suptitle('Obligation Discharge vs File Complexity', fontsize=16, fontweight='bold')
         
-        # 1. Scatter plot: Complexity vs Resolution Rate
+        # 1. Scatter plot: Complexity (original obligations) vs Discharge Rate
         ax1 = axes[0]
-        scatter = ax1.scatter(self.df['original_issues'], self.df['resolution_rate'], 
+        scatter = ax1.scatter(self.df['original_obligations'], self.df['discharge_rate'], 
                              alpha=0.6, s=50, c='steelblue')
-        ax1.set_xlabel('Original Issues (Complexity)')
-        ax1.set_ylabel('Resolution Rate (%)')
-        ax1.set_title('Complexity vs Resolution Rate')
+        ax1.set_xlabel('Original Obligations (Complexity)')
+        ax1.set_ylabel('Obligation Discharge Rate (%)')
+        ax1.set_title('Complexity vs Obligation Discharge Rate')
         ax1.grid(True, alpha=0.3)
         
         # Add trend line
-        z = np.polyfit(self.df['original_issues'], self.df['resolution_rate'], 1)
+        z = np.polyfit(self.df['original_obligations'], self.df['discharge_rate'], 1)
         p = np.poly1d(z)
-        ax1.plot(self.df['original_issues'], p(self.df['original_issues']), "r--", alpha=0.8, linewidth=2)
+        ax1.plot(self.df['original_obligations'], p(self.df['original_obligations']), "r--", alpha=0.8, linewidth=2)
         
         # 2. Performance by complexity bins
         ax2 = axes[1]
         # Create complexity bins
-        complexity_bins = pd.cut(self.df['original_issues'], bins=4, labels=['Low', 'Medium', 'High', 'Very High'])
-        complexity_performance = self.df.groupby(complexity_bins)['resolution_rate'].mean()
+        complexity_bins = pd.cut(self.df['original_obligations'], bins=4, labels=['Low', 'Medium', 'High', 'Very High'])
+        complexity_performance = self.df.groupby(complexity_bins)['discharge_rate'].mean()
         
         bars = ax2.bar(complexity_performance.index, complexity_performance.values, 
                       color='orange', alpha=0.7)
         ax2.set_xlabel('Complexity Level')
-        ax2.set_ylabel('Average Resolution Rate (%)')
+        ax2.set_ylabel('Average Obligation Discharge Rate (%)')
         ax2.set_title('Performance by Complexity Level')
         ax2.grid(True, alpha=0.3)
         
@@ -237,15 +253,15 @@ class PHPVisualizer:
         print("Complexity analysis saved")
     
     def create_summary_statistics(self):
-        """Create  summary statistics chart"""
+        """Create summary statistics chart (PCE Obligation Discharge Metrics)"""
         fig, ax = plt.subplots(1, 1, figsize=(10, 6))
         
         # Calculate key statistics
         stats = {
-            'Perfect Migrations (100%)': len(self.df[self.df['resolution_rate'] == 100]),
-            'High Performance (≥80%)': len(self.df[self.df['resolution_rate'] >= 80]),
-            'Good Performance (≥70%)': len(self.df[self.df['resolution_rate'] >= 70]),
-            'Needs Improvement (<50%)': len(self.df[self.df['resolution_rate'] < 50])
+            'Perfect Discharges (100%)': len(self.df[self.df['discharge_rate'] == 100]),
+            'Excellent (≥90%)': len(self.df[self.df['discharge_rate'] >= 90]),
+            'Good (≥70%)': len(self.df[self.df['discharge_rate'] >= 70]),
+            'Needs Improvement (<50%)': len(self.df[self.df['discharge_rate'] < 50])
         }
         
         # Create bar chart
@@ -293,12 +309,12 @@ class PHPVisualizer:
         # Chart 1: Overall Performance Summary
         fig, ax = plt.subplots(1, 1, figsize=(8, 5))
         
-        perfect_rate = len(self.df[self.df['resolution_rate'] == 100]) / len(self.df) * 100
-        high_performance_rate = len(self.df[self.df['resolution_rate'] >= 80]) / len(self.df) * 100
-        avg_resolution = self.df['resolution_rate'].mean()
+        perfect_rate = len(self.df[self.df['discharge_rate'] == 100]) / len(self.df) * 100
+        high_performance_rate = len(self.df[self.df['discharge_rate'] >= 90]) / len(self.df) * 100
+        avg_discharge = self.df['discharge_rate'].mean()
         
-        metrics = ['Perfect\nMigrations', 'High Performance\n(≥80%)', 'Average\nResolution']
-        values = [perfect_rate, high_performance_rate, avg_resolution]
+        metrics = ['Perfect\nDischarges', 'Excellent Discharge\n(≥90%)', 'Average\nDischarge']
+        values = [perfect_rate, high_performance_rate, avg_discharge]
         colors = ['#228B22', '#32CD32', '#4682B4']
         
         bars = ax.bar(metrics, values, color=colors, alpha=0.8, edgecolor='black', linewidth=0.5)
@@ -321,19 +337,19 @@ class PHPVisualizer:
         fig, ax = plt.subplots(1, 1, figsize=(8, 5))
         
         size_stats = self.df.groupby('size_category').agg({
-            'resolution_rate': 'mean',
+            'discharge_rate': 'mean',
             'file_id': 'count'
         }).round(1)
         
         categories = [cat.replace('_', ' ').title() for cat in size_stats.index]
-        means = size_stats['resolution_rate']
+        means = size_stats['discharge_rate']
         counts = size_stats['file_id']
         
         bars = ax.bar(categories, means, color='steelblue', alpha=0.8, edgecolor='black', linewidth=0.5)
         
         ax.set_xlabel('File Size Category')
-        ax.set_ylabel('Average Resolution Rate (%)')
-        ax.set_title('Migration Performance by File Size Category')
+        ax.set_ylabel('Average Obligation Discharge Rate (%)')
+        ax.set_title('Obligation Discharge by File Size Category')
         ax.set_ylim(0, 100)
         
         # Add value and count labels
@@ -371,16 +387,16 @@ class PHPVisualizer:
         if not file_numbers or len(file_numbers) != len(df_sorted):
             file_numbers = list(range(1, len(df_sorted) + 1))
         
-        original_issues = df_sorted['original_issues'].values
-        remaining_issues = df_sorted['remaining_issues'].values
+        original_obligations = df_sorted['original_obligations'].values
+        remaining_obligations = df_sorted['remaining_obligations'].values
         
         # Create smooth curves using spline interpolation
         # Create more points for smoother curves
         file_numbers_smooth = np.linspace(min(file_numbers), max(file_numbers), 300)
         
         # Create spline interpolations for smooth curves
-        spl_original = make_interp_spline(file_numbers, original_issues, k=3)
-        spl_remaining = make_interp_spline(file_numbers, remaining_issues, k=3)
+        spl_original = make_interp_spline(file_numbers, original_obligations, k=3)
+        spl_remaining = make_interp_spline(file_numbers, remaining_obligations, k=3)
         
         original_smooth = spl_original(file_numbers_smooth)
         remaining_smooth = spl_remaining(file_numbers_smooth)
@@ -390,12 +406,12 @@ class PHPVisualizer:
         remaining_smooth = np.maximum(remaining_smooth, 0)
         
         # Create the plot with smooth curves
-        ax.plot(file_numbers_smooth, original_smooth, 'b-', linewidth=2.5, label='Original Issues', alpha=0.9)
-        ax.plot(file_numbers_smooth, remaining_smooth, 'r-', linewidth=2.5, label='Remaining Issues', alpha=0.9)
+        ax.plot(file_numbers_smooth, original_smooth, 'b-', linewidth=2.5, label='Original Obligations', alpha=0.9)
+        ax.plot(file_numbers_smooth, remaining_smooth, 'r-', linewidth=2.5, label='Remaining Obligations', alpha=0.9)
         
         # Optionally, add scatter points to show actual data points
-        ax.scatter(file_numbers, original_issues, color='blue', s=20, alpha=0.6, zorder=5)
-        ax.scatter(file_numbers, remaining_issues, color='red', s=20, alpha=0.6, zorder=5)
+        ax.scatter(file_numbers, original_obligations, color='blue', s=20, alpha=0.6, zorder=5)
+        ax.scatter(file_numbers, remaining_obligations, color='red', s=20, alpha=0.6, zorder=5)
         
         # Customize the plot
         ax.set_xlabel('File ID (1-100)', fontsize=12)
@@ -409,12 +425,12 @@ class PHPVisualizer:
         ax.set_xticks(range(0, 101, 10))  # Show ticks every 10 files
         
         # Add some statistics as text
-        total_original = original_issues.sum()
-        total_remaining = remaining_issues.sum()
-        total_resolved = total_original - total_remaining
-        resolution_rate = (total_resolved / total_original * 100) if total_original > 0 else 0
+        total_original = original_obligations.sum()
+        total_remaining = remaining_obligations.sum()
+        total_discharged = total_original - total_remaining
+        discharge_rate = (total_discharged / total_original * 100) if total_original > 0 else 0
         
-        stats_text = f'Total Original: {total_original}\nTotal Resolved: {total_resolved}\nOverall Resolution Rate: {resolution_rate:.1f}%'
+        stats_text = f'Total Original Obligations: {total_original}\nTotal Discharged: {total_discharged}\nOverall Discharge Rate: {discharge_rate:.1f}%'
         ax.text(0.02, 0.98, stats_text, transform=ax.transAxes, fontsize=10, 
                verticalalignment='top', bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
         

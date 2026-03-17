@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\060_themes.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 34
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:35:56.195144",
+    "file_size_kb": 17.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/060_themes.php",
+        "diff": "--- Original\n+++ New\n@@ -181,7 +181,7 @@\n \r\n \t\t\t$classes = 'button button-secondary';\r\n \r\n-\t\t\tif ( ( strcmp( $self, $item[2] ) === 0 && empty( $parent_file ) ) || ( $parent_file && $item[2] === $parent_file ) ) {\r\n+\t\t\tif ( ( strcmp( (string) $self, (string) $item[2] ) === 0 && empty( $parent_file ) ) || ( $parent_file && $item[2] === $parent_file ) ) {\r\n \t\t\t\t$classes .= ' current';\r\n \t\t\t}\r\n \r\n@@ -209,10 +209,10 @@\n \t\t\t} elseif ( current_user_can( $item[1] ) ) {\r\n \t\t\t\t$menu_file      = $item[2];\r\n \t\t\t\t$menu_file_base = $menu_file;\r\n-\t\t\t\t$pos            = strpos( $menu_file_base, '?' );\r\n+\t\t\t\t$pos            = strpos( (string) $menu_file_base, '?' );\r\n \r\n \t\t\t\tif ( false !== $pos ) {\r\n-\t\t\t\t\t$menu_file_base = substr( $menu_file_base, 0, $pos );\r\n+\t\t\t\t\t$menu_file_base = substr( (string) $menu_file_base, 0, $pos );\r\n \t\t\t\t}\r\n \r\n \t\t\t\t$href = file_exists( ABSPATH . \"wp-admin/{$menu_file_base}\" )\r\n@@ -306,7 +306,7 @@\n \t\t\t\t</tr>\r\n \t\t\t\t<?php foreach ( $broken_themes as $broken_theme ) : ?>\r\n \t\t\t\t\t<?php\r\n-\t\t\t\t\t$name = $broken_theme->get( 'Name' ) ? $broken_theme->get( 'Name' ) : $broken_theme->get_stylesheet();\r\n+\t\t\t\t\t$name = $broken_theme->get( 'Name' ) ?: $broken_theme->get_stylesheet();\r\n \t\t\t\t\t?>\r\n \t\t\t\t\t<tr>\r\n \t\t\t\t\t\t<td><?php echo esc_html( $name ); ?></td>\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/060_themes.php"
+    ]
+  }
+}

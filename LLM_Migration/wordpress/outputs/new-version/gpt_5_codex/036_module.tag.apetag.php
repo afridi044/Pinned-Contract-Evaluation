@@ -1,0 +1,400 @@
+<?php
+declare(strict_types=1);
+
+/////////////////////////////////////////////////////////////////
+/// getID3() by James Heinrich <info@getid3.org>               //
+//  available at http://getid3.sourceforge.net                 //
+//            or http://www.getid3.org                         //
+/////////////////////////////////////////////////////////////////
+// See readme.txt for more details                             //
+/////////////////////////////////////////////////////////////////
+//                                                             //
+// module.tag.apetag.php                                       //
+// module for analyzing APE tags                               //
+// dependencies: NONE                                          //
+//                                                            ///
+/////////////////////////////////////////////////////////////////
+
+class getid3_apetag extends getid3_handler
+{
+	public bool|int|string $inline_attachments = true;
+	public int $overrideendoffset = 0;
+
+	public function Analyze(): bool
+	{
+		$info = &$this->getid3->info;
+
+		if (!getid3_lib::intValueSupported($info['filesize'])) {
+			$info['warning'][] = 'Unable to check for APEtags because file is larger than '.round(PHP_INT_MAX / 1073741824).'GB';
+			return false;
+		}
+
+		$id3v1tagsize     = 128;
+		$apetagheadersize = 32;
+		$lyrics3tagsize   = 10;
+
+		if ($this->overrideendoffset === 0) {
+			fseek($this->getid3->fp, -$id3v1tagsize - $apetagheadersize - $lyrics3tagsize, SEEK_END);
+			$APEfooterID3v1 = fread($this->getid3->fp, $id3v1tagsize + $apetagheadersize + $lyrics3tagsize);
+			if ($APEfooterID3v1 === false) {
+				$info['error'][] = 'Failed to read APE footer / ID3v1 data';
+				return false;
+			}
+
+			if (substr($APEfooterID3v1, -($id3v1tagsize + $apetagheadersize), 8) === 'APETAGEX') {
+				$info['ape']['tag_offset_end'] = $info['filesize'] - $id3v1tagsize;
+			} elseif (substr($APEfooterID3v1, -$apetagheadersize, 8) === 'APETAGEX') {
+				$info['ape']['tag_offset_end'] = $info['filesize'];
+			}
+		} else {
+			fseek($this->getid3->fp, $this->overrideendoffset - $apetagheadersize, SEEK_SET);
+			$footerCheck = fread($this->getid3->fp, 8);
+			if ($footerCheck === false) {
+				$info['error'][] = 'Failed to read overridden APE footer';
+				return false;
+			}
+			if ($footerCheck === 'APETAGEX') {
+				$info['ape']['tag_offset_end'] = $this->overrideendoffset;
+			}
+		}
+
+		if (!isset($info['ape']['tag_offset_end'])) {
+			unset($info['ape']);
+			return false;
+		}
+
+		$thisfile_ape = &$info['ape'];
+
+		fseek($this->getid3->fp, $thisfile_ape['tag_offset_end'] - $apetagheadersize, SEEK_SET);
+		$APEfooterData = fread($this->getid3->fp, 32);
+		if ($APEfooterData === false) {
+			$info['error'][] = 'Failed to read APE footer at offset '.$thisfile_ape['tag_offset_end'];
+			return false;
+		}
+		$parsedFooter = $this->parseAPEheaderFooter($APEfooterData);
+		if ($parsedFooter === false) {
+			$info['error'][] = 'Error parsing APE footer at offset '.$thisfile_ape['tag_offset_end'];
+			return false;
+		}
+		$thisfile_ape['footer'] = $parsedFooter;
+
+		if (!empty($thisfile_ape['footer']['flags']['header'])) {
+			fseek($this->getid3->fp, $thisfile_ape['tag_offset_end'] - $thisfile_ape['footer']['raw']['tagsize'] - $apetagheadersize, SEEK_SET);
+			$thisfile_ape['tag_offset_start'] = ftell($this->getid3->fp);
+			$APEtagData = fread($this->getid3->fp, $thisfile_ape['footer']['raw']['tagsize'] + $apetagheadersize);
+		} else {
+			$thisfile_ape['tag_offset_start'] = $thisfile_ape['tag_offset_end'] - $thisfile_ape['footer']['raw']['tagsize'];
+			fseek($this->getid3->fp, $thisfile_ape['tag_offset_start'], SEEK_SET);
+			$APEtagData = fread($this->getid3->fp, $thisfile_ape['footer']['raw']['tagsize']);
+		}
+
+		if ($APEtagData === false) {
+			$info['error'][] = 'Failed to read APE tag data';
+			return false;
+		}
+
+		$info['avdataend'] = $thisfile_ape['tag_offset_start'];
+
+		if (isset($info['id3v1']['tag_offset_start']) && ($info['id3v1']['tag_offset_start'] < $thisfile_ape['tag_offset_end'])) {
+			$info['warning'][] = 'ID3v1 tag information ignored since it appears to be a false synch in APEtag data';
+			unset($info['id3v1']);
+			if (!empty($info['warning'])) {
+				foreach ($info['warning'] as $key => $value) {
+					if ($value === 'Some ID3v1 fields do not use NULL characters for padding') {
+						unset($info['warning'][$key]);
+						sort($info['warning']);
+						break;
+					}
+				}
+			}
+		}
+
+		$offset = 0;
+		if (!empty($thisfile_ape['footer']['flags']['header'])) {
+			$parsedHeader = $this->parseAPEheaderFooter(substr($APEtagData, 0, $apetagheadersize));
+			if ($parsedHeader === false) {
+				$info['error'][] = 'Error parsing APE header at offset '.$thisfile_ape['tag_offset_start'];
+				return false;
+			}
+			$thisfile_ape['header'] = $parsedHeader;
+			$offset += $apetagheadersize;
+		}
+
+		$info['replay_gain'] = [];
+		$thisfile_replaygain = &$info['replay_gain'];
+
+		for ($i = 0; $i < $thisfile_ape['footer']['raw']['tag_items']; $i++) {
+			$value_size = getid3_lib::LittleEndian2Int(substr($APEtagData, $offset, 4));
+			$offset += 4;
+			$item_flags = getid3_lib::LittleEndian2Int(substr($APEtagData, $offset, 4));
+			$offset += 4;
+
+			$remainingData = substr($APEtagData, $offset);
+			if ($remainingData === false || !str_contains($remainingData, "\x00")) {
+				$info['error'][] = 'Cannot find null-byte (0x00) seperator between ItemKey #'.$i.' and value. ItemKey starts '.$offset.' bytes into the APE tag, at file offset '.($thisfile_ape['tag_offset_start'] + $offset);
+				return false;
+			}
+			$ItemKeyLength = strpos($APEtagData, "\x00", $offset) - $offset;
+			$item_key      = strtolower(substr($APEtagData, $offset, $ItemKeyLength));
+
+			$thisfile_ape['items'][$item_key] = [];
+			$thisfile_ape_items_current = &$thisfile_ape['items'][$item_key];
+
+			$thisfile_ape_items_current['offset'] = $thisfile_ape['tag_offset_start'] + $offset;
+
+			$offset += $ItemKeyLength + 1;
+			$thisfile_ape_items_current['data'] = substr($APEtagData, $offset, $value_size);
+			$offset += $value_size;
+
+			$thisfile_ape_items_current['flags'] = $this->parseAPEtagFlags($item_flags);
+
+			switch ($thisfile_ape_items_current['flags']['item_contents_raw']) {
+				case 0:
+				case 3:
+					$thisfile_ape_items_current['data'] = explode("\x00", trim((string) $thisfile_ape_items_current['data']));
+					break;
+				default:
+					break;
+			}
+
+			$itemDataValue = is_array($thisfile_ape_items_current['data'])
+				? ($thisfile_ape_items_current['data'][0] ?? '')
+				: (string) $thisfile_ape_items_current['data'];
+
+			switch ($item_key) {
+				case 'replaygain_track_gain':
+					$thisfile_replaygain['track']['adjustment'] = (float) str_replace(',', '.', $itemDataValue);
+					$thisfile_replaygain['track']['originator'] = 'unspecified';
+					break;
+
+				case 'replaygain_track_peak':
+					$thisfile_replaygain['track']['peak']       = (float) str_replace(',', '.', $itemDataValue);
+					$thisfile_replaygain['track']['originator'] = 'unspecified';
+					if (($thisfile_replaygain['track']['peak'] ?? 0) <= 0) {
+						$info['warning'][] = 'ReplayGain Track peak from APEtag appears invalid: '.$thisfile_replaygain['track']['peak'].' (original value = "'.$itemDataValue.'")';
+					}
+					break;
+
+				case 'replaygain_album_gain':
+					$thisfile_replaygain['album']['adjustment'] = (float) str_replace(',', '.', $itemDataValue);
+					$thisfile_replaygain['album']['originator'] = 'unspecified';
+					break;
+
+				case 'replaygain_album_peak':
+					$thisfile_replaygain['album']['peak']       = (float) str_replace(',', '.', $itemDataValue);
+					$thisfile_replaygain['album']['originator'] = 'unspecified';
+					if (($thisfile_replaygain['album']['peak'] ?? 0) <= 0) {
+						$info['warning'][] = 'ReplayGain Album peak from APEtag appears invalid: '.$thisfile_replaygain['album']['peak'].' (original value = "'.$itemDataValue.'")';
+					}
+					break;
+
+				case 'mp3gain_undo':
+					[$mp3gain_undo_left, $mp3gain_undo_right, $mp3gain_undo_wrap] = array_pad(explode(',', $itemDataValue), 3, null);
+					$thisfile_replaygain['mp3gain']['undo_left']  = (int) $mp3gain_undo_left;
+					$thisfile_replaygain['mp3gain']['undo_right'] = (int) $mp3gain_undo_right;
+					$thisfile_replaygain['mp3gain']['undo_wrap']  = ($mp3gain_undo_wrap === 'Y');
+					break;
+
+				case 'mp3gain_minmax':
+					[$mp3gain_globalgain_min, $mp3gain_globalgain_max] = array_pad(explode(',', $itemDataValue), 2, null);
+					$thisfile_replaygain['mp3gain']['globalgain_track_min'] = (int) $mp3gain_globalgain_min;
+					$thisfile_replaygain['mp3gain']['globalgain_track_max'] = (int) $mp3gain_globalgain_max;
+					break;
+
+				case 'mp3gain_album_minmax':
+					[$mp3gain_globalgain_album_min, $mp3gain_globalgain_album_max] = array_pad(explode(',', $itemDataValue), 2, null);
+					$thisfile_replaygain['mp3gain']['globalgain_album_min'] = (int) $mp3gain_globalgain_album_min;
+					$thisfile_replaygain['mp3gain']['globalgain_album_max'] = (int) $mp3gain_globalgain_album_max;
+					break;
+
+				case 'tracknumber':
+					if (is_array($thisfile_ape_items_current['data'])) {
+						foreach ($thisfile_ape_items_current['data'] as $comment) {
+							$thisfile_ape['comments']['track'][] = $comment;
+						}
+					}
+					break;
+
+				case 'cover art (artist)':
+				case 'cover art (back)':
+				case 'cover art (band logo)':
+				case 'cover art (band)':
+				case 'cover art (colored fish)':
+				case 'cover art (composer)':
+				case 'cover art (conductor)':
+				case 'cover art (front)':
+				case 'cover art (icon)':
+				case 'cover art (illustration)':
+				case 'cover art (lead)':
+				case 'cover art (leaflet)':
+				case 'cover art (lyricist)':
+				case 'cover art (media)':
+				case 'cover art (movie scene)':
+				case 'cover art (other icon)':
+				case 'cover art (other)':
+				case 'cover art (performance)':
+				case 'cover art (publisher logo)':
+				case 'cover art (recording)':
+				case 'cover art (studio)':
+					[$thisfile_ape_items_current['filename'], $thisfile_ape_items_current['data']] = array_pad(
+						explode("\x00", (string) $thisfile_ape_items_current['data'], 2),
+						2,
+						''
+					);
+					$thisfile_ape_items_current['data_offset'] = $thisfile_ape_items_current['offset'] + strlen($thisfile_ape_items_current['filename']."\x00");
+					$thisfile_ape_items_current['data_length'] = strlen((string) $thisfile_ape_items_current['data']);
+
+					$thisfile_ape_items_current['image_mime'] = '';
+					$imageinfo = [];
+					$imagechunkcheck = getid3_lib::GetDataImageSize((string) $thisfile_ape_items_current['data'], $imageinfo);
+					if (is_array($imagechunkcheck) && isset($imagechunkcheck[2]) && is_int($imagechunkcheck[2])) {
+						$thisfile_ape_items_current['image_mime'] = image_type_to_mime_type($imagechunkcheck[2]);
+					}
+
+					do {
+						if ($this->inline_attachments === false) {
+							unset($thisfile_ape_items_current['data']);
+							break;
+						}
+						if ($this->inline_attachments === true) {
+							// keep inline
+						} elseif (is_int($this->inline_attachments)) {
+							if ($this->inline_attachments < $thisfile_ape_items_current['data_length']) {
+								$info['warning'][] = 'attachment at '.$thisfile_ape_items_current['offset'].' is too large to process inline ('.number_format((float) $thisfile_ape_items_current['data_length']).' bytes)';
+								unset($thisfile_ape_items_current['data']);
+								break;
+							}
+						} elseif (is_string($this->inline_attachments)) {
+							$this->inline_attachments = rtrim(str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $this->inline_attachments), DIRECTORY_SEPARATOR);
+							if (!is_dir($this->inline_attachments) || !is_writable($this->inline_attachments)) {
+								$info['warning'][] = 'attachment at '.$thisfile_ape_items_current['offset'].' cannot be saved to "'.$this->inline_attachments.'" (not writable)';
+								unset($thisfile_ape_items_current['data']);
+								break;
+							}
+						}
+
+						if (is_string($this->inline_attachments)) {
+							$destination_filename = $this->inline_attachments.DIRECTORY_SEPARATOR.md5($info['filenamepath']).'_'.$thisfile_ape_items_current['data_offset'];
+							if (!file_exists($destination_filename) || is_writable($destination_filename)) {
+								if (file_put_contents($destination_filename, (string) $thisfile_ape_items_current['data']) === false) {
+									$info['warning'][] = 'attachment at '.$thisfile_ape_items_current['offset'].' could not be written to "'.$destination_filename.'"';
+								} else {
+									$thisfile_ape_items_current['data_filename'] = $destination_filename;
+									unset($thisfile_ape_items_current['data']);
+								}
+							} else {
+								$info['warning'][] = 'attachment at '.$thisfile_ape_items_current['offset'].' cannot be saved to "'.$destination_filename.'" (not writable)';
+							}
+						} else {
+							if (!isset($info['ape']['comments']['picture'])) {
+								$info['ape']['comments']['picture'] = [];
+							}
+							$info['ape']['comments']['picture'][] = [
+								'data'       => $thisfile_ape_items_current['data'],
+								'image_mime' => $thisfile_ape_items_current['image_mime']
+							];
+						}
+					} while (false);
+					break;
+
+				default:
+					if (is_array($thisfile_ape_items_current['data'])) {
+						foreach ($thisfile_ape_items_current['data'] as $comment) {
+							$thisfile_ape['comments'][strtolower($item_key)][] = $comment;
+						}
+					}
+					break;
+			}
+		}
+
+		if (empty($thisfile_replaygain)) {
+			unset($info['replay_gain']);
+		}
+
+		return true;
+	}
+
+	public function parseAPEheaderFooter(string $APEheaderFooterData): array|false
+	{
+		if (strlen($APEheaderFooterData) < 32) {
+			return false;
+		}
+
+		$headerfooterinfo = ['raw' => []];
+		$headerfooterinfo_raw = &$headerfooterinfo['raw'];
+
+		$headerfooterinfo_raw['footer_tag']   = substr($APEheaderFooterData,  0, 8);
+		if ($headerfooterinfo_raw['footer_tag'] !== 'APETAGEX') {
+			return false;
+		}
+		$headerfooterinfo_raw['version']      = getid3_lib::LittleEndian2Int(substr($APEheaderFooterData,  8, 4));
+		$headerfooterinfo_raw['tagsize']      = getid3_lib::LittleEndian2Int(substr($APEheaderFooterData, 12, 4));
+		$headerfooterinfo_raw['tag_items']    = getid3_lib::LittleEndian2Int(substr($APEheaderFooterData, 16, 4));
+		$headerfooterinfo_raw['global_flags'] = getid3_lib::LittleEndian2Int(substr($APEheaderFooterData, 20, 4));
+		$headerfooterinfo_raw['reserved']     = substr($APEheaderFooterData, 24, 8);
+
+		$headerfooterinfo['tag_version'] = $headerfooterinfo_raw['version'] / 1000;
+		if ($headerfooterinfo['tag_version'] >= 2) {
+			$headerfooterinfo['flags'] = $this->parseAPEtagFlags($headerfooterinfo_raw['global_flags']);
+		}
+
+		return $headerfooterinfo;
+	}
+
+	public function parseAPEtagFlags(int $rawflagint): array
+	{
+		$flags = [
+			'header'            => (bool) ($rawflagint & 0x80000000),
+			'footer'            => (bool) ($rawflagint & 0x40000000),
+			'this_is_header'    => (bool) ($rawflagint & 0x20000000),
+			'item_contents_raw' => ($rawflagint & 0x00000006) >> 1,
+			'read_only'         => (bool) ($rawflagint & 0x00000001)
+		];
+
+		$flags['item_contents'] = $this->APEcontentTypeFlagLookup($flags['item_contents_raw']);
+
+		return $flags;
+	}
+
+	public function APEcontentTypeFlagLookup(int $contenttypeid): string
+	{
+		return match ($contenttypeid) {
+			0 => 'utf-8',
+			1 => 'binary',
+			2 => 'external',
+			3 => 'reserved',
+			default => 'invalid',
+		};
+	}
+
+	public function APEtagItemIsUTF8Lookup(string $itemkey): bool
+	{
+		static $APEtagItemIsUTF8Lookup = [
+			'title',
+			'subtitle',
+			'artist',
+			'album',
+			'debut album',
+			'publisher',
+			'conductor',
+			'track',
+			'composer',
+			'comment',
+			'copyright',
+			'publicationright',
+			'file',
+			'year',
+			'record date',
+			'record location',
+			'genre',
+			'media',
+			'related',
+			'isrc',
+			'abstract',
+			'language',
+			'bibliography'
+		];
+		return in_array(strtolower($itemkey), $APEtagItemIsUTF8Lookup, true);
+	}
+}
+?>

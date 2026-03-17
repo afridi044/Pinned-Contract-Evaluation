@@ -1,0 +1,17 @@
+{
+  "error": "Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected T_FOREACH, Syntax error, unexpected '}', expecting EOF (line 3343)",
+  "error_file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/014_module.tag.id3v2.php",
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 0,
+      "errors": 1
+    },
+    "errors": [
+      {
+        "message": "Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected T_FOREACH, Syntax error, unexpected '}', expecting EOF",
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/014_module.tag.id3v2.php",
+        "line": 3343
+      }
+    ]
+  }
+}

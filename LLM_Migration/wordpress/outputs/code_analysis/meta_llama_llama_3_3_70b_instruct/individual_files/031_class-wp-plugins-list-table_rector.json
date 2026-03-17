@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\031_class-wp-plugins-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_71": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 71
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:39:34.464318",
+    "file_size_kb": 21.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/031_class-wp-plugins-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -123,7 +123,7 @@\n \r\n         if ($s) {\r\n             $status = 'search';\r\n-            $plugins['search'] = array_filter($plugins['all'], [$this, '_search_callback']);\r\n+            $plugins['search'] = array_filter($plugins['all'], $this->_search_callback(...));\r\n         }\r\n \r\n         $totals = [];\r\n@@ -143,10 +143,10 @@\n         $total_this_page = $totals[$status];\r\n \r\n         if ($orderby) {\r\n-            $orderby = ucfirst($orderby);\r\n-            $order = strtoupper($order);\r\n+            $orderby = ucfirst((string) $orderby);\r\n+            $order = strtoupper((string) $order);\r\n \r\n-            uasort($this->items, [$this, '_order_callback']);\r\n+            uasort($this->items, $this->_order_callback(...));\r\n         }\r\n \r\n         $plugins_per_page = $this->get_items_per_page(str_replace('-', '_', $screen->id . '_per_page'), 999);\r\n@@ -170,7 +170,7 @@\n         }\r\n \r\n         foreach ($plugin as $value) {\r\n-            if (false !== stripos(strip_tags($value), $term)) {\r\n+            if (false !== stripos(strip_tags((string) $value), (string) $term)) {\r\n                 return true;\r\n             }\r\n         }\r\n@@ -343,7 +343,7 @@\n     public function single_row($item): void {\r\n         global $status, $page, $s, $totals;\r\n \r\n-        list($plugin_file, $plugin_data) = $item;\r\n+        [$plugin_file, $plugin_data] = $item;\r\n         $context = $status;\r\n         $screen = $this->screen;\r\n \r\n@@ -420,7 +420,7 @@\n         $actions = apply_filters($prefix . \"plugin_action_links_$plugin_file\", $actions, $plugin_file, $plugin_data, $context);\r\n \r\n         $class = $is_active ? 'active' : 'inactive';\r\n-        $checkbox_id = \"checkbox_\" . md5($plugin_data['Name']);\r\n+        $checkbox_id = \"checkbox_\" . md5((string) $plugin_data['Name']);\r\n         if (in_array($status, ['mustuse', 'dropins'])) {\r\n             $checkbox = '';\r\n         } else {\r\n@@ -428,7 +428,7 @@\n                 . \"<input type='checkbox' name='checked[]' value='\" . esc_attr($plugin_file) . \"' id='\" . $checkbox_id . \"' />\";\r\n         }\r\n         if ('dropins' != $context) {\r\n-            $description = '<p>' . ($plugin_data['Description'] ? $plugin_data['Description'] : '&nbsp;') . '</p>';\r\n+            $description = '<p>' . ($plugin_data['Description'] ?: '&nbsp;') . '</p>';\r\n             $plugin_name = $plugin_data['Name'];\r\n         }\r\n \r\n@@ -439,7 +439,7 @@\n \r\n         echo \"<tr id='$id' class='$class'>\";\r\n \r\n-        list($columns, $hidden) = $this->get_column_info();\r\n+        [$columns, $hidden] = $this->get_column_info();\r\n \r\n         foreach ($columns as $column_name => $column_display_name) {\r\n             $style = '';\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/031_class-wp-plugins-list-table.php"
+    ]
+  }
+}

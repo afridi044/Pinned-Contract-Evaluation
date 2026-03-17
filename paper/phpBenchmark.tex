@@ -1,0 +1,148 @@
+\section{Pinned Contract Benchmark Construction}
+\label{sec:benchmark_construction}
+
+We construct a 100-file benchmark from WordPress~4.0 to evaluate migration under a pinned Rector contract.
+The contract is a fixed Rector version, ruleset, and configuration.
+We chose WordPress because it is large, long-lived, and exhibits substantial PHP version drift.
+
+The benchmark is diagnostic by design.
+We do not try to match the natural WordPress file distribution.
+Instead, we optimize for coverage of the contract-induced obligation space.
+Here, the obligation space is the set of Rector upgrade rule types that trigger in the corpus.
+This choice makes results easier to interpret.
+It also prevents rare but important obligations from being obscured by project-specific frequency effects.
+The benchmark therefore measures progress against the pinned policy, not typicality of WordPress workloads.
+This design preserves the full contract-induced rule space, enabling controlled and reproducible comparison of automated migration systems under a fixed upgrade policy.
+
+The design follows standard guidance for controlled empirical studies and reproducible benchmark construction.\cite{wohlin2012experimentation}
+
+\paragraph{Overview}
+We build the benchmark in three steps:
+\begin{enumerate}[leftmargin=*]
+\item Run the pinned contract on the full corpus to obtain baseline triggers.
+\item Characterize the triggered rule space (Table~\ref{tab:coverage_dimensions}).
+\item Select 100 files using size stratification while preserving all rule types (Appendix~\ref{app:benchmark_algorithms}).
+\end{enumerate}
+
+We also define a 55-file execution slice.
+We use it only as a loadability sentinel.
+It flags new include-time failures under a fixed harness.
+We interpret it only as a regression signal.
+
+\begin{table}[htbp]
+\centering
+\caption{Coverage analysis dimensions used to characterize the triggered rule space under the pinned contract.}
+\label{tab:coverage_dimensions}
+\small
+\begin{tabular}{@{}l p{0.50\columnwidth}@{}}
+\toprule
+\textbf{Dimension} & \textbf{Description} \\
+\midrule
+Rule type frequency & Corpus frequency of each Rector upgrade rule type. \\
+PHP version mapping & Mapping rules to PHP~5.x, 7.x, and 8.x milestone families. \\
+Rule categories & Distribution across AST constructs such as \texttt{FuncCall}, \texttt{Array\_}, and \texttt{Class\_}. \\
+Size and complexity & Relationship between LOC and rule diversity. \\
+Tail coverage & Preservation of infrequent rule types during sampling. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Inducing Contract Findings}
+\label{sec:benchmark_static_analysis}
+
+We analyze the full WordPress~4.0 corpus (482 PHP files) with the reference Rector configuration.
+We pin \texttt{LevelSetList::UP\_TO\_PHP\_83} and the tool versions.
+This keeps the contract stable across runs.
+Static analysis triggers provide a consistent signal at scale.\cite{bessey2010billion,calcagno2015moving}
+
+We record findings as file-level rule incidence.
+A rule counts once per file if it triggers.
+We use incidence because it is stable across repeated runs and configurations.
+In-file counts are not consistently exposed by Rector.
+
+We also record Rector dry-run patches.
+They summarize edits suggested by the pinned contract.
+We use them as a proxy for residual patch volume.\cite{falleri2014fine,fluri2007change}
+
+Across the corpus we observe 1{,}331 file rule incidences spanning 48 upgrade rules.
+This defines the obligation space used for benchmark construction and scoring.
+
+\begin{table}[htbp]
+\centering
+\caption{Scoring criteria for size-stratified file selection.}
+\label{tab:selection_criteria}
+\small
+\begin{tabular}{@{}l p{0.50\columnwidth}@{}}
+\toprule
+\textbf{Criterion} & \textbf{Role in File Selection} \\
+\midrule
+Rule diversity & Prefer files triggering many rule types. \\
+Version change density & Reward stronger evidence of version-related changes. \\
+Size suitability & Favor 100 to 2000 LOC and penalize very large files. \\
+PHP family breadth & Prefer files spanning multiple rule families. \\
+Key patterns & Extra weight for migration-relevant constructs. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Coverage Preserving Selection}
+\label{sec:benchmark_selection}
+
+We summarize baseline triggers to measure rule frequency, milestone coverage, and size effects.
+Rare rule types matter, but uniform sampling can drop them.
+We therefore enforce full rule coverage during selection.
+
+Selection has two steps.
+First, we stratify files by size and rank them using Table~\ref{tab:selection_criteria}.
+Second, we enforce full rule coverage and trim to exactly 100 files while preserving coverage.
+The procedure is deterministic.
+We fix it before running any LLM experiments.
+
+\begin{table}[htbp]
+\centering
+\caption{Target size distribution used for stratified initialization. The realized benchmark may differ after coverage enforcement.}
+\label{tab:size_distribution}
+\small
+\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Category} & \textbf{LOC Range} & \textbf{Share} \\
+\midrule
+Small & 1--200 & 35\% \\
+Medium & 201--500 & 30\% \\
+Large & 501--1000 & 25\% \\
+Extra large & 1001+ & 10\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Average migration complexity by file size in the released benchmark.}
+\label{tab:migration_complexity}
+\small
+\begin{tabular}{@{}l c c c@{}}
+\toprule
+\textbf{Category} & \textbf{Files} & \textbf{Trig./File} & \textbf{Ver./File} \\
+\midrule
+Small & 31 & 3.2 & 2.9 \\
+Medium & 31 & 5.4 & 4.8 \\
+Large & 26 & 5.7 & 5.0 \\
+Extra large & 12 & 8.9 & 6.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Benchmark Integrity}
+\label{sec:benchmark_validation}
+
+All selected files run through the pinned contract successfully.
+The benchmark preserves all 48 upgrade rules.
+It induces 521 file rule incidences spanning PHP~5.2 to 8.3.
+Larger files trigger more rule types and span more milestones (Table~\ref{tab:migration_complexity}).
+This matches prior links between structural complexity and transformation diversity.\cite{chidamber1994metrics,mccabe1976complexity}
+
+Because coverage is the hard constraint, the final size mix can differ slightly from Table~\ref{tab:size_distribution}.
+
+We also define a 55-file loadability slice.
+We report only new failures (original pass, migrated fail) under the same harness.
+We do not treat absolute pass rates as behavioral correctness.

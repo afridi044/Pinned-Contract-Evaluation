@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\064_wp-diff.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_71": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 72
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:18.917560",
+    "file_size_kb": 17.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/064_wp-diff.php",
+        "diff": "--- Original\n+++ New\n@@ -10,11 +10,11 @@\n \r\n if (!class_exists('Text_Diff')) {\r\n     /** Text_Diff class */\r\n-    require dirname(__FILE__) . '/Text/Diff.php';\r\n+    require __DIR__ . '/Text/Diff.php';\r\n     /** Text_Diff_Renderer class */\r\n-    require dirname(__FILE__) . '/Text/Diff/Renderer.php';\r\n+    require __DIR__ . '/Text/Diff/Renderer.php';\r\n     /** Text_Diff_Renderer_inline class */\r\n-    require dirname(__FILE__) . '/Text/Diff/Renderer/inline.php';\r\n+    require __DIR__ . '/Text/Diff/Renderer/inline.php';\r\n }\r\n \r\n /**\r\n@@ -162,7 +162,7 @@\n         $r = '';\r\n         foreach ($lines as $line) {\r\n             if ($encode) {\r\n-                $line = htmlspecialchars($line);\r\n+                $line = htmlspecialchars((string) $line);\r\n             }\r\n             if ($this->_show_split_view) {\r\n                 $r .= '<tr>' . $this->emptyLine() . $this->emptyLine() . $this->addedLine($line) . \"</tr>\\n\";\r\n@@ -186,7 +186,7 @@\n         $r = '';\r\n         foreach ($lines as $line) {\r\n             if ($encode) {\r\n-                $line = htmlspecialchars($line);\r\n+                $line = htmlspecialchars((string) $line);\r\n             }\r\n             if ($this->_show_split_view) {\r\n                 $r .= '<tr>' . $this->deletedLine($line) . $this->emptyLine() . $this->emptyLine() . \"</tr>\\n\";\r\n@@ -210,7 +210,7 @@\n         $r = '';\r\n         foreach ($lines as $line) {\r\n             if ($encode) {\r\n-                $line = htmlspecialchars($line);\r\n+                $line = htmlspecialchars((string) $line);\r\n             }\r\n             if ($this->_show_split_view) {\r\n                 $r .= '<tr>' . $this->contextLine($line) . $this->emptyLine() . $this->contextLine($line) . \"</tr>\\n\";\r\n@@ -245,7 +245,7 @@\n         // *_rows are column vectors for the orig column and the final column.\r\n         //\trow >= 0: an indix of the $orig or $final array\r\n         //\trow  < 0: a blank row for that column\r\n-        list($orig_matches, $final_matches, $orig_rows, $final_rows) = $this->interleave_changed_lines($orig, $final);\r\n+        [$orig_matches, $final_matches, $orig_rows, $final_rows] = $this->interleave_changed_lines($orig, $final);\r\n \r\n         // These will hold the word changes as determined by an inline diff\r\n         $orig_diffs = [];\r\n@@ -345,7 +345,7 @@\n         $final_matches = [];\r\n \r\n         foreach ($matches as $keys => $difference) {\r\n-            list($o, $f) = explode(',', $keys);\r\n+            [$o, $f] = explode(',', $keys);\r\n             $o = (int) $o;\r\n             $f = (int) $f;\r\n \r\n@@ -433,7 +433,7 @@\n         $chars2 = count_chars($string2);\r\n \r\n         // L1-norm of difference vector.\r\n-        $difference = array_sum(array_map([$this, 'difference'], $chars1, $chars2));\r\n+        $difference = array_sum(array_map($this->difference(...), $chars1, $chars2));\r\n \r\n         // $string1 has zero length? Odd. Give huge penalty by not dividing.\r\n         if (!$string1) {\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/064_wp-diff.php"
+    ]
+  }
+}

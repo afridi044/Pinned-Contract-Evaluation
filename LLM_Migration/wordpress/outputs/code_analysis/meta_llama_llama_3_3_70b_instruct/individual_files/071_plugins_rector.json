@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\071_plugins.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_54": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 118
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:40.208233",
+    "file_size_kb": 23.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/071_plugins.php",
+        "diff": "--- Original\n+++ New\n@@ -7,7 +7,7 @@\n  */\r\n \r\n /** WordPress Administration Bootstrap */\r\n-require_once dirname(__FILE__) . '/admin.php';\r\n+require_once __DIR__ . '/admin.php';\r\n \r\n if (!current_user_can('activate_plugins')) {\r\n     wp_die(__('You do not have sufficient permissions to manage plugins for this site.'));\r\n@@ -41,7 +41,7 @@\n             $result = activate_plugin($plugin, self_admin_url('plugins.php?error=true&plugin=' . $plugin), is_network_admin());\r\n             if (is_wp_error($result)) {\r\n                 if ('unexpected_output' == $result->get_error_code()) {\r\n-                    $redirect = self_admin_url('plugins.php?error=true&charsout=' . strlen($result->get_error_data()) . '&plugin=' . $plugin . \"&plugin_status=$status&paged=$page&s=$s\");\r\n+                    $redirect = self_admin_url('plugins.php?error=true&charsout=' . strlen((string) $result->get_error_data()) . '&plugin=' . $plugin . \"&plugin_status=$status&paged=$page&s=$s\");\r\n                     wp_redirect(add_query_arg('_error_nonce', wp_create_nonce('plugin-activation-error_' . $plugin), $redirect));\r\n                     exit;\r\n                 } else {\r\n@@ -56,7 +56,7 @@\n             }\r\n \r\n             if (isset($_GET['from']) && 'import' == $_GET['from']) {\r\n-                wp_redirect(self_admin_url(\"import.php?import=\" . str_replace('-importer', '', dirname($plugin))));\r\n+                wp_redirect(self_admin_url(\"import.php?import=\" . str_replace('-importer', '', dirname((string) $plugin))));\r\n             } else {\r\n                 wp_redirect(self_admin_url(\"plugins.php?activate=true&plugin_status=$status&paged=$page&s=$s\"));\r\n             }\r\n@@ -175,7 +175,7 @@\n \r\n             deactivate_plugins($plugin, false, is_network_admin());\r\n             if (!is_network_admin()) {\r\n-                update_option('recently_activated', array($plugin => time()) + (array) get_option('recently_activated'));\r\n+                update_option('recently_activated', [$plugin => time()] + (array) get_option('recently_activated'));\r\n             }\r\n             if (headers_sent()) {\r\n                 echo \"<meta http-equiv='refresh' content='\" . esc_attr(\"0;url=plugins.php?deactivate=true&plugin_status=$status&paged=$page&s=$s\") . \"' />\";\r\n@@ -208,7 +208,7 @@\n             deactivate_plugins($plugins, false, is_network_admin());\r\n \r\n             if (!is_network_admin()) {\r\n-                $deactivated = array();\r\n+                $deactivated = [];\r\n                 foreach ($plugins as $plugin) {\r\n                     $deactivated[$plugin] = time();\r\n                 }\r\n@@ -249,10 +249,10 @@\n                 ?>\r\n                 <div class=\"wrap\">\r\n                     <?php\r\n-                    $files_to_delete = $plugin_info = array();\r\n+                    $files_to_delete = $plugin_info = [];\r\n                     $have_non_network_plugins = false;\r\n                     foreach ((array) $plugins as $plugin) {\r\n-                        if ('.' == dirname($plugin)) {\r\n+                        if ('.' == dirname((string) $plugin)) {\r\n                             $files_to_delete[] = WP_PLUGIN_DIR . '/' . $plugin;\r\n                             if ($data = get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin)) {\r\n                                 $plugin_info[$plugin] = $data;\r\n@@ -263,12 +263,12 @@\n                             }\r\n                         } else {\r\n                             // Locate all the files in that folder\r\n-                            $files = list_files(WP_PLUGIN_DIR . '/' . dirname($plugin));\r\n+                            $files = list_files(WP_PLUGIN_DIR . '/' . dirname((string) $plugin));\r\n                             if ($files) {\r\n                                 $files_to_delete = array_merge($files_to_delete, $files);\r\n                             }\r\n                             // Get plugins list from that folder\r\n-                            if ($folder_plugins = get_plugins('/' . dirname($plugin))) {\r\n+                            if ($folder_plugins = get_plugins('/' . dirname((string) $plugin))) {\r\n                                 foreach ($folder_plugins as $plugin_file => $data) {\r\n                                     $plugin_info[$plugin_file] = _get_plugin_data_markup_translate($plugin_file, $data);\r\n                                     $plugin_info[$plugin_file]['is_uninstallable'] = is_uninstallable_plugin($plugin);\r\n@@ -346,7 +346,7 @@\n \r\n         case 'clear-recent-list':\r\n             if (!is_network_admin()) {\r\n-                update_option('recently_activated', array());\r\n+                update_option('recently_activated', []);\r\n             }\r\n             break;\r\n     }\r\n@@ -357,26 +357,26 @@\n wp_enqueue_script('plugin-install');\r\n add_thickbox();\r\n \r\n-add_screen_option('per_page', array(\r\n+add_screen_option('per_page', [\r\n     'label' => _x('Plugins', 'plugins per page (screen options)'),\r\n     'default' => 999\r\n-));\r\n+]);\r\n \r\n-get_current_screen()->add_help_tab(array(\r\n+get_current_screen()->add_help_tab([\r\n     'id' => 'overview',\r\n     'title' => __('Overview'),\r\n     'content' =>\r\n         '<p>' . __('Plugins extend and expand the functionality of WordPress. Once a plugin is installed, you may activate it or deactivate it here.') . '</p>' .\r\n         '<p>' . sprintf(__('You can find additional plugins for your site by using the <a href=\"%1$s\">Plugin Browser/Installer</a> functionality or by browsing the <a href=\"%2$s\" target=\"_blank\">WordPress Plugin Directory</a> directly and installing new plugins manually. To manually install a plugin you generally just need to upload the plugin file into your <code>/wp-content/plugins</code> directory. Once a plugin has been installed, you can activate it here.'), 'plugin-install.php', 'https://wordpress.org/plugins/') . '</p>'\r\n-));\r\n+]);\r\n \r\n-get_current_screen()->add_help_tab(array(\r\n+get_current_screen()->add_help_tab([\r\n     'id' => 'compatibility-problems',\r\n     'title' => __('Troubleshooting'),\r\n     'content' =>\r\n         '<p>' . __('Most of the time, plugins play nicely with the core of WordPress and with other plugins. Sometimes, though, a plugin&#8217;s code will get in the way of another plugin, causing compatibility issues. If your site starts doing strange things, this may be the problem. Try deactivating all your plugins and re-activating them in various combinations until you isolate which one(s) caused the issue.') . '</p>' .\r\n         '<p>' . sprintf(__('If something goes wrong with a plugin and you can&#8217;t use WordPress, delete or rename that file in the <code>%s</code> directory and it will be automatically deactivated.'), WP_PLUGIN_DIR) . '</p>'\r\n-));\r\n+]);\r\n \r\n get_current_screen()->set_help_sidebar(\r\n     '<p><strong>' . __('For more information:') . '</strong></p>' .\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/071_plugins.php"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\041_module.tag.lyrics3.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:23:35.915320",
+    "file_size_kb": 12.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/041_module.tag.lyrics3.php",
+        "diff": "--- Original\n+++ New\n@@ -190,7 +190,7 @@\n \t\t\t\t\tif (isset($ParsedLyrics3['raw']['IMG'])) {\r\n \t\t\t\t\t\t$imagestrings = explode(\"\\r\\n\", $ParsedLyrics3['raw']['IMG']);\r\n \t\t\t\t\t\tforeach ($imagestrings as $key => $imagestring) {\r\n-\t\t\t\t\t\t\tif (strpos($imagestring, '||') !== false) {\r\n+\t\t\t\t\t\t\tif (str_contains($imagestring, '||')) {\r\n \t\t\t\t\t\t\t\t$imagearray = explode('||', $imagestring);\r\n \t\t\t\t\t\t\t\t// Use null coalescing operator (PHP 7+) for safer array access\r\n \t\t\t\t\t\t\t\t$ParsedLyrics3['images'][$key]['filename']     = $imagearray[0] ?? '';\r\n@@ -241,7 +241,7 @@\n \r\n \tpublic function Lyrics3LyricsTimestampParse(array &$Lyrics3data): bool\r\n     {\r\n-\t\t$lyricsarray = explode(\"\\r\\n\", $Lyrics3data['raw']['LYR']);\r\n+\t\t$lyricsarray = explode(\"\\r\\n\", (string) $Lyrics3data['raw']['LYR']);\r\n \t\t$notimestamplyricsarray = []; // Initialize array\r\n \t\tforeach ($lyricsarray as $key => $lyricline) {\r\n \t\t\t$regs = []; // Initialize for each iteration\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/041_module.tag.lyrics3.php"
+    ]
+  }
+}

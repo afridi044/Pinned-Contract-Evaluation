@@ -1,0 +1,73 @@
+# =========================
+# SMALL (14)
+# =========================
+../../dataset/wordpress/selected_100_files/small_1_200/077_post-thumbnail-template.php
+../../dataset/wordpress/selected_100_files/small_1_200/084_class-wp-ajax-response.php
+../../dataset/wordpress/selected_100_files/small_1_200/088_Credit.php
+../../dataset/wordpress/selected_100_files/small_1_200/089_Category.php
+../../dataset/wordpress/selected_100_files/small_1_200/090_Author.php
+../../dataset/wordpress/selected_100_files/small_1_200/091_Rating.php
+../../dataset/wordpress/selected_100_files/small_1_200/092_Copyright.php
+../../dataset/wordpress/selected_100_files/small_1_200/087_Restriction.php
+../../dataset/wordpress/selected_100_files/small_1_200/083_shell.php
+../../dataset/wordpress/selected_100_files/small_1_200/093_vars.php
+../../dataset/wordpress/selected_100_files/small_1_200/094_class.akismet-widget.php
+../../dataset/wordpress/selected_100_files/small_1_200/095_class-wp-http-ixr-client.php
+../../dataset/wordpress/selected_100_files/small_1_200/096_class-ftp-pure.php
+../../dataset/wordpress/selected_100_files/small_1_200/097_class-wp-customize-section.php
+
+
+# =========================
+# MEDIUM (16)
+# =========================
+../../dataset/wordpress/selected_100_files/medium_201_500/015_Diff.php
+../../dataset/wordpress/selected_100_files/medium_201_500/018_streams.php
+../../dataset/wordpress/selected_100_files/medium_201_500/019_atomlib.php
+../../dataset/wordpress/selected_100_files/medium_201_500/037_class-wp-ms-sites-list-table.php
+../../dataset/wordpress/selected_100_files/medium_201_500/038_class.wp-styles.php
+../../dataset/wordpress/selected_100_files/medium_201_500/044_class-wp-image-editor.php
+../../dataset/wordpress/selected_100_files/medium_201_500/045_Locator.php
+../../dataset/wordpress/selected_100_files/medium_201_500/049_Parser.php
+../../dataset/wordpress/selected_100_files/medium_201_500/051_ms-deprecated.php
+../../dataset/wordpress/selected_100_files/medium_201_500/052_class-wp-ms-themes-list-table.php
+../../dataset/wordpress/selected_100_files/medium_201_500/053_class-wp-themes-list-table.php
+../../dataset/wordpress/selected_100_files/medium_201_500/058_session.php
+../../dataset/wordpress/selected_100_files/medium_201_500/061_class.wp-scripts.php
+../../dataset/wordpress/selected_100_files/medium_201_500/070_File.php
+../../dataset/wordpress/selected_100_files/medium_201_500/072_class-wp-users-list-table.php
+../../dataset/wordpress/selected_100_files/medium_201_500/011_translations.php
+../../dataset/wordpress/selected_100_files/medium_201_500/016_module.audio.ac3.php
+../../dataset/wordpress/selected_100_files/medium_201_500/062_string.php
+../../dataset/wordpress/selected_100_files/medium_201_500/067_user.php
+
+
+# =========================
+# LARGE (16)
+# =========================
+../../dataset/wordpress/selected_100_files/large_500_1000/007_class-wp.php
+../../dataset/wordpress/selected_100_files/large_500_1000/020_class-ftp.php
+../../dataset/wordpress/selected_100_files/large_500_1000/021_class-pop3.php
+../../dataset/wordpress/selected_100_files/large_500_1000/022_class-wp-customize-setting.php
+../../dataset/wordpress/selected_100_files/large_500_1000/026_Source.php
+../../dataset/wordpress/selected_100_files/large_500_1000/030_class-json.php
+../../dataset/wordpress/selected_100_files/large_500_1000/031_class-wp-plugins-list-table.php
+../../dataset/wordpress/selected_100_files/large_500_1000/032_class-wp-comments-list-table.php
+../../dataset/wordpress/selected_100_files/large_500_1000/039_class-wp-upgrader-skins.php
+../../dataset/wordpress/selected_100_files/large_500_1000/040_class-wp-media-list-table.php
+../../dataset/wordpress/selected_100_files/large_500_1000/042_image-edit.php
+../../dataset/wordpress/selected_100_files/large_500_1000/043_image.php
+../../dataset/wordpress/selected_100_files/large_500_1000/050_class-oembed.php
+../../dataset/wordpress/selected_100_files/large_500_1000/054_nav-menu.php
+../../dataset/wordpress/selected_100_files/large_500_1000/056_class.akismet.php
+../../dataset/wordpress/selected_100_files/large_500_1000/068_revision.php
+
+
+# =========================
+# EXTRA-LARGE (6)
+# =========================
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/003_wp-db.php
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/005_class-snoopy.php
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/009_getid3.php
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/010_class-wp-theme.php
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/013_file.php
+../../dataset/wordpress/selected_100_files/extra_large_1000_plus/057_class-wp-customize-manager.php

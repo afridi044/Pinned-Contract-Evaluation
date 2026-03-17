@@ -1,0 +1,50 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\006_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnNeverTypeRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1,
+      "php_80": 2,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 108
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:33:10.036283",
+    "file_size_kb": 48.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/006_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -23,8 +23,7 @@\n  */\r\n class WP_Widget {\r\n \r\n-\tpublic string $id_base = '';            // Root id for all widgets of this type.\r\n-\tpublic string $name = '';               // Name for this widget type.\r\n+\tpublic string $id_base = '';               // Name for this widget type.\r\n \tpublic array $widget_options = [];      // Option array passed to wp_register_sidebar_widget()\r\n \tpublic array $control_options = [];     // Option array passed to wp_register_widget_control()\r\n \r\n@@ -44,7 +43,7 @@\n \t * @param array $args Display arguments including before_title, after_title, before_widget, and after_widget.\r\n \t * @param array $instance The settings for the particular instance of the widget\r\n \t */\r\n-\tpublic function widget($args, $instance) {\r\n+\tpublic function widget($args, $instance): never {\r\n \t\tthrow new \\BadMethodCallException('function WP_Widget::widget() must be over-ridden in a sub-class.');\r\n \t}\r\n \r\n@@ -86,9 +85,8 @@\n \t *\t - width: required if more than 250px\r\n \t *\t - height: currently not used but may be needed in the future\r\n \t */\r\n-\tpublic function __construct( $id_base, $name, $widget_options = [], $control_options = [] ) {\r\n+\tpublic function __construct( $id_base, public string $name, $widget_options = [], $control_options = [] ) {\r\n \t\t$this->id_base = empty($id_base) ? preg_replace( '/(wp_)?widget_/', '', strtolower(static::class) ) : strtolower((string) $id_base);\r\n-\t\t$this->name = $name;\r\n \t\t$this->option_name = 'widget_' . $this->id_base;\r\n \t\t$this->widget_options = wp_parse_args( $widget_options, ['classname' => $this->option_name] );\r\n \t\t$this->control_options = wp_parse_args( $control_options, ['id_base' => $this->id_base] );\r\n@@ -95,13 +93,6 @@\n \t}\r\n \r\n \t/**\r\n-\t * PHP4 constructor\r\n-\t */\r\n-\tpublic function WP_Widget( $id_base, $name, $widget_options = [], $control_options = [] ) {\r\n-\t\t$this->__construct( $id_base, $name, $widget_options, $control_options );\r\n-\t}\r\n-\r\n-\t/**\r\n \t * Constructs name attributes for use in form() fields\r\n \t *\r\n \t * This function should be used in form() methods to create name attributes for fields to be saved by update()\r\n@@ -155,15 +146,15 @@\n \t}\r\n \r\n \tpublic function _get_display_callback() {\r\n-\t\treturn [$this, 'display_callback'];\r\n+\t\treturn $this->display_callback(...);\r\n \t}\r\n \r\n \tpublic function _get_update_callback() {\r\n-\t\treturn [$this, 'update_callback'];\r\n+\t\treturn $this->update_callback(...);\r\n \t}\r\n \r\n \tpublic function _get_form_callback() {\r\n-\t\treturn [$this, 'form_callback'];\r\n+\t\treturn $this->form_callback(...);\r\n \t}\r\n \r\n \t/**\r\n@@ -414,13 +405,9 @@\n \tpublic array $widgets = [];\r\n \r\n \tpublic function __construct() {\r\n-\t\tadd_action( 'widgets_init', [$this, '_register_widgets'], 100 );\r\n+\t\tadd_action( 'widgets_init', $this->_register_widgets(...), 100 );\r\n \t}\r\n \r\n-\tpublic function WP_Widget_Factory() {\r\n-\t\t$this->__construct();\r\n-\t}\r\n-\r\n \tpublic function register($widget_class) {\r\n \t\t$this->widgets[$widget_class] = new $widget_class();\r\n \t}\r\n@@ -932,7 +919,7 @@\n function _register_widget_form_callback($id, $name, $form_callback, $options = []) {\r\n \tglobal $wp_registered_widget_controls;\r\n \r\n-\t$id = strtolower($id);\r\n+\t$id = strtolower((string) $id);\r\n \r\n \tif ( empty($form_callback) ) {\r\n \t\tunset($wp_registered_widget_controls[$id]);\r\n@@ -1049,7 +1036,7 @@\n \t\t\tif ( is_string($cn) ) {\r\n \t\t\t\t$classname_ .= '_' . $cn;\r\n \t\t\t} elseif ( is_object($cn) ) {\r\n-\t\t\t\t$classname_ .= '_' . get_class($cn);\r\n+\t\t\t\t$classname_ .= '_' . $cn::class;\r\n \t\t\t}\r\n \t\t}\r\n \t\t$classname_ = ltrim($classname_, '_');\r\n@@ -1541,7 +1528,7 @@\n \t\tif ( in_array($key, $shown_widgets, true) )\r\n \t\t\tcontinue;\r\n \r\n-\t\t$number = preg_replace('/.+?-([0-9]+)$/', '$1', $key);\r\n+\t\t$number = preg_replace('/.+?-([0-9]+)$/', '$1', (string) $key);\r\n \r\n \t\tif ( 2 > (int) $number )\r\n \t\t\tcontinue;\r\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\ClassMethod\\Php4ConstructorRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\FuncCall\\ClassOnObjectRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\TypeDeclaration\\Rector\\ClassMethod\\ReturnNeverTypeRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/006_widgets.php"
+    ]
+  }
+}

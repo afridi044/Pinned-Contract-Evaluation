@@ -1,0 +1,48 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\020_class-ftp.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_80": 2,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 102
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:22:26.326786",
+    "file_size_kb": 32.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/020_class-ftp.php",
+        "diff": "--- Original\n+++ New\n@@ -81,9 +81,6 @@\n  *\r\n  */\r\n class ftp_base {\r\n-\t/* Public variables */\r\n-\tpublic ?bool $LocalEcho = null;\r\n-\tpublic ?bool $Verbose = null;\r\n \tpublic string $OS_local;\r\n \tpublic string $OS_remote;\r\n \r\n@@ -102,15 +99,15 @@\n \tprivate mixed $_ftp_control_sock = null;\r\n \tprivate mixed $_ftp_data_sock = null;\r\n \tprivate mixed $_ftp_temp_sock = null;\r\n-\tprivate int $_ftp_buff_size;\r\n+\tprivate readonly int $_ftp_buff_size;\r\n \tprivate string $_login;\r\n \tprivate string $_password;\r\n-\tprivate bool $_connected;\r\n+\tprivate readonly bool $_connected;\r\n \tprivate bool $_ready;\r\n-\tprivate int $_code;\r\n-\tprivate string $_message;\r\n-\tprivate bool $_can_restore;\r\n-\tprivate bool $_port_available;\r\n+\tprivate readonly int $_code;\r\n+\tprivate readonly string $_message;\r\n+\tprivate readonly bool $_can_restore;\r\n+\tprivate readonly bool $_port_available;\r\n \tprivate ?int $_curtype = null;\r\n \tprivate array $_features;\r\n \r\n@@ -117,15 +114,13 @@\n \tprivate array $_error_array;\r\n \tpublic array $AuthorizedTransferMode;\r\n \tpublic array $OS_FullName;\r\n-\tprivate array $_eol_code;\r\n+\tprivate readonly array $_eol_code;\r\n \tpublic array $AutoAsciiExt;\r\n \tpublic array $features;\r\n \r\n \t/* Constructor */\r\n \t// Old-style constructor `ftp_base` removed, as it just called `__construct`.\r\n-\tpublic function __construct(bool $port_mode = false, bool $verb = false, bool $le = false) {\r\n-\t\t$this->LocalEcho = $le;\r\n-\t\t$this->Verbose = $verb;\r\n+\tpublic function __construct(bool $port_mode = false, public ?bool $Verbose = false, public ?bool $LocalEcho = false) {\r\n \t\t$this->_lastaction = null;\r\n \t\t$this->_error_array = [];\r\n \t\t$this->_eol_code = [FTP_OS_Unix => \"\\n\", FTP_OS_Mac => \"\\r\", FTP_OS_Windows => \"\\r\\n\"];\r\n@@ -334,9 +329,9 @@\n \t\t$syst = $this->systype();\r\n \t\tif(!$syst) $this->SendMSG(\"Can't detect remote OS\");\r\n \t\telse {\r\n-\t\t\tif(preg_match(\"/win|dos|novell/i\", $syst[0])) $this->OS_remote = FTP_OS_Windows;\r\n-\t\t\telseif(preg_match(\"/os/i\", $syst[0])) $this->OS_remote = FTP_OS_Mac;\r\n-\t\t\telseif(preg_match(\"/(li|u)nix/i\", $syst[0])) $this->OS_remote = FTP_OS_Unix;\r\n+\t\t\tif(preg_match(\"/win|dos|novell/i\", (string) $syst[0])) $this->OS_remote = FTP_OS_Windows;\r\n+\t\t\telseif(preg_match(\"/os/i\", (string) $syst[0])) $this->OS_remote = FTP_OS_Mac;\r\n+\t\t\telseif(preg_match(\"/(li|u)nix/i\", (string) $syst[0])) $this->OS_remote = FTP_OS_Unix;\r\n \t\t\telse $this->OS_remote = FTP_OS_Mac;\r\n \t\t\t$this->SendMSG(\"Remote OS: \".$this->OS_FullName[$this->OS_remote]);\r\n \t\t}\r\n@@ -487,7 +482,7 @@\n \tpublic function features(): bool {\r\n \t\tif(!$this->_exec(\"FEAT\", \"features\")) return false;\r\n \t\tif(!$this->_checkCode()) return false;\r\n-\t\t$f = preg_split(\"/[\".CRLF.\"]+/\", preg_replace(\"/\\d{3}[ -].*?\".CRLF.\"/\", \"\", $this->_message), -1, PREG_SPLIT_NO_EMPTY);\r\n+\t\t$f = preg_split(\"/[\".CRLF.\"]+/\", (string) preg_replace(\"/\\d{3}[ -].*?\".CRLF.\"/\", \"\", $this->_message), -1, PREG_SPLIT_NO_EMPTY);\r\n \t\t$this->_features = [];\r\n \t\tforeach($f as $k=>$v) {\r\n \t\t\t$v = explode(\" \", trim($v));\r\n@@ -788,7 +783,7 @@\n \t\t\t\t}\r\n \t\t\t}\r\n \t\t\t@chmod($local . \"/\" . $el[\"name\"], $el[\"perms\"]);\r\n-\t\t\t$t = strtotime($el[\"date\"]);\r\n+\t\t\t$t = strtotime((string) $el[\"date\"]);\r\n \t\t\tif ($t !== -1 && $t !== false) {\r\n                 @touch($local . \"/\" . $el[\"name\"], $t);\r\n             }\r\n@@ -853,7 +848,7 @@\n \t\tif (!$this->mmkdir(dirname($dir), $mode)) {\r\n             return false;\r\n         }\r\n-\t\t$r = $this->mkdir($dir, $mode);\r\n+\t\t$r = $this->mkdir($dir);\r\n \t\t$this->chmod($dir,$mode);\r\n \t\treturn $r;\r\n \t}\r\n@@ -903,7 +898,7 @@\n \t\t$chunks = explode(';', $pattern);\r\n \t\tforeach ($chunks as $pattern) {\r\n \t\t\t$escape = ['$', '^', '.', '{', '}', '(', ')', '[', ']', '|'];\r\n-\t\t\twhile (strpos($pattern, '**') !== false) {\r\n+\t\t\twhile (str_contains($pattern, '**')) {\r\n \t\t\t\t$pattern = str_replace('**', '*', $pattern);\r\n             }\r\n \t\t\tforeach ($escape as $probe) {\r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\FuncCall\\RemoveExtraParametersRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/020_class-ftp.php"
+    ]
+  }
+}

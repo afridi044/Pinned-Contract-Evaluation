@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\050_class-oembed.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_73": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 23
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:24:03.531358",
+    "file_size_kb": 22.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/050_class-oembed.php",
+        "diff": "--- Original\n+++ New\n@@ -332,7 +332,7 @@\n \t\t\t// Do a quick check\r\n \t\t\t$tagfound = false;\r\n \t\t\tforeach ( $linktypes as $linktype => $format ) {\r\n-\t\t\t\tif ( stripos( $html, $linktype ) !== false ) {\r\n+\t\t\t\tif ( stripos( $html, (string) $linktype ) !== false ) {\r\n \t\t\t\t\t$tagfound = true;\r\n \t\t\t\t\tbreak;\r\n \t\t\t\t}\r\n@@ -564,8 +564,8 @@\n \t * @return string Possibly modified $html\r\n \t */\r\n \tprivate function _strip_newlines( string $html, object $data, string $url ): string {\r\n-\t\tif ( false !== strpos( $html, \"\\n\" ) )\r\n-\t\t\t$html = str_replace( array( \"\\r\\n\", \"\\n\" ), '', $html );\r\n+\t\tif ( str_contains( $html, \"\\n\" ) )\r\n+\t\t\t$html = str_replace( [ \"\\r\\n\", \"\\n\" ], '', $html );\r\n \r\n \t\treturn $html;\r\n \t}\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php73\\Rector\\FuncCall\\StringifyStrNeedlesRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/050_class-oembed.php"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\042_image-edit.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:29:37.147339",
+    "file_size_kb": 29.0,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/042_image-edit.php",
+        "diff": "--- Original\n+++ New\n@@ -34,7 +34,7 @@\n \t$backup_sizes = get_post_meta($post_id, '_wp_attachment_backup_sizes', true);\r\n \t$can_restore = false;\r\n \tif (!empty($backup_sizes) && isset($backup_sizes['full-orig']['file'])) {\r\n-\t\t$can_restore = $backup_sizes['full-orig']['file'] !== basename($meta['file']);\r\n+\t\t$can_restore = $backup_sizes['full-orig']['file'] !== basename((string) $meta['file']);\r\n \t}\r\n \r\n \tif ($msg) {\r\n@@ -610,7 +610,7 @@\n \t\t\tif (isset($meta['sizes'][$default_size]) && $meta['sizes'][$default_size]['file'] !== $data['file']) {\r\n \t\t\t\tif (defined('IMAGE_EDIT_OVERWRITE') && IMAGE_EDIT_OVERWRITE) {\r\n \t\t\t\t\t// Delete only if it's an edited image.\r\n-\t\t\t\t\tif (preg_match('/-e[0-9]{13}-/', $meta['sizes'][$default_size]['file'])) {\r\n+\t\t\t\t\tif (preg_match('/-e[0-9]{13}-/', (string) $meta['sizes'][$default_size]['file'])) {\r\n \t\t\t\t\t\t/** This filter is documented in wp-admin/custom-header.php */\r\n \t\t\t\t\t\t$delpath = apply_filters('wp_delete_file', path_join($parts['dirname'], $meta['sizes'][$default_size]['file']));\r\n \t\t\t\t\t\t@unlink($delpath);\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/042_image-edit.php"
+    ]
+  }
+}

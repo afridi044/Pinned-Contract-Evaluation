@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\093_vars.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 100
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:37:19.218000",
+    "file_size_kb": 5.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/093_vars.php",
+        "diff": "--- Original\n+++ New\n@@ -31,7 +31,7 @@\n \t}\r\n \r\n \t$selfMatches = [];\r\n-\tpreg_match($pattern, $phpSelf, $selfMatches);\r\n+\tpreg_match($pattern, (string) $phpSelf, $selfMatches);\r\n \r\n \t$pagenow = trim($selfMatches[1] ?? '', '/');\r\n \t$pagenow = preg_replace('#\\?.*?$#', '', $pagenow) ?? '';\r\n@@ -54,7 +54,7 @@\n \t}\r\n } else {\r\n \t$selfMatches = [];\r\n-\tif (preg_match('#([^/]+\\.php)([?/].*?)?$#i', $phpSelf, $selfMatches)) {\r\n+\tif (preg_match('#([^/]+\\.php)([?/].*?)?$#i', (string) $phpSelf, $selfMatches)) {\r\n \t\t$pagenow = strtolower($selfMatches[1]);\r\n \t} else {\r\n \t\t$pagenow = 'index.php';\r\n@@ -65,10 +65,10 @@\n $is_lynx = $is_gecko = $is_winIE = $is_macIE = $is_opera = $is_NS4 = $is_safari = $is_chrome = $is_iphone = false;\r\n \r\n $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';\r\n-$userAgentLower = strtolower($userAgent);\r\n+$userAgentLower = strtolower((string) $userAgent);\r\n \r\n if ($userAgent !== '') {\r\n-\tif (str_contains($userAgent, 'Lynx')) {\r\n+\tif (str_contains((string) $userAgent, 'Lynx')) {\r\n \t\t$is_lynx = true;\r\n \t} elseif (str_contains($userAgentLower, 'chrome')) {\r\n \t\tif (str_contains($userAgentLower, 'chromeframe')) {\r\n@@ -91,15 +91,15 @@\n \t\t}\r\n \t} elseif (str_contains($userAgentLower, 'safari')) {\r\n \t\t$is_safari = true;\r\n-\t} elseif ((str_contains($userAgent, 'MSIE') || str_contains($userAgent, 'Trident')) && str_contains($userAgent, 'Win')) {\r\n+\t} elseif ((str_contains((string) $userAgent, 'MSIE') || str_contains((string) $userAgent, 'Trident')) && str_contains((string) $userAgent, 'Win')) {\r\n \t\t$is_winIE = true;\r\n-\t} elseif (str_contains($userAgent, 'MSIE') && str_contains($userAgent, 'Mac')) {\r\n+\t} elseif (str_contains((string) $userAgent, 'MSIE') && str_contains((string) $userAgent, 'Mac')) {\r\n \t\t$is_macIE = true;\r\n-\t} elseif (str_contains($userAgent, 'Gecko')) {\r\n+\t} elseif (str_contains((string) $userAgent, 'Gecko')) {\r\n \t\t$is_gecko = true;\r\n-\t} elseif (str_contains($userAgent, 'Opera')) {\r\n+\t} elseif (str_contains((string) $userAgent, 'Opera')) {\r\n \t\t$is_opera = true;\r\n-\t} elseif (str_contains($userAgent, 'Nav') && str_contains($userAgent, 'Mozilla/4.')) {\r\n+\t} elseif (str_contains((string) $userAgent, 'Nav') && str_contains((string) $userAgent, 'Mozilla/4.')) {\r\n \t\t$is_NS4 = true;\r\n \t}\r\n }\r\n@@ -117,7 +117,7 @@\n  * @global bool $is_apache\r\n  */\r\n $serverSoftware = $_SERVER['SERVER_SOFTWARE'] ?? '';\r\n-$serverSoftwareLower = strtolower($serverSoftware);\r\n+$serverSoftwareLower = strtolower((string) $serverSoftware);\r\n \r\n $is_apache = str_contains($serverSoftwareLower, 'apache') || str_contains($serverSoftwareLower, 'litespeed');\r\n \r\n@@ -140,9 +140,9 @@\n $is_iis7 = false;\r\n \r\n if ($is_IIS) {\r\n-\t$iisPosition = stripos($serverSoftware, 'Microsoft-IIS/');\r\n+\t$iisPosition = stripos((string) $serverSoftware, 'Microsoft-IIS/');\r\n \tif ($iisPosition !== false) {\r\n-\t\t$iisVersion = (int) substr($serverSoftware, $iisPosition + 14);\r\n+\t\t$iisVersion = (int) substr((string) $serverSoftware, $iisPosition + 14);\r\n \t\t$is_iis7 = $iisVersion >= 7;\r\n \t}\r\n }\r\n@@ -164,15 +164,15 @@\n \tif ($userAgent === '') {\r\n \t\t$is_mobile = false;\r\n \t} else {\r\n-\t\t$is_mobile = str_contains($userAgent, 'Mobile')\r\n-\t\t\t|| str_contains($userAgent, 'Android')\r\n-\t\t\t|| str_contains($userAgent, 'Silk/')\r\n-\t\t\t|| str_contains($userAgent, 'Kindle')\r\n-\t\t\t|| str_contains($userAgent, 'BlackBerry')\r\n-\t\t\t|| str_contains($userAgent, 'Opera Mini')\r\n-\t\t\t|| str_contains($userAgent, 'Opera Mobi');\r\n+\t\t$is_mobile = str_contains((string) $userAgent, 'Mobile')\r\n+\t\t\t|| str_contains((string) $userAgent, 'Android')\r\n+\t\t\t|| str_contains((string) $userAgent, 'Silk/')\r\n+\t\t\t|| str_contains((string) $userAgent, 'Kindle')\r\n+\t\t\t|| str_contains((string) $userAgent, 'BlackBerry')\r\n+\t\t\t|| str_contains((string) $userAgent, 'Opera Mini')\r\n+\t\t\t|| str_contains((string) $userAgent, 'Opera Mobi');\r\n \t}\r\n \r\n \treturn $is_mobile;\r\n }\r\n ?>\n\\ No newline at end of file\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/093_vars.php"
+    ]
+  }
+}

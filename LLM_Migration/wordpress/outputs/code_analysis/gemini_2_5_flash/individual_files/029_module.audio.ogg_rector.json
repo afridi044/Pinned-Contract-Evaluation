@@ -1,0 +1,17 @@
+{
+  "error": "Syntax error, unexpected T_STATIC, Syntax error, unexpected T_VARIABLE, expecting ')', Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM (line 353)",
+  "error_file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/029_module.audio.ogg.php",
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 0,
+      "errors": 1
+    },
+    "errors": [
+      {
+        "message": "Syntax error, unexpected T_STATIC, Syntax error, unexpected T_VARIABLE, expecting ')', Syntax error, unexpected T_ARRAY, expecting T_PAAMAYIM_NEKUDOTAYIM",
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/029_module.audio.ogg.php",
+        "line": 353
+      }
+    ]
+  }
+}

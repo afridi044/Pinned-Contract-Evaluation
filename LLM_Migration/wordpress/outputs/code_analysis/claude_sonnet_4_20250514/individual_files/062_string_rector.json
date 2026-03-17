@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\062_string.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 133
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:18:55.777952",
+    "file_size_kb": 8.8,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/062_string.php",
+        "diff": "--- Original\n+++ New\n@@ -99,7 +99,7 @@\n             switch ($diff[$i][0] ?? '') {\r\n                 case ' ':\r\n                     do {\r\n-                        $diff1[] = substr($diff[$i], 1);\r\n+                        $diff1[] = substr((string) $diff[$i], 1);\r\n                     } while (++$i < $end && ($diff[$i][0] ?? '') === ' ');\r\n                     $edits[] = new Text_Diff_Op_copy($diff1);\r\n                     break;\r\n@@ -107,7 +107,7 @@\n                 case '+':\r\n                     // get all new lines\r\n                     do {\r\n-                        $diff1[] = substr($diff[$i], 1);\r\n+                        $diff1[] = substr((string) $diff[$i], 1);\r\n                     } while (++$i < $end && ($diff[$i][0] ?? '') === '+');\r\n                     $edits[] = new Text_Diff_Op_add($diff1);\r\n                     break;\r\n@@ -116,11 +116,11 @@\n                     // get changed or removed lines\r\n                     $diff2 = [];\r\n                     do {\r\n-                        $diff1[] = substr($diff[$i], 1);\r\n+                        $diff1[] = substr((string) $diff[$i], 1);\r\n                     } while (++$i < $end && ($diff[$i][0] ?? '') === '-');\r\n \r\n                     while ($i < $end && ($diff[$i][0] ?? '') === '+') {\r\n-                        $diff2[] = substr($diff[$i++], 1);\r\n+                        $diff2[] = substr((string) $diff[$i++], 1);\r\n                     }\r\n                     if (count($diff2) === 0) {\r\n                         $edits[] = new Text_Diff_Op_delete($diff1);\r\n@@ -154,16 +154,16 @@\n             while ($i >= $max_i && $j >= $max_j) {\r\n                 // Find the boundaries of the diff output of the two files\r\n                 for ($i = $j;\r\n-                     $i < $end && str_starts_with($diff[$i], '***');\r\n+                     $i < $end && str_starts_with((string) $diff[$i], '***');\r\n                      $i++);\r\n                 for ($max_i = $i;\r\n-                     $max_i < $end && !str_starts_with($diff[$max_i], '---');\r\n+                     $max_i < $end && !str_starts_with((string) $diff[$max_i], '---');\r\n                      $max_i++);\r\n                 for ($j = $max_i;\r\n-                     $j < $end && str_starts_with($diff[$j], '---');\r\n+                     $j < $end && str_starts_with((string) $diff[$j], '---');\r\n                      $j++);\r\n                 for ($max_j = $j;\r\n-                     $max_j < $end && !str_starts_with($diff[$max_j], '***');\r\n+                     $max_j < $end && !str_starts_with((string) $diff[$max_j], '***');\r\n                      $max_j++);\r\n             }\r\n \r\n@@ -171,8 +171,8 @@\n             $array = [];\r\n             while ($i < $max_i &&\r\n                    $j < $max_j &&\r\n-                   strcmp($diff[$i], $diff[$j]) === 0) {\r\n-                $array[] = substr($diff[$i], 2);\r\n+                   strcmp((string) $diff[$i], (string) $diff[$j]) === 0) {\r\n+                $array[] = substr((string) $diff[$i], 2);\r\n                 $i++;\r\n                 $j++;\r\n             }\r\n@@ -181,7 +181,7 @@\n                 if ($diff[$i] !== '' && ($diff[$i][0] ?? '') !== ' ') {\r\n                     break;\r\n                 }\r\n-                $array[] = substr($diff[$i++], 2);\r\n+                $array[] = substr((string) $diff[$i++], 2);\r\n             }\r\n \r\n             while ($j < $max_j && ($max_i - $i) <= 1) {\r\n@@ -188,7 +188,7 @@\n                 if ($diff[$j] !== '' && ($diff[$j][0] ?? '') !== ' ') {\r\n                     break;\r\n                 }\r\n-                $array[] = substr($diff[$j++], 2);\r\n+                $array[] = substr((string) $diff[$j++], 2);\r\n             }\r\n             if (count($array) > 0) {\r\n                 $edits[] = new Text_Diff_Op_copy($array);\r\n@@ -200,9 +200,9 @@\n                     case '!':\r\n                         $diff2 = [];\r\n                         do {\r\n-                            $diff1[] = substr($diff[$i], 2);\r\n+                            $diff1[] = substr((string) $diff[$i], 2);\r\n                             if ($j < $max_j && ($diff[$j][0] ?? '') === '!') {\r\n-                                $diff2[] = substr($diff[$j++], 2);\r\n+                                $diff2[] = substr((string) $diff[$j++], 2);\r\n                             }\r\n                         } while (++$i < $max_i && ($diff[$i][0] ?? '') === '!');\r\n                         $edits[] = new Text_Diff_Op_change($diff1, $diff2);\r\n@@ -210,7 +210,7 @@\n \r\n                     case '+':\r\n                         do {\r\n-                            $diff1[] = substr($diff[$i], 2);\r\n+                            $diff1[] = substr((string) $diff[$i], 2);\r\n                         } while (++$i < $max_i && ($diff[$i][0] ?? '') === '+');\r\n                         $edits[] = new Text_Diff_Op_add($diff1);\r\n                         break;\r\n@@ -217,7 +217,7 @@\n \r\n                     case '-':\r\n                         do {\r\n-                            $diff1[] = substr($diff[$i], 2);\r\n+                            $diff1[] = substr((string) $diff[$i], 2);\r\n                         } while (++$i < $max_i && ($diff[$i][0] ?? '') === '-');\r\n                         $edits[] = new Text_Diff_Op_delete($diff1);\r\n                         break;\r\n@@ -229,7 +229,7 @@\n                 switch ($diff[$j][0] ?? '') {\r\n                     case '+':\r\n                         do {\r\n-                            $diff2[] = substr($diff[$j++], 2);\r\n+                            $diff2[] = substr((string) $diff[$j++], 2);\r\n                         } while ($j < $max_j && ($diff[$j][0] ?? '') === '+');\r\n                         $edits[] = new Text_Diff_Op_add($diff2);\r\n                         break;\r\n@@ -236,7 +236,7 @@\n \r\n                     case '-':\r\n                         do {\r\n-                            $diff2[] = substr($diff[$j++], 2);\r\n+                            $diff2[] = substr((string) $diff[$j++], 2);\r\n                         } while ($j < $max_j && ($diff[$j][0] ?? '') === '-');\r\n                         $edits[] = new Text_Diff_Op_delete($diff2);\r\n                         break;\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/062_string.php"
+    ]
+  }
+}

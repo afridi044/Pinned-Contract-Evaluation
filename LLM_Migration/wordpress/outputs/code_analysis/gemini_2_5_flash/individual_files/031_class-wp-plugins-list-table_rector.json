@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\031_class-wp-plugins-list-table.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_80": 1,
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 100
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:23:01.700277",
+    "file_size_kb": 24.6,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/031_class-wp-plugins-list-table.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * Plugins List Table class.\r\n@@ -158,7 +158,7 @@\n \r\n \t\tif ( $s ) {\r\n \t\t\t$status           = 'search';\r\n-\t\t\t$plugins['search'] = array_filter( $plugins['all'], [ $this, '_search_callback' ] );\r\n+\t\t\t$plugins['search'] = array_filter( $plugins['all'], $this->_search_callback(...) );\r\n \t\t}\r\n \r\n \t\t$totals = [];\r\n@@ -179,10 +179,10 @@\n \t\t$total_this_page = $totals[ $status ];\r\n \r\n \t\tif ( $orderby ) {\r\n-\t\t\t$orderby = ucfirst( $orderby );\r\n-\t\t\t$order   = strtoupper( $order );\r\n+\t\t\t$orderby = ucfirst( (string) $orderby );\r\n+\t\t\t$order   = strtoupper( (string) $order );\r\n \r\n-\t\t\tuasort( $this->items, [ $this, '_order_callback' ] );\r\n+\t\t\tuasort( $this->items, $this->_order_callback(...) );\r\n \t\t}\r\n \r\n \t\t$plugins_per_page = $this->get_items_per_page( str_replace( '-', '_', $screen->id . '_per_page' ), 999 );\r\n@@ -204,7 +204,7 @@\n \t\t$term ??= wp_unslash( $_REQUEST['s'] );\r\n \r\n \t\tforeach ( $plugin as $value ) {\r\n-\t\t\tif ( false !== stripos( strip_tags( $value ), $term ) ) {\r\n+\t\t\tif ( false !== stripos( strip_tags( (string) $value ), (string) $term ) ) {\r\n \t\t\t\treturn true;\r\n \t\t\t}\r\n \t\t}\r\n@@ -262,32 +262,16 @@\n \t\t\t\tcontinue;\r\n \t\t\t}\r\n \r\n-\t\t\tswitch ( $type ) {\r\n-\t\t\t\tcase 'all':\r\n-\t\t\t\t\t$text = _nx( 'All <span class=\"count\">(%s)</span>', 'All <span class=\"count\">(%s)</span>', $count, 'plugins' );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'active':\r\n-\t\t\t\t\t$text = _n( 'Active <span class=\"count\">(%s)</span>', 'Active <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'recently_activated':\r\n-\t\t\t\t\t$text = _n( 'Recently Active <span class=\"count\">(%s)</span>', 'Recently Active <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'inactive':\r\n-\t\t\t\t\t$text = _n( 'Inactive <span class=\"count\">(%s)</span>', 'Inactive <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'mustuse':\r\n-\t\t\t\t\t$text = _n( 'Must-Use <span class=\"count\">(%s)</span>', 'Must-Use <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'dropins':\r\n-\t\t\t\t\t$text = _n( 'Drop-ins <span class=\"count\">(%s)</span>', 'Drop-ins <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tcase 'upgrade':\r\n-\t\t\t\t\t$text = _n( 'Update Available <span class=\"count\">(%s)</span>', 'Update Available <span class=\"count\">(%s)</span>', $count );\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t\tdefault:\r\n-\t\t\t\t\t$text = ''; // Should not happen with defined types.\r\n-\t\t\t\t\tbreak;\r\n-\t\t\t}\r\n+\t\t\t$text = match ($type) {\n+                'all' => _nx( 'All <span class=\"count\">(%s)</span>', 'All <span class=\"count\">(%s)</span>', $count, 'plugins' ),\n+                'active' => _n( 'Active <span class=\"count\">(%s)</span>', 'Active <span class=\"count\">(%s)</span>', $count ),\n+                'recently_activated' => _n( 'Recently Active <span class=\"count\">(%s)</span>', 'Recently Active <span class=\"count\">(%s)</span>', $count ),\n+                'inactive' => _n( 'Inactive <span class=\"count\">(%s)</span>', 'Inactive <span class=\"count\">(%s)</span>', $count ),\n+                'mustuse' => _n( 'Must-Use <span class=\"count\">(%s)</span>', 'Must-Use <span class=\"count\">(%s)</span>', $count ),\n+                'dropins' => _n( 'Drop-ins <span class=\"count\">(%s)</span>', 'Drop-ins <span class=\"count\">(%s)</span>', $count ),\n+                'upgrade' => _n( 'Update Available <span class=\"count\">(%s)</span>', 'Update Available <span class=\"count\">(%s)</span>', $count ),\n+                default => '',\n+            };\r\n \r\n \t\t\tif ( 'search' !== $type ) {\r\n \t\t\t\t$status_links[ $type ] = sprintf(\r\n@@ -503,7 +487,7 @@\n \t\t$actions = apply_filters( $prefix . \"plugin_action_links_$plugin_file\", $actions, $plugin_file, $plugin_data, $context );\r\n \r\n \t\t$class       = $is_active ? 'active' : 'inactive';\r\n-\t\t$checkbox_id = 'checkbox_' . md5( $plugin_data['Name'] );\r\n+\t\t$checkbox_id = 'checkbox_' . md5( (string) $plugin_data['Name'] );\r\n \t\tif ( in_array( $status, [ 'mustuse', 'dropins' ], true ) ) {\r\n \t\t\t$checkbox = '';\r\n \t\t} else {\r\n@@ -511,7 +495,7 @@\n \t\t\t\t. \"<input type='checkbox' name='checked[]' value='\" . esc_attr( $plugin_file ) . \"' id='\" . $checkbox_id . \"' />\";\r\n \t\t}\r\n \t\tif ( 'dropins' !== $context ) {\r\n-\t\t\t$description = '<p>' . ( $plugin_data['Description'] ? $plugin_data['Description'] : '&nbsp;' ) . '</p>';\r\n+\t\t\t$description = '<p>' . ( $plugin_data['Description'] ?: '&nbsp;' ) . '</p>';\r\n \t\t\t$plugin_name = $plugin_data['Name'];\r\n \t\t}\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\Ternary\\TernaryToElvisRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/031_class-wp-plugins-list-table.php"
+    ]
+  }
+}

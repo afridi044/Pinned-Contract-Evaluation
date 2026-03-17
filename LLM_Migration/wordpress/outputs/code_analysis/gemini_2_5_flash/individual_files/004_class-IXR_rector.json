@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\004_class-IXR.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\ClassMethod\\AddParamBasedOnParentClassMethodRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+      "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 138
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:21:09.535207",
+    "file_size_kb": 35.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/004_class-IXR.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * IXR - The Incutio XML-RPC Library\r\n@@ -46,12 +46,10 @@\n  * @since 1.5.0\r\n  */\r\n class IXR_Value {\r\n-    public mixed $data;\r\n     public string $type;\r\n \r\n-    public function __construct(mixed $data, string|false $type = false)\r\n+    public function __construct(public mixed $data, string|false $type = false)\r\n     {\r\n-        $this->data = $data;\r\n         if (!$type) {\r\n             $type = $this->calculateType();\r\n         }\r\n@@ -185,7 +183,6 @@\n  */\r\n class IXR_Message\r\n {\r\n-    public string $message;\r\n     public ?string $messageType = null;  // methodCall / methodResponse / fault\r\n     public ?int $faultCode = null;\r\n     public ?string $faultString = null;\r\n@@ -196,16 +193,15 @@\n     private array $_arraystructs = [];   // The stack used to keep track of the current array/struct\r\n     private array $_arraystructstypes = []; // Stack keeping track of if things are structs or array\r\n     private array $_currentStructName = [];  // A stack as well\r\n-    private mixed $_param; // Not used in this segment, kept for completeness\r\n-    private mixed $_value; // Not used in this segment, kept for completeness\r\n+    private readonly mixed $_param; // Not used in this segment, kept for completeness\r\n+    private readonly mixed $_value; // Not used in this segment, kept for completeness\r\n     private ?string $_currentTag = null;\r\n     private string $_currentTagContents = '';\r\n     // The XML parser\r\n     private ?XMLParser $_parser = null;\r\n \r\n-    public function __construct(string $message)\r\n-    {\r\n-        $this->message = $message;\r\n+    public function __construct(public string $message)\n+    {\n     }\r\n \r\n     public function parse(): bool\r\n@@ -594,14 +590,10 @@\n  */\r\n class IXR_Request\r\n {\r\n-    public string $method;\r\n-    public array $args;\r\n     public string $xml;\r\n \r\n-    public function __construct(string $method, array $args)\r\n+    public function __construct(public string $method, public array $args)\r\n     {\r\n-        $this->method = $method;\r\n-        $this->args = $args;\r\n         $this->xml = <<<EOD\r\n <?xml version=\"1.0\"?>\r\n <methodCall>\r\n@@ -645,13 +637,12 @@\n     public mixed $response;\r\n     public IXR_Message|false $message = false;\r\n     public bool $debug = false;\r\n-    public int $timeout;\r\n     public array $headers = [];\r\n \r\n     // Storage place for an error message\r\n     public IXR_Error|false $error = false;\r\n \r\n-    public function __construct(string $server, string|false $path = false, int $port = 80, int $timeout = 15)\r\n+    public function __construct(string $server, string|false $path = false, int $port = 80, public int $timeout = 15)\r\n     {\r\n         if (!$path) {\r\n             // Assume we have been given a URL instead\r\n@@ -674,7 +665,6 @@\n             $this->port = $port;\r\n         }\r\n         $this->useragent = 'The Incutio XML-RPC PHP Library';\r\n-        $this->timeout = $timeout;\r\n     }\r\n \r\n     function query(...$args): bool\r\n@@ -792,12 +782,10 @@\n  */\r\n class IXR_Error\r\n {\r\n-    public int $code;\r\n     public string $message;\r\n \r\n-    public function __construct(int $code, string $message)\r\n+    public function __construct(public int $code, string $message)\r\n     {\r\n-        $this->code = $code;\r\n         $this->message = htmlspecialchars($message);\r\n     }\r\n \r\n@@ -897,11 +885,8 @@\n  */\r\n class IXR_Base64\r\n {\r\n-    public string $data;\r\n-\r\n-    public function __construct(string $data)\r\n-    {\r\n-        $this->data = $data;\r\n+    public function __construct(public string $data)\n+    {\n     }\r\n \r\n     function getXml(): string\r\n@@ -963,6 +948,7 @@\n         $this->help[$method] = $help;\r\n     }\r\n \r\n+    #[\\Override]\n     function call(string $methodname, mixed $args): mixed\r\n     {\r\n         // Make sure it's in an array\r\n@@ -1097,9 +1083,10 @@\n         $this->calls[] = $struct;\r\n     }\r\n \r\n-    public function query(): mixed\r\n+    #[\\Override]\n+    public function query(...$args): mixed\r\n     {\r\n         // Prepare multicall, then call the parent::query() method\r\n         return parent::query('system.multicall', $this->calls);\r\n     }\r\n }\n\\ No newline at end of file\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\ClassMethod\\AddParamBasedOnParentClassMethodRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/004_class-IXR.php"
+    ]
+  }
+}

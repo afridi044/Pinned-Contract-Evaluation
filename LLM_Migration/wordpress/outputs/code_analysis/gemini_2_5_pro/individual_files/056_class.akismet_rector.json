@@ -1,0 +1,40 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\056_class.akismet.php",
+  "rector_analysis": {
+    "php_version_changes": 2,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 2
+    },
+    "has_diff": true,
+    "diff_line_count": 80
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:30:21.180659",
+    "file_size_kb": 36.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/056_class.akismet.php",
+        "diff": "--- Original\n+++ New\n@@ -27,26 +27,26 @@\n \t{\r\n \t\tself::$initiated = true;\r\n \r\n-\t\tadd_action('wp_insert_comment', [self::class, 'auto_check_update_meta'], 10, 2);\r\n-\t\tadd_action('preprocess_comment', [self::class, 'auto_check_comment'], 1);\r\n-\t\tadd_action('akismet_scheduled_delete', [self::class, 'delete_old_comments']);\r\n-\t\tadd_action('akismet_scheduled_delete', [self::class, 'delete_old_comments_meta']);\r\n-\t\tadd_action('akismet_schedule_cron_recheck', [self::class, 'cron_recheck']);\r\n+\t\tadd_action('wp_insert_comment', self::auto_check_update_meta(...), 10, 2);\r\n+\t\tadd_action('preprocess_comment', self::auto_check_comment(...), 1);\r\n+\t\tadd_action('akismet_scheduled_delete', self::delete_old_comments(...));\r\n+\t\tadd_action('akismet_scheduled_delete', self::delete_old_comments_meta(...));\r\n+\t\tadd_action('akismet_schedule_cron_recheck', self::cron_recheck(...));\r\n \r\n \t\t$akismet_comment_nonce_option = apply_filters('akismet_comment_nonce', get_option('akismet_comment_nonce'));\r\n \r\n \t\tif ($akismet_comment_nonce_option === 'true' || $akismet_comment_nonce_option === '') {\r\n-\t\t\tadd_action('comment_form', [self::class, 'add_comment_nonce'], 1);\r\n+\t\t\tadd_action('comment_form', self::add_comment_nonce(...), 1);\r\n \t\t}\r\n \r\n-\t\tadd_action('admin_head-edit-comments.php', [self::class, 'load_form_js']);\r\n-\t\tadd_action('comment_form', [self::class, 'load_form_js']);\r\n-\t\tadd_action('comment_form', [self::class, 'inject_ak_js']);\r\n+\t\tadd_action('admin_head-edit-comments.php', self::load_form_js(...));\r\n+\t\tadd_action('comment_form', self::load_form_js(...));\r\n+\t\tadd_action('comment_form', self::inject_ak_js(...));\r\n \r\n-\t\tadd_filter('comment_moderation_recipients', [self::class, 'disable_moderation_emails_if_unreachable'], 1000, 2);\r\n-\t\tadd_filter('pre_comment_approved', [self::class, 'last_comment_status'], 10, 2);\r\n+\t\tadd_filter('comment_moderation_recipients', self::disable_moderation_emails_if_unreachable(...), 1000, 2);\r\n+\t\tadd_filter('pre_comment_approved', self::last_comment_status(...), 10, 2);\r\n \r\n-\t\tadd_action('transition_comment_status', [self::class, 'transition_comment_status'], 10, 3);\r\n+\t\tadd_action('transition_comment_status', self::transition_comment_status(...), 10, 3);\r\n \r\n \t\tif ($GLOBALS['wp_version'] === '3.0.5') {\r\n \t\t\tremove_filter('comment_text', 'wp_kses_data');\r\n@@ -371,7 +371,7 @@\n \r\n \t\t$history = get_comment_meta($comment_id, 'akismet_history', false);\r\n \t\tif (is_array($history) && !empty($history)) {\r\n-\t\t\tusort($history, [self::class, '_cmp_time']);\r\n+\t\t\tusort($history, self::_cmp_time(...));\r\n \t\t}\r\n \t\treturn $history;\r\n \t}\r\n@@ -620,7 +620,7 @@\n \t\t\t$comment_id = (int) $comment_id_str;\r\n \t\t\t// if the comment no longer exists, or is too old, remove the meta entry from the queue to avoid getting stuck\r\n \t\t\t$comment = get_comment($comment_id);\r\n-\t\t\tif (!$comment || strtotime($comment->comment_date_gmt) < strtotime(\"-15 days\")) {\r\n+\t\t\tif (!$comment || strtotime((string) $comment->comment_date_gmt) < strtotime(\"-15 days\")) {\r\n \t\t\t\tdelete_comment_meta($comment_id, 'akismet_error');\r\n \t\t\t\tdelete_comment_meta($comment_id, 'akismet_delayed_moderation_email');\r\n \t\t\t\tcontinue;\r\n@@ -663,7 +663,7 @@\n \t\t\t} else {\r\n \t\t\t\t// If this comment has been pending moderation for longer than MAX_DELAY_BEFORE_MODERATION_EMAIL,\r\n \t\t\t\t// send a moderation email now.\r\n-\t\t\t\tif ((intval(gmdate('U')) - strtotime($comment->comment_date_gmt)) < self::MAX_DELAY_BEFORE_MODERATION_EMAIL) {\r\n+\t\t\t\tif ((intval(gmdate('U')) - strtotime((string) $comment->comment_date_gmt)) < self::MAX_DELAY_BEFORE_MODERATION_EMAIL) {\r\n \t\t\t\t\tdelete_comment_meta($comment_id, 'akismet_delayed_moderation_email');\r\n \t\t\t\t\twp_notify_moderator($comment_id);\r\n \t\t\t\t}\r\n@@ -929,8 +929,8 @@\n \t\t// WP < 3.3 can't enqueue a script this late in the game and still have it appear in the footer.\r\n \t\t// Once we drop support for everything pre-3.3, this can change back to a single enqueue call.\r\n \t\twp_register_script('akismet-form', AKISMET__PLUGIN_URL . '_inc/form.js', [], AKISMET_VERSION, true);\r\n-\t\tadd_action('wp_footer', [self::class, 'print_form_js']);\r\n-\t\tadd_action('admin_footer', [self::class, 'print_form_js']);\r\n+\t\tadd_action('wp_footer', self::print_form_js(...));\r\n+\t\tadd_action('admin_footer', self::print_form_js(...));\r\n \t}\r\n \r\n \tpublic static function print_form_js(): void\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/056_class.akismet.php"
+    ]
+  }
+}

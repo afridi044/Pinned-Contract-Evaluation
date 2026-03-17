@@ -1,0 +1,45 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\054_nav-menu.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\CodeQuality\\Rector\\ClassMethod\\OptionalParametersAfterRequiredRector",
+      "Rector\\Php70\\Rector\\StmtsAwareInterface\\IfIssetToCoalescingRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 44
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:18:30.295318",
+    "file_size_kb": 29.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/054_nav-menu.php",
+        "diff": "--- Original\n+++ New\n@@ -123,10 +123,7 @@\n  */\r\n function get_registered_nav_menus() {\r\n \tglobal $_wp_registered_nav_menus;\r\n-\tif ( isset( $_wp_registered_nav_menus ) ) {\r\n-\t\treturn $_wp_registered_nav_menus;\r\n-\t}\r\n-\treturn [];\r\n+\treturn $_wp_registered_nav_menus ?? [];\r\n }\r\n \r\n /**\r\n@@ -245,8 +242,8 @@\n \t$_menu = wp_get_nav_menu_object( $menu_id );\r\n \r\n \t$args = [\r\n-\t\t'description' => ( isset( $menu_data['description'] ) ? $menu_data['description']  : '' ),\r\n-\t\t'name'        => ( isset( $menu_data['menu-name']   ) ? $menu_data['menu-name']    : '' ),\r\n+\t\t'description' => ( $menu_data['description'] ?? '' ),\r\n+\t\t'name'        => ( $menu_data['menu-name'] ?? '' ),\r\n \t\t'parent'      => ( isset( $menu_data['parent']      ) ? (int) $menu_data['parent'] : 0  ),\r\n \t\t'slug'        => null,\r\n \t];\r\n@@ -442,7 +439,7 @@\n \tupdate_post_meta( $menu_item_db_id, '_menu_item_object', sanitize_key($args['menu-item-object']) );\r\n \tupdate_post_meta( $menu_item_db_id, '_menu_item_target', sanitize_key($args['menu-item-target']) );\r\n \r\n-\t$args['menu-item-classes'] = array_map( 'sanitize_html_class', explode( ' ', $args['menu-item-classes'] ) );\r\n+\t$args['menu-item-classes'] = array_map( 'sanitize_html_class', explode( ' ', (string) $args['menu-item-classes'] ) );\r\n \t$args['menu-item-xfn'] = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $args['menu-item-xfn'] ) ) );\r\n \tupdate_post_meta( $menu_item_db_id, '_menu_item_classes', $args['menu-item-classes'] );\r\n \tupdate_post_meta( $menu_item_db_id, '_menu_item_xfn', $args['menu-item-xfn'] );\r\n@@ -863,7 +860,7 @@\n  * @param int $object_id The ID of the original object being trashed.\r\n  *\r\n  */\r\n-function _wp_delete_tax_menu_item( int $object_id = 0, $tt_id, $taxonomy ): void {\r\n+function _wp_delete_tax_menu_item( $tt_id, $taxonomy, int $object_id = 0 ): void {\r\n \t$object_id = (int) $object_id;\r\n \r\n \t$menu_item_ids = wp_get_associated_nav_menu_items( $object_id, 'taxonomy', $taxonomy );\r\n",
+        "applied_rectors": [
+          "Rector\\CodeQuality\\Rector\\ClassMethod\\OptionalParametersAfterRequiredRector",
+          "Rector\\Php70\\Rector\\StmtsAwareInterface\\IfIssetToCoalescingRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/054_nav-menu.php"
+    ]
+  }
+}

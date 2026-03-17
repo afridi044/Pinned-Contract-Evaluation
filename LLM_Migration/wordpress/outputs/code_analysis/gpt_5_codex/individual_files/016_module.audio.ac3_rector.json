@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\016_module.audio.ac3.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_56": 1,
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 96
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:33:42.204862",
+    "file_size_kb": 17.2,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/016_module.audio.ac3.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n \r\n declare(strict_types=1);\r\n@@ -37,7 +37,7 @@\n         $this->fseek($info['avdataoffset']);\r\n         $this->AC3header['syncinfo'] = $this->fread(5);\r\n \r\n-        if (strpos($this->AC3header['syncinfo'], self::SYNCWORD) === 0) {\r\n+        if (str_starts_with((string) $this->AC3header['syncinfo'], self::SYNCWORD)) {\r\n             $thisfile_ac3_raw['synchinfo']['synchword'] = self::SYNCWORD;\r\n             $offset = 2;\r\n         } else {\r\n@@ -46,7 +46,7 @@\n                 return (bool) $this->error(\r\n                     'Expecting \"' . getid3_lib::PrintHexBytes(self::SYNCWORD) .\r\n                     '\" at offset ' . $info['avdataoffset'] . ', found \"' .\r\n-                    getid3_lib::PrintHexBytes(substr($this->AC3header['syncinfo'], 0, 2)) . '\"'\r\n+                    getid3_lib::PrintHexBytes(substr((string) $this->AC3header['syncinfo'], 0, 2)) . '\"'\r\n                 );\r\n             }\r\n             $offset = 0;\r\n@@ -57,8 +57,8 @@\n         $info['audio']['bitrate_mode'] = 'cbr';\r\n         $info['audio']['lossless'] = false;\r\n \r\n-        $thisfile_ac3_raw['synchinfo']['crc1'] = getid3_lib::LittleEndian2Int(substr($this->AC3header['syncinfo'], $offset, 2));\r\n-        $ac3_synchinfo_fscod_frmsizecod = getid3_lib::LittleEndian2Int(substr($this->AC3header['syncinfo'], ($offset + 2), 1));\r\n+        $thisfile_ac3_raw['synchinfo']['crc1'] = getid3_lib::LittleEndian2Int(substr((string) $this->AC3header['syncinfo'], $offset, 2));\r\n+        $ac3_synchinfo_fscod_frmsizecod = getid3_lib::LittleEndian2Int(substr((string) $this->AC3header['syncinfo'], ($offset + 2), 1));\r\n         $thisfile_ac3_raw['synchinfo']['fscod'] = ($ac3_synchinfo_fscod_frmsizecod & 0xC0) >> 6;\r\n         $thisfile_ac3_raw['synchinfo']['frmsizecod'] = ($ac3_synchinfo_fscod_frmsizecod & 0x3F);\r\n \r\n@@ -94,21 +94,11 @@\n             }\r\n         }\r\n \r\n-        switch ($thisfile_ac3_raw_bsi['acmod']) {\r\n-            case 0:\r\n-            case 1:\r\n-                $info['audio']['channelmode'] = 'mono';\r\n-                break;\r\n-\r\n-            case 3:\r\n-            case 4:\r\n-                $info['audio']['channelmode'] = 'stereo';\r\n-                break;\r\n-\r\n-            default:\r\n-                $info['audio']['channelmode'] = 'surround';\r\n-                break;\r\n-        }\r\n+        $info['audio']['channelmode'] = match ($thisfile_ac3_raw_bsi['acmod']) {\n+            0, 1 => 'mono',\n+            3, 4 => 'stereo',\n+            default => 'surround',\n+        };\r\n         $info['audio']['channels'] = $thisfile_ac3['num_channels'];\r\n \r\n         if ($thisfile_ac3_raw_bsi['acmod'] & 0x01) {\r\n@@ -211,7 +201,7 @@\n \r\n     private function readHeaderBSI(int $length): int\r\n     {\r\n-        $data = substr($this->AC3header['bsi'], $this->BSIoffset, $length);\r\n+        $data = substr((string) $this->AC3header['bsi'], $this->BSIoffset, $length);\r\n         $this->BSIoffset += $length;\r\n \r\n         return bindec($data);\r\n@@ -275,9 +265,9 @@\n \r\n         if ($centerMixLevelLookup === null) {\r\n             $centerMixLevelLookup = [\r\n-                0 => pow(2, -3.0 / 6),\r\n-                1 => pow(2, -4.5 / 6),\r\n-                2 => pow(2, -6.0 / 6),\r\n+                0 => 2 ** (-3.0 / 6),\r\n+                1 => 2 ** (-4.5 / 6),\r\n+                2 => 2 ** (-6.0 / 6),\r\n                 3 => 'reserved',\r\n             ];\r\n         }\r\n@@ -291,8 +281,8 @@\n \r\n         if ($surroundMixLevelLookup === null) {\r\n             $surroundMixLevelLookup = [\r\n-                0 => pow(2, -3.0 / 6),\r\n-                1 => pow(2, -6.0 / 6),\r\n+                0 => 2 ** (-3.0 / 6),\r\n+                1 => 2 ** (-6.0 / 6),\r\n                 2 => 0,\r\n                 3 => 'reserved',\r\n             ];\r\n",
+        "applied_rectors": [
+          "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/016_module.audio.ac3.php"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\093_vars.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 124
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:42:32.829931",
+    "file_size_kb": 5.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/093_vars.php",
+        "diff": "--- Original\n+++ New\n@@ -26,11 +26,11 @@\n if (is_admin()) {\r\n     // wp-admin pages are checked more carefully\r\n     if (is_network_admin()) {\r\n-        preg_match('#/wp-admin/network/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches);\r\n+        preg_match('#/wp-admin/network/?(.*?)$#i', (string) $_SERVER['PHP_SELF'], $self_matches);\r\n     } elseif (is_user_admin()) {\r\n-        preg_match('#/wp-admin/user/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches);\r\n+        preg_match('#/wp-admin/user/?(.*?)$#i', (string) $_SERVER['PHP_SELF'], $self_matches);\r\n     } else {\r\n-        preg_match('#/wp-admin/?(.*?)$#i', $_SERVER['PHP_SELF'], $self_matches);\r\n+        preg_match('#/wp-admin/?(.*?)$#i', (string) $_SERVER['PHP_SELF'], $self_matches);\r\n     }\r\n     $pagenow = $self_matches[1];\r\n     $pagenow = trim($pagenow, '/');\r\n@@ -38,14 +38,14 @@\n     if ('' === $pagenow || 'index' === $pagenow || 'index.php' === $pagenow) {\r\n         $pagenow = 'index.php';\r\n     } else {\r\n-        preg_match('#(.*?)(/|$)#', $pagenow, $self_matches);\r\n+        preg_match('#(.*?)(/|$)#', (string) $pagenow, $self_matches);\r\n         $pagenow = strtolower($self_matches[1]);\r\n-        if ('.php' !== substr($pagenow, -4, 4)) {\r\n+        if (!str_ends_with($pagenow, '.php')) {\r\n             $pagenow .= '.php'; // for Options +Multiviews: /wp-admin/themes/index.php (themes.php is queried)\r\n         }\r\n     }\r\n } else {\r\n-    if (preg_match('#([^/]+\\.php)([?/].*?)?$#i', $_SERVER['PHP_SELF'], $self_matches)) {\r\n+    if (preg_match('#([^/]+\\.php)([?/].*?)?$#i', (string) $_SERVER['PHP_SELF'], $self_matches)) {\r\n         $pagenow = strtolower($self_matches[1]);\r\n     } else {\r\n         $pagenow = 'index.php';\r\n@@ -55,10 +55,10 @@\n \r\n // Simple browser detection\r\n if (isset($_SERVER['HTTP_USER_AGENT'])) {\r\n-    if (strpos($_SERVER['HTTP_USER_AGENT'], 'Lynx') !== false) {\r\n+    if (str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Lynx')) {\r\n         $is_lynx = true;\r\n-    } elseif (stripos($_SERVER['HTTP_USER_AGENT'], 'chrome') !== false) {\r\n-        if (stripos($_SERVER['HTTP_USER_AGENT'], 'chromeframe') !== false) {\r\n+    } elseif (stripos((string) $_SERVER['HTTP_USER_AGENT'], 'chrome') !== false) {\r\n+        if (stripos((string) $_SERVER['HTTP_USER_AGENT'], 'chromeframe') !== false) {\r\n             $is_admin = is_admin();\r\n             /**\r\n              * Filter whether Google Chrome Frame should be used, if available.\r\n@@ -74,22 +74,22 @@\n         } else {\r\n             $is_chrome = true;\r\n         }\r\n-    } elseif (stripos($_SERVER['HTTP_USER_AGENT'], 'safari') !== false) {\r\n+    } elseif (stripos((string) $_SERVER['HTTP_USER_AGENT'], 'safari') !== false) {\r\n         $is_safari = true;\r\n-    } elseif ((strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false || strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== false) && strpos($_SERVER['HTTP_USER_AGENT'], 'Win') !== false) {\r\n+    } elseif ((str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'MSIE') || str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Trident')) && str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Win')) {\r\n         $is_winIE = true;\r\n-    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Mac') !== false) {\r\n+    } elseif (str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'MSIE') && str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Mac')) {\r\n         $is_macIE = true;\r\n-    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Gecko') !== false) {\r\n+    } elseif (str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Gecko')) {\r\n         $is_gecko = true;\r\n-    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== false) {\r\n+    } elseif (str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Opera')) {\r\n         $is_opera = true;\r\n-    } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Nav') !== false && strpos($_SERVER['HTTP_USER_AGENT'], 'Mozilla/4.') !== false) {\r\n+    } elseif (str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Nav') && str_contains((string) $_SERVER['HTTP_USER_AGENT'], 'Mozilla/4.')) {\r\n         $is_NS4 = true;\r\n     }\r\n }\r\n \r\n-if ($is_safari && stripos($_SERVER['HTTP_USER_AGENT'], 'mobile') !== false) {\r\n+if ($is_safari && stripos((string) $_SERVER['HTTP_USER_AGENT'], 'mobile') !== false) {\r\n     $is_iphone = true;\r\n }\r\n \r\n@@ -101,19 +101,19 @@\n  * Whether the server software is Apache or something else\r\n  * @var bool $is_apache\r\n  */\r\n-$is_apache = (strpos($_SERVER['SERVER_SOFTWARE'] ?? '', 'Apache') !== false || strpos($_SERVER['SERVER_SOFTWARE'] ?? '', 'LiteSpeed') !== false);\r\n+$is_apache = (str_contains($_SERVER['SERVER_SOFTWARE'] ?? '', 'Apache') || str_contains($_SERVER['SERVER_SOFTWARE'] ?? '', 'LiteSpeed'));\r\n \r\n /**\r\n  * Whether the server software is Nginx or something else\r\n  * @var bool $is_nginx\r\n  */\r\n-$is_nginx = (strpos($_SERVER['SERVER_SOFTWARE'] ?? '', 'nginx') !== false);\r\n+$is_nginx = (str_contains($_SERVER['SERVER_SOFTWARE'] ?? '', 'nginx'));\r\n \r\n /**\r\n  * Whether the server software is IIS or something else\r\n  * @var bool $is_IIS\r\n  */\r\n-$is_IIS = !$is_apache && (strpos($_SERVER['SERVER_SOFTWARE'] ?? '', 'Microsoft-IIS') !== false || strpos($_SERVER['SERVER_SOFTWARE'] ?? '', 'ExpressionDevServer') !== false);\r\n+$is_IIS = !$is_apache && (str_contains($_SERVER['SERVER_SOFTWARE'] ?? '', 'Microsoft-IIS') || str_contains($_SERVER['SERVER_SOFTWARE'] ?? '', 'ExpressionDevServer'));\r\n \r\n /**\r\n  * Whether the server software is IIS 7.X or greater\r\n@@ -135,13 +135,13 @@\n \r\n     if (empty($_SERVER['HTTP_USER_AGENT'] ?? '')) {\r\n         $is_mobile = false;\r\n-    } elseif (strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Mobile') !== false // many mobile devices (all iPhone, iPad, etc.)\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Android') !== false\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Silk/') !== false\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Kindle') !== false\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'BlackBerry') !== false\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Opera Mini') !== false\r\n-        || strpos($_SERVER['HTTP_USER_AGENT'] ?? '', 'Opera Mobi') !== false) {\r\n+    } elseif (str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Mobile') // many mobile devices (all iPhone, iPad, etc.)\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Android')\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Silk/')\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Kindle')\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'BlackBerry')\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Opera Mini')\r\n+        || str_contains($_SERVER['HTTP_USER_AGENT'] ?? '', 'Opera Mobi')) {\r\n         $is_mobile = true;\r\n     } else {\r\n         $is_mobile = false;\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Identical\\StrEndsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/093_vars.php"
+    ]
+  }
+}

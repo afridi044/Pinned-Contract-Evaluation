@@ -1,0 +1,52 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\029_module.audio.ogg.php",
+  "rector_analysis": {
+    "php_version_changes": 6,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+      "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_56": 1,
+      "php_70": 2,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 128
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:39:29.237976",
+    "file_size_kb": 35.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/029_module.audio.ogg.php",
+        "diff": "--- Original\n+++ New\n@@ -52,7 +52,7 @@\n         $filedata = $this->fread($oggpageinfo['page_length']);\r\n         $filedataoffset = 0;\r\n \r\n-        if (substr($filedata, 0, 4) == 'fLaC') {\r\n+        if (str_starts_with($filedata, 'fLaC')) {\r\n \r\n             $info['audio']['dataformat']   = 'flac';\r\n             $info['audio']['bitrate_mode'] = 'vbr';\r\n@@ -62,7 +62,7 @@\n \r\n             $this->ParseVorbisPageHeader($filedata, $filedataoffset, $oggpageinfo);\r\n \r\n-        } elseif (substr($filedata, 0, 8) == 'Speex   ') {\r\n+        } elseif (str_starts_with($filedata, 'Speex   ')) {\r\n \r\n             // http://www.speex.org/manual/node10.html\r\n \r\n@@ -102,11 +102,11 @@\n             $info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['reserved2']              = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 4));\r\n             $filedataoffset += 4;\r\n \r\n-            $info['speex']['speex_version'] = trim($info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['speex_version']);\r\n+            $info['speex']['speex_version'] = trim((string) $info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['speex_version']);\r\n             $info['speex']['sample_rate']   = $info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['rate'];\r\n             $info['speex']['channels']      = $info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['nb_channels'];\r\n             $info['speex']['vbr']           = (bool) $info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['vbr'];\r\n-            $info['speex']['band_type']     = $this->SpeexBandModeLookup($info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['mode']);\r\n+            $info['speex']['band_type']     = static::SpeexBandModeLookup($info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['mode']);\r\n \r\n             $info['audio']['sample_rate']   = $info['speex']['sample_rate'];\r\n             $info['audio']['channels']      = $info['speex']['channels'];\r\n@@ -114,7 +114,7 @@\n                 $info['audio']['bitrate_mode'] = 'vbr';\r\n             }\r\n \r\n-        } elseif (substr($filedata, 0, 8) == \"fishead\\x00\") {\r\n+        } elseif (str_starts_with($filedata, \"fishead\\x00\")) {\r\n \r\n             // Ogg Skeleton version 3.0 Format Specification\r\n             // http://xiph.org/ogg/doc/skeleton.html\r\n@@ -147,7 +147,7 @@\n                 $filedata = $this->fread($oggpageinfo['page_length']);\r\n                 $this->fseek($oggpageinfo['page_end_offset']);\r\n \r\n-                if (substr($filedata, 0, 8) == \"fisbone\\x00\") {\r\n+                if (str_starts_with($filedata, \"fisbone\\x00\")) {\r\n \r\n                     $filedataoffset = 8;\r\n                     $info['ogg']['skeleton']['fisbone']['raw']['message_header_offset']   = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset,  4));\r\n@@ -184,7 +184,7 @@\n                     //break;\r\n                 }\r\n             //} while ($oggpageinfo['page_seqno'] == 0);\r\n-            } while (($oggpageinfo['page_seqno'] == 0) && (substr($filedata, 0, 8) != \"fisbone\\x00\"));\r\n+            } while (($oggpageinfo['page_seqno'] == 0) && (!str_starts_with($filedata, \"fisbone\\x00\")));\r\n \r\n             $this->fseek($oggpageinfo['page_start_offset']);\r\n \r\n@@ -284,7 +284,7 @@\n \r\n                     } elseif (($info['audio']['bitrate_mode'] == 'vbr') && ($info['audio']['channels'] == 2) && ($info['audio']['sample_rate'] >= 44100) && ($info['audio']['sample_rate'] <= 48000)) {\r\n                         // Set -q N on vbr files\r\n-                        $info['audio']['encoder_options'] = '-q '.$this->get_quality_from_nominal_bitrate($info['ogg']['bitrate_nominal']);\r\n+                        $info['audio']['encoder_options'] = '-q '.static::get_quality_from_nominal_bitrate($info['ogg']['bitrate_nominal']);\r\n \r\n                     }\r\n                 }\r\n@@ -328,8 +328,8 @@\n         $filedataoffset += 4;\r\n         $info['ogg']['bitrate_min']      = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 4));\r\n         $filedataoffset += 4;\r\n-        $info['ogg']['blocksize_small']  = pow(2,  getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0x0F);\r\n-        $info['ogg']['blocksize_large']  = pow(2, (getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0xF0) >> 4);\r\n+        $info['ogg']['blocksize_small']  = 2 ** (getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0x0F);\r\n+        $info['ogg']['blocksize_large']  = 2 ** ((getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)) & 0xF0) >> 4);\r\n         $info['ogg']['stop_bit']         = getid3_lib::LittleEndian2Int(substr($filedata, $filedataoffset, 1)); // must be 1, marks end of packet\r\n \r\n         $info['audio']['bitrate_mode'] = 'vbr'; // overridden if actually abr\r\n@@ -440,7 +440,7 @@\n         $commentdataoffset += 4;\r\n         $info['avdataoffset'] = $CommentStartOffset + $commentdataoffset;\r\n \r\n-        $basicfields = array('TITLE', 'ARTIST', 'ALBUM', 'TRACKNUMBER', 'GENRE', 'DATE', 'DESCRIPTION', 'COMMENT');\r\n+        $basicfields = ['TITLE', 'ARTIST', 'ALBUM', 'TRACKNUMBER', 'GENRE', 'DATE', 'DESCRIPTION', 'COMMENT'];\r\n         $ThisFileInfo_ogg_comments_raw = &$info['ogg']['comments_raw'];\r\n         for ($i = 0; $i < $CommentsCount; $i++) {\r\n \r\n@@ -466,7 +466,7 @@\n                     $commentdata .= $AsYetUnusedData;\r\n \r\n                     //$commentdata .= $this->fread($info['ogg']['pageheader'][$oggpageinfo['page_seqno']]['page_length']);\r\n-                    $commentdata .= $this->fread($this->OggPageSegmentLength($info['ogg']['pageheader'][$VorbisCommentPage], 1));\r\n+                    $commentdata .= $this->fread(static::OggPageSegmentLength($info['ogg']['pageheader'][$VorbisCommentPage], 1));\r\n                 }\r\n \r\n             }\r\n@@ -527,7 +527,7 @@\n \r\n                 $commentexploded = explode('=', $commentstring, 2);\r\n                 $ThisFileInfo_ogg_comments_raw[$i]['key']   = strtoupper($commentexploded[0]);\r\n-                $ThisFileInfo_ogg_comments_raw[$i]['value'] = (isset($commentexploded[1]) ? $commentexploded[1] : '');\r\n+                $ThisFileInfo_ogg_comments_raw[$i]['value'] = ($commentexploded[1] ?? '');\r\n \r\n                 if ($ThisFileInfo_ogg_comments_raw[$i]['key'] == 'METADATA_BLOCK_PICTURE') {\r\n \r\n@@ -553,15 +553,15 @@\n \r\n                     $ogg = new self($this->getid3);\r\n                     $ogg->setStringMode($data);\r\n-                    $info['ogg']['comments']['picture'][] = array(\r\n+                    $info['ogg']['comments']['picture'][] = [\r\n                         'image_mime' => $imageinfo['mime'],\r\n                         'data'       => $ogg->saveAttachment('coverart', 0, strlen($data), $imageinfo['mime']),\r\n-                    );\r\n+                    ];\r\n                     unset($ogg);\r\n \r\n                 } else {\r\n \r\n-                    $info['ogg']['comments'][strtolower($ThisFileInfo_ogg_comments_raw[$i]['key'])][] = $ThisFileInfo_ogg_comments_raw[$i]['value'];\r\n+                    $info['ogg']['comments'][strtolower((string) $ThisFileInfo_ogg_comments_raw[$i]['key'])][] = $ThisFileInfo_ogg_comments_raw[$i]['value'];\r\n \r\n                 }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php56\\Rector\\FuncCall\\PowToExpRector",
+          "Rector\\Php70\\Rector\\MethodCall\\ThisCallOnStaticMethodToStaticCallRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/029_module.audio.ogg.php"
+    ]
+  }
+}

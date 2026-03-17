@@ -1,0 +1,46 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_flash\\009_getid3.php",
+  "rector_analysis": {
+    "php_version_changes": 4,
+    "rules_triggered": [
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_71": 1,
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 74
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:21:30.901807",
+    "file_size_kb": 63.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/009_getid3.php",
+        "diff": "--- Original\n+++ New\n@@ -183,19 +183,19 @@\n \r\n \t\t\tif (!is_dir($helperappsdir)) {\r\n \t\t\t\t$this->startup_warning .= '\"'.$helperappsdir.'\" cannot be defined as GETID3_HELPERAPPSDIR because it does not exist';\r\n-\t\t\t} elseif (strpos(realpath($helperappsdir), ' ') !== false) {\r\n+\t\t\t} elseif (str_contains(realpath($helperappsdir), ' ')) {\r\n \t\t\t\t$DirPieces = explode(DIRECTORY_SEPARATOR, realpath($helperappsdir));\r\n \t\t\t\t$path_so_far = [];\r\n \t\t\t\tforeach ($DirPieces as $key => $value) {\r\n-\t\t\t\t\tif (strpos($value, ' ') !== false) {\r\n+\t\t\t\t\tif (str_contains($value, ' ')) {\r\n \t\t\t\t\t\tif (!empty($path_so_far)) {\r\n \t\t\t\t\t\t\t$commandline = 'dir /x '.escapeshellarg(implode(DIRECTORY_SEPARATOR, $path_so_far));\r\n \t\t\t\t\t\t\t$dir_listing = `$commandline`;\r\n-\t\t\t\t\t\t\t$lines = explode(\"\\n\", $dir_listing);\r\n+\t\t\t\t\t\t\t$lines = explode(\"\\n\", (string) $dir_listing);\r\n \t\t\t\t\t\t\tforeach ($lines as $line) {\r\n \t\t\t\t\t\t\t\t$line = trim($line);\r\n \t\t\t\t\t\t\t\tif (preg_match('#^([0-9/]{10}) +([0-9:]{4,5}( [AP]M)?) +(<DIR>|[0-9,]+) +([^ ]{0,11}) +(.+)$#', $line, $matches)) {\r\n-\t\t\t\t\t\t\t\t\tlist($dummy, $date, $time, $ampm, $filesize, $shortname, $filename) = $matches;\r\n+\t\t\t\t\t\t\t\t\t[$dummy, $date, $time, $ampm, $filesize, $shortname, $filename] = $matches;\r\n \t\t\t\t\t\t\t\t\tif ((strtoupper($filesize) == '<DIR>') && (strtolower($filename) == strtolower($value))) {\r\n \t\t\t\t\t\t\t\t\t\t$value = $shortname;\r\n \t\t\t\t\t\t\t\t\t}\r\n@@ -269,8 +269,8 @@\n \r\n \t\t\t$this->info['filesize'] = filesize($filename);\r\n \t\t\t// set redundant parameters - might be needed in some include file\r\n-\t\t\t$this->info['filename']     = basename($filename);\r\n-\t\t\t$this->info['filepath']     = str_replace('\\\\', '/', realpath(dirname($filename)));\r\n+\t\t\t$this->info['filename']     = basename((string) $filename);\r\n+\t\t\t$this->info['filepath']     = str_replace('\\\\', '/', realpath(dirname((string) $filename)));\r\n \t\t\t$this->info['filenamepath'] = $this->info['filepath'].'/'.$this->info['filename'];\r\n \r\n \r\n@@ -354,7 +354,7 @@\n \t\t\tif (!$this->option_tag_id3v2) {\r\n \t\t\t\tfseek($this->fp, 0, SEEK_SET);\r\n \t\t\t\t$header = fread($this->fp, 10);\r\n-\t\t\t\tif ((substr($header, 0, 3) == 'ID3') && (strlen($header) == 10)) {\r\n+\t\t\t\tif ((str_starts_with($header, 'ID3')) && (strlen($header) == 10)) {\r\n \t\t\t\t\t$this->info['id3v2']['header']        = true;\r\n \t\t\t\t\t$this->info['id3v2']['majorversion']  = ord($header[3]);\r\n \t\t\t\t\t$this->info['id3v2']['minorversion']  = ord($header[4]);\r\n@@ -1172,7 +1172,7 @@\n \t\t\t\t\t\t\t$value = trim($value, \" \\r\\n\\t\"); // do not trim nulls from $value!! Unicode characters will get mangled if trailing nulls are removed!\r\n \t\t\t\t\t\t}\r\n \t\t\t\t\t\tif ($value) {\r\n-\t\t\t\t\t\t\t$this->info['tags'][trim($tag_name)][trim($tag_key)][] = $value;\r\n+\t\t\t\t\t\t\t$this->info['tags'][trim((string) $tag_name)][trim((string) $tag_key)][] = $value;\r\n \t\t\t\t\t\t}\r\n \t\t\t\t\t}\r\n \t\t\t\t\tif ($tag_key === 'picture') { // Modernized: strict comparison\r\n@@ -1314,7 +1314,7 @@\n \r\n \t\t\t\t} else {\r\n \r\n-\t\t\t\t\t$commandline = 'vorbiscomment -w -c '.escapeshellarg($empty).' '.escapeshellarg($file).' '.escapeshellarg($temp).' 2>&1';\r\n+\t\t\t\t\t$commandline = 'vorbiscomment -w -c '.escapeshellarg($empty).' '.escapeshellarg((string) $file).' '.escapeshellarg($temp).' 2>&1';\r\n \t\t\t\t\t$VorbisCommentError = `$commandline`;\r\n \r\n \t\t\t\t}\r\n@@ -1620,7 +1620,7 @@\n \tprotected function fread(int $bytes): string|false {\r\n \t\tif ($this->data_string_flag) {\r\n \t\t\t$this->data_string_position += $bytes;\r\n-\t\t\treturn substr($this->data_string, $this->data_string_position - $bytes, $bytes);\r\n+\t\t\treturn substr((string) $this->data_string, $this->data_string_position - $bytes, $bytes);\r\n \t\t}\r\n \t    $pos = $this->ftell() + $bytes;\r\n \t    if (!getid3_lib::intValueSupported($pos)) {\r\n",
+        "applied_rectors": [
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_flash/009_getid3.php"
+    ]
+  }
+}

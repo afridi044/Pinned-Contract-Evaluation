@@ -16,7 +16,7 @@ warnings.filterwarnings('ignore')
 load_dotenv()
 
 # Constants
-DEFAULT_CHUNK_SIZE = 1000  # Default chunk size in lines
+DEFAULT_CHUNK_SIZE = 500  # Default chunk size in lines
 
 # Rate limiting configuration
 RATE_LIMIT_CONFIG = {
@@ -64,9 +64,6 @@ class Config:
         
     def _initialize_clients(self):
         """Initialize API clients for different providers."""
-        print("🔬 Multi-Provider LLM Migration Tool Initialized")
-        print(f"⚙️  Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        
         # Initialize OpenRouter client
         self._init_openrouter()
         
@@ -89,9 +86,7 @@ class Config:
                 base_url="https://openrouter.ai/api/v1",
                 api_key=self.openrouter_api_key,
             )
-            print("✅ OpenRouter client initialized successfully")
         except Exception as e:
-            print(f"❌ Error initializing OpenRouter client: {e}")
             self.openrouter_client = None
     
     def _init_google(self):
@@ -105,9 +100,7 @@ class Config:
             
             # Create client with API key
             self.google_client = genai.Client(api_key=self.google_api_key)
-            print("✅ Google AI client initialized successfully")
         except Exception as e:
-            print(f"❌ Error initializing Google AI client: {e}")
             self.google_client = None
     
     def _init_anthropic(self):
@@ -121,11 +114,8 @@ class Config:
             self.anthropic_client = anthropic.Anthropic(
                 api_key=self.anthropic_api_key
             )
-            print("✅ Anthropic client initialized successfully")
         except Exception as e:
-            print(f"❌ Error initializing Anthropic client: {e}")
             self.anthropic_client = None
-    
     def _setup_providers(self):
         """Setup provider configuration dictionary."""
         self.providers = {
@@ -145,17 +135,6 @@ class Config:
                 'enabled': self.anthropic_client is not None
             }
         }
-        
-        # Show available providers
-        enabled_providers = [name for name, config in self.providers.items() if config['enabled']]
-        print(f"\n🎯 Available providers: {', '.join(enabled_providers)}")
-        
-        print("\n🌐 Supported models:")
-        print("   OpenRouter: 'anthropic/claude-3.5-sonnet', 'meta-llama/llama-3.1-8b-instruct', etc.")
-        print("   Google AI: 'gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-1.0-pro', etc.")
-        print("   Anthropic: 'claude-3-5-haiku-20241022', 'claude-3-haiku-20240307', etc.")
-        print("📋 Visit https://openrouter.ai/models for OpenRouter model list")
-        print("📋 Visit https://docs.anthropic.com/en/docs/models-overview for Anthropic model list")
     
     def get_providers(self):
         """Get provider configuration."""

@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\046_module.audio-video.flv.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 1,
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 132
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:18:05.306219",
+    "file_size_kb": 23.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/046_module.audio-video.flv.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /////////////////////////////////////////////////////////////////\r\n /// getID3() by James Heinrich <info@getid3.org>               //\r\n@@ -106,7 +106,7 @@\n \t\t$found_meta  = false;\r\n \t\t$found_valid_meta_playtime = false;\r\n \t\t$tagParseCount = 0;\r\n-\t\t$info['flv']['framecount'] = array('total'=>0, 'audio'=>0, 'video'=>0);\r\n+\t\t$info['flv']['framecount'] = ['total'=>0, 'audio'=>0, 'video'=>0];\r\n \t\t$flv_framecount = &$info['flv']['framecount'];\r\n \t\twhile (((ftell($this->getid3->fp) + 16) < $info['avdataend']) && (($tagParseCount++ <= $this->max_frames) || !$found_valid_meta_playtime))  {\r\n \t\t\t$ThisTagHeader = fread($this->getid3->fp, 16);\r\n@@ -250,7 +250,7 @@\n \t\t\t\t\t\t$info['flv']['meta'][$eventName] = $reader->readData();\r\n \t\t\t\t\t\tunset($reader);\r\n \r\n-\t\t\t\t\t\t$copykeys = array('framerate'=>'frame_rate', 'width'=>'resolution_x', 'height'=>'resolution_y', 'audiodatarate'=>'bitrate', 'videodatarate'=>'bitrate');\r\n+\t\t\t\t\t\t$copykeys = ['framerate'=>'frame_rate', 'width'=>'resolution_x', 'height'=>'resolution_y', 'audiodatarate'=>'bitrate', 'videodatarate'=>'bitrate'];\r\n \t\t\t\t\t\tforeach ($copykeys as $sourcekey => $destkey) {\r\n \t\t\t\t\t\t\tif (isset($info['flv']['meta']['onMetaData'][$sourcekey])) {\r\n \t\t\t\t\t\t\t\tswitch ($sourcekey) {\r\n@@ -318,7 +318,7 @@\n \r\n \r\n \tpublic function FLVaudioFormat(int $id): string|false {\r\n-\t\t$FLVaudioFormat = array(\r\n+\t\t$FLVaudioFormat = [\r\n \t\t\t0  => 'Linear PCM, platform endian',\r\n \t\t\t1  => 'ADPCM',\r\n \t\t\t2  => 'mp3',\r\n@@ -335,30 +335,30 @@\n \t\t\t13 => false, // unknown?\r\n \t\t\t14 => 'mp3 8kHz',\r\n \t\t\t15 => 'Device-specific sound',\r\n-\t\t);\r\n-\t\treturn (isset($FLVaudioFormat[$id]) ? $FLVaudioFormat[$id] : false);\r\n+\t\t];\r\n+\t\treturn ($FLVaudioFormat[$id] ?? false);\r\n \t}\r\n \r\n \tpublic function FLVaudioRate(int $id): int|false {\r\n-\t\t$FLVaudioRate = array(\r\n+\t\t$FLVaudioRate = [\r\n \t\t\t0 =>  5500,\r\n \t\t\t1 => 11025,\r\n \t\t\t2 => 22050,\r\n \t\t\t3 => 44100,\r\n-\t\t);\r\n-\t\treturn (isset($FLVaudioRate[$id]) ? $FLVaudioRate[$id] : false);\r\n+\t\t];\r\n+\t\treturn ($FLVaudioRate[$id] ?? false);\r\n \t}\r\n \r\n \tpublic function FLVaudioBitDepth(int $id): int|false {\r\n-\t\t$FLVaudioBitDepth = array(\r\n+\t\t$FLVaudioBitDepth = [\r\n \t\t\t0 =>  8,\r\n \t\t\t1 => 16,\r\n-\t\t);\r\n-\t\treturn (isset($FLVaudioBitDepth[$id]) ? $FLVaudioBitDepth[$id] : false);\r\n+\t\t];\r\n+\t\treturn ($FLVaudioBitDepth[$id] ?? false);\r\n \t}\r\n \r\n \tpublic function FLVvideoCodec(int $id): string|false {\r\n-\t\t$FLVvideoCodec = array(\r\n+\t\t$FLVvideoCodec = [\r\n \t\t\tGETID3_FLV_VIDEO_H263         => 'Sorenson H.263',\r\n \t\t\tGETID3_FLV_VIDEO_SCREEN       => 'Screen video',\r\n \t\t\tGETID3_FLV_VIDEO_VP6FLV       => 'On2 VP6',\r\n@@ -365,17 +365,15 @@\n \t\t\tGETID3_FLV_VIDEO_VP6FLV_ALPHA => 'On2 VP6 with alpha channel',\r\n \t\t\tGETID3_FLV_VIDEO_SCREENV2     => 'Screen video v2',\r\n \t\t\tGETID3_FLV_VIDEO_H264         => 'Sorenson H.264',\r\n-\t\t);\r\n-\t\treturn (isset($FLVvideoCodec[$id]) ? $FLVvideoCodec[$id] : false);\r\n+\t\t];\r\n+\t\treturn ($FLVvideoCodec[$id] ?? false);\r\n \t}\r\n }\r\n \r\n class AMFStream {\r\n-\tpublic string $bytes;\r\n \tpublic int $pos;\r\n \r\n-\tpublic function __construct(string $bytes) {\r\n-\t\t$this->bytes = $bytes;\r\n+\tpublic function __construct(public string $bytes) {\r\n \t\t$this->pos = 0;\r\n \t}\r\n \r\n@@ -455,12 +453,10 @@\n }\r\n \r\n class AMFReader {\r\n-\tpublic AMFStream $stream;\r\n+\tpublic function __construct(public AMFStream $stream)\n+    {\n+    }\r\n \r\n-\tpublic function __construct(AMFStream $stream) {\r\n-\t\t$this->stream = $stream;\r\n-\t}\r\n-\r\n \tpublic function readData(): mixed {\r\n \t\t$value = null;\r\n \r\n@@ -610,7 +606,6 @@\n }\r\n \r\n class AVCSequenceParameterSetReader {\r\n-\tpublic string $sps;\r\n \tpublic int $start = 0;\r\n \tpublic int $currentBytes = 0;\r\n \tpublic int $currentBits = 0;\r\n@@ -617,9 +612,9 @@\n \tpublic int $width;\r\n \tpublic int $height;\r\n \r\n-\tpublic function __construct(string $sps) {\r\n-\t\t$this->sps = $sps;\r\n-\t}\r\n+\tpublic function __construct(public string $sps)\n+    {\n+    }\r\n \r\n \tpublic function readData(): void {\r\n \t\t$this->skipBits(8);\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/046_module.audio-video.flv.php"
+    ]
+  }
+}

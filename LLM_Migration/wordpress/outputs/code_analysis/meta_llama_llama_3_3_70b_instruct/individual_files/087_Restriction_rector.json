@@ -1,0 +1,43 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\087_Restriction.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 2,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 73
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:42:18.471361",
+    "file_size_kb": 1.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/087_Restriction.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * Handles `<media:restriction>` as defined in Media RSS\r\n@@ -9,43 +9,35 @@\n  * @package SimplePie\r\n  * @subpackage API\r\n  */\r\n-class SimplePie_Restriction\r\n+class SimplePie_Restriction implements \\Stringable\r\n {\r\n     /**\r\n-     * Relationship ('allow'/'deny')\r\n-     *\r\n-     * @var string\r\n-     * @see get_relationship()\r\n-     */\r\n-    private string $relationship;\r\n-\r\n-    /**\r\n-     * Type of restriction\r\n-     *\r\n-     * @var string\r\n-     * @see get_type()\r\n-     */\r\n-    private string $type;\r\n-\r\n-    /**\r\n-     * Restricted values\r\n-     *\r\n-     * @var string\r\n-     * @see get_value()\r\n-     */\r\n-    private string $value;\r\n-\r\n-    /**\r\n      * Constructor, used to input the data\r\n      *\r\n      * For documentation on all the parameters, see the corresponding\r\n      * properties and their accessors\r\n      */\r\n-    public function __construct(string $relationship = null, string $type = null, string $value = null)\r\n-    {\r\n-        $this->relationship = $relationship;\r\n-        $this->type = $type;\r\n-        $this->value = $value;\r\n+    public function __construct(\n+        /**\n+         * Relationship ('allow'/'deny')\n+         *\n+         * @see get_relationship()\n+         */\n+        private readonly string $relationship = null,\n+        /**\n+         * Type of restriction\n+         *\n+         * @see get_type()\n+         */\n+        private readonly string $type = null,\n+        /**\n+         * Restricted values\n+         *\n+         * @see get_value()\n+         */\n+        private readonly string $value = null\n+    )\n+    {\n     }\r\n \r\n     /**\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php80\\Rector\\Class_\\StringableForToStringRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/087_Restriction.php"
+    ]
+  }
+}

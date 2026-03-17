@@ -1,0 +1,1342 @@
+{
+    "timestamp": "2026-01-25 21:21:14",
+    "model": "gpt_5_codex",
+    "original_base": "..\/..\/dataset\/wordpress\/selected_100_files",
+    "migrated_base": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex",
+    "total_files": 55,
+    "both_pass": 41,
+    "regressions": 9,
+    "improved": 2,
+    "both_fail": 3,
+    "results": [
+        {
+            "file": "077_post-thumbnail-template.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/077_post-thumbnail-template.php",
+                "success": true,
+                "duration": 0.00173,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/077_post-thumbnail-template.php",
+                "success": true,
+                "duration": 0.055630000000000006,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "084_class-wp-ajax-response.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/084_class-wp-ajax-response.php",
+                "success": true,
+                "duration": 0.00172,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/084_class-wp-ajax-response.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "088_Credit.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/088_Credit.php",
+                "success": true,
+                "duration": 0.00163,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/088_Credit.php",
+                "success": true,
+                "duration": 0.03022,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "089_Category.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/089_Category.php",
+                "success": true,
+                "duration": 0.0016200000000000001,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/089_Category.php",
+                "success": true,
+                "duration": 0.02625,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "090_Author.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/090_Author.php",
+                "success": true,
+                "duration": 0.0016200000000000001,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/090_Author.php",
+                "success": true,
+                "duration": 0.02945,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "091_Rating.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/091_Rating.php",
+                "success": true,
+                "duration": 0.00333,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/091_Rating.php",
+                "success": true,
+                "duration": 0.03581,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "092_Copyright.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/092_Copyright.php",
+                "success": true,
+                "duration": 0.00321,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/092_Copyright.php",
+                "success": true,
+                "duration": 0.03372,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "087_Restriction.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/087_Restriction.php",
+                "success": true,
+                "duration": 0.0023599999999999997,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/087_Restriction.php",
+                "success": true,
+                "duration": 0.04376,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "083_shell.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/083_shell.php",
+                "success": true,
+                "duration": 0.0029,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/083_shell.php",
+                "success": true,
+                "duration": 0.02218,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "093_vars.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/093_vars.php",
+                "success": true,
+                "duration": 0.00188,
+                "errors": [
+                    {
+                        "type": "WARNING",
+                        "message": "Undefined array key \"SERVER_SOFTWARE\" at 093_vars.php:98"
+                    },
+                    {
+                        "type": "WARNING",
+                        "message": "Undefined array key \"SERVER_SOFTWARE\" at 093_vars.php:98"
+                    },
+                    {
+                        "type": "WARNING",
+                        "message": "Undefined array key \"SERVER_SOFTWARE\" at 093_vars.php:104"
+                    },
+                    {
+                        "type": "WARNING",
+                        "message": "Undefined array key \"SERVER_SOFTWARE\" at 093_vars.php:110"
+                    },
+                    {
+                        "type": "WARNING",
+                        "message": "Undefined array key \"SERVER_SOFTWARE\" at 093_vars.php:110"
+                    }
+                ]
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/093_vars.php",
+                "success": true,
+                "duration": 0.030940000000000002,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 5,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "094_class.akismet-widget.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/094_class.akismet-widget.php",
+                "success": true,
+                "duration": 0.0033900000000000002,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/094_class.akismet-widget.php",
+                "success": true,
+                "duration": 0.05096,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "095_class-wp-http-ixr-client.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/095_class-wp-http-ixr-client.php",
+                "success": true,
+                "duration": 0.0016899999999999999,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/095_class-wp-http-ixr-client.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "096_class-ftp-pure.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/096_class-ftp-pure.php",
+                "success": true,
+                "duration": 0.00176,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/096_class-ftp-pure.php",
+                "success": true,
+                "duration": 0.041210000000000004,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "097_class-wp-customize-section.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/small_1_200\/097_class-wp-customize-section.php",
+                "success": true,
+                "duration": 0.0016699999999999998,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/097_class-wp-customize-section.php",
+                "success": true,
+                "duration": 0.044469999999999996,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "015_Diff.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/015_Diff.php",
+                "success": true,
+                "duration": 0.0018700000000000001,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/015_Diff.php",
+                "success": true,
+                "duration": 0.03843,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "018_streams.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/018_streams.php",
+                "success": true,
+                "duration": 0.00173,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/018_streams.php",
+                "success": true,
+                "duration": 0.03597,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "019_atomlib.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/019_atomlib.php",
+                "success": true,
+                "duration": 0.00191,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/019_atomlib.php",
+                "success": true,
+                "duration": 0.02773,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "037_class-wp-ms-sites-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/037_class-wp-ms-sites-list-table.php",
+                "success": true,
+                "duration": 0.0035800000000000003,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/037_class-wp-ms-sites-list-table.php",
+                "success": true,
+                "duration": 0.024079999999999997,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "038_class.wp-styles.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/038_class.wp-styles.php",
+                "success": true,
+                "duration": 0.00219,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/038_class.wp-styles.php",
+                "success": true,
+                "duration": 0.03721,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "044_class-wp-image-editor.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/044_class-wp-image-editor.php",
+                "success": true,
+                "duration": 0.00186,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/044_class-wp-image-editor.php",
+                "success": true,
+                "duration": 0.02542,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "045_Locator.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/045_Locator.php",
+                "success": true,
+                "duration": 0.00285,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/045_Locator.php",
+                "success": true,
+                "duration": 0.026609999999999998,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "049_Parser.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/049_Parser.php",
+                "success": true,
+                "duration": 0.0019399999999999999,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/049_Parser.php",
+                "success": false,
+                "duration": 0.032659999999999995,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected token \"?\", expecting \"::\""
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": [
+                    "[FATAL] syntax error, unexpected token \"?\", expecting \"::\""
+                ]
+            }
+        },
+        {
+            "file": "051_ms-deprecated.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/051_ms-deprecated.php",
+                "success": true,
+                "duration": 0.0018,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/051_ms-deprecated.php",
+                "success": true,
+                "duration": 0.03491,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "052_class-wp-ms-themes-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/052_class-wp-ms-themes-list-table.php",
+                "success": true,
+                "duration": 0.00252,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/052_class-wp-ms-themes-list-table.php",
+                "success": true,
+                "duration": 0.0237,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "053_class-wp-themes-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/053_class-wp-themes-list-table.php",
+                "success": true,
+                "duration": 0.00189,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/053_class-wp-themes-list-table.php",
+                "success": true,
+                "duration": 0.22299000000000002,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "058_session.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/058_session.php",
+                "success": true,
+                "duration": 0.00186,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/058_session.php",
+                "success": true,
+                "duration": 0.032420000000000004,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "061_class.wp-scripts.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/061_class.wp-scripts.php",
+                "success": true,
+                "duration": 0.00182,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/061_class.wp-scripts.php",
+                "success": true,
+                "duration": 0.02794,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "070_File.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/070_File.php",
+                "success": true,
+                "duration": 0.00191,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/070_File.php",
+                "success": true,
+                "duration": 0.034140000000000004,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "072_class-wp-users-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/072_class-wp-users-list-table.php",
+                "success": true,
+                "duration": 0.00206,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/072_class-wp-users-list-table.php",
+                "success": true,
+                "duration": 0.03184,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "011_translations.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/011_translations.php",
+                "success": true,
+                "duration": 0.00196,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/011_translations.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "016_module.audio.ac3.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/016_module.audio.ac3.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/016_module.audio.ac3.php",
+                "success": false,
+                "duration": 0.03086,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "Class \"getid3_handler\" not found"
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "BOTH_FAIL",
+                "original_success": false,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "062_string.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/062_string.php",
+                "success": true,
+                "duration": 0.00182,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/062_string.php",
+                "success": true,
+                "duration": 0.038149999999999996,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "067_user.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/medium_201_500\/067_user.php",
+                "success": true,
+                "duration": 0.002,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/067_user.php",
+                "success": true,
+                "duration": 0.03633,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "007_class-wp.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/007_class-wp.php",
+                "success": true,
+                "duration": 0.00299,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/007_class-wp.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "020_class-ftp.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/020_class-ftp.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/020_class-ftp.php",
+                "success": false,
+                "duration": 0.02664,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected identifier \"t\", expecting \")\""
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "BOTH_FAIL",
+                "original_success": false,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "021_class-pop3.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/021_class-pop3.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/021_class-pop3.php",
+                "success": true,
+                "duration": 0.03227,
+                "errors": []
+            },
+            "comparison": {
+                "status": "IMPROVED",
+                "original_success": false,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "022_class-wp-customize-setting.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/022_class-wp-customize-setting.php",
+                "success": true,
+                "duration": 0.00196,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/022_class-wp-customize-setting.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "026_Source.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/026_Source.php",
+                "success": true,
+                "duration": 0.00222,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/026_Source.php",
+                "success": true,
+                "duration": 0.04825,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "030_class-json.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/030_class-json.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/030_class-json.php",
+                "success": true,
+                "duration": 0.04261,
+                "errors": []
+            },
+            "comparison": {
+                "status": "IMPROVED",
+                "original_success": false,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "031_class-wp-plugins-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/031_class-wp-plugins-list-table.php",
+                "success": true,
+                "duration": 0.00232,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/031_class-wp-plugins-list-table.php",
+                "success": true,
+                "duration": 0.02341,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "032_class-wp-comments-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/032_class-wp-comments-list-table.php",
+                "success": true,
+                "duration": 0.00314,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/032_class-wp-comments-list-table.php",
+                "success": true,
+                "duration": 0.25538,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "039_class-wp-upgrader-skins.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/039_class-wp-upgrader-skins.php",
+                "success": true,
+                "duration": 0.00364,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/039_class-wp-upgrader-skins.php",
+                "success": true,
+                "duration": 0.04997,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "040_class-wp-media-list-table.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/040_class-wp-media-list-table.php",
+                "success": true,
+                "duration": 0.0022299999999999998,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/040_class-wp-media-list-table.php",
+                "success": true,
+                "duration": 0.4205,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "042_image-edit.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/042_image-edit.php",
+                "success": true,
+                "duration": 0.0024500000000000004,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/042_image-edit.php",
+                "success": true,
+                "duration": 0.42968,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "043_image.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/043_image.php",
+                "success": true,
+                "duration": 0.004019999999999999,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/043_image.php",
+                "success": true,
+                "duration": 0.04423,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "050_class-oembed.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/050_class-oembed.php",
+                "success": true,
+                "duration": 0.00199,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/050_class-oembed.php",
+                "success": false,
+                "duration": 0.0819,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected token \"?\", expecting \"::\""
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": [
+                    "[FATAL] syntax error, unexpected token \"?\", expecting \"::\""
+                ]
+            }
+        },
+        {
+            "file": "054_nav-menu.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/054_nav-menu.php",
+                "success": true,
+                "duration": 0.0024,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/054_nav-menu.php",
+                "success": true,
+                "duration": 0.02641,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "056_class.akismet.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/056_class.akismet.php",
+                "success": true,
+                "duration": 0.0037400000000000003,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/056_class.akismet.php",
+                "success": true,
+                "duration": 0.057229999999999996,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "068_revision.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/large_500_1000\/068_revision.php",
+                "success": true,
+                "duration": 0.00367,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/068_revision.php",
+                "success": false,
+                "duration": 0.026260000000000002,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected token \"<\", expecting end of file"
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": [
+                    "[FATAL] syntax error, unexpected token \"<\", expecting end of file"
+                ]
+            }
+        },
+        {
+            "file": "003_wp-db.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/003_wp-db.php",
+                "success": true,
+                "duration": 0.0029100000000000003,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/003_wp-db.php",
+                "success": true,
+                "duration": 0.08859,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "005_class-snoopy.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/005_class-snoopy.php",
+                "success": true,
+                "duration": 0.00266,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/005_class-snoopy.php",
+                "success": true,
+                "duration": 0.030989999999999997,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "009_getid3.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/009_getid3.php",
+                "success": false,
+                "duration": 0,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/009_getid3.php",
+                "success": false,
+                "duration": 0.02877,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected token \"public\", expecting end of file"
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "BOTH_FAIL",
+                "original_success": false,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "010_class-wp-theme.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/010_class-wp-theme.php",
+                "success": true,
+                "duration": 0.00378,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/010_class-wp-theme.php",
+                "success": true,
+                "duration": 0.02673,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "013_file.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/013_file.php",
+                "success": true,
+                "duration": 0.00273,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/013_file.php",
+                "success": true,
+                "duration": 0.22129,
+                "errors": []
+            },
+            "comparison": {
+                "status": "BOTH_PASS",
+                "original_success": true,
+                "migrated_success": true,
+                "original_errors": 0,
+                "migrated_errors": 0,
+                "new_errors": []
+            }
+        },
+        {
+            "file": "057_class-wp-customize-manager.php",
+            "original": {
+                "file": "..\/..\/dataset\/wordpress\/selected_100_files\/extra_large_1000_plus\/057_class-wp-customize-manager.php",
+                "success": true,
+                "duration": 0.00318,
+                "errors": []
+            },
+            "migrated": {
+                "file": "..\/..\/LLM_Migration\/wordpress\/outputs\/new-version\/gpt_5_codex\/057_class-wp-customize-manager.php",
+                "success": false,
+                "duration": 0.10968000000000001,
+                "errors": [
+                    {
+                        "type": "FATAL",
+                        "message": "syntax error, unexpected token \"public\", expecting end of file"
+                    }
+                ]
+            },
+            "comparison": {
+                "status": "REGRESSION",
+                "original_success": true,
+                "migrated_success": false,
+                "original_errors": 0,
+                "migrated_errors": 1,
+                "new_errors": [
+                    "[FATAL] syntax error, unexpected token \"public\", expecting end of file"
+                ]
+            }
+        }
+    ]
+}

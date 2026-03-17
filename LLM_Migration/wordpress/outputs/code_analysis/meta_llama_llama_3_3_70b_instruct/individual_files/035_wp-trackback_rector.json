@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\035_wp-trackback.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 37
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:39:46.059886",
+    "file_size_kb": 4.1,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/035_wp-trackback.php",
+        "diff": "--- Original\n+++ New\n@@ -9,7 +9,7 @@\n  */\r\n \r\n if (empty($wp)) {\r\n-    require_once(dirname(__FILE__) . '/wp-load.php');\r\n+    require_once(__DIR__ . '/wp-load.php');\r\n     wp(['tb' => '1']);\r\n }\r\n \r\n@@ -45,7 +45,7 @@\n $request_array = 'HTTP_POST_VARS';\r\n \r\n if (!isset($_GET['tb_id']) || !$_GET['tb_id']) {\r\n-    $tb_id = explode('/', $_SERVER['REQUEST_URI']);\r\n+    $tb_id = explode('/', (string) $_SERVER['REQUEST_URI']);\r\n     $tb_id = intval($tb_id[count($tb_id) - 1]);\r\n }\r\n \r\n@@ -58,13 +58,13 @@\n $blog_name = wp_unslash($_POST['blog_name'] ?? '');\r\n \r\n if ($charset) {\r\n-    $charset = str_replace([',', ' '], '', strtoupper(trim($charset)));\r\n+    $charset = str_replace([',', ' '], '', strtoupper(trim((string) $charset)));\r\n } else {\r\n     $charset = 'ASCII, UTF-8, ISO-8859-1, JIS, EUC-JP, SJIS';\r\n }\r\n \r\n // No valid uses for UTF-7.\r\n-if (false !== strpos($charset, 'UTF-7')) {\r\n+if (str_contains($charset, 'UTF-7')) {\r\n     die;\r\n }\r\n \r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php80\\Rector\\NotIdentical\\StrContainsRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/035_wp-trackback.php"
+    ]
+  }
+}

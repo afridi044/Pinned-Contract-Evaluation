@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\079_load-styles.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_70": 1,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 34
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:41:59.557692",
+    "file_size_kb": 3.4,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/079_load-styles.php",
+        "diff": "--- Original\n+++ New\n@@ -10,7 +10,7 @@\n error_reporting(0);\r\n \r\n /** Set ABSPATH for execution */\r\n-const ABSPATH = dirname(dirname(__FILE__)) . '/';\r\n+const ABSPATH = dirname(__FILE__, 2) . '/';\r\n const WPINC = 'wp-includes';\r\n \r\n /**\r\n@@ -130,7 +130,7 @@\n \r\n     $content = get_file($path) . \"\\n\";\r\n \r\n-    if (strpos($style->src, '/' . WPINC . '/css/') === 0) {\r\n+    if (str_starts_with((string) $style->src, '/' . WPINC . '/css/')) {\r\n         $content = str_replace('../images/', '../' . WPINC . '/images/', $content);\r\n         $content = str_replace('../js/tinymce/', '../' . WPINC . '/js/tinymce/', $content);\r\n         $content = str_replace('../fonts/', '../' . WPINC . '/fonts/', $content);\r\n@@ -146,10 +146,10 @@\n \r\n if ($compress && !ini_get('zlib.output_compression') && 'ob_gzhandler' !== ini_get('output_handler') && isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {\r\n     header('Vary: Accept-Encoding'); // Handle proxies\r\n-    if (false !== stripos($_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') && function_exists('gzdeflate') && !$force_gzip) {\r\n+    if (false !== stripos((string) $_SERVER['HTTP_ACCEPT_ENCODING'], 'deflate') && function_exists('gzdeflate') && !$force_gzip) {\r\n         header('Content-Encoding: deflate');\r\n         $out = gzdeflate($out, 3);\r\n-    } elseif (false !== stripos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && function_exists('gzencode')) {\r\n+    } elseif (false !== stripos((string) $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && function_exists('gzencode')) {\r\n         header('Content-Encoding: gzip');\r\n         $out = gzencode($out, 3);\r\n     }\r\n",
+        "applied_rectors": [
+          "Rector\\Php70\\Rector\\FuncCall\\MultiDirnameRector",
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/079_load-styles.php"
+    ]
+  }
+}

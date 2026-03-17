@@ -1,0 +1,49 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\042_image-edit.php",
+  "rector_analysis": {
+    "php_version_changes": 5,
+    "rules_triggered": [
+      "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+      "Rector\\Php70\\Rector\\FuncCall\\RandomFunctionRector",
+      "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+      "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_54": 1,
+      "php_70": 2,
+      "php_80": 1,
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 93
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:17:50.479553",
+    "file_size_kb": 29.7,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/042_image-edit.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n /**\r\n  * WordPress Image Editor\r\n@@ -50,7 +50,7 @@\n \t\t<p><?php printf( __('Original dimensions %s'), $meta['width'] . ' &times; ' . $meta['height'] ); ?></p>\r\n \t\t<?php endif ?>\r\n \t\t<div class=\"imgedit-submit\">\r\n-\t\t<span class=\"nowrap\"><input type=\"text\" id=\"imgedit-scale-width-<?php echo $post_id; ?>\" onkeyup=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)\" onblur=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)\" style=\"width:4em;\" value=\"<?php echo isset( $meta['width'] ) ? $meta['width'] : 0; ?>\" /> &times; <input type=\"text\" id=\"imgedit-scale-height-<?php echo $post_id; ?>\" onkeyup=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)\" onblur=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)\" style=\"width:4em;\" value=\"<?php echo isset( $meta['height'] ) ? $meta['height'] : 0; ?>\" />\r\n+\t\t<span class=\"nowrap\"><input type=\"text\" id=\"imgedit-scale-width-<?php echo $post_id; ?>\" onkeyup=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)\" onblur=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)\" style=\"width:4em;\" value=\"<?php echo $meta['width'] ?? 0; ?>\" /> &times; <input type=\"text\" id=\"imgedit-scale-height-<?php echo $post_id; ?>\" onkeyup=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)\" onblur=\"imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)\" style=\"width:4em;\" value=\"<?php echo $meta['height'] ?? 0; ?>\" />\r\n \t\t<span class=\"imgedit-scale-warn\" id=\"imgedit-scale-warn-<?php echo $post_id; ?>\">!</span></span>\r\n \t\t<input type=\"button\" onclick=\"imageEdit.action(<?php echo \"$post_id, '$nonce'\"; ?>, 'scale')\" class=\"button button-primary\" value=\"<?php esc_attr_e( 'Scale' ); ?>\" />\r\n \t\t</div>\r\n@@ -155,7 +155,7 @@\n \t\t\t<div onclick=\"imageEdit.crop(<?php echo \"$post_id, '$nonce'\"; ?>, this)\" class=\"imgedit-crop disabled\" title=\"<?php esc_attr_e( 'Crop' ); ?>\"></div><?php\r\n \r\n \t\t// On some setups GD library does not provide imagerotate() - Ticket #11536\r\n-\t\tif ( wp_image_editor_supports( array( 'mime_type' => get_post_mime_type( $post_id ), 'methods' => array( 'rotate' ) ) ) ) { ?>\r\n+\t\tif ( wp_image_editor_supports( [ 'mime_type' => get_post_mime_type( $post_id ), 'methods' => [ 'rotate' ] ] ) ) { ?>\r\n \t\t\t<div class=\"imgedit-rleft\"  onclick=\"imageEdit.rotate( 90, <?php echo \"$post_id, '$nonce'\"; ?>, this)\" title=\"<?php esc_attr_e( 'Rotate counter-clockwise' ); ?>\"></div>\r\n \t\t\t<div class=\"imgedit-rright\" onclick=\"imageEdit.rotate(-90, <?php echo \"$post_id, '$nonce'\"; ?>, this)\" title=\"<?php esc_attr_e( 'Rotate clockwise' ); ?>\"></div>\r\n \t<?php } else {\r\n@@ -177,11 +177,11 @@\n \t\t<input type=\"hidden\" id=\"imgedit-history-<?php echo $post_id; ?>\" value=\"\" />\r\n \t\t<input type=\"hidden\" id=\"imgedit-undone-<?php echo $post_id; ?>\" value=\"0\" />\r\n \t\t<input type=\"hidden\" id=\"imgedit-selection-<?php echo $post_id; ?>\" value=\"\" />\r\n-\t\t<input type=\"hidden\" id=\"imgedit-x-<?php echo $post_id; ?>\" value=\"<?php echo isset( $meta['width'] ) ? $meta['width'] : 0; ?>\" />\r\n-\t\t<input type=\"hidden\" id=\"imgedit-y-<?php echo $post_id; ?>\" value=\"<?php echo isset( $meta['height'] ) ? $meta['height'] : 0; ?>\" />\r\n+\t\t<input type=\"hidden\" id=\"imgedit-x-<?php echo $post_id; ?>\" value=\"<?php echo $meta['width'] ?? 0; ?>\" />\r\n+\t\t<input type=\"hidden\" id=\"imgedit-y-<?php echo $post_id; ?>\" value=\"<?php echo $meta['height'] ?? 0; ?>\" />\r\n \r\n \t\t<div id=\"imgedit-crop-<?php echo $post_id; ?>\" class=\"imgedit-crop-wrap\">\r\n-\t\t<img id=\"image-preview-<?php echo $post_id; ?>\" onload=\"imageEdit.imgLoaded('<?php echo $post_id; ?>')\" src=\"<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>?action=imgedit-preview&amp;_ajax_nonce=<?php echo $nonce; ?>&amp;postid=<?php echo $post_id; ?>&amp;rand=<?php echo rand(1, 99999); ?>\" />\r\n+\t\t<img id=\"image-preview-<?php echo $post_id; ?>\" onload=\"imageEdit.imgLoaded('<?php echo $post_id; ?>')\" src=\"<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>?action=imgedit-preview&amp;_ajax_nonce=<?php echo $nonce; ?>&amp;postid=<?php echo $post_id; ?>&amp;rand=<?php echo random_int(1, 99999); ?>\" />\r\n \t\t</div>\r\n \r\n \t\t<div class=\"imgedit-submit\">\r\n@@ -318,18 +318,13 @@\n \t\t\treturn $saved;\r\n \t\t}\r\n \r\n-\t\tswitch ( $mime_type ) {\r\n-\t\t\tcase 'image/jpeg':\r\n-\r\n-\t\t\t\t/** This filter is documented in wp-includes/class-wp-image-editor.php */\r\n-\t\t\t\treturn imagejpeg( $image, $filename, apply_filters( 'jpeg_quality', 90, 'edit_image' ) );\r\n-\t\t\tcase 'image/png':\r\n-\t\t\t\treturn imagepng( $image, $filename );\r\n-\t\t\tcase 'image/gif':\r\n-\t\t\t\treturn imagegif( $image, $filename );\r\n-\t\t\tdefault:\r\n-\t\t\t\treturn false;\r\n-\t\t}\r\n+\t\treturn match ($mime_type) {\n+            /** This filter is documented in wp-includes/class-wp-image-editor.php */\n+            'image/jpeg' => imagejpeg( $image, $filename, apply_filters( 'jpeg_quality', 90, 'edit_image' ) ),\n+            'image/png' => imagepng( $image, $filename ),\n+            'image/gif' => imagegif( $image, $filename ),\n+            default => false,\n+        };\r\n \t}\r\n }\r\n \r\n@@ -439,7 +434,7 @@\n \r\n \t// Combine operations.\r\n \tif ( count($changes) > 1 ) {\r\n-\t\t$filtered = array($changes[0]);\r\n+\t\t$filtered = [$changes[0]];\r\n \t\tfor ( $i = 0, $j = 1; $j < count($changes); $j++ ) {\r\n \t\t\t$combined = false;\r\n \t\t\tif ( $filtered[$i]->type === $changes[$j]->type ) {\r\n@@ -613,7 +608,7 @@\n \t\t\t\tif ( defined('IMAGE_EDIT_OVERWRITE') && IMAGE_EDIT_OVERWRITE ) {\r\n \r\n \t\t\t\t\t// Delete only if it's edited image\r\n-\t\t\t\t\tif ( preg_match('/-e[0-9]{13}-/', $meta['sizes'][$default_size]['file']) ) {\r\n+\t\t\t\t\tif ( preg_match('/-e[0-9]{13}-/', (string) $meta['sizes'][$default_size]['file']) ) {\r\n \t\t\t\t\t\t/** This filter is documented in wp-admin/custom-header.php */\r\n \t\t\t\t\t\t$delpath = apply_filters( 'wp_delete_file', path_join($parts['dirname'], $meta['sizes'][$default_size]['file']) );\r\n \t\t\t\t\t\t@unlink($delpath);\r\n@@ -664,7 +659,7 @@\n \r\n \t$fwidth = !empty($_REQUEST['fwidth']) ? intval($_REQUEST['fwidth']) : 0;\r\n \t$fheight = !empty($_REQUEST['fheight']) ? intval($_REQUEST['fheight']) : 0;\r\n-\t$target = !empty($_REQUEST['target']) ? preg_replace('/[^a-z0-9_-]+/i', '', $_REQUEST['target']) : '';\r\n+\t$target = !empty($_REQUEST['target']) ? preg_replace('/[^a-z0-9_-]+/i', '', (string) $_REQUEST['target']) : '';\r\n \t$scale = !empty($_REQUEST['do']) && 'scale' === $_REQUEST['do'];\r\n \r\n \tif ( $scale && $fwidth > 0 && $fheight > 0 ) {\r\n",
+        "applied_rectors": [
+          "Rector\\Php54\\Rector\\Array_\\LongArrayToShortArrayRector",
+          "Rector\\Php70\\Rector\\FuncCall\\RandomFunctionRector",
+          "Rector\\Php70\\Rector\\Ternary\\TernaryToNullCoalescingRector",
+          "Rector\\Php80\\Rector\\Switch_\\ChangeSwitchToMatchRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/042_image-edit.php"
+    ]
+  }
+}

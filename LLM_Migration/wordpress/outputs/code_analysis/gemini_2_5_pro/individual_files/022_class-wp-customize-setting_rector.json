@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gemini_2_5_pro\\022_class-wp-customize-setting.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1,
+      "php_81": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 89
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:28:26.888634",
+    "file_size_kb": 16.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/022_class-wp-customize-setting.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n \r\n declare(strict_types=1);\r\n@@ -14,13 +14,6 @@\n class WP_Customize_Setting\r\n {\r\n     /**\r\n-     * Setting ID.\r\n-     *\r\n-     * @var string\r\n-     */\r\n-    public string $id;\r\n-\r\n-    /**\r\n      * Type of setting.\r\n      *\r\n      * @var string\r\n@@ -96,7 +89,10 @@\n      */\r\n     public function __construct(\r\n         public readonly WP_Customize_Manager $manager,\r\n-        string $id,\r\n+        /**\n+         * Setting ID.\n+         */\n+        public string $id,\r\n         array $args = []\r\n     ) {\r\n         $keys = array_keys(get_object_vars($this));\r\n@@ -109,8 +105,6 @@\n             }\r\n         }\r\n \r\n-        $this->id = $id;\r\n-\r\n         // Parse the ID for array keys.\r\n         $this->id_data['keys'] = preg_split('/\\[/', str_replace(']', '', $this->id)) ?: [];\r\n         $this->id_data['base'] = array_shift($this->id_data['keys']) ?? '';\r\n@@ -139,15 +133,15 @@\n     {\r\n         switch ($this->type) {\r\n             case 'theme_mod':\r\n-                add_filter('theme_mod_' . $this->id_data['base'], [$this, '_preview_filter']);\r\n+                add_filter('theme_mod_' . $this->id_data['base'], $this->_preview_filter(...));\r\n                 break;\r\n \r\n             case 'option':\r\n                 if (empty($this->id_data['keys'])) {\r\n-                    add_filter('pre_option_' . $this->id_data['base'], [$this, '_preview_filter']);\r\n+                    add_filter('pre_option_' . $this->id_data['base'], $this->_preview_filter(...));\r\n                 } else {\r\n-                    add_filter('option_' . $this->id_data['base'], [$this, '_preview_filter']);\r\n-                    add_filter('default_option_' . $this->id_data['base'], [$this, '_preview_filter']);\r\n+                    add_filter('option_' . $this->id_data['base'], $this->_preview_filter(...));\r\n+                    add_filter('default_option_' . $this->id_data['base'], $this->_preview_filter(...));\r\n                 }\r\n                 break;\r\n \r\n@@ -522,6 +516,7 @@\n      * @since 3.4.0\r\n      * @param mixed $value The value to update.\r\n      */\r\n+    #[\\Override]\n     public function update(mixed $value): void\r\n     {\r\n     }\r\n@@ -542,6 +537,7 @@\n      * @since 3.4.0\r\n      * @param mixed $value\r\n      */\r\n+    #[\\Override]\n     public function update(mixed $value): void\r\n     {\r\n         global $custom_image_header;\r\n@@ -574,8 +570,9 @@\n      * @since 3.4.0\r\n      * @param mixed $value\r\n      */\r\n+    #[\\Override]\n     public function update(mixed $value): void\r\n     {\r\n         remove_theme_mod('background_image_thumb');\r\n     }\r\n }\n\\ No newline at end of file\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Class_\\ClassPropertyAssignToConstructorPromotionRector",
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gemini_2_5_pro/022_class-wp-customize-setting.php"
+    ]
+  }
+}

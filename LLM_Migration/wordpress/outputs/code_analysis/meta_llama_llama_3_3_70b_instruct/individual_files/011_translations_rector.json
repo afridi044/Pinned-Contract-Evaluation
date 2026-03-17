@@ -1,0 +1,44 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\meta_llama_llama_3_3_70b_instruct\\011_translations.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+      "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+      "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+    ],
+    "changes_by_php_version": {
+      "php_53": 1,
+      "php_71": 1,
+      "php_83": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 39
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:38:26.441987",
+    "file_size_kb": 10.5,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/011_translations.php",
+        "diff": "--- Original\n+++ New\n@@ -1,3 +1,3 @@\n <?php\r\n \r\n /**\r\n@@ -8,7 +8,7 @@\n  * @subpackage translations\r\n  */\r\n \r\n-require_once dirname(__FILE__) . '/entry.php';\r\n+require_once __DIR__ . '/entry.php';\r\n \r\n if (!class_exists('Translations')) :\r\n     class Translations\r\n@@ -164,7 +164,7 @@\n         public function gettext_select_plural_form(int $count): int\r\n         {\r\n             if (!isset($this->_gettext_select_plural_form) || is_null($this->_gettext_select_plural_form)) {\r\n-                list($nplurals, $expression) = $this->nplurals_and_expression_from_header($this->get_header('Plural-Forms'));\r\n+                [$nplurals, $expression] = $this->nplurals_and_expression_from_header($this->get_header('Plural-Forms'));\r\n                 $this->_nplurals = $nplurals;\r\n                 $this->_gettext_select_plural_form = $this->make_plural_form_function($nplurals, $expression);\r\n             }\r\n@@ -242,11 +242,12 @@\n             return $headers;\r\n         }\r\n \r\n+        #[\\Override]\n         public function set_header(string $header, string $value): void\r\n         {\r\n             parent::set_header($header, $value);\r\n             if ('Plural-Forms' == $header) {\r\n-                list($nplurals, $expression) = $this->nplurals_and_expression_from_header($this->get_header('Plural-Forms'));\r\n+                [$nplurals, $expression] = $this->nplurals_and_expression_from_header($this->get_header('Plural-Forms'));\r\n                 $this->_nplurals = $nplurals;\r\n                 $this->_gettext_select_plural_form = $this->make_plural_form_function($nplurals, $expression);\r\n             }\r\n",
+        "applied_rectors": [
+          "Rector\\Php53\\Rector\\FuncCall\\DirNameFileConstantToDirConstantRector",
+          "Rector\\Php71\\Rector\\List_\\ListToArrayDestructRector",
+          "Rector\\Php83\\Rector\\ClassMethod\\AddOverrideAttributeToOverriddenMethodsRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/meta_llama_llama_3_3_70b_instruct/011_translations.php"
+    ]
+  }
+}

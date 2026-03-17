@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\025_widgets.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 35
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:16:42.252765",
+    "file_size_kb": 16.9,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/025_widgets.php",
+        "diff": "--- Original\n+++ New\n@@ -218,11 +218,11 @@\n         $control = $wp_registered_widget_controls[$widget_id];\r\n         $control_callback = $control['callback'];\r\n     } elseif (!isset($wp_registered_widget_controls[$widget_id]) && isset($wp_registered_widgets[$widget_id])) {\r\n-        $name = esc_html(strip_tags($wp_registered_widgets[$widget_id]['name']));\r\n+        $name = esc_html(strip_tags((string) $wp_registered_widgets[$widget_id]['name']));\r\n     }\r\n \r\n     if (!isset($name)) {\r\n-        $name = esc_html(strip_tags($control['name']));\r\n+        $name = esc_html(strip_tags((string) $control['name']));\r\n     }\r\n \r\n     if (!isset($sidebar)) {\r\n@@ -261,7 +261,7 @@\n <?php\r\n     foreach ($wp_registered_sidebars as $sbname => $sbvalue) {\r\n         echo \"\\t\\t<tr><td><label><input type='radio' name='sidebar' value='\" . esc_attr($sbname) . \"'\" . checked($sbname, $sidebar, false) . \" /> $sbvalue[name]</label></td><td>\";\r\n-        if ($sbname === 'wp_inactive_widgets' || str_starts_with($sbname, 'orphaned_widgets')) {\r\n+        if ($sbname === 'wp_inactive_widgets' || str_starts_with((string) $sbname, 'orphaned_widgets')) {\r\n             echo '&nbsp;';\r\n         } else {\r\n             if (!isset($sidebars_widgets[$sbname]) || !is_array($sidebars_widgets[$sbname])) {\r\n@@ -364,7 +364,7 @@\n \r\n $theme_sidebars = [];\r\n foreach ($wp_registered_sidebars as $sidebar => $registered_sidebar) {\r\n-    if (str_contains($registered_sidebar['class'], 'inactive-sidebar') || str_starts_with($sidebar, 'orphaned_widgets')) {\r\n+    if (str_contains((string) $registered_sidebar['class'], 'inactive-sidebar') || str_starts_with((string) $sidebar, 'orphaned_widgets')) {\r\n         $wrap_class = 'widgets-holder-wrap';\r\n         if (!empty($registered_sidebar['class'])) {\r\n             $wrap_class .= ' ' . $registered_sidebar['class'];\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/025_widgets.php"
+    ]
+  }
+}

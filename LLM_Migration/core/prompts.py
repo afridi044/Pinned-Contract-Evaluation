@@ -28,44 +28,6 @@ CRITICAL FORMATTING REQUIREMENT:
 
 Provide only the migrated PHP code with the markers placed correctly outside the PHP code block, no additional commentary."""
 
-# Comprehensive prompting template
-COMPREHENSIVE_PROMPT_TEMPLATE = """You are a senior PHP developer with expertise in legacy php code modernization.
-Your task is to migrate old PHP code up to PHP 8.3 standards using specific modern features like strict typing, constructor property promotion, match expressions, union types, and secure function replacements while preserving compatibility and maintaining the functionality of the original code etc.
-
-MODERNIZATION REQUIREMENTS:
-- Replace array() with [] (short array syntax)
-- Use null coalescing operator (??) instead of isset() ternary
-- Use spaceship operator (<=>) for comparisons where applicable
-- Replace old-style constructors with __construct()
-- Use self::class instead of __CLASS__
-- Replace deprecated functions with modern equivalents
-- Use arrow functions (fn) for simple callbacks where possible
-- Apply match expressions instead of switch statements where appropriate
-- Use constructor property promotion for simple properties
-- Implement strict typing (declare(strict_types=1)) if appropriate
-- Use union types and nullable types where applicable
-- Apply any other PHP 8.0+ modernizations and best practices you identify
-
-Please migrate the following PHP code to PHP 8.3:
-
-{code}
-
-
-
-Your response should follow this EXACT format:
-
-// MIGRATION_START
-[your migrated PHP code here]
-// MIGRATION_END
-
-CRITICAL FORMATTING REQUIREMENT: 
-- Place the MIGRATION_START marker BEFORE the opening <?php tag
-- Place the MIGRATION_END marker AFTER the closing PHP code
-- Do NOT place these markers inside the PHP code itself
-
-Include the markers as comments OUTSIDE the PHP code block. Keep the original comments as they are.
-Do not add any other text, explanations, or commentary outside the markers. Make sure you give the COMPLETE migrated code."""
-
 # Chunking basic template
 CHUNK_BASIC_PROMPT_TEMPLATE = """You are a senior PHP developer with expertise in legacy code modernization. 
 Your task is to migrate this PARTIAL SEGMENT of a larger PHP file up to PHP 8.3 standards using modern syntax and features.
@@ -104,69 +66,13 @@ CRITICAL FORMATTING REQUIREMENT:
 
 Migrate only the provided code segment. Do not add any missing parts or try to complete incomplete structures."""
 
-# Chunking comprehensive template
-CHUNK_COMPREHENSIVE_PROMPT_TEMPLATE = """You are a senior PHP developer with expertise in legacy code modernization. 
-Your task is to migrate this PARTIAL SEGMENT of a larger PHP file up to PHP 8.3 standards using specific modern features like strict typing, constructor property promotion, match expressions, union types, and secure function replacements etc.
-
-
-CONTEXT:
-- Original file: {filename}
-- Processing lines: {start_line} to {end_line} (of {total_lines} total lines)  
-- This is chunk {chunk_number} of {total_chunks}
-
-CRITICAL INSTRUCTIONS FOR PARTIAL CODE SEGMENTS:
-1. This is ONLY a SEGMENT of a larger file - DO NOT try to complete it
-2. DO NOT add opening <?php tags unless the segment starts with one
-3. DO NOT add closing ?> tags unless the segment already has one
-4. DO NOT add any closing braces }} that are not in the original segment
-5. DO NOT add any opening braces {{ that are not in the original segment  
-6. DO NOT try to complete class definitions, function definitions, or any code structures
-7. Preserve the EXACT START and END boundaries of the provided code segment
-
-WARNING: Adding extra braces or completing code structures will break the reconstruction process!
-
-MODERNIZATION REQUIREMENTS:
-- Replace array() with [] (short array syntax)
-- Use null coalescing operator (??) instead of isset() ternary
-- Use spaceship operator (<=>) for comparisons where applicable
-- Replace old-style constructors with __construct()
-- Use self::class instead of __CLASS__
-- Replace deprecated functions with modern equivalents
-- Use arrow functions (fn) for simple callbacks where possible
-- Apply match expressions instead of switch statements where appropriate
-- Use constructor property promotion for simple properties
-- Implement strict typing (declare(strict_types=1)) if appropriate
-- Use union types and nullable types where applicable
-- Apply any other PHP 8.0+ modernizations and best practices you identify
-
-Please migrate ONLY the following PHP code segment to PHP 8.3:
-
-{code}
-
-Your response should follow this EXACT format:
-
-// MIGRATION_START
-[your migrated code segment here - exactly as provided, no additions]
-// MIGRATION_END
-
-CRITICAL FORMATTING REQUIREMENT: 
-- Place the MIGRATION_START marker BEFORE the code segment
-- Place the MIGRATION_END marker AFTER the code segment
-- Do NOT place these markers inside the PHP code itself
-
-Include the markers as comments OUTSIDE the code segment. Keep the original comments as they are.
-Migrate only the provided code segment. Do not add missing functions, classes, or try to complete the file."""
-
-
 class PromptManager:
     """Manages prompt templates and creation for different migration strategies."""
     
     def __init__(self):
         self.templates = {
             'basic': BASIC_PROMPT_TEMPLATE,
-            'comprehensive': COMPREHENSIVE_PROMPT_TEMPLATE,
             'chunk_basic': CHUNK_BASIC_PROMPT_TEMPLATE,
-            'chunk_comprehensive': CHUNK_COMPREHENSIVE_PROMPT_TEMPLATE,
         }
     
     def create_prompt(self, code: str, strategy: str = "basic", **kwargs) -> str:
@@ -202,9 +108,3 @@ class PromptManager:
 
 # Global prompt manager instance
 prompt_manager = PromptManager()
-
-# Initialize and show available strategies
-print("✅ Prompting strategies configured")
-print(f"📋 Available strategies: {prompt_manager.get_available_strategies()}")
-print("🔧 All prompts configured to prevent placing MIGRATION markers inside PHP code")
-print("⚠️  Chunking strategies include warnings about NOT completing code structures")

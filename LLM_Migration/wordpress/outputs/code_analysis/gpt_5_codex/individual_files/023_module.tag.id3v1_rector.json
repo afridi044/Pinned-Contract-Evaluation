@@ -1,0 +1,38 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\gpt_5_codex\\023_module.tag.id3v1.php",
+  "rector_analysis": {
+    "php_version_changes": 1,
+    "rules_triggered": [
+      "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+    ],
+    "changes_by_php_version": {
+      "php_80": 1
+    },
+    "has_diff": true,
+    "diff_line_count": 21
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:34:02.899575",
+    "file_size_kb": 12.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/023_module.tag.id3v1.php",
+        "diff": "--- Original\n+++ New\n@@ -19,7 +19,7 @@\n         $preid3v1 = $preid3v1 !== false ? $preid3v1 : '';\r\n         $id3v1tag = $id3v1tag !== false ? $id3v1tag : '';\r\n \r\n-        if (strncmp($id3v1tag, 'TAG', 3) === 0) {\r\n+        if (str_starts_with($id3v1tag, 'TAG')) {\r\n             $info['avdataend'] = $info['filesize'] - 128;\r\n \r\n             $ParsedID3v1 = [];\r\n@@ -74,7 +74,7 @@\n             $info['id3v1'] = $ParsedID3v1;\r\n         }\r\n \r\n-        if (strncmp($preid3v1, 'TAG', 3) === 0) {\r\n+        if (str_starts_with($preid3v1, 'TAG')) {\r\n             if (substr($preid3v1, 96, 8) === 'APETAGEX') {\r\n                 // APE tag footer found - assume false \"TAG\" synch\r\n             } elseif (substr($preid3v1, 119, 6) === 'LYRICS') {\r\n",
+        "applied_rectors": [
+          "Rector\\Php80\\Rector\\Identical\\StrStartsWithRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/023_module.tag.id3v1.php"
+    ]
+  }
+}

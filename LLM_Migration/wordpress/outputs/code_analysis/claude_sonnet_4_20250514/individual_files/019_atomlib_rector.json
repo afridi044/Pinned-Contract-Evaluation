@@ -1,0 +1,42 @@
+{
+  "file_path": "E:\\_My_RESEARCH\\thesis\\PHP_Migration\\LLM_Migration\\wordpress\\outputs\\new-version\\claude_sonnet_4_20250514\\019_atomlib.php",
+  "rector_analysis": {
+    "php_version_changes": 3,
+    "rules_triggered": [
+      "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+      "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+      "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+    ],
+    "changes_by_php_version": {
+      "php_81": 3
+    },
+    "has_diff": true,
+    "diff_line_count": 59
+  },
+  "analysis_metadata": {
+    "rector_version": "2.1.0",
+    "analysis_date": "2026-03-17T04:16:20.925178",
+    "file_size_kb": 11.3,
+    "analysis_type": "version_specific_only"
+  },
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 1,
+      "errors": 0
+    },
+    "file_diffs": [
+      {
+        "file": "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/019_atomlib.php",
+        "diff": "--- Original\n+++ New\n@@ -81,8 +81,8 @@\n     public string $content = '';\r\n     public ?string $error = null;\r\n \r\n-    private \\Closure $map_attrs_func;\r\n-    private \\Closure $map_xmlns_func;\r\n+    private readonly \\Closure $map_attrs_func;\r\n+    private readonly \\Closure $map_xmlns_func;\r\n \r\n     public function __construct() {\r\n         $this->feed = new AtomFeed();\r\n@@ -90,7 +90,7 @@\n         $this->map_attrs_func = fn($k, $v) => \"$k=\\\"$v\\\"\";\r\n         $this->map_xmlns_func = function($p, $n) {\r\n             $xd = \"xmlns\";\r\n-            if(strlen($n[0]) > 0) $xd .= \":{$n[0]}\";\r\n+            if(strlen((string) $n[0]) > 0) $xd .= \":{$n[0]}\";\r\n             return \"{$xd}=\\\"{$n[1]}\\\"\";\r\n         };\r\n     }\r\n@@ -106,7 +106,7 @@\n     }\r\n \r\n     public function parse(): bool {\r\n-        set_error_handler([$this, 'error_handler']);\r\n+        set_error_handler($this->error_handler(...));\r\n \r\n         array_unshift($this->ns_contexts, []);\r\n \r\n@@ -253,7 +253,7 @@\n                 $this->in_content = [];\r\n             } else if($this->in_content[$ccount-1][0] === $tag &&\r\n                 $this->in_content[$ccount-1][1] === $this->depth) {\r\n-                $this->in_content[$ccount-1][2] = substr($this->in_content[$ccount-1][2], 0, -1) . \"/>\";\r\n+                $this->in_content[$ccount-1][2] = substr((string) $this->in_content[$ccount-1][2], 0, -1) . \"/>\";\r\n             } else {\r\n                 # else, just finalize the current element's content\r\n                 $endtag = $this->ns_to_prefix($name);\r\n@@ -305,7 +305,7 @@\n             $ns = implode(\":\", $components);\r\n             foreach($this->ns_contexts as $context) {\r\n                 foreach($context as $mapping) {\r\n-                    if($mapping[1] === $ns && strlen($mapping[0]) > 0) {\r\n+                    if($mapping[1] === $ns && strlen((string) $mapping[0]) > 0) {\r\n                         return [$mapping, \"$mapping[0]:$name\"];\r\n                     }\r\n                 }\r\n@@ -317,7 +317,7 @@\n         } else {\r\n             foreach($this->ns_contexts as $context) {\r\n                 foreach($context as $mapping) {\r\n-                    if(strlen($mapping[0]) === 0) {\r\n+                    if(strlen((string) $mapping[0]) === 0) {\r\n                         return [$mapping, $name];\r\n                     }\r\n                 }\r\n",
+        "applied_rectors": [
+          "Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector",
+          "Rector\\Php81\\Rector\\FuncCall\\NullToStrictStringFuncCallArgRector",
+          "Rector\\Php81\\Rector\\Property\\ReadOnlyPropertyRector"
+        ]
+      }
+    ],
+    "changed_files": [
+      "LLM_Migration/wordpress/outputs/new-version/claude_sonnet_4_20250514/019_atomlib.php"
+    ]
+  }
+}

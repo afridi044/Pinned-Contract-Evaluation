@@ -1,0 +1,17 @@
+{
+  "error": "Syntax error, unexpected '$', expecting T_VARIABLE, Syntax error, unexpected T_PUBLIC, Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected '}', expecting EOF (line 182)",
+  "error_file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/004_class-IXR.php",
+  "raw_rector_output": {
+    "totals": {
+      "changed_files": 0,
+      "errors": 1
+    },
+    "errors": [
+      {
+        "message": "Syntax error, unexpected '$', expecting T_VARIABLE, Syntax error, unexpected T_PUBLIC, Syntax error, unexpected T_DOUBLE_ARROW, Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected ',', Syntax error, unexpected '}', expecting EOF",
+        "file": "LLM_Migration/wordpress/outputs/new-version/gpt_5_codex/004_class-IXR.php",
+        "line": 182
+      }
+    ]
+  }
+}
