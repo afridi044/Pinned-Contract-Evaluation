@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
-"""
-Evaluation Runner
-Orchestrates PCE evaluation pipeline and generates result summaries.
-"""
 
 import sys
 from pathlib import Path
 import numpy as np
 import random
 
-# ============================================================================
-# FIXED SEED FOR REPRODUCIBILITY
-# ============================================================================
 SEED = 42
 np.random.seed(SEED)
 random.seed(SEED)
@@ -19,12 +12,10 @@ random.seed(SEED)
 # Add parent directory to path to import shared config
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import LLM_CODE_ANALYSIS_DIR
-
 from php_migration_evaluator import PHPMigrationEvaluator
 from visualizer import PHPVisualizer
 
 def get_available_models():
-    """Get list of available model folders."""
     if not LLM_CODE_ANALYSIS_DIR.exists():
         return []
     
@@ -33,18 +24,14 @@ def get_available_models():
     return sorted(models)
 
 def run_model_evaluation(model_folder: str) -> bool:
-    """Run evaluation and visualization for a single model."""
-    # Run evaluation
     evaluator = PHPMigrationEvaluator(model_folder=model_folder)
     evaluation_results = evaluator.run_complete_evaluation()
     
     if evaluation_results is None:
         return False
     
-    # Generate visualizations
     visualizer = PHPVisualizer(model_folder=model_folder)
     viz_success = visualizer.generate_all_visualizations()
-    
     return viz_success
 
 def main():

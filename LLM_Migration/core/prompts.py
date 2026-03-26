@@ -6,7 +6,6 @@ Handles different prompting strategies for PHP code migration.
 from typing import Dict, Any
 
 
-# Basic prompting template
 BASIC_PROMPT_TEMPLATE = """You are a senior PHP developer with expertise in legacy code modernization.
 Your task is to migrate this legacy PHP code up to PHP 8.3 standards using modern syntax and features while maintaining functional equivalence.
 

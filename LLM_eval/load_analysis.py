@@ -1,17 +1,4 @@
-"""
-Loadability Tripwire Analysis (Secondary Robustness Diagnostic)
-
-Part of the PCE (Pinned Contract Evaluation) framework's validity diagnostics.
-Compares primary PCE obligation discharge rate with isolated loadability test results.
-
-Secondary metric (Table 5, §Outcome Matrices) that validates code liveability via
-isolated PHP inclusion tests. Demonstrates that higher obligation discharge does not 
-guarantee code loadability—critical anti-gaming diagnostic showing models can discharge 
-obligations while introducing load-time regressions.
-
-Evaluates 55 selected test files with known baseline behavior (original code loads).
-Regression = (Original: Pass) -> (Migrated: Fail).
-"""
+"""Loadability analysis for robustness diagnostics."""
 
 import json
 import pandas as pd

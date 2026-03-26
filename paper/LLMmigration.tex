@@ -8,7 +8,7 @@ Differences should reflect model behavior, not pipeline artifacts.
 Rector is used only for evaluation as the pinned contract.\cite{rector}
 The migration procedure is model- and provider-agnostic.
 
-\paragraph{Design principles}
+\paragraph*{Design principles}
 We enforce three constraints.
 First, systems share the same degrees of freedom.
 We fix prompts, chunking policy, and decoding settings where supported.
@@ -59,6 +59,69 @@ This prevents inflated results.
 
 We store all artifacts with raw responses and execution metadata.
 This supports inspection and reproducibility.
+
+\subsection{Illustrative migration case study}
+\label{sec:framework_case_study}
+
+Figure~\ref{fig:framework_case_study} presents a real before/after excerpt
+from our stored migration artifacts for the same benchmark file.
+This grounds the framework description in a verifiable transformation with
+traceable file-level metrics.
+
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\caption{Legacy method excerpt}
+\label{fig:framework_case_study_before}
+\begin{Verbatim}[fontsize=\scriptsize,frame=single,rulecolor=\color{hdrBlue},bgcolor=rowA,framesep=3mm,breaklines=true,breakanywhere=true]
+function diff($diff, $mode = 'autodetect')
+{
+    // Detect line breaks.
+    $lnbr = "\n";
+    if (strpos($diff, "\r\n") !== false) {
+        $lnbr = "\r\n";
+    } elseif (strpos($diff, "\r") !== false) {
+        $lnbr = "\r";
+    }
+
+    // Make sure we have a line break at the EOF.
+    if (substr($diff, -strlen($lnbr)) != $lnbr) {
+        $diff .= $lnbr;
+    }
+
+    // ...
+}
+\end{Verbatim}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.48\textwidth}
+\centering
+\caption{Migrated method excerpt (Gemini 2.5 Pro)}
+\label{fig:framework_case_study_after}
+\begin{Verbatim}[fontsize=\scriptsize,frame=single,rulecolor=\color{sepLine},bgcolor=rowB,framesep=3mm,breaklines=true,breakanywhere=true]
+public function diff(string $diff, string $mode = 'autodetect'): array
+{
+    // Detect line breaks.
+    $lnbr = "\n";
+    if (str_contains($diff, "\r\n")) {
+        $lnbr = "\r\n";
+    } elseif (str_contains($diff, "\r")) {
+        $lnbr = "\r";
+    }
+
+    // Make sure we have a line break at the EOF.
+    if (!str_ends_with($diff, $lnbr)) {
+        $diff .= $lnbr;
+    }
+
+    // ...
+}
+\end{Verbatim}
+\end{subfigure}
+\caption{Method-level excerpt from benchmark file \texttt{062\_string.php}. The legacy version uses an untyped method and legacy string-search idioms, while the Gemini~2.5~Pro migrated version introduces explicit visibility, parameter and return types, and PHP~8 string helpers. In the full migrated file, strict types are enabled at file scope, and the method continues with modernized control flow and typed dispatch logic. The excerpt therefore illustrates contract-visible modernization while avoiding overclaiming from a partial listing alone.}
+\label{fig:framework_case_study}
+\end{figure*}
 
 \subsection{Experimental orchestration}
 \label{sec:framework_orchestration}

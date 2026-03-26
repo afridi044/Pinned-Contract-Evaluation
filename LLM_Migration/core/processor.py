@@ -67,7 +67,6 @@ class MigrationManager:
             f.write(response_data['content'])
     
     def process_api_call(self, model_name: str, prompt: str, output_path: Path, metadata: Dict[str, Any]) -> Optional[str]:
-        """Unified API call processing with error handling and rate limiting."""
         provider = self.multi_client.detect_provider(model_name)
         
         # Apply rate limiting

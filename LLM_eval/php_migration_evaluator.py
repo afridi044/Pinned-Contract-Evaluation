@@ -1,23 +1,4 @@
-"""
-PHP Migration Model Evaluation Tool
-
-Evaluates LLM-based PHP migration outputs using a Pinned Contract Evaluation
-(PCE)-aligned scoring procedure for the responsibilities owned by this file.
-
-Implemented here:
-- File-level rule-type incidence scoring
-- Primary scoring restricted to Rector\Php* rules
-- Per-file metrics: O_i, R_i, S_i, I_i, Δ_i, ρ_i
-- Model-level summaries: mean, median, weighted discharge, contract-clean count,
-  low-compliance count, introduced-obligation counts
-- Size-stratified reporting
-- PHP-family aggregation using Rector\Php* rules
-
-Not implemented here:
-- Execution or verification of the pinned Rector contract itself
-- Patch-volume closure (D_i, D_i^orig, WDC, MFDC)
-- Syntax, structural, PHPCompatibility, or loadability diagnostics
-"""
+"""PHP migration model evaluation using PCE scoring."""
 
 import sys
 from pathlib import Path
@@ -536,17 +517,23 @@ class PHPMigrationEvaluator:
     ) -> None:
         """
         Reconciliation guardrail: grouped family totals must exactly match the
-        primary metrics totals computed from self.evaluation_results.
+        analyzable results totals computed from self.evaluation_results.
+        
+        Note: Family analysis is computed from analyzable files only; it should
+        not match total_original_obligations_all (which includes non-analyzable files).
         """
         fam_original = sum(int(v.get("original", 0)) for v in family_analysis.values())
         fam_discharged = sum(int(v.get("discharged", 0)) for v in family_analysis.values())
         fam_remaining = sum(int(v.get("remaining", 0)) for v in family_analysis.values())
         fam_introduced = sum(int(v.get("introduced", 0)) for v in family_analysis.values())
+        
+        # Use analyzable obligations (not all-files) for family verification
+        analyzable_original = sum(r.original_obligations for r in self.evaluation_results)
 
-        if fam_original != int(metrics["total_original_obligations"]):
+        if fam_original != int(analyzable_original):
             raise ValueError(
                 f"Family original mismatch: {fam_original} != "
-                f"{metrics['total_original_obligations']}"
+                f"{analyzable_original}"
             )
         if fam_discharged != int(metrics["total_discharged_obligations"]):
             raise ValueError(
@@ -595,11 +582,29 @@ class PHPMigrationEvaluator:
         total_files = len(self.evaluation_results)
         total_error_files = len(self.skipped_error_files)
         total_attempted_files = total_files + total_error_files
-        total_original_obligations = sum(r.original_obligations for r in self.evaluation_results)
+        
+        # For all-files scoring:
+        # - Numerator: discharged obligations from analyzable files only
+        # - Denominator: original obligations from all 100 files
         total_discharged_obligations = sum(r.discharged_obligations for r in self.evaluation_results)
         total_remaining_obligations = sum(r.remaining_obligations for r in self.evaluation_results)
         total_introduced_obligations = sum(r.introduced_obligations for r in self.evaluation_results)
         total_net_change = sum(r.net_change for r in self.evaluation_results)
+        
+        # Total original obligations from analyzable files (for diagnostics)
+        total_original_obligations_analyzable = sum(r.original_obligations for r in self.evaluation_results)
+        
+        # Total original obligations from ALL 100 benchmark files (the all-files denominator)
+        total_original_obligations_all = 0
+        if self.selection_data_detailed:
+            for orig_file_data in self.selection_data_detailed:
+                rules_triggered = normalize_upgrade_rule_set(
+                    orig_file_data.get("rules_triggered", [])
+                )
+                total_original_obligations_all += len(rules_triggered)
+        
+        # Use all-files denominator for weighted_discharge_rate
+        total_original_obligations = total_original_obligations_all
 
         nonzero_original = [r for r in self.evaluation_results if r.original_obligations > 0]
         discharge_rates = [r.discharge_rate for r in nonzero_original]
@@ -676,24 +681,24 @@ class PHPMigrationEvaluator:
 
 ## Executive Summary
 
-This report presents an evaluation of the {self.model_name} model's PHP migration outputs using file-level rule-type incidence scoring over `Rector\\Php*` rules. The run attempted {metrics['total_files_attempted']} files, analyzed {metrics['total_files_analyzed']} successfully, and skipped {metrics['total_files_with_errors']} Rector-error files.
+This report presents an evaluation of the {self.model_name} model's PHP migration outputs using PCE-unified (all-files) scoring over `Rector\\Php*` rules. The weighted discharge rate is computed over all 100 benchmark files, assigning zero discharge to non-analyzable files. The run attempted {metrics['total_files_attempted']} files, analyzed {metrics['total_files_analyzed']} successfully, and skipped {metrics['total_files_with_errors']} Rector-error files.
 
-### Primary Metrics
+### Primary Metrics (All-Files Scoring: ρ_w^all)
 
-- **Mean discharge rate:** {metrics['average_discharge_rate']:.2f}%
-- **Median discharge rate:** {metrics['median_discharge_rate']:.2f}%
-- **Weighted discharge rate:** {metrics['weighted_discharge_rate']:.2f}%
+- **Weighted discharge rate (all-files):** {metrics['weighted_discharge_rate']:.2f}%
+- **Total discharged obligations:** {metrics['total_discharged_obligations']}/{metrics['total_original_obligations']}
+- **Mean discharge rate (analyzable files only):** {metrics['average_discharge_rate']:.2f}%
+- **Median discharge rate (analyzable files only):** {metrics['median_discharge_rate']:.2f}%
 - **Files attempted:** {metrics['total_files_attempted']}
 - **Files analyzed successfully:** {metrics['total_files_analyzed']}
 - **Files skipped due to Rector errors:** {metrics['total_files_with_errors']}
-- **Total discharged obligations:** {metrics['total_discharged_obligations']}/{metrics['total_original_obligations']}
 - **Total remaining obligations:** {metrics['total_remaining_obligations']}
 - **Total introduced obligations:** {metrics['total_introduced_obligations']}
 - **Total net change:** {metrics['total_net_change']}
 - **Contract-clean files (R_i = 0):** {metrics['contract_clean_files']} ({metrics['contract_clean_rate']:.2f}%)
 - **Files with introduced obligations (I_i > 0):** {metrics['files_with_introduced_obligations']} ({metrics['files_with_introduced_obligations_rate']:.2f}%)
 - **Net-negative files (Δ_i < 0):** {metrics['net_negative_files']} ({metrics['net_negative_files_rate']:.2f}%)
-- **Low-compliance files (ρ_i < 50%):** {metrics['low_compliance_files']} ({metrics['low_compliance_rate']:.2f}%)
+- **Low-compliance files (ρ_i < 50%, analyzable only):** {metrics['low_compliance_files']} ({metrics['low_compliance_rate']:.2f}%)
 
 ## Detailed Analysis
 

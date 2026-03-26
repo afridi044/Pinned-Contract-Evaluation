@@ -1,7 +1,4 @@
-"""
-Run PHPCompatibility analysis on original benchmark and all model outputs.
-Generates JSON reports for cross-oracle validation.
-"""
+"""Run PHPCompatibility analysis on code samples."""
 
 import os
 import subprocess
@@ -15,12 +12,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PHPCOMPATIBILITY_RESULTS_DIR, LLM_NEW_VERSION_DIR, SELECTED_100_FILES_DIR
 
 def run_phpcs(source_dir, output_json, testVersion="8.3"):
-    """Run PHPCompatibility via PHPCS and save results to JSON."""
-    # Get absolute path to phpcs
     base_dir = Path(__file__).parent
     vendor_dir = base_dir.parent / "vendor" / "bin"
     
-    # Use .bat extension on Windows
     if platform.system() == "Windows":
         phpcs_cmd = str(vendor_dir / "phpcs.bat")
     else:
@@ -38,11 +32,9 @@ def run_phpcs(source_dir, output_json, testVersion="8.3"):
     print(f"Command: {' '.join(cmd)}")
     
     try:
-        # On Windows, use shell=True for .bat files
         is_windows = platform.system() == "Windows"
         
         if is_windows:
-            # For Windows, join command as string
             cmd_str = ' '.join(cmd)
             result = subprocess.run(
                 cmd_str,
@@ -59,8 +51,6 @@ def run_phpcs(source_dir, output_json, testVersion="8.3"):
                 cwd=os.path.dirname(__file__)
             )
         
-        # PHPCS returns exit code 1 when issues are found, which is expected
-        # Check if we got any output
         output = result.stdout if result.stdout else result.stderr
         
         if not output or output.strip() == "":

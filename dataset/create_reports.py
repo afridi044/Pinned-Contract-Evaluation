@@ -1,14 +1,4 @@
-"""
-Complete Rector Pipeline
-===========================================
-
-Orchestrates the complete process:
-1. Analyze all files with Rector
-2. Generate enhanced metadata and CSV
-3. Create comprehensive documentation
-4. Analyze triggered rules across dataset
-5. Validate results and generate summary
-"""
+"""Rector dataset analysis pipeline."""
 
 import sys
 import time
@@ -25,22 +15,13 @@ from process_all_files import BatchRectorProcessor
 from generate_documentation import RectorDocumentationGenerator
 from analyze_triggered_rules import TriggeredRulesAnalyzer
 
-# ============================================================================
-# DATASET CONFIGURATION
-# ============================================================================
-# Dataset will be specified via command line argument or default to selected_100_files
-# ============================================================================
-
 class RectorDatasetAnalyzer:
-    """Complete dataset enhancement pipeline."""
-    
     def __init__(self, dataset_folder: str, reports_folder: str):
         self.start_time = time.time()
         self.dataset_folder = dataset_folder
         self.reports_folder = reports_folder
         
     def print_header(self):
-        """Print pipeline header."""
         print("🔬 RECTOR DATASET ENHANCEMENT PIPELINE")
         print("=" * 60)
         print("Transforming WordPress 4.0 dataset with professional Rector analysis")
@@ -51,25 +32,21 @@ class RectorDatasetAnalyzer:
         """Validate that all prerequisites are met."""
         print("🔍 Validating prerequisites...")
         
-        # Check if dataset directory exists
         dataset_dir = Path(self.dataset_folder)
         if not dataset_dir.exists():
             print(f"❌ {self.dataset_folder} directory not found")
             return False
         
-        # Check if rector is installed (using shared config)
         if not RECTOR_BIN.exists():
             print("❌ Rector not found. Please run 'composer install' first")
             return False
         
-        # Check if rector.php config exists (using shared config)
         if not RECTOR_PHP_PATH.exists():
             print("❌ rector.php configuration not found")
             return False
         
         # Count PHP files recursively (works for both flat and folder structures)
         php_files = list(dataset_dir.rglob("*.php"))
-        
         print(f"✅ Found {len(php_files)} PHP files to process")
         print("✅ Rector installation verified")
         print("✅ Configuration files present")

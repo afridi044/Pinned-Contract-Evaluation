@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""
-Batch Rector Analysis Processor
-==============================
-
-Process all 100 files in the organized dataset with Rector analysis.
-Generates individual reports and aggregated metadata.
-"""
+"""Process dataset files with Rector."""
 
 import json
 import os
@@ -15,15 +9,12 @@ from datetime import datetime
 from typing import Dict, List, Any
 import concurrent.futures
 
-# Add parent directory to path to import shared modules
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from rector_analyzer import RectorAnalyzer
 from config import DATASET_NAME
 
 class BatchRectorProcessor:
-    """Process all files in the organized dataset with Rector."""
-    
     def __init__(self, dataset_dir: str = None, reports_dir: str = None):
         # Use config-based defaults if not specified
         if dataset_dir is None:
@@ -79,7 +70,6 @@ class BatchRectorProcessor:
         """Find all PHP files recursively in the organized dataset."""
         php_files = []
         
-        # Recursive search - works for both flat and folder structures
         for php_file in self.dataset_dir.rglob("*.php"):
             php_files.append(php_file)
         

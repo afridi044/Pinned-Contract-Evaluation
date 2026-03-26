@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
-"""
-Summarize PHPCompatibility results from PHPCS JSON reports.
-Adds:
-  - Issue concentration (Top-5 share, non-clean mean, P95)
-  - Root-cause breakdown (dominant PHPCS sniff/source + share)
-  - Top-5 worst files with (errors/warnings) and full paths
-  - Robust 'Found' labeling by keeping last-2 source segments
-"""
+"""Summarize PHPCompatibility results."""
 
 from __future__ import annotations
 
@@ -23,15 +16,8 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from config import PHPCOMPATIBILITY_RESULTS_DIR
 
-
-# ────────────────
-# JSON loading (robust)
-# ────────────────
 def _load_json_loose(path: Path) -> Dict[str, Any]:
-    """
-    PHPCS should output JSON, but wrappers sometimes prepend noise.
-    Try strict JSON first, then fall back to extracting the first {...} block.
-    """
+    """Load JSON from path, handling prepended noise in PHPCS output."""
     raw = path.read_text(encoding="utf-8", errors="replace").strip()
     try:
         return json.loads(raw)
@@ -44,31 +30,14 @@ def _load_json_loose(path: Path) -> Dict[str, Any]:
 
 
 def _find_case_insensitive(results_dir: Path, filename: str) -> Path | None:
-    """Find file in directory ignoring case differences (useful across OSes)."""
     target = filename.lower()
     for p in results_dir.iterdir():
         if p.is_file() and p.name.lower() == target:
             return p
     return None
 
-
-# -----------------------------
-# Source shortening + parse detection
-# -----------------------------
 def short_source(src: str) -> str:
-    """
-    Turn:
-      PHPCompatibility.Variables.ForbiddenThisUseContexts.OutsideObjectContext
-    into:
-      ForbiddenThisUseContexts.OutsideObjectContext
-
-    Turn:
-      PHPCompatibility.Syntax.RemovedCurlyBraceArrayAccess.Found
-    into:
-      RemovedCurlyBraceArrayAccess.Found
-
-    This avoids collapsing many different rules into 'Found'/'Changed' etc.
-    """
+    """Shorten PHPCS source string."""
     if not isinstance(src, str) or not src.strip():
         return "Unknown"
 

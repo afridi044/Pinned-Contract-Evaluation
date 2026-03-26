@@ -7,7 +7,7 @@
     "analysis_method": "rector_php_version_upgrades_llm_evaluation",
     "llm_model": "gpt_5_codex",
     "rector_version": "2.1.0",
-    "analysis_date": "2026-03-17T04:37:35.514539",
+    "analysis_date": "2026-03-17T08:12:52.164471",
     "evaluation_type": "llm_generated_code_analysis",
     "focus": "php_version_specific_changes_on_llm_migrated_code"
   },
@@ -29,7 +29,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:32:23.786044",
+        "analysis_date": "2026-03-17T08:08:20.515503",
         "file_size_kb": 45.1,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -70,7 +70,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:32:50.726399",
+        "analysis_date": "2026-03-17T08:08:42.758186",
         "file_size_kb": 127.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -107,7 +107,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:32:57.526140",
+        "analysis_date": "2026-03-17T08:08:49.648253",
         "file_size_kb": 60.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -131,7 +131,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:32:59.364675",
+        "analysis_date": "2026-03-17T08:08:51.447814",
         "file_size_kb": 32.3,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -168,7 +168,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:05.036146",
+        "analysis_date": "2026-03-17T08:08:57.458504",
         "file_size_kb": 38.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -203,7 +203,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:10.036283",
+        "analysis_date": "2026-03-17T08:09:02.176248",
         "file_size_kb": 48.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -235,7 +235,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:13.849311",
+        "analysis_date": "2026-03-17T08:09:05.707648",
         "file_size_kb": 18.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -265,7 +265,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:17.576168",
+        "analysis_date": "2026-03-17T08:09:09.190063",
         "file_size_kb": 35.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -289,7 +289,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:19.411496",
+        "analysis_date": "2026-03-17T08:09:10.990578",
         "file_size_kb": 59.2,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -322,7 +322,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:24.204073",
+        "analysis_date": "2026-03-17T08:09:15.435114",
         "file_size_kb": 40.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -350,7 +350,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:27.111492",
+        "analysis_date": "2026-03-17T08:09:18.084589",
         "file_size_kb": 10.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -374,7 +374,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:29.073618",
+        "analysis_date": "2026-03-17T08:09:19.871796",
         "file_size_kb": 108.4,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -412,7 +412,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:34.326361",
+        "analysis_date": "2026-03-17T08:09:25.068072",
         "file_size_kb": 46.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -436,7 +436,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:36.176452",
+        "analysis_date": "2026-03-17T08:09:26.840883",
         "file_size_kb": 120.8,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -466,7 +466,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:39.224147",
+        "analysis_date": "2026-03-17T08:09:29.533830",
         "file_size_kb": 12.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -499,7 +499,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:42.204862",
+        "analysis_date": "2026-03-17T08:09:32.375150",
         "file_size_kb": 17.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -529,7 +529,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:45.507024",
+        "analysis_date": "2026-03-17T08:09:35.384788",
         "file_size_kb": 27.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -559,7 +559,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:48.099073",
+        "analysis_date": "2026-03-17T08:09:37.901662",
         "file_size_kb": 7.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -587,7 +587,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:51.317014",
+        "analysis_date": "2026-03-17T08:09:40.910815",
         "file_size_kb": 11.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -611,7 +611,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:53.263435",
+        "analysis_date": "2026-03-17T08:09:42.681152",
         "file_size_kb": 39.0,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -641,7 +641,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:56.776268",
+        "analysis_date": "2026-03-17T08:09:46.056586",
         "file_size_kb": 16.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -676,7 +676,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:33:59.995159",
+        "analysis_date": "2026-03-17T08:09:49.015756",
         "file_size_kb": 14.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -704,7 +704,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:02.899575",
+        "analysis_date": "2026-03-17T08:09:51.666076",
         "file_size_kb": 12.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -736,7 +736,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:06.311649",
+        "analysis_date": "2026-03-17T08:09:54.876062",
         "file_size_kb": 28.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -766,7 +766,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:09.266280",
+        "analysis_date": "2026-03-17T08:09:57.761141",
         "file_size_kb": 16.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -797,7 +797,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:13.870852",
+        "analysis_date": "2026-03-17T08:10:02.013970",
         "file_size_kb": 19.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -821,7 +821,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:16.514066",
+        "analysis_date": "2026-03-17T08:10:02.618375",
         "file_size_kb": 13.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -849,7 +849,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:19.162745",
+        "analysis_date": "2026-03-17T08:10:05.303794",
         "file_size_kb": 11.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -879,7 +879,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:23.219617",
+        "analysis_date": "2026-03-17T08:10:09.367650",
         "file_size_kb": 36.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -912,7 +912,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:29.400912",
+        "analysis_date": "2026-03-17T08:10:15.244681",
         "file_size_kb": 26.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -945,7 +945,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:32.644147",
+        "analysis_date": "2026-03-17T08:10:18.466630",
         "file_size_kb": 24.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -977,7 +977,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:36.488965",
+        "analysis_date": "2026-03-17T08:10:22.220484",
         "file_size_kb": 22.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1001,7 +1001,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:38.280685",
+        "analysis_date": "2026-03-17T08:10:24.011252",
         "file_size_kb": 7.9,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -1031,7 +1031,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:41.018541",
+        "analysis_date": "2026-03-17T08:10:26.432319",
         "file_size_kb": 4.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1059,7 +1059,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:43.590511",
+        "analysis_date": "2026-03-17T08:10:28.901190",
         "file_size_kb": 3.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1087,7 +1087,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:47.289699",
+        "analysis_date": "2026-03-17T08:10:32.599621",
         "file_size_kb": 15.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1115,7 +1115,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:50.720691",
+        "analysis_date": "2026-03-17T08:10:36.053764",
         "file_size_kb": 18.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1139,7 +1139,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:53.050064",
+        "analysis_date": "2026-03-17T08:10:36.692331",
         "file_size_kb": 7.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1169,7 +1169,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:34:56.968542",
+        "analysis_date": "2026-03-17T08:10:40.406985",
         "file_size_kb": 29.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1197,7 +1197,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:00.317696",
+        "analysis_date": "2026-03-17T08:10:43.835648",
         "file_size_kb": 21.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1221,7 +1221,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:02.067690",
+        "analysis_date": "2026-03-17T08:10:45.623059",
         "file_size_kb": 6.0,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -1253,7 +1253,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:05.670760",
+        "analysis_date": "2026-03-17T08:10:49.131616",
         "file_size_kb": 31.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1283,7 +1283,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:09.107018",
+        "analysis_date": "2026-03-17T08:10:52.515953",
         "file_size_kb": 20.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1313,7 +1313,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:11.853506",
+        "analysis_date": "2026-03-17T08:10:55.371318",
         "file_size_kb": 12.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1343,7 +1343,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:15.425261",
+        "analysis_date": "2026-03-17T08:10:58.779484",
         "file_size_kb": 12.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1373,7 +1373,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:18.701755",
+        "analysis_date": "2026-03-17T08:11:02.147449",
         "file_size_kb": 24.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1401,7 +1401,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:21.944145",
+        "analysis_date": "2026-03-17T08:11:05.553317",
         "file_size_kb": 30.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1429,7 +1429,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:24.315964",
+        "analysis_date": "2026-03-17T08:11:07.768637",
         "file_size_kb": 7.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1453,7 +1453,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:26.102347",
+        "analysis_date": "2026-03-17T08:11:09.536572",
         "file_size_kb": 12.3,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -1479,7 +1479,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:27.888269",
+        "analysis_date": "2026-03-17T08:11:11.262410",
         "file_size_kb": 22.7,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -1505,7 +1505,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:30.462405",
+        "analysis_date": "2026-03-17T08:11:11.893612",
         "file_size_kb": 10.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1536,7 +1536,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:33.269160",
+        "analysis_date": "2026-03-17T08:11:14.677916",
         "file_size_kb": 15.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1564,7 +1564,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:35.900947",
+        "analysis_date": "2026-03-17T08:11:17.384241",
         "file_size_kb": 10.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1588,7 +1588,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:39.024469",
+        "analysis_date": "2026-03-17T08:11:18.012568",
         "file_size_kb": 31.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1619,7 +1619,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:42.476834",
+        "analysis_date": "2026-03-17T08:11:21.442974",
         "file_size_kb": 17.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1648,7 +1648,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:46.503938",
+        "analysis_date": "2026-03-17T08:11:25.220924",
         "file_size_kb": 37.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1672,7 +1672,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:48.267942",
+        "analysis_date": "2026-03-17T08:11:26.993838",
         "file_size_kb": 33.1,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -1703,7 +1703,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:50.757352",
+        "analysis_date": "2026-03-17T08:11:29.505505",
         "file_size_kb": 10.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1731,7 +1731,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:53.313593",
+        "analysis_date": "2026-03-17T08:11:32.057259",
         "file_size_kb": 7.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1761,7 +1761,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:56.195144",
+        "analysis_date": "2026-03-17T08:11:34.963004",
         "file_size_kb": 17.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1790,7 +1790,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:35:58.806534",
+        "analysis_date": "2026-03-17T08:11:37.466741",
         "file_size_kb": 7.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1821,7 +1821,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:01.793319",
+        "analysis_date": "2026-03-17T08:11:40.453215",
         "file_size_kb": 8.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1845,7 +1845,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:04.111766",
+        "analysis_date": "2026-03-17T08:11:41.089765",
         "file_size_kb": 10.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1874,7 +1874,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:06.968206",
+        "analysis_date": "2026-03-17T08:11:43.977166",
         "file_size_kb": 14.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1905,7 +1905,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:09.831033",
+        "analysis_date": "2026-03-17T08:11:46.672558",
         "file_size_kb": 14.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1933,7 +1933,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:12.407377",
+        "analysis_date": "2026-03-17T08:11:49.173629",
         "file_size_kb": 13.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1957,7 +1957,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:15.308716",
+        "analysis_date": "2026-03-17T08:11:49.826993",
         "file_size_kb": 14.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -1981,7 +1981,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:17.109937",
+        "analysis_date": "2026-03-17T08:11:51.596003",
         "file_size_kb": 18.4,
         "analysis_type": "version_specific_only",
         "status": "error",
@@ -2013,7 +2013,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:19.825303",
+        "analysis_date": "2026-03-17T08:11:54.236360",
         "file_size_kb": 13.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2041,7 +2041,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:23.247900",
+        "analysis_date": "2026-03-17T08:11:57.661775",
         "file_size_kb": 11.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2069,7 +2069,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:26.345364",
+        "analysis_date": "2026-03-17T08:12:00.538437",
         "file_size_kb": 19.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2093,7 +2093,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:29.106530",
+        "analysis_date": "2026-03-17T08:12:01.190969",
         "file_size_kb": 13.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2121,7 +2121,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:31.654071",
+        "analysis_date": "2026-03-17T08:12:03.783605",
         "file_size_kb": 8.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2149,7 +2149,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:34.043432",
+        "analysis_date": "2026-03-17T08:12:06.096163",
         "file_size_kb": 7.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2173,7 +2173,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:36.494323",
+        "analysis_date": "2026-03-17T08:12:06.746748",
         "file_size_kb": 5.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2201,7 +2201,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:38.848469",
+        "analysis_date": "2026-03-17T08:12:09.010597",
         "file_size_kb": 4.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2229,7 +2229,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:40.933663",
+        "analysis_date": "2026-03-17T08:12:10.975512",
         "file_size_kb": 3.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2257,7 +2257,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:43.318441",
+        "analysis_date": "2026-03-17T08:12:13.364120",
         "file_size_kb": 5.4,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2285,7 +2285,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:46.050670",
+        "analysis_date": "2026-03-17T08:12:16.042201",
         "file_size_kb": 3.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2309,7 +2309,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:48.700761",
+        "analysis_date": "2026-03-17T08:12:16.681617",
         "file_size_kb": 9.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2337,7 +2337,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:51.216604",
+        "analysis_date": "2026-03-17T08:12:19.118394",
         "file_size_kb": 6.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2361,7 +2361,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:53.743100",
+        "analysis_date": "2026-03-17T08:12:19.722639",
         "file_size_kb": 5.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2385,7 +2385,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:56.370700",
+        "analysis_date": "2026-03-17T08:12:20.371694",
         "file_size_kb": 4.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2413,7 +2413,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:36:58.757185",
+        "analysis_date": "2026-03-17T08:12:22.747582",
         "file_size_kb": 6.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2437,7 +2437,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:01.084696",
+        "analysis_date": "2026-03-17T08:12:23.369534",
         "file_size_kb": 3.9,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2461,7 +2461,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:03.454945",
+        "analysis_date": "2026-03-17T08:12:23.974704",
         "file_size_kb": 4.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2489,7 +2489,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:05.655487",
+        "analysis_date": "2026-03-17T08:12:26.111764",
         "file_size_kb": 0.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2518,7 +2518,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:07.905709",
+        "analysis_date": "2026-03-17T08:12:28.211234",
         "file_size_kb": 3.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2547,7 +2547,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:10.196489",
+        "analysis_date": "2026-03-17T08:12:30.390765",
         "file_size_kb": 0.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2575,7 +2575,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:12.348365",
+        "analysis_date": "2026-03-17T08:12:32.512997",
         "file_size_kb": 2.8,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2605,7 +2605,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:14.555905",
+        "analysis_date": "2026-03-17T08:12:34.732066",
         "file_size_kb": 0.5,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2634,7 +2634,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:16.769992",
+        "analysis_date": "2026-03-17T08:12:36.863554",
         "file_size_kb": 3.3,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2662,7 +2662,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:19.218000",
+        "analysis_date": "2026-03-17T08:12:39.280018",
         "file_size_kb": 5.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2690,7 +2690,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:21.246913",
+        "analysis_date": "2026-03-17T08:12:41.329336",
         "file_size_kb": 3.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2714,7 +2714,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:23.484750",
+        "analysis_date": "2026-03-17T08:12:41.981640",
         "file_size_kb": 3.0,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2742,7 +2742,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:26.059713",
+        "analysis_date": "2026-03-17T08:12:44.500936",
         "file_size_kb": 7.2,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2770,7 +2770,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:28.282113",
+        "analysis_date": "2026-03-17T08:12:46.637881",
         "file_size_kb": 4.6,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2794,7 +2794,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:30.531210",
+        "analysis_date": "2026-03-17T08:12:47.266278",
         "file_size_kb": 2.1,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2822,7 +2822,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:33.196297",
+        "analysis_date": "2026-03-17T08:12:49.876591",
         "file_size_kb": 2.7,
         "analysis_type": "version_specific_only",
         "status": "success"
@@ -2850,7 +2850,7 @@
       },
       "analysis_metadata": {
         "rector_version": "2.1.0",
-        "analysis_date": "2026-03-17T04:37:35.512541",
+        "analysis_date": "2026-03-17T08:12:52.160461",
         "file_size_kb": 2.2,
         "analysis_type": "version_specific_only",
         "status": "success"

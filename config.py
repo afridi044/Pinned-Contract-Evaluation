@@ -27,9 +27,6 @@ from pathlib import Path
 import numpy as np
 import random
 
-# ============================================================================
-# FIXED SEED FOR REPRODUCIBILITY
-# ============================================================================
 SEED = 42
 np.random.seed(SEED)
 random.seed(SEED)
@@ -37,17 +34,13 @@ random.seed(SEED)
 # Project root directory (level 2)
 PROJECT_ROOT = Path(__file__).parent.absolute()
 
-# ============================================================================
-# MAIN CONFIGURATION - Change this to switch datasets
-# ============================================================================
-DATASET_NAME = "wordpress"  # Change to "laravel", "drupal", etc. for other codebases
-# ============================================================================
+DATASET_NAME = "wordpress"
 
 # Shared paths
 RECTOR_PHP_PATH = PROJECT_ROOT / "rector.php"
 VENDOR_PATH = PROJECT_ROOT / "vendor"
 RECTOR_BIN = VENDOR_PATH / "bin" / "rector.bat"
-RECTOR_BIN_UNIX = VENDOR_PATH / "bin" / "rector"  # For Unix-like systems
+RECTOR_BIN_UNIX = VENDOR_PATH / "bin" / "rector"
 COMPOSER_JSON = PROJECT_ROOT / "composer.json"
 
 # Dataset paths (dynamically constructed from DATASET_NAME)

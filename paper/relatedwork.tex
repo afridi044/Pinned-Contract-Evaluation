@@ -3,7 +3,7 @@
 
 Empirical studies of migration tools often report end-state signals such as compilation success, linting results, test outcomes, or manual inspection. These signals provide coarse evidence of success but rarely attribute progress to specific upgrade requirements. They also make cross-study comparison difficult when toolchains and configurations differ. In this work we instead evaluate modernization against an explicit and fixed upgrade policy.
 
-\paragraph{Rule-based migration}
+\paragraph*{Rule-based migration}
 Refactoring and API evolution are well studied.\cite{DBLP:journals/tse/MensT04,DBLP:conf/oopsla/DigJ06,fowler1999refactoring,henkel2005catchup}
 Rule-based tools encode curated transformations.\cite{DBLP:conf/icse/Murphy-HillPB09,rector}
 They scale because rewrites are deterministic.\cite{openrewrite,errorprone,refaster,facebook_codemod}
@@ -11,21 +11,21 @@ However, many migrations require non-local reasoning. Dependencies, type flow, a
 Residual work therefore remains common in large systems.\cite{wittern2016api}
 Semantic patching increases expressiveness but remains fundamentally rule driven.\cite{coccinelle}
 
-\paragraph{LLM-assisted refactoring and migration}
+\paragraph*{LLM-assisted refactoring and migration}
 LLMs can generate edits beyond predefined rules.\cite{chen2021codex,nijkamp2022codegen,li2022alphacode,ouyang2022instructgpt,touvron2023llama}
 Benchmarks evaluate editing, translation, and issue resolution.\cite{cassano2024canitedit,jimenez2024swebench,swebench_verified}
 Long-context limits complicate their application to large codebases.\cite{liu2024lost,du2025context}
 Despite this progress, evaluations of LLM-based migration still rely primarily on coarse outcome signals such as parsing, linting, or tests.\cite{openai2023gpt4,roziere2023codellama}
 These signals indicate whether code runs but do not reveal which upgrade requirements were satisfied or how migration progress distributes across rule types.
 
-\paragraph{Static analysis and compatibility checking}
+\paragraph*{Static analysis and compatibility checking}
 Static analysis is widely used in maintenance and automated repair and can scale to large codebases.\cite{legoues2012genprog,DBLP:conf/icse/NguyenQRC13,DBLP:conf/issta/MartinezM16,DBLP:conf/issta/JustJE14,DBLP:conf/icse/GazzolaMM18,bessey2010billion,calcagno2015moving}
 In the PHP ecosystem, tools such as Rector and PHPCompatibility map findings to version targets.\cite{phpcompat,rector,php83spec}
 However, results depend heavily on tool versions and configuration choices, which complicates cross-study comparison.
 Other work measures change using fine-grained differencing or test coverage.\cite{fluri2007change,falleri2014fine,kochhar2015coverage}
 While useful, these approaches still treat static-analysis outputs as signals rather than as a formal evaluation policy.
 
-\paragraph{Positioning of this work}
+\paragraph*{Positioning of this work}
 We introduce \emph{Pinned Contract Evaluation (PCE)}.
 Our key idea is to treat a pinned static-analysis configuration as an explicit migration contract.
 Executing this contract on the original code induces an obligation space defined by triggered upgrade rules.

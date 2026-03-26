@@ -4,19 +4,9 @@ import glob
 from pathlib import Path
 
 def extract_php_files(source_dir, destination_dir):
-    """
-    Extract all PHP files from source directory to destination directory
-    while preserving the directory structure.
-    
-    Args:
-        source_dir (str): Source directory containing PHP files
-        destination_dir (str): Destination directory where PHP files will be copied
-    """
-    
-    # Create destination directory if it doesn't exist
+    """Extract PHP files preserving directory structure."""
     Path(destination_dir).mkdir(parents=True, exist_ok=True)
     
-    # Find all PHP files recursively
     php_files = []
     for root, dirs, files in os.walk(source_dir):
         for file in files:
@@ -25,7 +15,6 @@ def extract_php_files(source_dir, destination_dir):
     
     print(f"Found {len(php_files)} PHP files in {source_dir}")
     
-    # Copy each PHP file to destination
     copied_count = 0
     for php_file in php_files:
         # Get relative path from source directory
@@ -34,7 +23,6 @@ def extract_php_files(source_dir, destination_dir):
         # Create destination path
         dest_path = os.path.join(destination_dir, rel_path)
         
-        # Create destination directory if it doesn't exist
         dest_dir = os.path.dirname(dest_path)
         Path(dest_dir).mkdir(parents=True, exist_ok=True)
         

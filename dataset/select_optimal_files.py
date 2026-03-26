@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
-"""
-Optimal File Selection for PHP Migration Analysis
-===============================================
-
-Selects 100 optimal files from the dataset ensuring:
-1. Complete rule coverage (all 48 unique rules)
-2. Balanced size distribution (small/medium/large/extra-large)
-3. High-quality migration candidates
-4. Logical distribution across complexity levels
-"""
+"""Select optimal files for migration analysis."""
 
 import json
 import csv

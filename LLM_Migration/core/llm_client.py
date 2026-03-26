@@ -12,7 +12,6 @@ from typing import Dict, Any
 class MultiProviderClient:
     """multi-provider LLM client with automatic provider detection."""
     
-    # Provider detection patterns (data-driven approach)
     PROVIDER_PATTERNS = {
         'google': ['gemini', 'palm', 'bard'],
         'anthropic': ['claude'],

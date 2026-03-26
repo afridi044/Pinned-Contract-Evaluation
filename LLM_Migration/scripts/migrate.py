@@ -49,27 +49,23 @@ def main():
     """Main command-line interface."""
     parser = argparse.ArgumentParser(description="LLM PHP Migration Tool")
     
-    # File selection
     parser.add_argument('--files', type=str, nargs='*', help='Specific files to migrate')
     parser.add_argument('--files-dir', type=str, default=str(SELECTED_100_FILES_DIR / 'extra_large_1000_plus'),
                         help='Directory containing PHP files to migrate')
     parser.add_argument('--all-files', action='store_true', help='Migrate all loaded files')
     parser.add_argument('--limit', type=int, help='Limit number of files to migrate')
     
-    # Model and strategy
     parser.add_argument('--model', type=str, default='gemini-1.5-pro',
                         help='Model to use for migration')
     parser.add_argument('--strategy', type=str, default='basic', 
                         choices=['basic', 'comprehensive'],
                         help='Migration strategy to use')
     
-    # Chunking options
     parser.add_argument('--chunk-size', type=int, default=DEFAULT_CHUNK_SIZE,
                         help='Chunk size for large files')
     parser.add_argument('--no-auto-chunk', action='store_true',
                         help='Disable automatic chunking')
     
-    # Actions
     parser.add_argument('--analyze', action='store_true',
                         help='Analyze file sizes only')
     parser.add_argument('--migrate', action='store_true', default=True,
@@ -79,24 +75,20 @@ def main():
     parser.add_argument('--reconstruct', action='store_true',
                         help='Reconstruct files from chunks')
     
-    # Test mode
     parser.add_argument('--test', action='store_true',
                         help='Test provider detection only')
     
     args = parser.parse_args()
     
-    # Initialize system
     migration_manager, output_parser, file_reconstructor, test_files = create_migration_system(args.files_dir)
     
     if not migration_manager:
         sys.exit(1)
     
-    # Test mode
     if args.test:
         migration_manager.multi_client.test_provider_detection()
         return
     
-    # Analyze files
     if args.analyze:
         analyze_file_sizes(test_files, args.chunk_size)
         return

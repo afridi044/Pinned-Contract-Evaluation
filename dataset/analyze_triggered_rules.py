@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""
-Rector Triggered Rules Analysis (Basic Version)
-===============================================
-
-Comprehensive analysis of Rector rules triggered across the dataset.
-"""
+"""Analysis of Rector rules triggered across dataset."""
 
 import json
 from pathlib import Path
@@ -13,20 +8,16 @@ from typing import Dict, List, Any, Tuple
 from datetime import datetime
 
 class TriggeredRulesAnalyzer:
-    """Analyze triggered Rector rules across the dataset."""
-    
     def __init__(self, reports_dir: str = "rector_reports"):
         self.reports_dir = Path(reports_dir)
         self.metadata = self.load_metadata()
     
     def load_metadata(self) -> Dict[str, Any]:
-        """Load metadata from JSON file."""
         metadata_file = self.reports_dir / "metadata.json"
         with open(metadata_file, 'r', encoding='utf-8') as f:
             return json.load(f)
     
     def extract_rule_data(self) -> List[Dict[str, Any]]:
-        """Extract rule data into a structured list."""
         rule_data = []
         
         for file_data in self.metadata["files"]:

@@ -1,9 +1,4 @@
-"""
-Rector Analysis Documentation Generator
-===================================================
-
-Generate comprehensive documentation for the Rector-enhanced dataset.
-"""
+"""Generate documentation for dataset analysis."""
 
 import json
 import sys
@@ -12,8 +7,6 @@ from datetime import datetime
 from typing import Dict, List, Any
 
 class RectorDocumentationGenerator:
-    """Generate documentation for Rector analysis results."""
-    
     def __init__(self, reports_dir: str, dataset_dir: str):
         self.reports_dir = Path(reports_dir)
         self.dataset_dir = Path(dataset_dir)
@@ -25,7 +18,6 @@ class RectorDocumentationGenerator:
             raise FileNotFoundError(f"Dataset directory not found: {dataset_dir}")
         
     def load_enhanced_metadata(self) -> Dict[str, Any]:
-        """Load the enhanced metadata file."""
         metadata_file = self.reports_dir / "metadata.json"
         if not metadata_file.exists():
             raise FileNotFoundError(f"Metadata not found: {metadata_file}")
@@ -34,7 +26,6 @@ class RectorDocumentationGenerator:
             return json.load(f)
     
     def generate_enhanced_readme(self, metadata: Dict[str, Any]) -> str:
-        """Generate enhanced README.md content."""
         dataset_info = metadata["dataset_info"]
         files = metadata["files"]
         

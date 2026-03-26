@@ -253,7 +253,6 @@ echo json_encode($result, JSON_UNESCAPED_SLASHES);
             elif tt == "T_ENCAPSED_AND_WHITESPACE":
                 norm.append("STR_PART")
             elif tt == "CHAR":
-                # Keep structural chars; normalize stringy chars minimally
                 if content.strip() == "":
                     continue
                 norm.append(content)

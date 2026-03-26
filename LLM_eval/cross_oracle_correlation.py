@@ -1,7 +1,4 @@
-"""
-Calculate correlation between Rector obligation discharge rates (PCE) and PHPCompatibility metrics.
-Provides statistical validation for the paper's dual-oracle evaluation approach.
-"""
+"""Statistical validation of dual-oracle evaluation approach."""
 
 import json
 import pandas as pd
@@ -11,8 +8,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def load_rector_results(eval_dir: Path) -> pd.DataFrame:
-    """Load Rector evaluation results from model directories."""
-    
     models = [
         ("claude_sonnet_4_20250514", "Claude Sonnet 4"),
         ("gemini_2_5_flash", "Gemini 2.5 Flash"),
@@ -45,8 +40,6 @@ def load_rector_results(eval_dir: Path) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def load_phpcs_results(results_dir: Path) -> pd.DataFrame:
-    """Load PHPCompatibility results."""
-    
     models = [
         ("phpcs_claude_sonnet_4.json", "Claude Sonnet 4"),
         ("phpcs_gemini_2_5_flash.json", "Gemini 2.5 Flash"),

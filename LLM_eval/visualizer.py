@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-PHP Migration Visualization Tool
-Creates essential charts for research paper
-"""
+"""PHP migration visualization tool."""
 
 import sys
 from pathlib import Path

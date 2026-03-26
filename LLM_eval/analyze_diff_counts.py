@@ -1,8 +1,4 @@
-"""
-Analyze diff counts from migrated files for thesis metrics.
-Extracts and compares diff_line_count across different LLMs.
-
-"""
+"""Analyze diff counts across LLM models."""
 
 import json
 from pathlib import Path
@@ -14,7 +10,6 @@ import matplotlib.pyplot as plt
 
 
 def _extract_file_id(json_path: Path) -> str:
-    # Matches your previous convention
     return json_path.stem.replace("_rector", "")
 
 
@@ -43,7 +38,6 @@ def load_diff_counts_model(model_name: str, base_path: Path) -> Dict[str, Option
                     .get("diff_line_count", None)
             )
 
-            # Normalize to int or None
             if diff is None:
                 out[file_id] = None
             else:

@@ -92,7 +92,6 @@ class SyntaxValidator:
             return False, "File does not exist"
         
         try:
-            # Run PHP linter
             result = subprocess.run(
                 ["php", "-l", str(file_path)],
                 capture_output=True,

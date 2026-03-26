@@ -13,14 +13,10 @@ warnings.filterwarnings('ignore')
 import numpy as np
 import random
 
-# ============================================================================
-# FIXED SEED FOR REPRODUCIBILITY
-# ============================================================================
 SEED = 42
 np.random.seed(SEED)
 random.seed(SEED)
 
-# Add parent directory to sys.path for config import
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from config import SELECTED_100_FILES_DIR

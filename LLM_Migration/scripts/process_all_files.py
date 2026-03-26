@@ -12,7 +12,7 @@ import os
 import csv
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Tuple
 
 # Add parent directories to path to import shared modules
 import sys
@@ -26,7 +26,6 @@ class BatchRectorProcessor:
     
     def __init__(self, model_name: str):
         """Initialize processor for LLM evaluation mode only."""
-        # Use shared config paths for LLM evaluation
         self.dataset_dir = LLM_NEW_VERSION_DIR / model_name
         self.reports_dir = LLM_CODE_ANALYSIS_DIR / model_name
         self.analyzer = RectorAnalyzer(reports_dir=str(self.reports_dir))
@@ -34,7 +33,7 @@ class BatchRectorProcessor:
         self.evaluation_mode = True
         self.selection_metadata, self.selection_categories = self.load_selection_metadata()
     
-    def load_selection_metadata(self) -> tuple[Dict[str, str], Dict[int, str]]:
+    def load_selection_metadata(self) -> Tuple[Dict[str, str], Dict[int, str]]:
         """Load original paths and categories from selection_summary.csv."""
         # Always load from the shared source location
         selection_file = SELECTED_100_FILES_DIR / "selection_summary.csv"
@@ -213,7 +212,6 @@ class BatchRectorProcessor:
             metrics = result["file_metrics"]
             file_id = result['file_id']
             
-            # Get category from selection data
             size_category = self.selection_categories.get(file_id, 'unknown')
             status = result.get("analysis_metadata", {}).get("status", "success")
             error_message = result.get("analysis_metadata", {}).get("error_message", "")

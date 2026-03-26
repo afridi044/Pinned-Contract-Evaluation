@@ -16,14 +16,12 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 
-# Import shared config (now in same directory)
 from config import RECTOR_PHP_PATH, VENDOR_PATH, get_rector_command, PROJECT_ROOT
 
 class RectorAnalyzer:
     """Analyze individual PHP files using Rector professional tool."""
     
     def __init__(self, project_dir: str = None, reports_dir: str = "rector_reports"):
-        # Always use PROJECT_ROOT where rector.php is located
         self.project_dir = PROJECT_ROOT if project_dir is None else Path(project_dir)
         self.reports_dir = Path(reports_dir) if Path(reports_dir).is_absolute() else Path.cwd() / reports_dir
         self.individual_reports_dir = self.reports_dir / "individual_files"
