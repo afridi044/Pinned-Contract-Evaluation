@@ -2,7 +2,7 @@
 # run_paper_tables.ps1
 #
 # Runs the full pipeline that generates all tables in the paper, in order.
-# Run from the workspace root: E:\_My_RESEARCH\thesis\PHP_Migration\
+# Run from the workspace root
 #
 # Tables generated:
 #   Table 9  (syntax validity)              <- validate_syntax_errors.py
