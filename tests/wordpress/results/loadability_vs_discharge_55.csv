@@ -1,7 +1,0 @@
-Model,Discharge_%,Pass,Pass_%,Regress,Regress_%,Other,Other_%
-Rector Baseline,98.3,46,83.6,7,12.7,2,3.6
-Claude Sonnet 4,57.0,44,80.0,8,14.5,3,5.5
-GPT-5 Codex,58.7,43,78.2,9,16.4,3,5.5
-Gemini 2.5 Pro,74.6,40,72.7,12,21.8,3,5.5
-LLaMA 3.3 70B,36.2,38,69.1,12,21.8,5,9.1
-Gemini 2.5 Flash,53.5,33,60.0,18,32.7,4,7.3
