@@ -44,7 +44,7 @@ Pinned-Contract-Evaluation/
 ├─ rector.php
 ├─ rector_analyzer.py
 ├─ reproducibility.lock.json
-├─ run_paper_tables.ps1
+├─ run_full_evaluation.ps1
 ├─ verify_reproducibility.ps1
 ├─ dataset/
 │  ├─ analyze_triggered_rules.py
