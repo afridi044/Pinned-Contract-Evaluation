@@ -38,7 +38,7 @@ Pinned-Contract Evaluation (PCE) operationalizes migration progress as **obligat
 Use this simplified tree as a quick local navigation map.
 
 ```text
-PHP_Migration/
+Pinned-Contract-Evaluation/
 ├─ composer.json
 ├─ config.py
 ├─ rector.php
