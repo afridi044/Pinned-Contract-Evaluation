@@ -1,3 +1,4 @@
+
 # Dependencies
 vendor/
 composer.phar
@@ -65,39 +66,20 @@ config.local.json
 node_modules/
 
 # Generated dataset artifacts
-Benchmark_Construction/organized_dataset_All
-Benchmark_Construction/wordpress
+dataset/organized_dataset_All
+dataset/wordpress
 
 # Generated migration artifacts
 LLM_Migration/wordpress
 
 # Generated evaluation artifacts
-LLM_eval/wordpress/claude_sonnet_4_20250514/
-LLM_eval/wordpress/gemini_2_5_flash/
-LLM_eval/wordpress/gemini_2_5_pro/
-LLM_eval/wordpress/gpt_5_codex/
-LLM_eval/wordpress/meta_llama_llama_3_3_70b_instruct/
-LLM_eval/wordpress/Rector_Baseline/
-LLM_eval/wordpress/diff_count_analysis/
-LLM_eval/wordpress/phpcompatibility_results/
-LLM_eval/wordpress/stats/
+LLM_eval/wordpress
 Datasets_and_artifacts
 
 # Generated test results
 tests/wordpress/results
 
-# Reviewer bundle (generated convenience package)
-reviewer_artifacts/
-
-# Keep code scripts in dataset/, ignore actual dataset payloads
-dataset/wordpress/**
-!dataset/*.py
-!dataset/*.md
-
-# Additional generated summary artifact
-LLM_eval/wordpress/resistant_rules_analysis.json
-
 # Paper sources and figures (do not publish)
 paper/
 
-build_reviewer_bundle.ps1
+run_paper_tables.ps1

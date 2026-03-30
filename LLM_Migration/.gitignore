@@ -52,22 +52,10 @@ venv.bak/
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
-# Model outputs (large files)
-model_output/
-chunked_model_output/
-outputs/new-version/
-outputs/evaluation_reports/
-
-# Large source files
-selected_100_files/
-original_files/
-large_files/
-
 # Temporary files
 *.tmp
 *.temp
 ~$*
-temp_parser.php
 
 # Rector cache
 .rector_cache/

@@ -4,70 +4,170 @@ This repository contains the artifact for the paper:
 
 **Pinned-Contract Evaluation: A Policy-Grounded Framework for Evaluating LLM Code Migration**
 
-It provides the full migration and evaluation pipeline used in the study, including dataset preparation, LLM-based migration, Rector-based contract scoring, and cross-oracle quality analyses.
+It includes the full migration and evaluation workflow: benchmark construction, LLM migration, pinned-contract scoring with Rector, and cross-oracle diagnostics.
 
 ## Pipeline Overview
 
 ![Pinned-Contract Evaluation Pipeline](assets/pipeline.png)
 
-The workflow operationalizes migration quality as *obligation discharge* under a pinned static-analysis contract (Rector ruleset), then complements it with secondary diagnostics (syntax, structural preservation, loadability, PHPCompatibility, and correlation analyses).
+Pinned-Contract Evaluation (PCE) operationalizes migration progress as **obligation discharge** under a fixed Rector policy. It is complemented by secondary diagnostics such as syntax validity, structural preservation, loadability, PHPCompatibility, and cross-oracle correlations.
 
 ## What Is Included
 
-- Pinned-toolchain migration contract for PHP 5.x to 8.3 (`rector.php` + Composer lock).
-- WordPress-derived 100-file benchmark metadata and selection artifacts.
-- LLM migration harness for multiple providers/models.
-- Evaluation modules for obligation discharge and robustness diagnostics.
+- Pinned PHP upgrade contract (`rector.php`) with locked toolchain versions.
+- Benchmark construction scripts.
+- Multi-model LLM migration harness.
+- Evaluation scripts for discharge, patch-volume closure, loadability, and cross-oracle analysis.
 - Reproducibility lock checks (`reproducibility.lock.json`, `verify_reproducibility.ps1`).
-- End-to-end paper table generation pipeline (`run_paper_tables.ps1`).
 
 ## Repository Layout
 
 - `dataset/`
-  - Benchmark data and selection metadata.
+  - Dataset extraction, Rector report generation, file selection, and benchmark documentation.
 - `LLM_Migration/`
-  - Prompting, provider clients, chunk/reconstruction pipeline, migration scripts.
+  - Provider clients, prompting/chunking/reconstruction pipeline, migration scripts.
 - `LLM_eval/`
-  - PCE scoring, visualizations, inferential stats, PHPCompatibility and cross-oracle analysis.
-- `paper/`
-  - LaTeX sources for the manuscript.
+  - PCE scoring, diff-count analysis, PHPCompatibility, loadability, resistant-rule and correlation analysis.
 - `tests/wordpress/`
   - Runtime/loadability and comparison utilities.
-- `rector_analyzer.py`, `rector.php`
-  - Baseline and per-file Rector analysis tooling.
-- `run_paper_tables.ps1`
-  - Main orchestrator for generating reported tables.
+- `verify_reproducibility.ps1`
+  - Environment and lock-state validation.
+
+## Local Tree Guide
+
+Use this simplified tree as a quick local navigation map.
+
+```text
+PHP_Migration/
+├─ composer.json
+├─ config.py
+├─ rector.php
+├─ rector_analyzer.py
+├─ reproducibility.lock.json
+├─ run_paper_tables.ps1
+├─ verify_reproducibility.ps1
+├─ dataset/
+│  ├─ analyze_triggered_rules.py
+│  ├─ create_reports.py
+│  ├─ extract_php_files.py
+│  ├─ generate_documentation.py
+│  ├─ process_all_files.py
+│  ├─ select_optimal_files.py
+│  ├─ organized_dataset_All/wordpress/
+│  └─ wordpress/
+│     ├─ rector_reports_organized_dataset_All/
+│     ├─ rector_reports_selected_100_files/
+│     └─ selected_100_files/
+├─ LLM_Migration/
+│  ├─ main.py
+│  ├─ analyze_migrated_code.py
+│  ├─ requirements.txt
+│  ├─ core/
+│  ├─ scripts/
+│  └─ wordpress/
+│     ├─ chunked_model_output/
+│     ├─ model_output/
+│     └─ outputs/
+├─ LLM_eval/
+│  ├─ run_evaluation.py
+│  ├─ run_phpcompatibility.py
+│  ├─ summarize_phpcs.py
+│  └─ wordpress/
+│     ├─ <model_name>/
+│     ├─ diff_count_analysis/
+│     ├─ phpcompatibility_results/
+│     └─ stats/
+├─ tests/wordpress/
+└─ vendor/
+```
+
+Notes:
+- `dataset/` prepares benchmark files and Rector obligation reports.
+- `LLM_Migration/wordpress/` stores generation artifacts from model migration runs.
+- `LLM_eval/wordpress/` stores per-model evaluation outputs and aggregate statistics.
+
+## Download and Setup Instructions
+
+Download links for large artifacts will be published after camera-ready archival.
+
+1. Download the artifact bundle:
+
+   `[PLACEHOLDER_ARTIFACT_BUNDLE_URL]`
+
+2. Extract the archive.
+
+3. Place extracted files into the project directory using this structure:
+
+```text
+dataset/
+├─ wordpress/
+└─ organized_dataset_All/
+
+LLM_Migration/wordpress/
+├─ model_output/
+├─ chunked_model_output/
+└─ outputs/
+
+LLM_eval/wordpress/
+├─ <model_name>/
+├─ phpcompatibility_results/
+├─ stats/
+└─ diff_count_analysis/
+
+tests/
+└─ wordpress/
+```
+
+### Important Notes
+
+- Do not rename any folders.
+- Keep the directory structure exactly the same.
+- Ensure all files are fully extracted before running scripts.
+- Misplaced files may cause errors in:
+  - `process_all_files.py`
+  - `run_evaluation.py`
+  - `run_phpcompatibility.py`
+
+### Run
+
+```powershell
+python LLM_eval\run_evaluation.py
+
+# or
+
+python dataset\process_all_files.py
+```
+
+When available, this link should point to an immutable, versioned archive (for example, a DOI-backed Zenodo record).
 
 ## Environment Requirements
 
-- OS: Windows (reference environment in lock file)
+- OS: Windows (reference environment recorded in lock file)
 - PHP: `8.3.22` (CLI) with extensions listed in `reproducibility.lock.json`
-- Composer (for PHP toolchain dependencies)
-- Python 3.10+ (recommended)
+- Composer
+- Python 3.10+
 
-### Required PHP tools (via Composer)
+### PHP Toolchain (Composer)
 
 - `rector/rector` `2.1.0`
 - `phpstan/phpstan` `2.1.17`
 - `squizlabs/php_codesniffer` `3.13.5`
 - `phpcompatibility/php-compatibility` `9.3.5`
 
-### Python packages
+### Python Dependencies
 
-At minimum:
-
-- from `LLM_Migration/requirements.txt`: `openai`, `python-dotenv`, `requests`, `pandas`, `numpy`, `anthropic`
-- evaluation stack: `matplotlib`, `seaborn`, `scipy`
+- `LLM_Migration/requirements.txt` (includes provider/client stack)
+- Evaluation extras: `matplotlib`, `seaborn`, `scipy`
 
 ## Setup
 
-1. Install PHP dependencies from repository root:
+1. Install PHP dependencies:
 
 ```powershell
 composer install
 ```
 
-2. Create Python environment and install dependencies:
+2. Create a Python environment and install packages:
 
 ```powershell
 python -m venv .venv
@@ -76,7 +176,7 @@ pip install -r LLM_Migration\requirements.txt
 pip install matplotlib seaborn scipy
 ```
 
-3. Configure API keys for migration providers (if running LLM migration):
+3. Configure provider keys if running migrations:
 
 ```env
 OPENROUTER_API_KEY=...
@@ -84,7 +184,7 @@ GOOGLE_API_KEY=...
 ANTHROPIC_API_KEY=...
 ```
 
-You can place these in a root `.env` file.
+Place them in `.env` at repository root.
 
 ## Quick Start
 
@@ -94,31 +194,17 @@ You can place these in a root `.env` file.
 .\verify_reproducibility.ps1
 ```
 
-This validates:
-- PHP runtime invariants
-- OS/timezone/locale invariants
-- Composer lock and installed tool versions
-- Snapshot hashes and baseline obligation denominator
+Checks include runtime/tool version invariants, lock consistency, snapshot hashes, and baseline obligation denominator.
 
-### 2. Run full paper pipeline
+### 2. Run evaluation scripts directly
 
-```powershell
-.\run_paper_tables.ps1
-```
+Use the commands in **Running Individual Components** to execute each analysis stage.
 
-This orchestrates the full sequence used for paper outputs, including:
-- PCE obligation discharge (Panels/Tables A-C)
-- Syntax validity
-- Structural preservation
-- Patch-volume closure
-- PHPCompatibility summary
-- Loadability tripwire
-- Resistant rule analysis
-- Cross-oracle correlation
+
 
 ## Running Individual Components
 
-### LLM migration
+### LLM migration (example)
 
 ```powershell
 python LLM_Migration\scripts\migrate.py --all-files --model claude-sonnet-4-20250514 --strategy basic
@@ -138,7 +224,7 @@ cd LLM_eval
 python run_evaluation.py all
 ```
 
-### PHPCompatibility analysis
+### PHPCompatibility
 
 ```powershell
 cd LLM_eval
@@ -146,18 +232,18 @@ python run_phpcompatibility.py
 python summarize_phpcs.py
 ```
 
-## Models Evaluated in the Paper
+## Models Evaluated
 
 - `claude_sonnet_4_20250514`
 - `gemini_2_5_flash`
 - `gemini_2_5_pro`
 - `gpt_5_codex`
 - `meta_llama_llama_3_3_70b_instruct`
-- `Rector_Baseline` (non-LLM baseline)
+- `Rector_Baseline`
 
 ## Key Results Snapshot
 
-Compact summary from the paper's obligation discharge table (all-files scoring for weighted discharge):
+All-files weighted discharge summary:
 
 | System | Weighted Discharge (%) | Discharged Obligations | Contract-Clean Files |
 |---|---:|---:|---:|
@@ -171,16 +257,17 @@ Compact summary from the paper's obligation discharge table (all-files scoring f
 ## Reproducibility Notes
 
 Pinned reproducibility state is tracked in `reproducibility.lock.json`, including:
-- runtime and environment invariants
-- exact tool versions
-- snapshot hashes
-- baseline obligation count (`511` `Rector\Php*` file-rule incidences)
+
+- Runtime and environment invariants
+- Exact tool versions
+- Snapshot hash assertions
+- Baseline obligation count (`511` `Rector\Php*` file-rule incidences)
 
 For faithful reproduction, keep `composer.lock`, `reproducibility.lock.json`, and benchmark metadata unchanged.
 
 ## Citation
 
-If you use this artifact, please cite the paper:
+If you use this artifact, please cite:
 
 ```bibtex
 @inproceedings{mahmud2026pce,
@@ -193,4 +280,4 @@ If you use this artifact, please cite the paper:
 
 ## License
 
-No repository license file is currently included. Add a license before public release if you intend to permit reuse.
+No repository license file is currently included. Add one before public release if reuse permissions are intended.
