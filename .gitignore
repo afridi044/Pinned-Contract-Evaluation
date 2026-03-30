@@ -81,6 +81,7 @@ LLM_eval/wordpress/Rector_Baseline/
 LLM_eval/wordpress/diff_count_analysis/
 LLM_eval/wordpress/phpcompatibility_results/
 LLM_eval/wordpress/stats/
+Datasets_and_artifacts
 
 # Generated test results
 tests/wordpress/results
