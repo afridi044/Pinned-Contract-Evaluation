@@ -1,5 +1,5 @@
 # =============================================================================
-# run_paper_tables.ps1
+# run_full_evaluation.ps1
 #
 # Runs the full pipeline that generates all tables in the paper, in order.
 # Run from the workspace root

@@ -81,5 +81,3 @@ tests/wordpress/results
 
 # Paper sources and figures (do not publish)
 paper/
-
-run_paper_tables.ps1

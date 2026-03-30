@@ -200,6 +200,8 @@ Checks include runtime/tool version invariants, lock consistency, snapshot hashe
 
 Use the commands in **Running Individual Components** to execute each analysis stage.
 
+For a complete end-to-end example of the evaluation flow, see `run_full_evaluation.ps1` at the repository root.
+
 
 
 ## Running Individual Components
