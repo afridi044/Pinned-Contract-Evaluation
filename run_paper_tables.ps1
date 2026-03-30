@@ -56,13 +56,13 @@ if ($LASTEXITCODE -ne 0) {
 # ---------------------------------------------------------------------------
 
 Step "STAGE 1a: Rector analysis on all migrated outputs (code_analysis artifacts)"
-Run "analyze_migrated_code.py" @("all") "$ROOT\LLM_Migration"
+# Run "analyze_migrated_code.py" @("all") "$ROOT\LLM_Migration"
 
 Step "STAGE 1b: Syntax validity (Table 9 - php -l)"
-Run "LLM_Migration\scripts\validate_syntax_errors.py" @("all") $ROOT
+# Run "LLM_Migration\scripts\validate_syntax_errors.py" @("all") $ROOT
 
 Step "STAGE 1c: Structural preservation (Table 10)"
-Run "LLM_Migration\scripts\validate_code_completeness.py" @("all") $ROOT
+# Run "LLM_Migration\scripts\validate_code_completeness.py" @("all") $ROOT
 
 # ---------------------------------------------------------------------------
 # STAGE 2 - LLM_eval: PCE obligation discharge (Panels A / B / C)

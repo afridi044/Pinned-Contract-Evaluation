@@ -1,17 +1,11 @@
-# ================================
-# Root Level .gitignore
-# ================================
-
-# PHP Dependencies (Composer)
+# Dependencies
 vendor/
 composer.phar
-composer.lock
 
-# Rector specific
+# Rector cache
 .rector_cache/
-rector.php
 
-# Python
+# Python cache/build artifacts
 __pycache__/
 *.py[cod]
 *$py.class
@@ -21,10 +15,13 @@ __pycache__/
 dist/
 build/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
+.coverage.*
 htmlcov/
 
-# Virtual Environments
+# Virtual environments
 env/
 venv/
 .venv/
@@ -32,7 +29,7 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE & Editors
+# Editors and OS files
 .vscode/
 .idea/
 *.swp
@@ -41,33 +38,15 @@ venv.bak/
 .DS_Store
 Thumbs.db
 
-# Environment & Secrets
+# Environment and secrets
 .env
-.env.local
-.env.production
+.env.*
 *.key
+*.pem
 secrets.json
-config.json
+config.local.json
 
-# Large Data Files & Outputs
-dataset/organized_dataset_All/
-dataset/selected_100_files/
-dataset/rector_reports/
-!dataset/*.py
-!dataset/*.md
-
-# LLM Migration Outputs
-LLM_Migration/outputs/
-LLM_Migration/model_output/
-LLM_Migration/chunked_model_output/
-LLM_Migration/selected_100_files/
-
-# LLM Evaluation Outputs
-LLM_eval/*/
-!LLM_eval/*.py
-!LLM_eval/README.md
-
-# Temporary Files
+# Logs and temporary files
 *.tmp
 *.temp
 ~$*
@@ -79,8 +58,45 @@ LLM_eval/*/
 *.rar
 *.7z
 
-# Jupyter Notebooks
+# Notebook checkpoints
 .ipynb_checkpoints/
 
-# Node modules (if any)
+# Node (if used locally)
 node_modules/
+
+# Generated dataset artifacts
+Benchmark_Construction/organized_dataset_All
+Benchmark_Construction/wordpress
+
+# Generated migration artifacts
+LLM_Migration/wordpress
+
+# Generated evaluation artifacts
+LLM_eval/wordpress/claude_sonnet_4_20250514/
+LLM_eval/wordpress/gemini_2_5_flash/
+LLM_eval/wordpress/gemini_2_5_pro/
+LLM_eval/wordpress/gpt_5_codex/
+LLM_eval/wordpress/meta_llama_llama_3_3_70b_instruct/
+LLM_eval/wordpress/Rector_Baseline/
+LLM_eval/wordpress/diff_count_analysis/
+LLM_eval/wordpress/phpcompatibility_results/
+LLM_eval/wordpress/stats/
+
+# Generated test results
+tests/wordpress/results
+
+# Reviewer bundle (generated convenience package)
+reviewer_artifacts/
+
+# Keep code scripts in dataset/, ignore actual dataset payloads
+dataset/wordpress/**
+!dataset/*.py
+!dataset/*.md
+
+# Additional generated summary artifact
+LLM_eval/wordpress/resistant_rules_analysis.json
+
+# Paper sources and figures (do not publish)
+paper/
+
+build_reviewer_bundle.ps1
