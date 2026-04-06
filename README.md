@@ -2,7 +2,7 @@
 
 This repository contains the artifact for the paper:
 
-**Pinned-Contract Evaluation: A Policy-Grounded Framework for Evaluating LLM Code Migration**
+**Evaluating LLM-Assisted PHP Version Migration: A Study with Pinned Contract Evaluation**
 
 It includes the full migration and evaluation workflow: benchmark construction, LLM migration, pinned-contract scoring with Rector, and cross-oracle diagnostics.
 
